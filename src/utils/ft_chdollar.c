@@ -152,7 +152,7 @@ char	*ft_chdollar_str(char *str, char *line, t_list *dollar, size_t len)
 							while (line[i] && (ft_isalnum(line[i]) || ft_strchr("_?", line[i])))//!ft_strchr("\"\'+/%^~:.,-=\'\"", line[i]) && !ft_isspace(line[i]))
 								i++;
 							i2 = ft_strlcat(str, dollar->content, len);
-							printf("1\n");
+							// printf("1\n");
 							dollar = ft_next(dollar);
 						}
 					}
@@ -204,6 +204,6 @@ char	*ft_chdollar(char *line)
 	str = ft_calloc(sizeof(*str), len + 1);
 	str = ft_chdollar_str(str, line, dollar, len);
 	free(line);
-	printf("str == %s\n", str);
+	// printf("str == %s\n", str);
 	return (str);
 }

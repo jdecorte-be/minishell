@@ -8,6 +8,8 @@ char    *ft_ecrase_q(char *word)
 	size_t	end;
 	char	c;
 
+	if (!word)
+		return (0);
 	i = 0;
 	end = 0;
 	new_word = 0;

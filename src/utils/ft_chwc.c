@@ -12,7 +12,7 @@ char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq)
 	end = 0;
 	str = 0;
 
-		printf("%s== wc\n", wc->content);
+		// printf("%s== wc\n", wc->content);
 
 	while (line[end])
 	{
@@ -73,18 +73,18 @@ char	*ft_chwc2(char *line)
 		tmp.i++;
 	if (tmp.tab[tmp.i])
 		tmp.str = tmp.tab[tmp.i];
-	printf("2\n");
+	// printf("2\n");
 	tmp.i2 = 0;
 	tmp.tmp = 0;
 	while (tmp.i2 < tmp.i)
 		tmp.tmp = ft_strjoin1(tmp.tmp, tmp.tab[tmp.i2++]);
-	printf("tmp.tmp %s\n", tmp.tmp);
+	// printf("tmp.tmp %s\n", tmp.tmp);
 	pref = tmp.tmp;
 	tmp.i2 = tmp.i + 1;
 	suff = 0;
 	while (tmp.tab[tmp.i2])
 		suff = ft_strjoin1(suff, tmp.tab[tmp.i2++]);
-	printf("suff %s\n", suff);
+	// printf("suff %s\n", suff);
 	match = ft_wcfile(tmp.str, getcwd(tmp.path, PATH_MAX), 0, 0);
 	tmp.lst = match;
 	while (tmp.lst)
@@ -97,14 +97,14 @@ char	*ft_chwc2(char *line)
 	home = getcwd(tmp.path, PATH_MAX);
 	while (tmp.lst)
 	{
-		printf("tri == %s\n", ft_trijoin(home, "/", tmp.lst->content));
+		// printf("tri == %s\n", ft_trijoin(home, "/", tmp.lst->content));
 		if (!access(tmp.lst->content, F_OK))
 			ft_lstadd_back(&match2, ft_lstnew(tmp.lst->content));
 
 		else if (!access(ft_trijoin(home, "/", tmp.lst->content), F_OK))
 			ft_lstadd_back(&match2, ft_lstnew(tmp.lst->content));
 		tmp.lst = tmp.lst->next;
-		printf("120\n");
+		// printf("120\n");
 	}
 
 
@@ -157,20 +157,20 @@ char	*ft_chwc(char *line)
 	tmp.lst = wc;
 	while (tmp.lst)
 	{
-		printf("4\n");
+		// printf("4\n");
 		ft_lstadd_back(&name, ft_lstnew(ft_chwc2((tmp.lst)->content)));
-		printf("1\n");
+		// printf("1\n");
 		tmp.lst = (tmp.lst)->next;
 	}
 	tmp.lst = wc;
 	while (tmp.lst)
 	{
-		printf("2\n");
+		// printf("2\n");
 		ft_lstadd_back(&woq, ft_lstnew(ft_woquote((tmp.lst)->content)));
-		printf("1\n");
+		// printf("1\n");
 		tmp.lst = (tmp.lst)->next;
 	}
-	printf("2\n");
+	// printf("2\n");
 	if (!name)
 		return (line);
 	str = ft_chwc_str(line, name, wc, woq);

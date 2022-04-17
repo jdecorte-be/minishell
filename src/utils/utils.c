@@ -57,7 +57,7 @@ char	*ft_woquote(char *line)
 
 	if (!line)
 		return (0);
-	printf("9\n");
+	// printf("9\n");
 	if (ft_strchr(line, '\'') || ft_strchr(line, '\"'))
 	{
 		str = ft_calloc(sizeof(char), (ft_strlen(line) - 2 + 1));
