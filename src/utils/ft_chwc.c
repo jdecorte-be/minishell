@@ -16,6 +16,7 @@ char	*ft_chwc(char *line)
 	t_list	*name;
 	t_list	*wc;
 
+	printf("1\n");
 	wc = 0;
 	name = 0;
 	if (!line)
@@ -23,13 +24,14 @@ char	*ft_chwc(char *line)
 	wc = ft_wcsearch(line);
 	while (wc)
 	{
-		ft_lstadd_back(&name, ft_lstnew(ft_wcfile(wc->content)));
+		printf("wc = %s\n", wc->content);
+		printf("wcwo = %s\n", ft_woquote(wc->content));
+		ft_lstadd_back(&name, ft_lstnew(ft_wcfile(ft_woquote(wc->content))));
 		printf("\n\n\n\n");
 		wc = ft_next(wc);
 	}
 	if (!name)
 		return (line);
-	int x = 0;
 	while (name)
 	{
 		printf("name = %s\n", name->content);

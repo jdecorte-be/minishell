@@ -159,7 +159,9 @@ char	*ft_chdollar_str(char *str, char *line, t_list *dollar, size_t len)
 		else if (line[i] && line[i] == '$' && line[i + 1] && ft_strchr("\'\"", line[i + 1]))
 			i++;
 		else
+		{
 			str[i2++] = line[i++];
+		}
 	}
 	str[i2] = 0;
 	return (str);
@@ -170,6 +172,7 @@ char	*ft_chdollar(char *line)
 	size_t	len;
 	char	*str;
 	t_list	*dollar;
+
 
 	if (!line)
 		return (0);

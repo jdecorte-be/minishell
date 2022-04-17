@@ -44,3 +44,31 @@ char	*ft_lstmerge(t_list *lst)
 	}
 	return (str);
 }
+
+char	*ft_woquote(char *line)
+{
+	char	*str;
+	size_t	i;
+	char	c;
+
+	if (ft_strchr(line, '\'') || ft_strchr(line, '\"'))
+	{
+		str = malloc(sizeof(char) * (ft_strlen(line) - 2 + 1));
+		i = 0;
+		while (*line)
+		{
+			if (ft_strchr("\'\"", *line))
+			{
+				c = *line++;
+				while (*line && *line != c)
+					str[i++] = *line++;
+				line++;
+			}
+			else
+				str[i++] = *line++;
+		}
+	}
+	else
+		return (line);
+	return (str);
+}

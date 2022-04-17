@@ -48,7 +48,6 @@ int	ft_wcmatch(char **wc_tab, char *file)
 		len = ft_strlen(wc_tab[i]);
 		if (wc_tab[i] && *(wc_tab[i]) == '*' && ++i)
 		{
-			// printf("1\n");
 			len = ft_strlen(wc_tab[i]);
 			if (wc_tab[i])
 				while (*file && ft_exist(file, len - 1) && ft_strncmp(file, wc_tab[i], len - 1))
@@ -58,16 +57,10 @@ int	ft_wcmatch(char **wc_tab, char *file)
 					file++;
 		}
 		else if (*file && wc_tab[i] && wc_tab[i + 1] && ft_exist(file, len - 1) && !ft_strncmp(file, wc_tab[i], len - 1) && ++i)
-		{
-			// printf("2\n");
 			file += len;
-		}
 		else if (*file && wc_tab[i] && !wc_tab[i + 1] && ft_exist(file, len - 1) && !ft_strrcmp(file, wc_tab[i], len) && ++i)
-		{
-			// printf("3\n");
 			while (*file)
 				file++;
-		}
 		else
 			break ;
 	}
