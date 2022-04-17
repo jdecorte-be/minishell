@@ -1,12 +1,17 @@
 #include "minishell.h"
 #include <stdio.h>
 
-int main()
+int main(int ac, char **av, char **env)
 {
-    while(1)
+    (void)av;
+    if(ac == 1)
     {
-        char *input = readline("> ");
-        exec(input);
 
+        while(1)
+        {
+            char *input = readline("> ");
+            exec(input, env);
+
+        }
     }
 }

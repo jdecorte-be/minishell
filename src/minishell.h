@@ -17,7 +17,7 @@ typedef struct s_mini
 
 }		t_mini;
 
-void exec(char *cmd);
+void exec(char *cmd, char **env);
 void	puterror(char *str);
 
 #endif // MINISHELL_H

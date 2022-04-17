@@ -6,15 +6,14 @@ void	puterror(char *str)
 
 	i = -1;
 	while (str[++i])
-		write(STDERR, &str[i], 1);
+		write(2, &str[i], 1);
 }
 
-void exec(char *cmd)
+void exec(char *cmd, char **env)
 {
 	int i;
-	char *env = getenv("PATH");
 	char **s_args = ft_split(cmd, ' ');
-	char **s_env = ft_split(env, ' ');
+	char **s_env = ft_split(getenv("PATH"), ':');
 	char *execs;
 
 	i = -1;
@@ -27,7 +26,7 @@ void exec(char *cmd)
 			break ;
 		free(execs);
 	}
-	execve(execs, &s_args[0], &env);
+	execve(execs, &s_args[0], env);
 	puterror(cmd);
 	exit(127);
 }
