@@ -32,11 +32,13 @@ int	ft_strrcmp2(const char *s1, const char *s2, size_t n)
 
 	i = n;
 	// printf("rr %s == %s\n", s1, s2);
+	while (*(unsigned char *)s1)
+		s1++;
 	while (i && (*(unsigned char *)s1 == ((unsigned char *)s2)[i]))
 	{
 		s1--;
 		i--;
 	}
-	// printf("rr %d\n", ((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
+	// printf("rr %c, %c\n", ((unsigned char *)s1)[i], ((unsigned char *)s2)[i]);
 	return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
 }

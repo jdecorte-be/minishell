@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 21:41:36 by lxu-wu            #+#    #+#             */
-/*   Updated: 2021/10/04 21:41:36 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2021/12/29 04:05:44 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ char	*ft_strchr(const char *s, int c)
 {
 	while (*s)
 	{
-		if (*s == (char)c)
+		if (*s && *s == (char)c)
 			return ((char *)s);
 		s++;
 	}
-	if (*s == (char)c)
+	if (*s && *s == (char)c)
 		return ((char *)s);
 	else
 		return (0);
