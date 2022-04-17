@@ -85,11 +85,13 @@ char	*ft_readfile(char *wc, DIR *loc)
 	{
 		printf("%s %d\n", file->d_name, ft_wcmatch(wc_tab, file->d_name));
 		if (ft_wcmatch(wc_tab, file->d_name))
-			ft_lstadd_back(&match, ft_lstnew(file->d_name));
+			ft_lstadd_back(&match, ft_lstnew(ft_trijoin("\'", file->d_name, "\'")));
 		file = readdir(loc);
 	}
+	printf("a=%s\n", match->content);
 	str = ft_lstmerge(match);
 	ft_lstclear(&match, 0);
+	printf("s = %s\n", str);
 	return (str);
 }
 

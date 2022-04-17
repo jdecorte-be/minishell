@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 07:53:59 by lxu-wu            #+#    #+#             */
-/*   Updated: 2021/12/22 22:24:16 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2021/12/23 17:34:14 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,37 @@ char	*ft_trijoin(char const *s1, char const *s2, char const *s3)
 	dst = malloc(sizeof(*dst) * len_dst + 1);
 	if (!dst)
 		return (0);
-	i = -1;
+	i = 0;
 	if (s1)
-		while (s1[++i])
+	{
+		while (s1[i])
+		{
 			dst[i] = s1[i];
-	free((void *)s1);
+			i++;
+		}
+	}
 	cur_len = i;
 	if (!s1)
 		cur_len = 0;
-	i = -1;
+	i = 0;
 	if (s2)
-		while (s2[++i])
+	{
+		while (s2[i])
+		{
 			dst[cur_len + i] = s2[i];
+			i++;
+		}
+	}
 	cur_len += i;
-	i = -1;
+	i = 0;
 	if (s3)
-		while (s3[++i])
+	{
+		while (s3[i])
+		{
 			dst[cur_len + i] = s3[i];
+			i++;
+		}
+	}
 	dst[cur_len + i] = '\0';
 	return (dst);
 }

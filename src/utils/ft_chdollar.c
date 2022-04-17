@@ -5,9 +5,25 @@ char	*ft_changedollar(char *line, t_list **dollar)
 	char	*str;
 
 	if (ft_strcmp(line, "$-"))
-		str = getenv(line + 1);
+		str = ft_strdup(getenv(line + 1));
 	else
-		str = "569JNRXZghiklms";
+		str = ft_strdup("569JNRXZghiklms");
+	ft_lstadd_back(dollar, ft_lstnew(str));
+	return (str);
+}
+
+char	*ft_changedollar2(char *line, t_list **dollar)
+{
+	char	*str;
+
+	if (ft_strcmp(line, "$-"))
+	{
+		str = ft_strdup(getenv(line + 1));
+		if (str)
+			str = ft_trijoin("\'", str, "\'");
+	}
+	else
+		str = "\'569JNRXZghiklms\'";
 	ft_lstadd_back(dollar, ft_lstnew(str));
 	return (str);
 }
@@ -69,7 +85,7 @@ size_t	ft_chdollar_len(char *line, t_list **dollar)
 			else if (line[i] == '-')
 			{
 				count += -2;
-				count += ft_strlen(ft_changedollar(ft_substr(line, start, end - start), dollar));
+				count += ft_strlen(ft_changedollar2(ft_substr(line, start, end - start), dollar));
 			}
 			else
 			{
@@ -77,7 +93,7 @@ size_t	ft_chdollar_len(char *line, t_list **dollar)
 					i++;
 				end = i;
 				count += start - end;
-				count += ft_strlen(ft_changedollar(ft_substr(line, start, end - start), dollar));
+				count += ft_strlen(ft_changedollar2(ft_substr(line, start, end - start), dollar));
 			}
 		}
 		else
