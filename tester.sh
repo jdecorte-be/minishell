@@ -9,17 +9,13 @@ clear
 
 
 
-for value in 'echo test' "'echo test && echo test'"
+for value in 'echo test' "echo test && echo test" "echo test || echo test" "false && echo aaa || echo bbb" "echo test" "echo test"
 do
     ((i=i+1))
     echo TEST $i ================ ---\> $value
 
-    $value > shell.op
-    ./minishell -c "$value" > me.op
-
-
-
-
+    eval $value > shell.op
+    eval ./minishell -c '"'$value'"' > me.op
 
 
     if diff shell.op me.op
@@ -28,7 +24,6 @@ do
     else
         echo -e $(printf "\e[31mKO\e[0m")
     fi
-
     echo
     echo
 done

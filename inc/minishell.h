@@ -63,6 +63,8 @@ typedef struct s_data//  block de cmd
 {
 	char	*line;// ls  //after prompt, without \32\32 space, "" or ''
 	int		lastret;
+	int 	prioret;
+	int		isprio;
 
 	int		doandand;
 

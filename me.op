@@ -1,2 +1,1 @@
-minishell: 'echo test: command not found
-test'
+test

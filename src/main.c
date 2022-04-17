@@ -53,6 +53,8 @@ int	main(int ac, char **av, char **env)
 	t_data	*data = malloc(sizeof(t_data));
 	char	*line;
 
+	data->isprio = 0;
+	data->prioret = 10000;
     data->lastret = 0;
     d_env->env = env;
     d_env->exp = env;
@@ -74,11 +76,6 @@ int	main(int ac, char **av, char **env)
         ft_free_tab(res);
 		free(line);
         return 0;
-
-
-
-
-
 
     }
 
