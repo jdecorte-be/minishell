@@ -273,6 +273,8 @@ char	*ft_transf(char *line);
 int		ft_hd_exist(char *line);
 int	ft_here_doc(char *line);
 
+char	*ft_purge_q(char *line);
+
 char *tokenize(char *line);
 char **parsing(char *input);
 char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq);
