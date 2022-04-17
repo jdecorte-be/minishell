@@ -1,5 +1,6 @@
 #include "../inc/minishell.h"
 
+
 void	ft_free_tab(char **tab)
 {
 	size_t	i;
@@ -39,61 +40,77 @@ char *formpath()
     return res;
 }
 
+void sigint_handler(int signum) { //Handler for SIGINT
+   //Reset handler to catch SIGINT next time.
+   (void)(signum);
+    printf("\n ➜ 42-minishell ");
+}
+
 int	main(int ac, char **av, char **env)
 {
-    (void)av;
-    
+
     t_env   *d_env = malloc(sizeof(t_env));
 	t_data	*data = malloc(sizeof(t_data));
 	char	*line;
 
+    data->lastret = 0;
     d_env->env = env;
     d_env->exp = env;
     d_env->l_env = list_env(env);
     d_env->l_exp = list_env(env);
-// testing
-    // if(ft_strcmp(av[1], "-c") == 0)
-    // {
-    //     line = av[2];
-    //     char **s_line = ft_split(line, " ");
-    //     int i = 0;
-    //     while(s_line[i + 1])
-    //         i++;
-    //     int j = 0;
-    //     while(s_line[i][j])
-    //     {
-    //         if(s_line[i][j] == '\n')
-    //             s_line[i][j] = '\0';
-    //         j++;
-    //     }
-    //     cmdlexer(s_line, d_env);
-    //     return 0;
-    // }
-// ===================
-    data->lastret = 0;
+
+
+
+// testing =================================================
+    if(ft_strcmp(av[1], "-c") == 0)
+    {
+        line = ft_strdup(av[2]);
+        line = ft_epur_str(ft_pgross_str(line));
+        // printf("%s\n", line);
+        tokenize(line);
+        char **res = ft_split(line, "\1");
+        execute(res, data, d_env);
+
+        ft_free_tab(res);
+		free(line);
+        return 0;
+
+
+
+
+
+
+    }
+
+
+// ==================================
+
+
+
+
+
+
     if(ac != 1)
         puterror("\e[0;37mUse : ./minishell without arguments\n");
 	while (1)
 	{
         printf("\e[0;36m ➜ ");
 		line = readline(formpath());
-        add_history(line);
-        // if (*ft_strtrim(line, " \n\v\f\t\r"))
-        // {
-            if (!line)
-            {
-                write(1, "\b\bexit\n", 7);
-                exit (0);
-            }
-            line = ft_epur_str(ft_pgross_str(line));
-            tokenize(line);
-            char **res = ft_split(line, "\1");
-            execute(res, data, d_env);
-            // char **s_line = ft_split(line, " ");
-            // data->lastret = cmdlexer(s_line, d_env);
-            // printf("%d\n", data->lastret);
-            ft_free_tab(res);
-        // }
+        signal(SIGINT, sigint_handler);
+        if (!line)
+        {
+            write(1, "\b\bexit\n", 7);
+            exit (0);
+        }
+        if(*line)
+            add_history(line);
+    
+        line = ft_epur_str(ft_pgross_str(line));
+        tokenize(line);
+        char **res = ft_split(line, "\1");
+        execute(res, data, d_env);
+
+        ft_free_tab(res);
 		free(line);
 	}
 	// int i = 0;

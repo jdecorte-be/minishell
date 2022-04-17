@@ -27,7 +27,11 @@ void exec(char *cmd, char **env)
 		}
 	}
 	if (execve(execs, &s_cmd[0], env) == -1)
+	{
+		printf("minishell: %s: command not found\n", cmd);
 		exit (127);
+	}
+	
 }
 
 int	pipex(t_env *data, char *cmd)

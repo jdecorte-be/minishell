@@ -19,7 +19,8 @@ int cd(char **cmd)
 		return 134;
 	if(cmd[1][0] == '~')
 		togo = ft_strjoin(getenv("HOME"),ft_substr(cmd[1], 1, ft_strlen(cmd[1]) - 1));
-	printf("%s\n", togo);
+	else
+		togo = cmd[1];
 	if(chdir(togo) == -1)
 		return -1;
 	return 0;
