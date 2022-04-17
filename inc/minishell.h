@@ -73,7 +73,7 @@ typedef struct s_tmp
 	char	c;
 	t_list	lst;
 	void	*tmp;
-	char	*path;
+	char	path[PATH_MAX];
 	char	**tab;
 	char	*str;
 	void	*ptr;

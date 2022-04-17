@@ -99,7 +99,7 @@ int	ft_wcmatch(char **wc_tab, char *file)
 	return (0);
 }
 
-char	*ft_readfile(char *wc, DIR *loc)
+char	*ft_readfile(char *wc, DIR *loc, char mode)
 {
 	struct dirent	*file;
 	char			**wc_tab;

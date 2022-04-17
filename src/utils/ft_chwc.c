@@ -55,7 +55,16 @@ char	*ft_chwc2(char *line)
 	t_list	*wc;
 	t_tmp	tmp;
 
-	return (ft_wcfile(line));
+	tmp.i = 0;
+	if (ft_strchr(line, '/'))
+	{
+		wc = ft_split4(line, "/");
+		while (wc[tmp.i])
+		{
+			
+		}
+	else
+		return (ft_wcfile(line, getcwd(tmp.path, MAX_PATH)));
 }
 
 char	*ft_chwc(char *line)
