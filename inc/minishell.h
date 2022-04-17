@@ -163,6 +163,8 @@ int		ft_next_cmd(char *line, size_t i);
 
 t_token	*ft_tokennew(char *newcmd);
 
+int	ft_strstrchr(char *str, char *set);
+
 char *tokenize(char *line);
 char **parsing(char *input);
 

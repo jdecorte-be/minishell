@@ -1,5 +1,24 @@
 #include "../../inc/minishell.h"
 
+int	ft_redirect_check(t_redirect file)
+{
+	t_list	*tmp;
+	char	c;
+	int		fd;
+
+	tmp = file.infile;
+	while (tmp)
+	{
+		c = ft_strstrchr(tmp->content, "|&()");
+		if (c != 0)
+		{
+			fd = dup2(1, 2);
+			printf("a");
+		}
+		tmp = tmp->next;
+	}
+}
+
 void	nothing(void)
 {
 }
@@ -26,7 +45,7 @@ char	*ft_chrredirect(char *line, char c)
 	start = end;
 	while (line[end] && !ft_isspace(line[end]))
 		end++;
-	return (ft_substr(line, start, end));//remplacer le 0 par start; et end par end - start;
+	return (ft_substr(line, 0, end));//remplacer le 0 par start; et end par end - start;
 }
 
 t_list	*ft_file(char *line, char c)
@@ -63,7 +82,7 @@ t_redirect	ft_init_redirect(void)
 
 	file.infile = 0;
 	file.outfile = 0;
-	file.infd = -1;
+	file.infd = 0;
 	file.outfd = 1;
 	file.open = 0;
 	return (file);
@@ -78,23 +97,27 @@ t_redirect	ft_redirect(char *line)
 		return (file);
 	file.infile = ft_file(line, '<');
 	file.outfile = ft_file(line, '>');
-	if (file.outfile)
-		file.open = ft_how_open(file.outfile); //a faire
-	while (file.infile)
+	if (ft_redirect_check(file))
 	{
-		printf("infile %s\n", file.infile->content);
-		file.infd = open(file.infile->content, O_RDONLY);
-		if (file.infd == -1)
-			perror("open");
-		file.infile = ft_next(file.infile);
-	}
-	while (file.outfile)
-	{
-		printf("outfile %s\n", file.outfile->content);
-		file.outfd = open(file.outfile->content, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-		if (file.outfd == -1)
-			perror("open");
-		file.outfile = ft_next(file.outfile);
+		while (file.infile)
+		{
+			printf("infile %s\n", file.infile->content);
+			file.infd = open(file.infile->content, O_RDONLY);
+			if (file.infd == -1)
+				perror("open");
+			file.infile = ft_next(file.infile);
+		}
+		while (file.outfile)
+		{
+			printf("outfile %s\n", file.outfile->content);
+			if (file.open == 0)
+				file.outfd = open(file.outfile->content, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+			else if (file.open == 1)
+				file.outfd = open(file.outfile->content, O_WRONLY | O_APPEND | O_CREAT, 0644);
+			if (file.outfd == -1)
+				perror("open");
+			file.outfile = ft_next(file.outfile);
+		}
 	}
 	return (file);
 }
