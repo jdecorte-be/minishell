@@ -37,5 +37,5 @@ void	ft_signal(int sig)
 	if (sig == SIGINT)
 		signal(sig, &ft_newprompt);
 	if (sig == SIGQUIT)
-		signal(SIGQUIT, &ft_exit_bs_loop);
+		signal(SIGQUIT, &ft_exit_c_loop);
 }

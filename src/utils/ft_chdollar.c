@@ -199,6 +199,7 @@ char	*ft_chdollar(char *line)
 
 	if (!line)
 		return (0);
+	if (ft_strchr(line, '$'))
 	dollar = 0;
 	len = ft_chdollar_len(line, &dollar);
 	str = ft_calloc(sizeof(*str), len + 1);
