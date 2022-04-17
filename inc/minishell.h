@@ -52,7 +52,8 @@ typedef struct s_mcmd//	cmd   ((ls )| cat)
 typedef struct s_cmd
 {
 	char			*line;
-	t_sep			sep;
+	char			p;
+	char			n;
 	struct s_mcmd	*mcmd;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -60,12 +61,7 @@ typedef struct s_cmd
 typedef struct s_data//  block de cmd  
 {
 	char	*line;// ls  //after prompt, without \32\32 space, "" or ''
-	// char			**outfile;
-	// char			**infile;
-	// int				*infd;		
-	// int				*outfd;
 	t_cmd	*cmd;
-	// struct s_data	*next;
 }	t_data;
 
 t_cmd	*ft_cmdnew(char	*line);
@@ -87,7 +83,7 @@ char	**ft_split3(char *str, char *set);
 
 t_cmd	*ft_creat_cmd(char *line);
 t_mcmd	*ft_creat_mcmd(char *line);
-
+char	*ft_pgross_str(char *line);
 
 
 

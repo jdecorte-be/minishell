@@ -9,23 +9,23 @@ t_cmd	*ft_cmdnew(char	*line)
 		ft_error(2);
 	cmd->next = 0;
 	cmd->line = line;
-	cmd->sep.p = 0;
-	cmd->sep.n = 0;
+	cmd->p = 0;
+	cmd->n = 0;
 	cmd->mcmd = 0;
-	cmd->next = 0;
 	return (cmd);
 }
 
 t_cmd	*ft_cmdlast(t_cmd *cmd)
 {
-	t_cmd	*last_elem;
+	t_cmd	*tmp;
 
-	if (!cmd)
-		return (0);
-	last_elem = cmd;
-	while (last_elem->next != NULL)
-		last_elem = last_elem->next;
-	return (last_elem);
+	if (cmd)
+	{
+		tmp = cmd;
+		while (tmp->next)
+			tmp = tmp->next;
+	}
+	return (tmp);
 }
 
 void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new)
@@ -42,5 +42,4 @@ void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new)
 			last_elem->next = new;
 		}
 	}
-	printf("new = %s\n", new->line);
 }
