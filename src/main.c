@@ -89,7 +89,6 @@ int	main(int ac, char **av, char **env)
             puterror("\e[0;37mUse : ./minishell without arguments\n");
         while (1)
         {
-            refresh_env(env, d_env);
             signal(SIGINT, sigint_handler);
             signal(SIGTSTP , sigint_handler);
             printf("\e[0;36m ➜ ");

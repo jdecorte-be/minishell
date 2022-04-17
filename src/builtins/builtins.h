@@ -23,7 +23,6 @@ typedef struct l_env
 int my_setenv(char *name, char *value, t_env *data);
 void refresh_env(char **env, t_env *data);
 int checkvalid(char *cmd);
-char	*my_getenv(char *tochr, t_list *lst);
 int     echo(char **args);
 int     pwd();
 int     cd(char **args);

@@ -14,42 +14,52 @@ int env_len(char **env)
     return i;
 }
 
+void *ft_realloc(void *str, size_t len)
+{
+    char *res;
+
+    res = malloc(len);
+    if(!res)
+        return 0;
+    if(!str)
+        return malloc(len);
+    if(len <= ft_strlen(str))
+        return str;
+    ft_memcpy(str, res, ft_strlen(str));
+    free(str);
+    return res;
+}
+
 int my_setenv(char *name, char *value, t_env *data)
 {
 	static char **lastenv;			/* last value of environ */
 	char *C;
 	int l_value, offset;
-	if (*value == '=')			/* no `=' in value */
-		++value;
-	l_value = strlen(value);
-	if ((C = getenv(name))) {	/* find if already exists */
-		if ((int)strlen(C) >= l_value) {	/* old larger; copy over */
-			while ((*C++ = *value++));
-			return (0);
-		}
-	} else {					/* create new slot */
-		size_t cnt;
-		char **P;
-		for (P = data->env; *P != NULL; P++);
+	size_t cnt;
+	char **P = data->env;
+
+	l_value = ft_strlen(value);
+	if ((C = getenv(name)))
+    {
+        ft_memcpy(C, value, ft_strlen(value));
+        return (0);
+	}
+    else
+    {
+        while(*P)
+            P++;
 		cnt = P - data->env;
-        P = (char **)realloc(lastenv, sizeof(char *) * (cnt + 2));
+        P = (char **)ft_realloc(lastenv, sizeof(char *) * (cnt + 2));
 		if (!P)
 			return (-1);
 		if (lastenv != data->env)
-			memcpy(P, data->env, cnt * sizeof(char *));
+			ft_memcpy(P, data->env, cnt * sizeof(char *));
 		lastenv = data->env = P;
 		offset = cnt;
 		data->env[cnt + 1] = NULL;
 	}
-	for (C = (char *)name; *C && *C != '='; ++C)
-		;				/* no `=' in name */
-	if (!(data->env[offset] =			/* name + `=' + value */
-	    malloc((size_t)((int)(C - name) + l_value + 2))))
+	if (!(data->env[offset] = malloc((size_t)((int)(C - name) + l_value + 2))))
 		return (-1);
-	for (C = data->env[offset]; (*C = *name++) && *C != '='; ++C)
-		;
-	for (*C++ = '='; (*C++ = *value++); )
-		;
 	return (0);
 }
 

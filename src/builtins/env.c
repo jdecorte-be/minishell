@@ -1,11 +1,5 @@
 #include "builtins.h"
 
-void refresh_env(char **env, t_env *data)
-{
-    (void)env;
-    my_setenv("_", "/usr/bin/env", data);
-}
-
 int checkvalid(char *cmd)
 {
     int i = 0;
@@ -15,8 +9,8 @@ int checkvalid(char *cmd)
 			return -1;
         else if((ft_isalnum(cmd[i]) == 0 && cmd[i] != '\'' && cmd[i] != '"' && cmd[i] != '_') || ft_isdigit(cmd[0]) == 1)
         {
-                printf("minishell: unset: %s: not a valid identifier\n", cmd);
-                return 0;
+            printf("minishell: unset: %s: not a valid identifier\n", cmd);
+            return 0;
         }
         i++;
     }
