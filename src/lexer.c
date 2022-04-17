@@ -30,13 +30,13 @@ int exit_cmd(char **s_cmd)
 
 
 // return the return code of each command
-int cmdlexer(char *cmd, t_env *d_env)
+int cmdlexer(char *cmd, t_data *d_env)
 {
     char **s_cmd = ft_split(cmd," ");
     if(ft_strcmp(s_cmd[0], "echo") == 0)
         return echo(s_cmd);
     else if(ft_strcmp(s_cmd[0], "cd") == 0)
-        return cd(s_cmd);
+        return cd(s_cmd, d_env);
     else if(ft_strcmp(s_cmd[0], "pwd") == 0)
         return pwd();
     else if(ft_strcmp(s_cmd[0], "env") == 0)

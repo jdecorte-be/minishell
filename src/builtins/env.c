@@ -1,4 +1,20 @@
-#include "builtins.h"
+# include "../../inc/minishell.h"
+
+char *my_getenv(char *name, t_data *data)
+{
+    int i = 0;
+
+    while(data->env[i])
+    {
+        int j = 0;
+        while(data->env[i][j] && data->env[i][j] != '=')
+            j++;
+        if(ft_strcmp(ft_substr(data->env[i], 0, j), name) == 0)
+            return ft_substr(data->env[i], j + 1, ft_strlen(data->env[i]));
+        i++;
+    }
+    return NULL;
+}
 
 int checkvalid(char *cmd)
 {
@@ -25,15 +41,28 @@ int print_env(char **env)
 	return 0;
 }
 
-int unset(char **cmd, t_env *data)
+void delete_env(char *name, t_data *data)
+{
+    int i = 0;
+
+    while(data->env[i])
+    {
+        int j = 0;
+        while(data->env[i][j] != '=' && data->env[i][j])
+            j++;
+        if(ft_strcmp(ft_substr(data->env[i], 0, j), name) == 0)
+            data->env[i] = data->env[i+1];
+        i++;
+    }
+}
+
+int unset(char **cmd, t_data *data)
 {
 	(void) data;
     if(!cmd[1])
         return 0;
     int i = 1;
     while(cmd[++i])
-    {
-        free(getenv(cmd[i]));
-    }
+        delete_env(cmd[i], data);
     return 0;
 }

@@ -1,5 +1,58 @@
 #include "../inc/minishell.h"
 
+int what_im(char *input)
+{
+	if(ft_strcmp(input, "&&") == 0)
+		return 1;
+	else if(ft_strcmp(input, "||") == 0)
+		return 2;
+	else if(ft_strcmp(input, "|") == 0)
+		return 3;
+	else if(ft_strcmp(input, "<") == 0)
+		return 4;
+	else if(ft_strcmp(input, ">") == 0)
+		return 5;
+	else if(ft_strcmp(input, "(") == 0)
+		return 4;
+	else if(ft_strcmp(input, ")") == 0)
+		return 5;
+	return 0;
+}
+
+int what_before(char **input, int i)
+{
+	while(input[i])
+	{
+		if(ft_strcmp(input[i], "&&") == 0)
+			return 1;
+		else if(ft_strcmp(input[i], "||") == 0)
+			return 2;
+		else if(ft_strcmp(input[i], "|") == 0)
+			return 3;
+		else if(ft_strcmp(input[i], "<") == 0)
+			return 4;
+		else if(ft_strcmp(input[i], ">") == 0)
+			return 5;
+		i--;
+	}
+	return 0;
+}
+
+int pipe_is_after(char **input, int i)
+{
+	while(input[i])
+	{
+		if(ft_strcmp(input[i], "&&") == 0)
+			return 0;
+		if(ft_strcmp(input[i], "||") == 0)
+			return 0;
+		if(ft_strcmp(input[i], "|") == 0)
+			return 1;
+		i++;
+	}
+	return 0;
+}
+
 int have_pipe(char *cmd)
 {
 	int i = 0;
@@ -13,16 +66,18 @@ int have_pipe(char *cmd)
 	return 0;
 }
 
-int executeur(char *input, t_env *d_env)
+int check_pipe(t_data *data, char **input, int *i, int shell)
 {
-	if(have_pipe(input))
-		return pipe_handler(d_env, ft_split(input, "|"));
-	else
-		return cmdlexer(input, d_env);
-	return -1;
+	if(pipe_is_after(input, *i))
+		pipe_handler(data, input, *i);
+	else if (shell == 0)
+		cmdlexer(input[*i], data);
+	else if (shell == 1)
+		subshell(input[*i], data);
 }
 
-int execute(char **input, t_data *data, t_env *d_env)
+
+int execute(char **input, t_data *data)
 {
 	int i = 0;
 	int start = 1;
@@ -30,17 +85,26 @@ int execute(char **input, t_data *data, t_env *d_env)
 		return (0);
 	while(input[i])
 	{
-		if(start == 1 && input[i][0] != '(')
-			data->lastret = executeur(input[i], d_env);
-		else if(start == 0 && ft_strcmp(input[i - 1], "&&") == 0 && data->lastret == 0 && ft_strcmp(input[i], "(") && ft_strcmp(input[i], ")"))
-			data->lastret = executeur(input[i], d_env);
-		else if(start == 0 && ft_strcmp(input[i - 1], "||") == 0 && data->lastret != 0 && ft_strcmp(input[i], "(") && ft_strcmp(input[i], ")"))
-			data->lastret = executeur(input[i], d_env);
-		else if(input[i][0] != '(' && ft_strcmp(input[i - 1], "(") == 0)
-			data->lastret = subshell(input[i], d_env, data);
+		// start
+		if(start == 1 && what_im(input[i]) == 0)
+			data->lastret = check_pipe(data, input, i, 0);
+		// '&&' behind cmd
+		else if(start == 0 && what_before(input, i) == 1 && what_im(input[i]) == 0 && data->lastret == 0)
+			data->lastret = check_pipe(data, input, i, 0);
+		// '||' behind cmd
+		else if(start == 0 && what_before(input, i) == 2 && what_im(input[i]) == 0 && data->lastret != 0)
+			data->lastret = check_pipe(data, input, i, 0);
+		// '||' behind the parentheses cmd
+		else if(ft_strcmp(input[i - 1], "(") == 0 && what_before(input, i) == 2 && what_im(input[i]) == 0 && data->lastret != 0)
+			data->lastret = check_pipe(data, input, i, 1);
+		// '&&' behind the parentheses cmd
+		else if(ft_strcmp(input[i - 1], "(") == 0 && what_before(input, i) == 1 && what_im(input[i]) == 0 && data->lastret == 0)
+			data->lastret = check_pipe(data, input, i, 1);
+
+
+
+
 		// printf("---> %d\n", data->lastret);
-
-
 		i++;
 		start = 0;
 	}

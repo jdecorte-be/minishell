@@ -1,7 +1,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../src/builtins/builtins.h"
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <readline/readline.h>
@@ -15,6 +14,30 @@
 # include <limits.h>
 # include <dirent.h>
 # include <errno.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <errno.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+
+typedef struct s_cmd
+{
+	char			*line;
+	char			p;
+	char			n;
+	struct s_mcmd	*mcmd;
+	struct s_cmd	*next;
+}	t_cmd;
+
+typedef struct s_data//  block de cmd  
+{
+	char	*line;// ls  //after prompt, without \32\32 space, "" or ''
+	char	**env;
+	int		lastret;
+}	t_data;
+
+
 
 typedef struct s_sep
 {
@@ -54,26 +77,36 @@ typedef struct s_mcmd//	cmd   ((ls )| cat)
 }	t_mcmd;
 
 
-typedef struct s_cmd
-{
-	char			*line;
-	char			p;
-	char			n;
-	struct s_mcmd	*mcmd;
-	struct s_cmd	*next;
-}	t_cmd;
 
-typedef struct s_data//  block de cmd  
-{
-	char	*line;// ls  //after prompt, without \32\32 space, "" or ''
-	int		lastret;
-	int 	prioret;
-	int		isprio;
-	int		doandand;
-	t_cmd	*cmd;
-}	t_data;
 
-int		subshell(char *line, t_env *d_env, t_data *data);
+char *my_getenv(char *name, t_data *data);
+int my_setenv(char *name, char *value, t_data *data);
+void refresh_env(char **env, t_data *data);
+int checkvalid(char *cmd);
+int     echo(char **args);
+int     pwd();
+int     cd(char **args, t_data *d_env);
+int     export(char **cmd,t_data *data);
+int     unset(char **cmd, t_data *data);
+int     printList(t_list *head);
+
+t_list  *list_env(char **env);
+char    **listtotab(t_list *lst);
+void    env_cmd(t_data *data);
+void	*ft_memdel(void *ptr);
+void replace_env(char *cmd, t_list *env);
+
+
+
+
+
+
+
+
+
+
+
+int subshell(char *line, t_data *data);
 void	addspace(char **str);
 char	**ft_split2(char *str, char *set);
 char	*ft_onespace(char *line);
@@ -89,18 +122,21 @@ int		ft_str_isspace(char *str);
 void	ft_error(int e);
 
 int		ft_free(char *line);
-int	pipex(t_env *d_env, char *cmd, int *p_fd);
+int	pipex(t_data *d_env, char *cmd, int *p_fd);
 void	puterror(char *str);
 void	*ft_memdel(void *ptr);
-int run_cmd(t_env *d_env, char *cmd);
-int cmdlexer(char *cmd, t_env *d_env);
+int run_cmd(t_data *d_env, char *cmd);
+int cmdlexer(char *cmd, t_data *d_env);
 
 char **sort_exp(char **env);
 
 char *tokenize(char *line);
 char	*ft_pgross_str(char *line);
 char	*ft_epur_str(char *line);
-int execute(char **input, t_data *data, t_env *d_env);
+int execute(char **input, t_data *data);
+
+
+
 
 
 //================================================================
@@ -149,24 +185,23 @@ char	*ft_trijoin3(char *s1, char *s2, char *s3);
 char	*ft_strjoin1(char const *s1, char const *s2);
 char	*ft_strjoin2(char const *s1, char const *s2);
 char	*ft_strjoin3(char const *s1, char const *s2);
-int	pipe_handler(t_env *d_env, char **input);
+int	pipe_handler(t_data *d_env, char **input, int *i);
 void	puterror(char *str);
 void	*ft_memdel(void *ptr);
-
-int cmdlexer(char *cmd, t_env *d_env);
+int pipe_is_after(char **input, int i);
+int cmdlexer(char *cmd, t_data *d_env);
 
 char **sort_exp(char **env);
 
 char *tokenize(char *line);
 char	*ft_pgross_str(char *line);
 char	*ft_epur_str(char *line);
-int execute(char **input, t_data *data, t_env *d_env);
 char	*ft_strjoin2(char const *s1, char const *s2);
 int		ft_strncmp2(const char *s1, const char *s2, size_t n);
 int		ft_strrcmp2(const char *s1, const char *s2, size_t n);
 int print_env(char **env);
-void print_exp(char **env, t_env *data);
-int my_setenv(char *name, char *value, t_env *data);
+void print_exp(t_data *data);
+int my_setenv(char *name, char *value, t_data *data);
 int splitlen(char **split);
 char	*ft_chdir(char *line);
 

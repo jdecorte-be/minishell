@@ -11,7 +11,7 @@ void print2darray(char **arr)
     }
 }
 
-void shlvlhandler(t_env *data)
+void shlvlhandler(t_data *data)
 {
     char *var = getenv("SHLVL");
     if(var)
@@ -56,59 +56,44 @@ void sigint_handler(int signum)
 
 int	main(int ac, char **av, char **env)
 {
+    (void)av;
     int errno;
-    t_env   *d_env;
 	t_data	*data;
 
-
-    if(!(d_env = malloc(sizeof(t_env))))
-        return 0;
     if(!(data = malloc(sizeof(t_data))))
         return 0;
-
     data->lastret = 0;
-    d_env->env = env;
-    d_env->exp = env;
-
-    shlvlhandler(d_env);
+    data->env = env;
+    free(my_getenv("OLDPWD", data));
+    shlvlhandler(data);
 
 	char	*line;
     int ret;
 
-    if (ac >= 3 && !ft_strncmp(av[1], "-c", 2))
+
+    if(ac != 1)
+        puterror("\e[0;37mUse : ./minishell without arguments\n");
+    while (1)
     {
-        line = ft_chwc(ft_chdollar(ft_epur_str(ft_pgross_str(ft_strdup(av[2])))));
-        tokenize(line);
-        char **res = ft_split(line, "\1");
-        ret = execute(res, data, d_env);
-        // exit(ret);
-    }
-    else
-    {
-        if(ac != 1)
-            puterror("\e[0;37mUse : ./minishell without arguments\n");
-        while (1)
+        signal(SIGINT, sigint_handler);
+        signal(SIGTSTP , sigint_handler);
+        printf("\e[0;36m ➜ ");
+        line = readline(formpath());
+        if (!line)
         {
-            signal(SIGINT, sigint_handler);
-            signal(SIGTSTP , sigint_handler);
-            printf("\e[0;36m ➜ ");
-            line = readline(formpath());
-            if (!line)
-            {
-                ft_putstr_fd("\b\bexit\n", 2);
-                exit (0);
-            }
-            if(line[0] != '\n')
-                add_history(line);
-        
-            line = tokenize(ft_chdir(ft_chwc(ft_chdollar(ft_epur_str(ft_pgross_str(line))))));
-            char **res = ft_split(line, "\1");
-    
-            // to delete
-                // print2darray(res);
-            ret = execute(res, data, d_env);
+            ft_putstr_fd("\b\bexit\n", 2);
+            exit (0);
         }
-        // exit(ret);
+        if(line[0] != '\n')
+            add_history(line);
+    
+        line = tokenize(ft_chdir(ft_chwc(ft_chdollar(ft_epur_str(ft_pgross_str(line))))));
+        char **res = ft_split(line, "\1");
+
+        // to delete
+            print2darray(res);
+        ret = execute(res, data);
     }
+        // exit(ret);
 
 }

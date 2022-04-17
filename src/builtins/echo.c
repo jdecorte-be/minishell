@@ -1,10 +1,4 @@
-#include "builtins.h"
-
-// echo Hello World ! && echo '$path'
-// marche + fix lors du parsing avec '' et ""
-// code d'exit a modifier
-
-// void delete_ext_quotes(char **args)
+# include "../../inc/minishell.h"
 
 int echo(char **args)
 {

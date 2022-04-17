@@ -1,4 +1,4 @@
-#include "builtins.h"
+# include "../../inc/minishell.h"
 #include <strings.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -30,7 +30,7 @@ void *ft_realloc(void *str, size_t len)
     return res;
 }
 
-int my_setenv(char *name, char *value, t_env *data)
+int my_setenv(char *name, char *value, t_data *data)
 {
 	static char **lastenv;			/* last value of environ */
 	char *C;
@@ -41,7 +41,7 @@ int my_setenv(char *name, char *value, t_env *data)
 	l_value = ft_strlen(value);
 	if ((C = getenv(name)))
     {
-        ft_memcpy(C, value, ft_strlen(value));
+        ft_strlcpy(C, value, ft_strlen(value) + 1);
         return (0);
 	}
     else
@@ -63,21 +63,21 @@ int my_setenv(char *name, char *value, t_env *data)
 	return (0);
 }
 
-void print_exp(char **env)
+void print_exp(t_data *data)
 {
-    int len = env_len(env);
+    int len = env_len(data->env);
     int i = 0;
     while(i < len)
     {
         int j = i+1;
         while (++j < len)
-            if (ft_strcmp(env[i], env[j]) > 0 && env[i] && env[j]) {
-                char* temp = env[i]; 
-                env[i] = env[j]; 
-                env[j] = temp; 
+            if (ft_strcmp(data->env[i], data->env[j]) > 0 && data->env[i] && data->env[j]) {
+                char* temp = data->env[i]; 
+                data->env[i] = data->env[j]; 
+                data->env[j] = temp; 
              }
-             if(env[i])
-                printf("declare -x %s\n", env[i]);
+             if(data->env[i])
+                printf("declare -x %s\n", data->env[i]);
         i++;
     }
 }
@@ -93,11 +93,11 @@ int repl_env(char **cmd)
     return 0;
 }
 
-int export(char **cmd,t_env *data)
+int export(char **cmd,t_data *data)
 {
     if(!cmd[1])
     {
-        print_exp(data->env);
+        print_exp(data);
         return 0;
     }
     int i = 0;

@@ -25,7 +25,7 @@ char *get_path(char *cmd)
 	return exec;
 }
 
-int	pipex(t_env *d_env, char *cmd, int *p_fd)
+int	pipex(t_data *d_env, char *cmd, int *p_fd)
 {
 
 	pid_t	pid;
@@ -53,7 +53,7 @@ int	pipex(t_env *d_env, char *cmd, int *p_fd)
 	return err;
 }
 
-int run_cmd(t_env *d_env, char *cmd)
+int run_cmd(t_data *d_env, char *cmd)
 {
 	pid_t	pid;
 	int err = 0;
@@ -74,17 +74,18 @@ int run_cmd(t_env *d_env, char *cmd)
 	return err;
 }
 
-int	pipe_handler(t_env *d_env, char **input)
+
+
+int	pipe_handler(t_data *d_env, char **input, int *i)
 {
 	int		p_fd[2];
-	int i = 0;
 	int stdin = dup(0);
 	int stdout = dup(1);
 	pipe(p_fd);
 	
-	while(input[i + 1])
-			pipex(d_env, input[i++], p_fd);
-	run_cmd(d_env, input[i]);
+	while(input[*i + 1] && pipe_is_after(input, *i))
+			pipex(d_env, input[*i++], p_fd);
+	run_cmd(d_env, input[*i]);
 	dup2(stdin, 0);
 	dup2(stdout, 0);
 	// puterror("$RES_REAL: ambiguous redirect\n");
