@@ -10,6 +10,8 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		line = readline("caca->");
+		if (ft_isprohibited(line))
+			exit(EXIT_FAILURE);
 		add_history(line);
 		if (!line)
 			break;
