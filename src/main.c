@@ -7,10 +7,13 @@ int	main(int argc, char **argv, char **envp)
 	t_token	*tmp;
 	t_data	data;
 	char	*line;
-	char	**tab;
+	// char	**tab;
 	pid_t	pid;
 	t_token	*token;
 	t_redirect	redirect;
+	int		fd[10];
+	char	*tab[3];
+	char	*tab2[2];
 
 
 	while (1)
@@ -26,6 +29,7 @@ int	main(int argc, char **argv, char **envp)
 		data.line = ft_epur_str(ft_chwc(ft_add_q_dollar(ft_chdir(ft_chdollar(ft_pgross_str((line)))))));
 		// printf("!\n");
 		// data.line = ft_ecrase_p(data.line);
+		printf("data.line = %s\n", data.line);
 		token = ft_parsing(data.line);
 		while (token)
 		{
@@ -80,6 +84,30 @@ int	main(int argc, char **argv, char **envp)
 		// line = 0;
 		// data.cmd = ft_creat_cmd(data.line);
 		// printf("4\n");
+
+		
+		// fd[1] = dup(1);
+		// fd[0] = dup(0);
+		// tab[0] = "cat";
+		// tab[1] = "-e";
+		// tab[2] = 0;
+		// tab2[0] = "ls";
+		// tab[1] = 0;
+		// pid = fork();
+		// if (!pid)
+		// {
+		// 	// close(4);
+		// 	dup2(5, 1);
+		// 	execve("/bin/ls", tab2, envp);
+		// }
+		// wait(0);
+		// // dup2(fd[1], 1);
+		// close(5);
+		// dup2(fd[1], 1);
+		// dup2(4, 0);
+		// // close(1);
+		// execve("/bin/cat", tab, envp);
+
 	}
 
 	// int i = 0;

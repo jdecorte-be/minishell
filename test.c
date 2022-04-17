@@ -5,16 +5,13 @@
 #include "./inc/minishell.h"
 #include <fcntl.h>
 
-int		main(int argc, char ** argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
-	int *fd;
-	int	fd1;
-	int fd2;
+    char    *tab[3];
 
-	fd = 0;
-	// pipe(fd);
-	// fd1 = fd[1];
-	// fd2 = fd[0];
-	// pipe(fd);
-	printf("fd1 %d\nfd2 %d\nfd %p\n", fd1, fd2, fd);
+    printf("%d\n", open(0, O_RDWR | O_CREAT));
+
+
+
+    
 }

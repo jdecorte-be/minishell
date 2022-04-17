@@ -178,6 +178,7 @@ char	*ft_chwc(char *line)
 		return (0);
 	if (ft_chwc_ok(line))
 		return (line);
+	printf("ga\n");
 	wc = ft_wcsearch(line);
 	tmp.lst = wc;
 	while (tmp.lst)

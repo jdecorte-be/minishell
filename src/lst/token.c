@@ -55,7 +55,55 @@ void	ft_tokenadd_back(t_token **atoken, t_token *new)
 	}
 }
 
-// t_token	*ft_token_next(t_token *token)
-// {
+t_token	*ft_token_next(t_token *token)
+{
+	t_token *tmp;
 
-// }
+	if (!token)
+		return (0);
+	tmp = token;
+	if (tmp->sub_token)
+		tmp = tmp->sub_token;
+	else if (tmp->next)
+		tmp = tmp->next;
+	else if (tmp->sup_token)
+		tmp = tmp->sup_token->next;
+	else
+		tmp = tmp->next;
+	return (tmp);
+}
+
+void	ft_token_free_and_next(t_token **token)
+{
+	t_token *tmp;
+
+	tmp = *token;
+	*token = (*token)->next;
+	free(tmp);
+}	
+
+void	ft_token_free_and_sup(t_token **token)
+{
+	t_token *tmp;
+
+	tmp = *token;
+	*token = (*token)->sup_token;
+	free(tmp);
+}	
+
+void	ft_tokenclean_all(t_token **token)
+{
+	t_token	*tmp;
+
+	while (*token)
+	{
+		if ((*token)->sub_token)
+			*token = (*token)->sub_token;
+		else if ((*token)->next)
+			ft_token_free_and_next(token);
+		else if ((*token)->sup_token)
+			ft_token_free_and_sup(token);
+		else
+			ft_token_free_and_next(token);
+	}
+}

@@ -132,6 +132,11 @@ t_token	*ft_sub_tokennew(char *newcmd, t_token *sup);
 t_token	*ft_tokenlast(t_token *token);
 void	ft_tokenadd_back(t_token **atoken, t_token *new);
 
+t_token	*ft_token_next(t_token *token);
+void	ft_token_free_and_next(t_token **token);
+void	ft_token_free_and_sup(t_token **token);
+void	ft_tokenclean_all(t_token **token);
+
 int		ft_strstrchr(char *str, char *set);
 
 void	ft_skip_p(char *str, size_t *i);
@@ -139,7 +144,13 @@ void	ft_skip_q(char *str, size_t *i);
 
 t_token	*ft_parsing(char *line);
 
+char	*ft_redirect_chwc(char *line);
+int		ft_chwc_ok2(char *line);
+char	*ft_transf(char *line);
+
 char *tokenize(char *line);
 char **parsing(char *input);
+char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq);
+
 
 #endif
