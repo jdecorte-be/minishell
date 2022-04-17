@@ -20,8 +20,8 @@ typedef struct s_sep
 
 typedef struct s_fd
 {
-	int	*in;
-	int	*out;
+	int	in;
+	int	out;
 }	t_fd;
 
 typedef struct s_file
@@ -37,24 +37,24 @@ typedef struct s_here_doc
 	struct s_here_doc	*next;
 }	t_here_doc;
 
-typedef struct s_micro_cmd//	cmd   ((ls )| cat)
+typedef struct s_mcmd//	cmd   ((ls )| cat)
 {
-	char				*line;
-	char				*path;
-	t_here_doc			here_doc;
-	char				**cmdv;
-	t_sep				sep;
-	t_fd				fd;
-	t_file				file;
-	struct s_micro_cmd	*next;
-}	t_micro_cmd;
+	char			*line;
+	char			*path;
+	t_here_doc		*here_doc;
+	char			**cmdv;
+	t_sep			sep;
+	t_fd			fd;
+	t_file			file;
+	struct s_mcmd	*next;
+}	t_mcmd;
 
 typedef struct s_cmd
 {
-	char				*line;
-	t_sep				sep;
-	struct s_micro_cmd	*mcmd;
-	struct s_cmd		*next;
+	char			*line;
+	t_sep			sep;
+	struct s_mcmd	*mcmd;
+	struct s_cmd	*next;
 }	t_cmd;
 
 typedef struct s_data//  block de cmd  

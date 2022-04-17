@@ -37,15 +37,15 @@ t_cmd	*ft_creat_cmd(char *line)
 	i = 0;
 	// while (tab[i])
 	// 	printf("%s\n", tab[i++]);
-	while (tmp)
-	{
-		printf("%s\n", tmp->line);
-		tmp = tmp->next;
-	}
 	// while (tmp)
 	// {
-	// 	tmp->mcmd = ft_creat_mcmd(tmp->line);
+	// 	printf("%s\n", tmp->line);
 	// 	tmp = tmp->next;
 	// }
+	while (tmp)
+	{
+		tmp->mcmd = ft_creat_mcmd(tmp->line);
+		tmp = tmp->next;
+	}
 	return (cmd);
 }
