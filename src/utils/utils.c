@@ -57,19 +57,19 @@ char	*ft_woquote(char *line)
 
 	if (ft_strchr(line, '\'') || ft_strchr(line, '\"'))
 	{
-		str = malloc(sizeof(char) * (ft_strlen(line) - 2 + 1));
+		str = ft_calloc(sizeof(char), (ft_strlen(line) - 2 + 1));
 		i = 0;
 		i2 = 0;
 		while (line[i2])
 		{
-			if (ft_strchr("\'\"", line[i2]))
+			if (line[i2] && ft_strchr("\'\"", line[i2]))
 			{
 				c = line[i2++];
 				while (line[i2] && line[i2] != c)
 					str[i++] = line[i2++];
 				i2++;
 			}
-			else
+			else if (line[i2])
 				str[i++] = line[i2++];
 		}
 	}

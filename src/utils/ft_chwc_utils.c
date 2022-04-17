@@ -22,10 +22,10 @@ t_list	*ft_wcsearch(char *line)
 			{
 				if (line[end] && ft_strchr("\"\'", line[end]))
 					ft_creat_tab2(line, &end, 0, 1);
-				if (line[end++] == '*')
-				{
+				if (line[end] && line[end] == '*' && ++end)
 					c1 = 1;
-				}
+				else if (line[end])
+					end++;
 			}
 			if (c1 == 1)
 				ft_lstadd_back(&wc, ft_lstnew(ft_substr(line, start, end - start)));
