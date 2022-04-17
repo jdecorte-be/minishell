@@ -23,6 +23,13 @@ typedef struct s_redirect
 	int		open;
 }	t_redirect;
 
+typedef struct s_token
+{
+	char			*cmd;
+	t_redirect		redirect;
+	struct s_token	*next;
+}	t_token;
+
 typedef struct s_sep
 {
 	char	p;
@@ -154,6 +161,9 @@ int		ft_next_word(char *line, size_t i);
 char	*ft_add_q_dollar(char *line);
 int		ft_next_cmd(char *line, size_t i);
 
+t_token	*ft_tokennew(char *newcmd);
 
+char *tokenize(char *line);
+char **parsing(char *input);
 
 #endif

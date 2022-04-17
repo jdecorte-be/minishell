@@ -8,6 +8,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	char	**tab;
 	pid_t	pid;
+	t_token	*lsttoken;
 	t_redirect	redirect;
 
 	while (1)
@@ -23,20 +24,25 @@ int	main(int argc, char **argv, char **envp)
 		data.line = ft_epur_str(ft_chwc(ft_add_q_dollar(ft_chdir(ft_chdollar(ft_pgross_str((line)))))));
 		// printf("!\n");
 		// data.line = ft_ecrase_q(data.line);
-		redirect = ft_redirect(data.line);
-		while (redirect.infile)
-		{
-			printf("%s\n", redirect.infile->content);
-			redirect.infile = redirect.infile->next;
-		}
-		while (redirect.infile)
-		{
-			printf("%s\n", redirect.infile->content);
-			redirect.infile = redirect.infile->next;
-		}
+		// redirect = ft_redirect(data.line);
+		data.line = tokenize(data.line);
+		tab = ft_split(data.line, "\1");
+		lsttoken = ft_tokennew(tab[0]);
+		// while (redirect.infile)
+		// {
+		// 	printf("%s\n", redirect.infile->content);
+		// 	redirect.infile = redirect.infile->next;
+		// }
+		// while (redirect.infile)
+		// {
+		// 	printf("%s\n", redirect.infile->content);
+		// 	redirect.infile = redirect.infile->next;
+		// }
 		// data.line = ft_cutoff(line, 5, 5);
+		while (*tab)
+			printf("|%s|\n", *tab++);
 		printf("%s|\n", data.line);
-		free(data.line);
+		// free(data.line);
 		line = 0;
 		// data.cmd = ft_creat_cmd(data.line);
 		// printf("4\n");

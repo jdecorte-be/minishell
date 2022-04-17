@@ -28,6 +28,7 @@ t_list	*ft_tab_to_list(char **tab, t_list *lst)
 		lst->content = tab[i++];
 		lst = lst->next;
 	}
+	free(tab);
 	return (lst);
 }
 

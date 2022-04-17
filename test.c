@@ -6,5 +6,5 @@
 
 int		main(int argc, char ** argv)
 {
-	ft_redirect(argv[1]);
+	printf("%s\n", ft_ecrase_q(argv[1]));
 }

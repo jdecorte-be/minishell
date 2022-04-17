@@ -63,8 +63,8 @@ t_redirect	ft_init_redirect(void)
 
 	file.infile = 0;
 	file.outfile = 0;
-	file.infd = 0;
-	file.outfd = 0;
+	file.infd = -1;
+	file.outfd = 1;
 	file.open = 0;
 	return (file);
 }
@@ -78,6 +78,8 @@ t_redirect	ft_redirect(char *line)
 		return (file);
 	file.infile = ft_file(line, '<');
 	file.outfile = ft_file(line, '>');
+	if (file.outfile)
+		file.open = ft_how_open(file.out); //a faire
 	while (file.infile)
 	{
 		printf("infile %s\n", file.infile->content);
