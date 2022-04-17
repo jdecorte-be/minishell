@@ -24,7 +24,8 @@ char    *ft_ecrase_q(char *word)
 			while (word[end] && word[end] != c)
 				end++;
 			new_word = ft_strjoin1(new_word, ft_substr(word, start, end - start));
-			end++;
+			if (word[end])
+				end++;
 		}
 		else
 		{

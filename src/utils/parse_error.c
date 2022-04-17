@@ -11,6 +11,7 @@ int	ft_isprohibited(char *line)
 {
 	size_t	i;
 	int		quote;
+	char	c;
 
 	if (!line)
 		return (0);
@@ -19,7 +20,14 @@ int	ft_isprohibited(char *line)
 	while (line[i])
 	{
 		if (ft_strchr("\'\"", line[i]))
+		{
 			quote++;
+			c = line[i++];
+			while (line[i] && line[i] != c)
+				i++;
+			if (line[i] && line[i] == c)
+				quote++;
+		}
 		if (ft_strchr("\\;", line[i]))
 			ft_parse_error(1);
 		i++;

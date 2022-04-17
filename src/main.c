@@ -19,12 +19,12 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 			exit(0);
 		// 	// break;
-		// data.line = ft_epur_str(ft_chwc(ft_chdir(ft_chdollar(ft_pgross_str((line))))));
-		// // printf("!\n");
-		// data.line = ft_ecrase_q(data.line);
+		data.line = ft_epur_str(ft_chwc(ft_chdir(ft_chdollar(ft_pgross_str((line))))));
+		// printf("!\n");
+		data.line = ft_ecrase_q(data.line);
 		// data.line = ft_cutoff(line, 5, 5);
-		printf("%s|\n", line);
-		free(line);
+		printf("%s|\n", data.line);
+		free(data.line);
 		line = 0;
 		// data.cmd = ft_creat_cmd(data.line);
 		// printf("4\n");
