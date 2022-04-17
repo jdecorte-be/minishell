@@ -21,7 +21,6 @@ SRCS = 	src/main.c\
 		\
         libft/libft.a\
 		src/operator/pipex.c\
-		# src/cleanstr.c\
 
 $(NAME) :
 	make bonus -C libft

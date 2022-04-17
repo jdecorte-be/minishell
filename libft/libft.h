@@ -10,6 +10,7 @@
 # include <stdlib.h>
 # include <limits.h>
 
+void	ft_error(int e);
 
 typedef struct s_list
 {
@@ -17,9 +18,6 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
-int		ft_strrcmp(const char *s1, const char *s2, size_t n);
-t_list	*ft_next(t_list *lst);
-void	ft_error(int e);
 char	*get_next_line(int fd);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_isspace(char c);
