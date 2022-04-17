@@ -21,7 +21,6 @@ void printlist(t_token *token)
     }
 }
 
-
 void shlvlhandler(t_data *data)
 {
     char *var = getenv("SHLVL");
