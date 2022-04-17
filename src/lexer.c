@@ -18,9 +18,9 @@ int exit_cmd(char **s_cmd)
         }
         else if (s_cmd[1][0] == '+' && ft_isdigit(s_cmd[1][1]))
             return 0;
-        else if (s_cmd[1][0] == '-' && ft_isdigit(s_cmd[1][1]))
+        else if ((s_cmd[1][0] == '-' && ft_isdigit(s_cmd[1][1])))
             return 2;
-        else if ((s_cmd[1][0] == '-' || s_cmd[1][0] == '+') && (s_cmd[1][1] == '-' || s_cmd[1][1] == '+') || s_cmd[1][0] == '-'  && ft_isdigit(s_cmd[1][1]))
+        else if (((s_cmd[1][0] == '-' || s_cmd[1][0] == '+') && (s_cmd[1][1] == '-' || s_cmd[1][1] == '+'))|| (s_cmd[1][0] == '-'  && ft_isdigit(s_cmd[1][1])))
             return 255;
         exit(ft_atoi(s_cmd[1]));
 
