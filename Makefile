@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -lreadline
+CFLAGS = -Wall -Wextra -Werror -lreadline -fsanitize=address
 
 RM = rm -rf
 
@@ -10,6 +10,8 @@ SRCS = 	src/main.c\
         src/utils.c\
 		src/lexer.c\
 		src/ft_error.c\
+		src/executor.c\
+		src/cleanstr.c\
 		\
 		src/builtins/cd.c\
 		src/builtins/echo.c\
@@ -18,7 +20,7 @@ SRCS = 	src/main.c\
 		src/builtins/unset.c\
 		\
         libft/libft.a\
-		# src/pipex.c\
+		src/operator/pipex.c\
 
 $(NAME) :
 	make bonus -C libft

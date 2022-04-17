@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.s19.be>             +#+  +:+       +#+        */
+/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 09:59:01 by lxu-wu            #+#    #+#             */
-/*   Updated: 2021/12/18 19:37:56 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2021/12/21 09:45:35 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	**ft_split(char const *s, char *set)
 {
 	char	**tab;
 
-	if (!s && !*s)
+	if (!s || !*s)
 		return (0);
 	tab = malloc(sizeof(char *) * (ft_count_words(s, set) + 1));
 	if (!tab)

@@ -63,6 +63,9 @@ typedef struct s_data//  block de cmd
 {
 	char	*line;// ls  //after prompt, without \32\32 space, "" or ''
 	int		lastret;
+
+	int		doandand;
+
 	t_cmd	*cmd;
 }	t_data;
 
@@ -79,14 +82,17 @@ void	ft_error(int e);
 
 int		ft_free(char *line);
 
-void	exec(char *cmd, char **env);
-int		pipex(t_env *data, char *cmd);
+int	pipex(t_env *data, char *cmd);
 void	puterror(char *str);
 void	*ft_memdel(void *ptr);
 
-int cmdlexer(char **cmd, t_env *d_env);
+int cmdlexer(char *cmd, t_env *d_env);
 
 char **sort_exp(char **env);
 
+void tokenize(char *line);
+char	*ft_pgross_str(char *line);
+char	*ft_epur_str(char *line);
+int execute(char **input, t_data *data, t_env *d_env);
 
 #endif

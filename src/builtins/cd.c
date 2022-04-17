@@ -13,8 +13,14 @@ int pwd()
 
 int cd(char **cmd)
 {
+	char *togo = NULL;
 	// if(cmd[1][0] == '~');
-
-	if(chdir(cmd[1]) == -1) return -1;
+	if(!cmd[1])
+		return 134;
+	if(cmd[1][0] == '~')
+		togo = ft_strjoin(getenv("HOME"),ft_substr(cmd[1], 1, ft_strlen(cmd[1]) - 1));
+	printf("%s\n", togo);
+	if(chdir(togo) == -1)
+		return -1;
 	return 0;
 }

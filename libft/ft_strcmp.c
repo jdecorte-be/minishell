@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.s19.be>             +#+  +:+       +#+        */
+/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 07:53:16 by lxu-wu            #+#    #+#             */
-/*   Updated: 2021/12/18 18:27:32 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2021/12/21 06:49:50 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	ft_strcmp(char *s1, char *s2)
 	i = 0;
 	if (!s1)
 	{
-		write(1, "\b\b", 2);
-		return (0);
+		free(s1);
+		return (-1);
 	}
 	while (s1[i] || s2[i])
 	{
