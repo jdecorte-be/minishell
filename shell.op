@@ -1,0 +1,9 @@
+Makefile
+inc
+libft
+me.op
+minishell
+minishell.dSYM
+shell.op
+src
+tester.sh

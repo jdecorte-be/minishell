@@ -44,22 +44,19 @@ int export(char **cmd,t_env *data)
         // if(checkvalid(cmd[i]) != -1 || checkvalid(cmd[i]) != 1)
         //     return 0;
         char *str = my_getenv(cmd[i], data->l_exp);
-        printf("export %s\n", str);
         if(str != NULL)
         {
-            t_list *new3 = ft_lstnew(cmd[i]);
-            unset(cmd, data);
-            ft_lstadd_back(&data->l_env, new3);
+            printf("export %s\n", str);
+            replace_env(cmd[i], data->l_exp);
+            replace_env(cmd[i], data->l_env);
         }
         else if(check_format(cmd[i]) == 1)
         {
-            printf("OK1");
             t_list *new1 = ft_lstnew(ft_strjoin(cmd[i], "=\'\'"));
             ft_lstadd_back(&data->l_exp, new1);
         }
         else if(check_format(cmd[i]) == 2)
         {
-            printf("OK2");
             t_list *new2 = ft_lstnew(cmd[i]);
             ft_lstadd_back(&data->l_env, new2);
             ft_lstadd_back(&data->l_exp, new2);

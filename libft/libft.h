@@ -14,7 +14,7 @@ void	ft_error(int e);
 
 typedef struct s_list
 {
-	void			*content;
+	char			*content;
 	struct s_list	*next;
 }	t_list;
 

@@ -9,7 +9,7 @@ char *my_getenv(char *tochr, t_list *lst)
 	while(tmp != NULL)
 	{
 		if(ft_strcmp(ft_substr(tmp->content, 0, i), ft_substr(tochr, 0, i)) == 0)
-			return ft_substr(tmp->content, i, ft_strlen(tmp->content));
+			return ft_substr(tmp->content, i + 1, ft_strlen(tmp->content));
 		tmp = tmp->next;
 	}
 	return NULL;

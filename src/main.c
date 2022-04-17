@@ -1,5 +1,30 @@
 #include "../inc/minishell.h"
 
+static int getshlvl(char *str)
+{
+    int neg;
+	int i;
+	int num;
+
+	i = 0;
+	neg = 1;
+	num = 0;
+	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || str[i] == '\v'
+			|| str[i] == '\f' || str[i] == '\r')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			neg *= -1;
+		i++;
+	}
+	while (str[i] >= 48 && str[i] <= 57)
+	{
+		num = num * 10 + (str[i] - 48);
+		i++;
+	}
+	return (num * neg);
+}
 
 void	ft_free_tab(char **tab)
 {
@@ -48,17 +73,24 @@ void sigint_handler(int signum)
     //     write(1, " ➜  42-minishell   \b\b", 23);
     // else if(signum == 18)
     //     write(1, "\r\b\b", 4);
-    ft_putstr_fd("\b\b  \n\e[0;36m ➜ ", 1);
+    ft_putstr_fd("\n\e[0;36m ➜ ", 1);
     ft_putstr_fd(formpath(), 1);
 }
 
 int	main(int ac, char **av, char **env)
 {
+    (void)av;
+    t_env   *d_env;
+	t_data	*data;
 
-    t_env   *d_env = malloc(sizeof(t_env));
-	t_data	*data = malloc(sizeof(t_data));
-	char	*line;
+    if(!(d_env = malloc(sizeof(t_env))))
+        return 0;
+    if(!(data = malloc(sizeof(t_data))))
+        return 0;
 
+    *env = "Hello";
+    char *str = getenv("PATH");
+    str = 0;
     data->lastret = 0;
     d_env->env = env;
     d_env->exp = env;
@@ -66,34 +98,19 @@ int	main(int ac, char **av, char **env)
     d_env->l_exp = list_env(env);
 
 
-
-// testing =================================================
-    if(ft_strcmp(av[1], "-c") == 0)
-    {
-        line = ft_strdup(av[2]);
-        line = ft_epur_str(ft_pgross_str(line));
-        // printf("%s\n", line);
-        tokenize(line);
-        char **res = ft_split(line, "\1");
-        execute(res, data, d_env);
-
-        ft_free_tab(res);
-		free(line);
-        return 0;
+	char	*line;
 
 
 
 
 
-
-    }
-
-
-// ==================================
-
-
-
-
+    char *nbrchar = my_getenv("SHLVL", d_env->l_env);
+    char *test = getenv("SHLVL");
+    printf("%s\n", test);
+    printf("%s\n", nbrchar);
+    int shlvl = getshlvl(nbrchar) + 1;
+    printf("%d\n", shlvl);
+    replace_env(ft_strjoin("SHLVL=", ft_itoa(shlvl)), d_env->l_env);
 
 
     if(ac != 1)
@@ -120,12 +137,4 @@ int	main(int ac, char **av, char **env)
         ft_free_tab(res);
 		free(line);
 	}
-	// int i = 0;
-	// tab = ft_split2(line, "\t\f\r\v\n ");
-	// while(tab[i])
-	// {
-	// 	printf("|%s|\n", tab[i]);
-	// 	i++;
-	// }
-	// printf("")
 }
