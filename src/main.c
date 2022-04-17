@@ -85,7 +85,11 @@ int	main(int argc, char **argv, char **envp)
 		// data.cmd = ft_creat_cmd(data.line);
 		// printf("4\n");
 
-		
+
+		// dup2(3, 0);
+		// tab[0] = "cat";
+		// tab[1] = 0;
+		// execve("/bin/cat", tab, envp);
 		// fd[1] = dup(1);
 		// fd[0] = dup(0);
 		// tab[0] = "cat";

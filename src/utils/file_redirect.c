@@ -42,21 +42,26 @@ void	nothing(void)
 }
 
 
-char	*ft_chrredirect(char *line, char c, int *open, size_t *v)
+char	*ft_chrredirect(char *line, int *open, int *open2, size_t *v)
 {
 	size_t	end;
 	size_t	start;
 	int		i;
+	int		i2;
 
 	end = 0;
 	i = 2;
+	i2 = 2;
 	if (line[end] == '<')
-		end++;
+		while (line[end] == '<' && i2--)
+			end++;
 	else
 		while (line[end] == '>' && i--)
 			end++;
 	if (i == 0)
 		*open = 1;
+	if (i2 == 0)
+		*open2 = 1;
 	while (ft_isspace(line[end]))
 		end++;
 	start = end;
@@ -66,7 +71,7 @@ char	*ft_chrredirect(char *line, char c, int *open, size_t *v)
 	return (ft_substr(line, start, end - start));//remplacer le 0 par start; et end par end - start;
 }
 
-t_list	*ft_file(char *line, char c, int *open)
+t_list	*ft_file(char *line, char c, int *open, int *open2)
 {
 	t_list	*lst;
 	size_t	i;
@@ -101,16 +106,16 @@ t_list	*ft_file(char *line, char c, int *open)
 				i++;
 			}
 		}
-		else if (line[i] && line[i] == c && line[i + 1] && line[i + 1] != '<')
+		else if (line[i] && line[i] == c && line[i + 1])
 		{
 			v = 0;
-			str = ft_chrredirect(line + i, c, open, &v);
+			str = ft_chrredirect(line + i, open, open2, &v);
 			ft_lstadd_back(&lst, ft_lstnew(str));
 			i += v;
 			// i += ft_strlen(str);
 		}
-		else if (line[i] && line[i + 1] && line[i] == '<' && line[i + 1] == '<')
-			i += 2;
+		// else if (line[i] && line[i + 1] && line[i] == '<' && line[i + 1] == '<')
+		// 	i += 2;
 		else if (line[i])
 			i++;
 
@@ -127,6 +132,7 @@ t_redirect	ft_init_redirect(void)
 	file.infd = 0;
 	file.outfd = 1;
 	file.open = 0;
+	file.open2 = 0;
 	return (file);
 }
 
@@ -140,8 +146,8 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 	if (!line)
 		return (file);
 	tmp = file;
-	file.infile = ft_file(line, '<', &(file.open));
-	file.outfile = ft_file(line, '>', &(file.open));
+	file.infile = ft_file(line, '<', &(file.open), &(file.open2));
+	file.outfile = ft_file(line, '>', &(file.open), &(file.open2));
 	if (e)
 	{
 		if (e == 1)
@@ -158,9 +164,16 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 			// printf("infile %s\n", file.infile->content);
 			if (ft_chwc_ok2(file.infile->content) || ft_transf(file.infile->content))
 			{
+				// printf("%s\n", file.infile->content);
 				if (file.infd != tmp.infd)
 					close(file.infd);
-				file.infd = open(ft_ecrase_q(ft_redirect_chwc(file.infile->content)), O_RDONLY);
+				if (file.open2 == 0)
+					file.infd = open(ft_ecrase_q(ft_redirect_chwc(ft_cut_chevron(file.infile->content))), O_RDONLY);
+				else if (file.open2 == 1)
+				{
+					file.infd = ft_here_doc(ft_ecrase_q(ft_redirect_chwc(file.infile->content)));
+					// printf("caca\n");
+				}
 				if (file.infd == -1)
 					perror("open rd");
 			}
@@ -177,11 +190,11 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 			if (ft_chwc_ok2(file.outfile->content) || ft_transf(file.outfile->content))
 			{
 				if (file.outfd != tmp.outfd)
-					close(file.outfd); 
+					close(file.outfd);
 				if (file.open == 0)
-					file.outfd = open(ft_ecrase_q(ft_redirect_chwc(file.outfile->content)), O_WRONLY | O_TRUNC | O_CREAT, 0644);
+					file.outfd = open(ft_ecrase_q(ft_redirect_chwc(ft_cut_chevron(file.outfile->content))), O_WRONLY | O_TRUNC | O_CREAT, 0644);
 				else if (file.open == 1)
-					file.outfd = open(ft_ecrase_q(ft_redirect_chwc(file.outfile->content)), O_WRONLY | O_APPEND | O_CREAT, 0644);
+					file.outfd = open(ft_ecrase_q(ft_redirect_chwc(ft_cut_chevron(file.outfile->content))), O_WRONLY | O_APPEND | O_CREAT, 0644);
 				if (file.outfd == -1)
 					perror("open wr");
 			}

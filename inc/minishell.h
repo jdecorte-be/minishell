@@ -21,6 +21,7 @@ typedef struct s_redirect
 	int		infd;
 	int		outfd;
 	int		open;
+	int		open2;
 }	t_redirect;
 
 typedef struct s_token
@@ -148,7 +149,7 @@ char	*ft_redirect_chwc(char *line);
 int		ft_chwc_ok2(char *line);
 char	*ft_transf(char *line);
 int		ft_hd_exist(char *line);
-void	ft_here_doc(t_token *data);
+int	ft_here_doc(char *line);
 
 char *tokenize(char *line);
 char **parsing(char *input);
