@@ -1,4 +1,4 @@
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 int what_im(char *input)
 {
@@ -78,11 +78,13 @@ int execute(char **input, t_data *data)
 	while(input[i])
 	{
 		data->stdin = dup(0);
-		data->stdout = dup(1);
+        data->stdout = dup(1);
 		if(ft_strcmp(input[i], "(") == 0)
 			data->is_subshell = 1;
 		if(ft_strcmp(input[i], ")") == 0)
 			data->is_subshell = 0;
+
+
 		// start
 		if(start == 1 && what_im(input[i]) == 0 && pipe_is_after(input, i) == 0)
 			data->lastret = cmd_exec(data, input[i]);
@@ -92,10 +94,13 @@ int execute(char **input, t_data *data)
 		{
 			data->is_pipe = 0;
 			data->lastret = last_pipe(data,input[i]);
+			printf("END\n");
 		}
-		else if(data->is_pipe == 1 || (start == 1 && what_im(input[i]) == 0 && pipe_is_after(input, i) == 1)|| (what_before(input, i) == 1 && data->lastret == 0 && what_im(input[i]) == 0 && (pipe_is_after(input, i) == 1 || (what_before(input, i) == 3 && pipe_is_after(input, i) == 1)))
+		else if(data->is_pipe == 1 || (start == 1 && what_im(input[i]) == 0 && pipe_is_after(input, i) == 1)|| 
+		(what_before(input, i) == 1 && data->lastret == 0 && what_im(input[i]) == 0 && (pipe_is_after(input, i) == 1 || (what_before(input, i) == 3 && pipe_is_after(input, i) == 1)))
 			|| (what_before(input, i) == 2 && data->lastret != 0 && what_im(input[i]) == 0 && (pipe_is_after(input, i) == 1 || (what_before(input, i) == 3 && pipe_is_after(input, i) == 1))))
 		{
+			if((start == 1 || what_before(input, start) == 3))
 			data->is_pipe = 1;
 			data->lastret = mid_pipe(data, input[i]);
 		}
@@ -107,12 +112,7 @@ int execute(char **input, t_data *data)
 			data->lastret = cmd_exec(data, input[i]);
 		// '|' behind cmd and no '|' after
 		// '|' behind cmd and '|' after
-		else if(data->is_pipe == 1 && what_im(input[i]) == 0 && pipe_is_after(input, i) == 1)
-			data->lastret = mid_pipe(data, input[i]);
-		// '||' behind the parentheses cmd
-		// '&&' behind the parentheses cmd
-		else if((what_before(input, i) == 2 && what_im(input[i]) == 0 && data->lastret != 0 && ft_strcmp(input[i - 1], "(") == 0) || (what_before(input, i) == 1 && what_im(input[i]) == 0 && data->lastret == 0 && ft_strcmp(input[i - 1], "(") == 0))
-			data->lastret = cmd_exec(data, input[i]);
+
 
 
 		// printf("---> %d\n", data->lastret);
