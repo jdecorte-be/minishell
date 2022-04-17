@@ -1,4 +1,4 @@
-#include "../../inc/minishell.h"
+#include "../../../inc/minishell.h"
 
 static size_t	ft_count_words(char *str, char *set)
 {

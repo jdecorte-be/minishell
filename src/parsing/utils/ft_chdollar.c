@@ -1,4 +1,4 @@
-#include "../../inc/minishell.h"
+#include "../../../inc/minishell.h"
 
 char	*ft_changedollar(char *line, t_list **dollar)
 {

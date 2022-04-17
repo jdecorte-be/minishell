@@ -26,64 +26,60 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 
+typedef struct s_redirect
+{
+	t_list	*infile;
+	t_list	*outfile;
+	int		infd;
+	int		outfd;
+	int		open;
+}	t_redirect;
+
+typedef struct s_token
+{
+	char			*cmd;
+	t_redirect		redirect;
+	struct s_token	*sup_token;
+	struct s_token	*sub_token;
+	struct s_token	*next;
+}	t_token;
+
 typedef struct s_cmd
 {
-	char			*line;
-	char			p;
-	char			n;
-	struct s_mcmd	*mcmd;
-	struct s_cmd	*next;
+	char				*line;
+	struct s_redirect	redirect;
+	struct s_cmd		*sup_cmd;
+	struct s_cmd		*sub_cmd;
+	struct s_cmd		*back;
+	struct s_cmd		*and;
+	struct s_cmd		*or;
 }	t_cmd;
 
 typedef struct s_data//  block de cmd  
 {
-	char	*line;// ls  //after prompt, without \32\32 space, "" or ''
 	char	**env;
 	int		lastret;
 	int		stdin;
 	int		stdout;
 	int		is_subshell;
 	int		is_pipe;
+	t_token	*token;
 }	t_data;
 
-
-
-typedef struct s_sep
+typedef struct s_tmp
 {
-	char	p;
-	char	n;
-}	t_sep;
+	int		i;
+	int		i2;
+	char	c;
+	t_list	*lst;
+	void	*tmp;
+	char	path[PATH_MAX];
+	char	**tab;
+	char	*str;
+	void	*ptr;
+	char	home[PATH_MAX];
+}	t_tmp;
 
-typedef struct s_fd
-{
-	int	in;
-	int	out;
-}	t_fd;
-
-typedef struct s_file
-{
-	char	**in;
-	char	**out;
-	char	*in_open_mode;
-}	t_file;
-
-typedef struct s_here_doc
-{
-	char				*rule;
-	struct s_here_doc	*next;
-}	t_here_doc;
-
-typedef struct s_mcmd//	cmd   ((ls )| cat)
-{
-	char			*line;
-	char			*path;
-	t_here_doc		*here_doc;
-	char			**cmdv;
-	t_sep			sep;
-	t_fd			fd;
-	t_file			file;
-	struct s_mcmd	*next;
-}	t_mcmd;
 
 
 char *prompt();
@@ -154,9 +150,6 @@ t_cmd	*ft_cmdnew(char	*line);
 t_cmd	*ft_cmdlast(t_cmd *cmd);
 void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new);
 
-t_mcmd	*ft_mcmdnew(char *line);
-t_mcmd	*ft_mcmdlast(t_mcmd *mcmd);
-void	ft_mcmdadd_back(t_mcmd **mcmd, t_mcmd *new);
 
 char	**ft_split2(char *str, char *set);
 char	*ft_onespace(char *line);
@@ -168,7 +161,6 @@ void	ft_count_words2(char *str, size_t *i, char *set);
 char	**ft_split3(char *str, char *set);
 
 t_cmd	*ft_creat_cmd(char *line);
-t_mcmd	*ft_creat_mcmd(char *line);
 char	*ft_pgross_str(char *line);
 char	*ft_chdollar(char *line);
 
@@ -198,8 +190,7 @@ int	pipe_handler(t_data *d_env, char **input, int *i);
 void	puterror(char *str);
 void	*ft_memdel(void *ptr);
 int pipe_is_after(char **input, int i);
-int cmdlexer(char *cmd, t_data *d_env);
-int cmd_exec(t_data *d_env, char *cmd);
+int exec(char *cmd, t_data *d_env);
 char **sort_exp(char **env);
 
 char *tokenize(char *line);
@@ -215,5 +206,14 @@ int splitlen(char **split);
 char	*ft_chdir(char *line);
 int what_im(char *input);
 int exit_cmd(char **s_cmd);
+int cmd_sys(t_data *d_env, char *cmd);
 
+
+t_token	*ft_tokennew(char *newcmd);
+t_token	*ft_sub_tokennew(char *newcmd, t_token *sup);
+t_token	*ft_tokenlast(t_token *token);
+void	ft_tokenadd_back(t_token **atoken, t_token *new);
+t_token	*ft_parsing(char *line);
+char    *ft_ecrase_q(char *word);
+char	*ft_ecrase_p(char *line);
 #endif

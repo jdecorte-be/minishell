@@ -19,12 +19,16 @@ SRCS = 	src/main.c\
 		src/builtins/utils.c\
 		\
         libft/libft.a\
-		src/utils/*\
+		src/parsing/utils/*\
 		src/signaux.c\
 		src/exec/exec.c\
 		src/exec/pipe.c\
 		src/exec/ope.c\
 		src/builtins/exit.c\
+		\
+		src/lst/cmdlst.c\
+		src/parsing/parsing.c\
+		src/parsing/file.c\
 
 $(NAME) :
 	make bonus -C libft

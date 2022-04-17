@@ -6,13 +6,13 @@
 /*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/01/23 16:28:21 by decortejohn      ###   ########.fr       */
+/*   Updated: 2022/01/23 17:27:33 by decortejohn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int cmdlexer(char *cmd, t_data *d_env)
+int exec(char *cmd, t_data *d_env)
 {
     char **s_cmd = ft_split(cmd," ");
 
@@ -34,7 +34,9 @@ int cmdlexer(char *cmd, t_data *d_env)
     else if(ft_strcmp(s_cmd[0], "unset") == 0)
         d_env->lastret = unset(s_cmd, d_env);
     else if(ft_strcmp(s_cmd[0], "exit") == 0)
-         exit_cmd(s_cmd);
+        exit_cmd(s_cmd);
+	else
+		d_env->lastret = cmd_sys(d_env, cmd);
     return -1;
 }
 
@@ -62,13 +64,11 @@ char *get_path(char *cmd)
 	return exec;
 }
 
-int cmd_exec(t_data *d_env, char *cmd)
+int cmd_sys(t_data *d_env, char *cmd)
 {
 	char **args = ft_split(cmd, " ");
-
-	if(cmdlexer(cmd, d_env) != -1)
-		return 0;
 	pid_t	pid;
+
 	pid = fork();
 	if (pid < 0)
 		return errno;

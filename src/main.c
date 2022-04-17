@@ -40,7 +40,6 @@ char *prompt()
 int	main(int ac, char **av, char **env)
 {
     (void)av;
-    int errno;
 
     if(!(data = malloc(sizeof(t_data))))
         return 0;
@@ -50,7 +49,6 @@ int	main(int ac, char **av, char **env)
     shlvlhandler(data);
 
 	char	*line;
-    int ret;
 
 
     if(ac != 1)
@@ -68,11 +66,10 @@ int	main(int ac, char **av, char **env)
         if(line[0] != '\n')
             add_history(line);
     
-        line = tokenize(ft_chdir(ft_chwc(ft_chdollar(ft_epur_str(ft_pgross_str(line))))));
-        char **res = ft_split(line, "\1");
-
+        line = ft_chdir(ft_chwc(ft_chdollar(ft_epur_str(ft_pgross_str(line)))));
+        data->token = ft_parsing(line);
         // to delete
-        ret = execute(res, data);
+        // ret = execute(res, data);
         wait(NULL);
     }
         // exit(ret);

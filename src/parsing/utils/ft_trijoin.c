@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_trijoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.s19.be>             +#+  +:+       +#+        */
+/*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 07:53:59 by lxu-wu            #+#    #+#             */
-/*   Updated: 2021/12/28 22:46:07 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/01/23 17:04:57 by decortejohn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#include "../../../inc/minishell.h"
 
 char	*ft_trijoin(char *s1, char *s2, char *s3)
 {

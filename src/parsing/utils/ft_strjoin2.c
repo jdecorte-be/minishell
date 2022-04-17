@@ -1,4 +1,4 @@
-#include "../../inc/minishell.h"
+#include "../../../inc/minishell.h"
 
 char	*ft_strjoin1(char const *s1, char const *s2)
 {

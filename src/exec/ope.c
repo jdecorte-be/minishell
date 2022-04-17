@@ -83,11 +83,9 @@ int execute(char **input, t_data *data)
 			data->is_subshell = 1;
 		if(ft_strcmp(input[i], ")") == 0)
 			data->is_subshell = 0;
-
-
 		// start
 		if(start == 1 && what_im(input[i]) == 0 && pipe_is_after(input, i) == 0)
-			data->lastret = cmd_exec(data, input[i]);
+			data->lastret = exec(input[i], data);
 		// start but pipe after
 		// no '|' behind cmd and '|' after
 		else if(data->is_pipe == 1  && what_before(input, i) == 3 && what_im(input[i]) == 0 && pipe_is_after(input, i) == 0)
@@ -106,10 +104,10 @@ int execute(char **input, t_data *data)
 		}
 		// '&&' behind cmd
 		else if(start == 0 && what_before(input, i) == 1 && what_im(input[i]) == 0 && data->lastret == 0)
-			data->lastret = cmd_exec(data, input[i]);
+			data->lastret = exec(input[i], data);
 		// '||' behind cmd
 		else if(start == 0 && what_before(input, i) == 2 && what_im(input[i]) == 0 && data->lastret != 0)
-			data->lastret = cmd_exec(data, input[i]);
+			data->lastret = exec(input[i], data);
 		// '|' behind cmd and no '|' after
 		// '|' behind cmd and '|' after
 

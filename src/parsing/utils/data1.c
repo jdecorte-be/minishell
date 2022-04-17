@@ -1,4 +1,4 @@
-#include "../../inc/minishell.h"
+#include "../../../inc/minishell.h"
 
 // t_data	*ft_datanew(char	*line)
 // {

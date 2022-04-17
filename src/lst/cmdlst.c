@@ -1,44 +1,55 @@
 #include "../../inc/minishell.h"
 
-t_cmd	*ft_cmdnew(char	*line)
+t_token	*ft_tokennew(char *newcmd)
 {
-	t_cmd	*cmd;
+	t_token	*token;
 
-	cmd = malloc(sizeof(cmd));
-	if (!cmd)
-		ft_error(2);
-	cmd->next = 0;
-	cmd->line = line;
-	cmd->p = 0;
-	cmd->n = 0;
-	cmd->mcmd = 0;
-	return (cmd);
+	token = malloc(sizeof(t_token));
+	token->cmd = newcmd;
+	token->sup_token = 0;
+	token->sub_token = 0;
+	token->next = 0;
+	return (token);
 }
 
-t_cmd	*ft_cmdlast(t_cmd *cmd)
+t_token	*ft_sub_tokennew(char *newcmd, t_token *sup)
 {
-	t_cmd	*tmp;
+	t_token	*token;
 
-	if (cmd)
-	{
-		tmp = cmd;
-		while (tmp->next)
-			tmp = tmp->next;
-	}
+	token = malloc(sizeof(t_token));
+	token->cmd = newcmd;
+	token->sup_token = sup;
+	token->sub_token = 0;
+	token->next = 0;
+	// token->redirect = redirect;
+	return (token);
+}
+
+t_token	*ft_tokenlast(t_token *token)
+{
+	t_token *tmp;
+
+	if (!token)
+		return (token);
+	tmp = token;
+	while (tmp->next)
+		tmp = tmp->next;
 	return (tmp);
 }
 
-void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new)
-{
-	t_cmd	*last_elem;
 
-	if (cmd && new)
+
+void	ft_tokenadd_back(t_token **atoken, t_token *new)
+{
+	t_token	*last_elem;
+
+	if (atoken && new)
 	{
-		if (!*cmd)
-			*cmd = new;
+		if (!*atoken)
+			*atoken = new;
 		else
 		{
-			last_elem = ft_cmdlast(*cmd);
+			last_elem = ft_tokenlast(*atoken);
 			last_elem->next = new;
 		}
 	}

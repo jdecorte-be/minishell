@@ -6,7 +6,7 @@
 /*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:22 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/01/23 16:25:22 by decortejohn      ###   ########.fr       */
+/*   Updated: 2022/01/23 17:34:37 by decortejohn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	mid_pipe(t_data *d_env, char *cmd)
 	{
 		close(p_fd[0]);
 		dup2(p_fd[1], 1);
-		d_env->lastret = cmdlexer(cmd, d_env);
+		d_env->lastret = exec(cmd, d_env);
 	}
 	else
 	{
@@ -46,7 +46,7 @@ int last_pipe(t_data *d_env, char *cmd)
 	if (pid < 0)
 		return errno;
 	if (!pid)
-		d_env->lastret = cmdlexer(cmd, d_env);
+		d_env->lastret = exec(cmd, d_env);
 	
 	dup2(d_env->stdin, 0);
 	dup2(d_env->stdout, 0);
