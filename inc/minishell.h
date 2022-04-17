@@ -131,6 +131,7 @@ int		ft_strrcmp2(const char *s1, const char *s2, size_t n);
 
 char	*ft_chdir(char *line);
 char	*ft_ecrase_q(char *word);
+
 int		ft_isprohibited(char *line);
 
 #endif
