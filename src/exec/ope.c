@@ -68,53 +68,45 @@ int have_pipe(char *cmd)
 	return 0;
 }
 
-int execute(char **input, t_data *data)
+int execute(t_token *token)
 {
-	int i = 0;
 	data->is_pipe = 0;
 	int start = 1;
-	if (!input || !*input)
-		return (0);
-	while(input[i])
+	t_token *tmp = token;
+
+	while(tmp)
 	{
 		data->stdin = dup(0);
         data->stdout = dup(1);
-		if(ft_strcmp(input[i], "(") == 0)
-			data->is_subshell = 1;
-		if(ft_strcmp(input[i], ")") == 0)
-			data->is_subshell = 0;
+
+		if(tmp->redirect.infd != 0)
+			dup2(tmp->redirect.infd, 0);
+		if(tmp->redirect.outfd != 0)
+			dup2(tmp->redirect.outfd, 1);
+
+
 		// start
-		if(start == 1 && what_im(input[i]) == 0 && pipe_is_after(input, i) == 0)
-			data->lastret = exec(input[i], data);
-		// start but pipe after
-		// no '|' behind cmd and '|' after
-		else if(data->is_pipe == 1  && what_before(input, i) == 3 && what_im(input[i]) == 0 && pipe_is_after(input, i) == 0)
+		if(start == 1 && what_im(tmp->cmd) == 0)
+			data->lastret = exec(tmp->cmd);
+		else if(start == 0 && what_im(tmp->cmd) == 1)
 		{
-			data->is_pipe = 0;
-			data->lastret = last_pipe(data,input[i]);
-			printf("END\n");
+			if(data->lastret == 0 && tmp->next)
+			{
+				tmp = tmp->next;
+				data->lastret = exec(tmp->cmd);
+			}
 		}
-		else if(data->is_pipe == 1 || (start == 1 && what_im(input[i]) == 0 && pipe_is_after(input, i) == 1)|| 
-		(what_before(input, i) == 1 && data->lastret == 0 && what_im(input[i]) == 0 && (pipe_is_after(input, i) == 1 || (what_before(input, i) == 3 && pipe_is_after(input, i) == 1)))
-			|| (what_before(input, i) == 2 && data->lastret != 0 && what_im(input[i]) == 0 && (pipe_is_after(input, i) == 1 || (what_before(input, i) == 3 && pipe_is_after(input, i) == 1))))
+		else if(start == 0 && what_im(tmp->cmd) == 2)
 		{
-			if((start == 1 || what_before(input, start) == 3))
-			data->is_pipe = 1;
-			data->lastret = mid_pipe(data, input[i]);
+			if(data->lastret != 0 && tmp->next)
+			{
+				tmp = tmp->next;
+				data->lastret = exec(tmp->cmd);
+			}
 		}
-		// '&&' behind cmd
-		else if(start == 0 && what_before(input, i) == 1 && what_im(input[i]) == 0 && data->lastret == 0)
-			data->lastret = exec(input[i], data);
-		// '||' behind cmd
-		else if(start == 0 && what_before(input, i) == 2 && what_im(input[i]) == 0 && data->lastret != 0)
-			data->lastret = exec(input[i], data);
-		// '|' behind cmd and no '|' after
-		// '|' behind cmd and '|' after
-
-
-
-		// printf("---> %d\n", data->lastret);
-		i++;
+		dup2(data->stdin, 0);
+		dup2(data->stdout, 1);
+		tmp = tmp->next;
 		start = 0;
 	}
 	return data->lastret ;

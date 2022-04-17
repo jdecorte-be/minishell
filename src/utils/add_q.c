@@ -87,6 +87,7 @@ char	*ft_add_q_dollar(char *line)
 	size_t	start;
 	char	*str;
 	int		trig;
+	char	c;
 
 	if (!line)
 		return (line);

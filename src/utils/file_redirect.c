@@ -4,6 +4,7 @@ int	ft_redirect_check(t_redirect file)
 {
 	t_list	*tmp;
 	char	c;
+	int		fd;
 
 	tmp = file.infile;
 	while (tmp)
@@ -43,7 +44,6 @@ void	nothing(void)
 
 char	*ft_chrredirect(char *line, char c, int *open, size_t *v)
 {
-	(void)c;
 	size_t	end;
 	size_t	start;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:27:52 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/01/23 16:32:26 by decortejohn      ###   ########.fr       */
+/*   Updated: 2022/01/23 19:58:46 by decortejohn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int exit_cmd(char **s_cmd)
         else if ((s_cmd[1][0] == '-' && ft_isdigit(s_cmd[1][1])))
             return 2;
         else if (((s_cmd[1][0] == '-' || s_cmd[1][0] == '+') && (s_cmd[1][1] == '-' || s_cmd[1][1] == '+'))|| (s_cmd[1][0] == '-'  && ft_isdigit(s_cmd[1][1])))
-            return 255;
+            return 2;
         exit(ft_atoi(s_cmd[1]));
 
         return 0;

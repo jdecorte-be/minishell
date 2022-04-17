@@ -2,14 +2,14 @@ NAME = minishell
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -lreadline -g -fsanitize=address
+CFLAGS = -lreadline -g -fsanitize=address
 
 RM = rm -rf
 
 SRCS = 	src/main.c\
         src/utils.c\
 		src/ft_error.c\
-		src/parsing/clean.c\
+		src/cleanstr.c\
 		\
 		src/builtins/rep.c\
 		src/builtins/echo.c\

@@ -21,10 +21,7 @@ int cd(char **cmd, t_data *d_env)
 	if(!cmd[1])
 		return 134;
 	if(chdir(cmd[1]) == -1)
-	{
 		perror("cd");
-		exit(0);
-	}
 	else
 	{
 		if(!getcwd(pwd_buff , sizeof(pwd_buff)))

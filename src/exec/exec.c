@@ -6,38 +6,35 @@
 /*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/01/23 17:27:33 by decortejohn      ###   ########.fr       */
+/*   Updated: 2022/01/23 23:52:55 by decortejohn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int exec(char *cmd, t_data *d_env)
+int exec(char *cmd)
 {
     char **s_cmd = ft_split(cmd," ");
 
-    if(d_env->is_subshell == 1)
-    {
-        d_env->is_subshell = 0;
-        d_env->lastret = subshell(cmd, d_env);
-    }
-    else if(ft_strcmp(s_cmd[0], "echo") == 0)
-        d_env->lastret = echo(s_cmd);
+    if(cmd[0] == '(')
+       return subshell(ft_substr(cmd, 1, ft_strlen(cmd) - 2), data);
+	if(ft_strcmp(s_cmd[0], "echo") == 0)
+        return echo(s_cmd);
     else if(ft_strcmp(s_cmd[0], "cd") == 0)
-        d_env->lastret = cd(s_cmd, d_env);
+        return cd(s_cmd, data);
     else if(ft_strcmp(s_cmd[0], "pwd") == 0)
-        d_env->lastret = pwd();
+        return pwd();
     else if(ft_strcmp(s_cmd[0], "env") == 0)
-        d_env->lastret = print_env(d_env->env);
+        return print_env(data->env);
     else if(ft_strcmp(s_cmd[0], "export") == 0)
-        d_env->lastret = export(s_cmd, d_env);
+        return export(s_cmd, data);
     else if(ft_strcmp(s_cmd[0], "unset") == 0)
-        d_env->lastret = unset(s_cmd, d_env);
+        return unset(s_cmd, data);
     else if(ft_strcmp(s_cmd[0], "exit") == 0)
         exit_cmd(s_cmd);
 	else
-		d_env->lastret = cmd_sys(d_env, cmd);
-    return -1;
+		return cmd_sys(cmd);
+	return -1;
 }
 
 char *get_path(char *cmd)
@@ -64,26 +61,29 @@ char *get_path(char *cmd)
 	return exec;
 }
 
-int cmd_sys(t_data *d_env, char *cmd)
+int cmd_sys(char *cmd)
 {
 	char **args = ft_split(cmd, " ");
 	pid_t	pid;
+	int		ret;
 
 	pid = fork();
 	if (pid < 0)
 		return errno;
 	if (!pid)
-		d_env->lastret = execve(get_path(cmd), &args[0], d_env->env);
-	wait(&pid);
-	return d_env->lastret;
+		execve(get_path(cmd), &args[0], data->env);
+	else
+		waitpid(pid, &ret, 0);
+		
+	return ret;
 }
 
 int subshell(char *line, t_data *data)
 {
     int ret;
 
-    line = tokenize(ft_chdir(ft_chwc(ft_chdollar(ft_epur_str(ft_pgross_str(line))))));
-    char **res = ft_split(line, "\1");
-    ret = execute(res, data);
-    exit(ret);
+    line = ft_epur_str(ft_chwc(ft_add_q_dollar(ft_chdir(ft_chdollar(ft_pgross_str((line)))))));
+	t_token *token = ft_parsing(line);
+    ret = execute(token);
+	return ret;
 }

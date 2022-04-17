@@ -26,6 +26,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 
+
 typedef struct s_redirect
 {
 	t_list	*infile;
@@ -63,6 +64,7 @@ typedef struct s_data//  block de cmd
 	int		stdout;
 	int		is_subshell;
 	int		is_pipe;
+	int		pipe[2];
 	t_token	*token;
 }	t_data;
 
@@ -79,6 +81,11 @@ typedef struct s_tmp
 	void	*ptr;
 	char	home[PATH_MAX];
 }	t_tmp;
+
+
+t_data	*data;
+
+
 
 
 
@@ -138,7 +145,7 @@ char **sort_exp(char **env);
 char *tokenize(char *line);
 char	*ft_pgross_str(char *line);
 char	*ft_epur_str(char *line);
-int execute(char **input, t_data *data);
+int execute(t_token *token);
 
 
 
@@ -182,7 +189,7 @@ void	ft_free_tab(char **tab);
 char	*ft_trijoin1(char *s1, char *s2, char *s3);
 char	*ft_trijoin2(char *s1, char *s2, char *s3);
 char	*ft_trijoin3(char *s1, char *s2, char *s3);
-
+char *tokenize(char *line);
 char	*ft_strjoin1(char const *s1, char const *s2);
 char	*ft_strjoin2(char const *s1, char const *s2);
 char	*ft_strjoin3(char const *s1, char const *s2);
@@ -190,7 +197,7 @@ int	pipe_handler(t_data *d_env, char **input, int *i);
 void	puterror(char *str);
 void	*ft_memdel(void *ptr);
 int pipe_is_after(char **input, int i);
-int exec(char *cmd, t_data *d_env);
+int exec(char *cmd);
 char **sort_exp(char **env);
 
 char *tokenize(char *line);
@@ -209,7 +216,7 @@ int splitlen(char **split);
 char	*ft_chdir(char *line);
 int what_im(char *input);
 int exit_cmd(char **s_cmd);
-int cmd_sys(t_data *d_env, char *cmd);
+int cmd_sys(char *cmd);
 
 char	*ft_ecrase_q(char *word);
 char	*ft_ecrase_p(char *line);

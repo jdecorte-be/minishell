@@ -4,7 +4,8 @@ int	ft_parse_error(int e)
 {
 	if (e == 1)
 		write(2, "prohibited character or input not close\n", 40);
-	exit(EXIT_FAILURE);
+	// exit(EXIT_FAILURE);
+	return 0;
 }
 
 int	ft_isprohibited(char *line)

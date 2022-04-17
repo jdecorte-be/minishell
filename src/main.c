@@ -11,7 +11,25 @@
 //     }
 // }
 
-t_data	*data;
+void printlist(t_token *token)
+{
+    int i = 0;
+    while(token)
+    {
+        printf("%s\n", token->cmd);
+        printf("%d\n", token->redirect.infd);
+        printf("%d\n", token->redirect.outfd);
+    // if (token->sub_token)
+    //     token = token->sub_token;
+    // else if (token->next)
+    //     token = token->next;
+    // else if (!token->next && token->sup_token)
+    //     token = token->sup_token->next;
+    // else
+        token = token->next;
+    }
+}
+
 
 void shlvlhandler(t_data *data)
 {
@@ -66,11 +84,11 @@ int	main(int ac, char **av, char **env)
         if(line[0] != '\n')
             add_history(line);
     
-        line = ft_chdir(ft_chwc(ft_chdollar(ft_epur_str(ft_pgross_str(line)))));
-        data->token = ft_parsing(line);
+        line = ft_epur_str(ft_chwc(ft_add_q_dollar(ft_chdir(ft_chdollar(ft_pgross_str((line)))))));
+        t_token *token = ft_parsing(line);
+        // printlist(data->token);
         // to delete
-        // ret = execute(res, data);
-        wait(NULL);
+        execute(token);
     }
         // exit(ret);
 
