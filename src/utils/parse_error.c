@@ -12,6 +12,8 @@ int	ft_isprohibited(char *line)
 	size_t	i;
 	int		quote;
 
+	if (!line)
+		return (0);
 	i = 0;
 	quote = 0;
 	while (line[i])

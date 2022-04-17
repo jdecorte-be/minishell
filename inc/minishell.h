@@ -133,5 +133,6 @@ char	*ft_chdir(char *line);
 char	*ft_ecrase_q(char *word);
 
 int		ft_isprohibited(char *line);
+char	*ft_cutoff(char *str, size_t start, size_t len);
 
 #endif
