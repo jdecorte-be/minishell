@@ -125,5 +125,6 @@ void tokenize(char *line);
 char	*ft_pgross_str(char *line);
 char	*ft_epur_str(char *line);
 int execute(char **input, t_data *data, t_env *d_env);
+char	*ft_strjoin2(char const *s1, char const *s2);
 
 #endif

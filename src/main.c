@@ -52,8 +52,6 @@ int	main(int ac, char **av, char **env)
     t_env   *d_env = malloc(sizeof(t_env));
 	t_data	*data = malloc(sizeof(t_data));
 
-	t_data	data;
-
 	char	*line;
 
 	data->isprio = 0;

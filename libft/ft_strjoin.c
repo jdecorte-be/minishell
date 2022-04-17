@@ -6,7 +6,7 @@
 /*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 09:59:42 by lxu-wu            #+#    #+#             */
-/*   Updated: 2021/12/28 20:51:03 by jdecorte         ###   ########.fr       */
+/*   Updated: 2021/12/28 22:35:09 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,5 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (s2[++i])
 		dst[len_s1 + i] = s2[i];
 	dst[len_s1 + i] = '\0';
-	free((void *)s1);
-	free((void *)s2);
 	return (dst);
 }
