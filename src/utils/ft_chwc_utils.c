@@ -136,6 +136,7 @@ t_list	*ft_readfile(char *wc, DIR *loc, char mode, char *add)
 	}
 	// str = ft_lstmerge(match);
 	ft_free_tab(wc_tab);
+	ft_sort_word(match);
 	// ft_lstclear(&match, free);
 	return (match);
 }
