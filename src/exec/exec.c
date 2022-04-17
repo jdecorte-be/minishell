@@ -6,7 +6,7 @@
 /*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/01/26 14:22:17 by decortejohn      ###   ########.fr       */
+/*   Updated: 2022/01/26 14:29:12 by decortejohn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,6 @@ int cmd_sys(char *cmd)
 			dup2(data->stdin, 0);
 		waitpid(pid, &ret, 0);
 	}
-	if(data->stdin != 0)
-		close(data->stdin);
-	if(data->stdout != 1)
-		close(data->stdout);
 	return ret;
 }
 
