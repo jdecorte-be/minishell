@@ -23,12 +23,9 @@ t_list	*ft_wcsearch(char *line)
 			{
 				if (line[end++] == '*')
 				{
-					printf("1\n");
 					c1 = 1;
 				}
 			}
-			printf("start =  %zu\nend = %zu\n", start, end);
-			printf("str = %s\n", line + start);
 			if (c1 == 1)
 				ft_lstadd_back(&wc, ft_lstnew(ft_substr(line, start, end - start)));
 		}
@@ -44,17 +41,25 @@ int	ft_wcmatch(char **wc_tab, char *file)
 	size_t	len;
 
 	i = 0;
-	while (wc_tab[i] && *file)
+	while (wc_tab[i])
 	{
+		// printf("%s\n", file);
 		len = ft_strlen(wc_tab[i]);
-		if (wc_tab[i] && *(wc_tab[i]) == '*')
+		if (wc_tab[i] && *(wc_tab[i]) == '*' && ++i)
 		{
-			len = ft_strlen(wc_tab[i++]);
-			while (ft_exist(file, len - 1) && (!wc_tab[i] || ft_strncmp(file, wc_tab[i], len - 1)))
-				file++;
+			len = ft_strlen(wc_tab[i]);
+			if (wc_tab[i])
+				while (*file && ft_exist(file, len - 1) && ft_strncmp(file, wc_tab[i], len - 1))
+					file++;
+			else
+				while (*file)
+					file++;
 		}
-		else if (wc_tab[i] && ft_exist(file, len - 1) && !ft_strncmp(file, wc_tab[i], len - 1) && ++i)
+		else if (*file && wc_tab[i] && wc_tab[i + 1] && ft_exist(file, len - 1) && !ft_strncmp(file, wc_tab[i], len - 1) && ++i)
 			file += len;
+		else if (*file && wc_tab[i] && !wc_tab[i + 1] && ft_exist(file, len - 1) && !ft_strrcmp(file, wc_tab[i], len - 1) && ++i)
+			while (*file)
+				file++;
 		else
 			break ;
 	}
@@ -77,10 +82,9 @@ t_list	*ft_readfile(char *wc, DIR *loc)
 	file = readdir(loc);
 	while (file)
 	{
-		printf("%s\n", file->d_name);
+		printf("%s %d\n", file->d_name, ft_wcmatch(wc_tab, file->d_name));
 		if (ft_wcmatch(wc_tab, file->d_name))
 		{
-			printf("wc match = %d\n", ft_wcmatch(wc_tab, file->d_name));
 			ft_lstadd_back(&match, ft_lstnew(file->d_name));
 			// str = ft_merge(match);
 			ft_lstclear(&match, 0);

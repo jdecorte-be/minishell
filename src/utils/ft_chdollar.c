@@ -177,7 +177,6 @@ char	*ft_chdollar(char *line)
 	len = ft_chdollar_len(line, &dollar);
 	str = malloc(sizeof(*str) * len + 1);
 	str = ft_chdollar_str(str, line, dollar, len);
-	printf("line line = %s\n", str);
 	free(line);
 	return (str);
 }

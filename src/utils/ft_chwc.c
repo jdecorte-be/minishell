@@ -20,7 +20,6 @@ char	*ft_chwc(char *line)
 	name = 0;
 	if (!line)
 		return (0);
-	printf("line = %s\n", line);
 	wc = ft_wcsearch(line);
 	while (wc)
 	{

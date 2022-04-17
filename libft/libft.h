@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 10:03:35 by lxu-wu            #+#    #+#             */
-/*   Updated: 2021/12/22 16:25:30 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2021/12/22 21:22:08 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+int		ft_strrcmp(const char *s1, const char *s2, size_t n);
 t_list	*ft_next(t_list *lst);
 void	ft_error(int e);
 char	*get_next_line(int fd);
