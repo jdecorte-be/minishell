@@ -72,10 +72,11 @@ size_t	ft_chdollar_len(char *line, t_list **dollar)
 							count += ft_strlen(ft_changedollar(ft_substr(line, start, end - start), dollar));
 						}
 					}
-					else
+					else if (line[i])
 						i++;
 				}
-				i++;
+				if (line[i])
+					i++;
 			}
 		}
 		else if (line[i] && line[i + 1] && line[i] == '$' && !ft_strchr("\n\f\v\r\t \"+/%^~:.,   …•¶§∞¢£™¡", line[i + 1]))
@@ -144,10 +145,11 @@ char	*ft_chdollar_str(char *str, char *line, t_list *dollar, size_t len)
 							dollar = ft_next(dollar);
 						}
 					}
-					else
+					else if (line[i])
 						str[i2++] = line[i++];
 				}
-				str[i2++] = line[i++];
+				if (line[i])
+					str[i2++] = line[i++];
 			}
 		}
 		else if (line[i] && line[i + 1] && line[i] == '$' && !ft_strchr("\n\f\v\r\t +/%^~:.,\"\'   …•¶§∞¢£™¡", line[i + 1]) && ++i)
@@ -167,7 +169,7 @@ char	*ft_chdollar_str(char *str, char *line, t_list *dollar, size_t len)
 		}
 		else if (line[i] && line[i] == '$' && line[i + 1] && ft_strchr("\'\"", line[i + 1]))
 			i++;
-		else
+		else if (line[i])
 		{
 			str[i2++] = line[i++];
 		}

@@ -72,6 +72,7 @@ char	*ft_woquote(char *line)
 			else if (line[i2])
 				str[i++] = line[i2++];
 		}
+		str[i] = 0;
 	}
 	else
 		return (ft_strdup(line));

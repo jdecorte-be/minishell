@@ -109,13 +109,13 @@ char	*ft_chwc(char *line)
 	tmp = wc;
 	while (tmp)
 	{
-		ft_lstadd_back(&woq, ft_lstnew(ft_woquote(tmp->content)));
+		ft_lstadd_back(&name, ft_lstnew(ft_wcfile(tmp->content)));
 		tmp = tmp->next;
 	}
-	tmp = woq;
+	tmp = wc;
 	while (tmp)
 	{
-		ft_lstadd_back(&name, ft_lstnew(ft_wcfile(tmp->content)));
+		ft_lstadd_back(&woq, ft_lstnew(ft_woquote(tmp->content)));
 		tmp = tmp->next;
 	}
 	if (!name)
