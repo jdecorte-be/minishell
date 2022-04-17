@@ -28,7 +28,7 @@ size_t	ft_pgross_len(char *line)
 	return (i + count);
 }
 
-void	ft_pgross_creat2(char *str, size_t *i, size_t *i2, char *line)
+void	ft_pgross_creat3(char *str, size_t *i, size_t *i2, char *line)
 {
 	str[(*i)++] = ' ';
 	str[(*i)++] = line[(*i2)++];
@@ -36,11 +36,29 @@ void	ft_pgross_creat2(char *str, size_t *i, size_t *i2, char *line)
 	str[(*i)++] = ' ';
 }
 
-void	ft_pgross_creat3(char *str, size_t *i, size_t *i2, char *line)
+void	ft_pgross_creat2(char *str, size_t *i, size_t *i2, char *line)
 {
-	str[(*i)++] = ' ';
-	str[(*i)++] = line[(*i2)++];
-	str[(*i)++] = ' ';
+	char	c;
+
+	if (ft_strchr("\'\"", line[*i2]))
+	{
+		c = line[*i2];
+		str[(*i)++] = line[(*i2)++];
+		while (line[*i2] && line[*i2] != c)
+			str[(*i)++] = line[(*i2)++];
+		str[(*i)++] = line[(*i2)++];
+	}
+	else if (!ft_strncmp(&line[*i2], "&&", 2)
+		|| !ft_strncmp(&line[*i2], "||", 2))
+		ft_pgross_creat3(str, i, i2, line);
+	else if (ft_strchr("()|&", line[*i2]))
+	{
+		str[(*i)++] = ' ';
+		str[(*i)++] = line[(*i2)++];
+		str[(*i)++] = ' ';
+	}
+	else
+		str[(*i)++] = line[(*i2)++];
 }
 
 static char	*ft_pgross_creat(char *str, char *line)
@@ -52,23 +70,8 @@ static char	*ft_pgross_creat(char *str, char *line)
 	i = 0;
 	i2 = 0;
 	while (line[i2])
-	{
-		if (ft_strchr("\'\"", line[i2]))
-		{
-			c = line[i2];
-			str[i++] = line[i2++];
-			while (line[i2] && line[i2] != c)
-				str[i++] = line[i2++];
-			str[i++] = line[i2++];
-		}
-		else if (!ft_strncmp(&line[i2], "&&", 2)
-			|| !ft_strncmp(&line[i2], "||", 2))
-			ft_pgross_creat2(str, &i, &i2, line);
-		else if (ft_strchr("()|&", line[i2]))
-			ft_pgross_creat3(str, &i, &i2, line);
-		else
-			str[i++] = line[i2++];
-	}
+		ft_pgross_creat2(str, &i, &i2, line);
+	str[i] = 0;
 	return (str);
 }
 
