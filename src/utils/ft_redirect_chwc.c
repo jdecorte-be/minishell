@@ -124,6 +124,7 @@ char	*ft_redirect_chwc(char *line)
 	// printf("1\n");
 	name = 0;
 	tmp = wc;
+	woq = 0;
 	while (tmp)
 	{
 		ft_lstadd_back(&name, ft_lstnew(ft_transf(ft_ecrase_q(tmp->content))));
