@@ -75,3 +75,39 @@ char	*ft_woquote(char *line)
 		return (line);
 	return (str);
 }
+
+// char	*ft_woquote(char *line)
+// {
+// 	char	*str;
+// 	size_t	i;
+// 	char	c;
+// 	char	**tab;
+
+// 	if (ft_strchr(line, '\'') || ft_strchr(line, '\"'))
+// 	{
+// 		i = 0;
+// 		str = 0;
+// 		tab = ft_split4(line, "*");
+// 		while (tab[i])
+// 			printf("tab = %s\n", tab[i++]);
+// 		i =
+// 		while (tab[i])
+// 		{
+// 			if (*line == '\'')
+// 				tab[i] = ft_strtrim(tab[i], "\'");
+// 			else if (*line == '\"')
+// 				tab[i] = ft_strtrim(tab[i], "\'");
+// 			i++;
+// 		}
+// 		i = 0;
+// 		while (tab[i])
+// 		{
+// 			str = ft_strjoin(str, tab[i]);
+// 			i++;
+// 		}
+// 	}
+// 	else
+// 		return (line);
+// 	printf("str = %s\n", str);
+// 	return (str);
+// }

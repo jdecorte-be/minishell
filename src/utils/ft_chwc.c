@@ -9,42 +9,85 @@ size_t	ft_chwc_len(char *line)
 	return (i + count);
 }
 
-char	*ft_chwc_str(char *line, t_list *name, t_list *wc)
+char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq)
 {
 	size_t	start;
 	size_t	end;
 	char	c1;
 	char	*str;
+	size_t	len;
+	size_t	i;
 
 	end = 0;
-	wc = 0;
 	str = 0;
+
+
+
+
 	while (line[end])
 	{
-		c1 = 0;
+		// c1 = 0;
+		// start = end;
+		// if (line[end] && ft_strchr("\"\'", line[end]))
+		// {
+		// 	ft_creat_tab2(line, &end, 0, 1);
+		// }
+		// if (line[end] && !ft_isspace(line[end]) && !ft_strchr("\'\"&|", line[end]))
+		// {
+		// 	while (line[end] && !ft_isspace(line[end]))
+		// 	{
+		// 		if (line[end++] == '*')
+		// 			c1 = 1;
+		// 	}
+		// }
+		// else
+		// 	while (line[end] && (ft_isspace(line[end]) || ft_strchr("&|", line[end])))
+		// 		end++;
+		// if (c1 == 0)
+		// {
+		// 	printf("1\n");
+		// 	str = ft_strjoin(str, ft_substr(line, start, end - start));
+		// }
+		// else if (c1 == 1)
+		// {
+		// 	if (name->content)
+		// 		str = ft_strjoin(str, name->content);
+		// 	else
+		// 		str = ft_strjoin(str, woq->content);
+		// 	name = name->next;
+		// 	woq = ft_next(woq);
+		// }
 		start = end;
-		if (line[end] && ft_strchr("\"\'", line[end]))
+		if (wc)
 		{
-			ft_creat_tab2(line, &end, 0, 1);
-		}
-		else if (line[end] && !ft_isspace(line[end]) && !ft_strchr("\'\"&|", line[end]))
-		{
-			while (line[end] && !ft_isspace(line[end]))
+			len = ft_strlen(wc->content);
+			if (line[end] && ft_exist(line + end, len - 1) && !ft_strncmp(line + end, wc->content, len -1))
 			{
-				if (line[end++] == '*')
-					c1 = 1;
+				i = 0;
+				while (((char *)(wc->content))[i] && ++i)
+					end++;
+				if (name->content)
+					str = ft_strjoin(str, name->content);
+				else
+					str = ft_strjoin(str, woq->content);
+				woq = ft_next(woq);
+				wc = ft_next(wc);
+				name = ft_next(name);
+			}
+			else
+			{
+				while (line[end] && ft_exist(line + end, len - 1) && !ft_strncmp(line + end, wc->content, len -1))
+					end++;
+				str = ft_strjoin(str, ft_substr(line, start, end - start));
+				printf("%s\n", ft_substr(line, start, end - start));
 			}
 		}
 		else
-			while (line[end] && (ft_isspace(line[end]) || ft_strchr("&|", line[end])))
-				end++;
-		printf("c == %d\n", c1);
-		if (c1 == 0)
-			str = ft_strjoin(str, ft_substr(line, start, end - start));
-		else if (c1 == 1)
 		{
-			str = ft_strjoin(str, name->content);
-			name = name->next;
+			while (line[end])
+				end++;
+			end++;
+			str = ft_strjoin(str, ft_substr(line, start, end - start - 1));
 		}
 	}
 	return (str);
@@ -53,38 +96,34 @@ char	*ft_chwc_str(char *line, t_list *name, t_list *wc)
 char	*ft_chwc(char *line)
 {
 	char	*str;
-	char	*len;
+	t_list	*woq;
 	t_list	*name;
 	t_list	*wc;
+	t_list	*tmp;
 
+	woq = 0;
 	wc = 0;
 	name = 0;
+
 	if (!line)
 		return (0);
 	wc = ft_wcsearch(line);
-	while (wc)
+	tmp = wc;
+	while (tmp)
 	{
-		printf("wc = %s\n", wc->content);
-		printf("wcwo = %s\n", ft_woquote(wc->content));
-		ft_lstadd_back(&name, ft_lstnew(ft_wcfile(ft_woquote(wc->content))));
-		printf("\n\n\n\n");
-		wc = ft_next(wc);
+		ft_lstadd_back(&woq, ft_lstnew(ft_woquote(tmp->content)));
+		tmp = tmp->next;
+	}
+	tmp = woq;
+	while (tmp)
+	{
+		ft_lstadd_back(&name, ft_lstnew(ft_wcfile(tmp->content)));
+		tmp = tmp->next;
 	}
 	if (!name)
 		return (line);
-
-	t_list *tmp;
-
-	tmp = name;	
-	while (tmp)
-	{
-		printf("name = %s|\n", tmp->content);
-		tmp = tmp->next;
-	}
-
-	str = ft_chwc_str(line, name, wc);
-	printf("string = %s\n", str);
-	return (0);
+	str = ft_chwc_str(line, name, wc, woq);
+	return (str);
 }
 
 

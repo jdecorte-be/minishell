@@ -2,13 +2,12 @@
 
 t_list	*ft_wcsearch(char *line)
 {
-	size_t	i;
 	size_t	start;
 	size_t	end;
 	char	c1;
 	t_list	*wc;
+	char	c;
 
-	i = 0;
 	end = 0;
 	wc = 0;
 	while (line[end])
@@ -17,10 +16,12 @@ t_list	*ft_wcsearch(char *line)
 		start = end;
 		if (line[end] && ft_strchr("\"\'", line[end]))
 			ft_creat_tab2(line, &end, 0, 1);
-		else if (line[end] && !ft_isspace(line[end]) && !ft_strchr("\'\"&|", line[end]))
+		if (line[end] && !ft_isspace(line[end]) && !ft_strchr("\'\"&|", line[end]))
 		{
 			while (line[end] && !ft_isspace(line[end]))
 			{
+				if (line[end] && ft_strchr("\"\'", line[end]))
+					ft_creat_tab2(line, &end, 0, 1);
 				if (line[end++] == '*')
 				{
 					c1 = 1;
@@ -83,15 +84,13 @@ char	*ft_readfile(char *wc, DIR *loc)
 	file = readdir(loc);
 	while (file)
 	{
-		printf("%s %d\n", file->d_name, ft_wcmatch(wc_tab, file->d_name));
 		if (ft_wcmatch(wc_tab, file->d_name))
-			ft_lstadd_back(&match, ft_lstnew(ft_trijoin("\'", file->d_name, "\'")));
+			ft_lstadd_back(&match, ft_lstnew(ft_strdup(file->d_name)));
+			// ft_lstadd_back(&match, ft_lstnew(ft_trijoin("\'", file->d_name, "\'")));
 		file = readdir(loc);
 	}
-	printf("a=%s\n", match->content);
 	str = ft_lstmerge(match);
 	ft_lstclear(&match, 0);
-	printf("s = %s\n", str);
 	return (str);
 }
 

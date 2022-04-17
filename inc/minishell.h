@@ -97,6 +97,7 @@ char	*ft_trijoin(char const *s1, char const *s2, char const *s3);
 int		ft_exist(char *str, size_t len);
 char	*ft_lstmerge(t_list *lst);
 char	*ft_woquote(char *line);
+char	*ft_replace(char *str, char *search, char *replace);
 
 void	ft_error(int e);
 int		ft_free(char *line);
