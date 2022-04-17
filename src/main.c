@@ -1,5 +1,30 @@
 #include "../inc/minishell.h"
 
+static int getshlvl(char *str)
+{
+    int neg;
+	int i;
+	int num;
+
+	i = 0;
+	neg = 1;
+	num = 0;
+	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || str[i] == '\v'
+			|| str[i] == '\f' || str[i] == '\r')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			neg *= -1;
+		i++;
+	}
+	while (str[i] >= 48 && str[i] <= 57)
+	{
+		num = num * 10 + (str[i] - 48);
+		i++;
+	}
+	return (num * neg);
+}
 
 void	ft_free_tab(char **tab)
 {
@@ -40,22 +65,33 @@ char *formpath()
     return res;
 }
 
-void sigint_handler(int signum) { //Handler for SIGINT
-   //Reset handler to catch SIGINT next time.
-   (void)(signum);
-    printf("\n ➜ 42-minishell ");
+void sigint_handler(int signum)
+{
+    (void)signum;
+    // printf("%d\n", signum);
+    // if(signum == 2)
+    //     write(1, " ➜  42-minishell   \b\b", 23);
+    // else if(signum == 18)
+    //     write(1, "\r\b\b", 4);
+    ft_putstr_fd("\n\e[0;36m ➜ ", 1);
+    ft_putstr_fd(formpath(), 1);
 }
 
 int	main(int ac, char **av, char **env)
 {
+    (void)av;
+    t_env   *d_env;
+	t_data	*data;
 
-    t_env   *d_env = malloc(sizeof(t_env));
-	t_data	*data = malloc(sizeof(t_data));
+    if(!(d_env = malloc(sizeof(t_env))))
+        return 0;
+    if(!(data = malloc(sizeof(t_data))))
+        return 0;
 
-	char	*line;
+    *env = "Hello";
+    char *str = getenv("PATH");
+    str = 0;
 
-	data->isprio = 0;
-	data->prioret = 10000;
     data->lastret = 0;
     d_env->env = env;
     d_env->exp = env;
@@ -63,38 +99,16 @@ int	main(int ac, char **av, char **env)
     d_env->l_exp = list_env(env);
 
 
-
-// testing =================================================
-    if(ft_strcmp(av[1], "-c") == 0)
-    {
-        line = ft_strdup(av[2]);
-        line = ft_epur_str(ft_pgross_str(line));
-        // printf("%s\n", line);
-        tokenize(line);
-        char **res = ft_split(line, "\1");
-        execute(res, data, d_env);
-
-        ft_free_tab(res);
-		free(line);
-        return 0;
-
-    }
-
-
-// ==================================
-
-
-
-
-
+	char	*line;
 
     if(ac != 1)
         puterror("\e[0;37mUse : ./minishell without arguments\n");
 	while (1)
 	{
+        signal(SIGINT, sigint_handler);
+        signal(SIGTSTP , sigint_handler);
         printf("\e[0;36m ➜ ");
 		line = readline(formpath());
-        signal(SIGINT, sigint_handler);
         if (!line)
         {
             write(1, "\b\bexit\n", 7);

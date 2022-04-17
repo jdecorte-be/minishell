@@ -20,6 +20,8 @@ typedef struct l_env
     t_list *l_exp;
 }   t_env;
 
+int checkvalid(char *cmd);
+char	*my_getenv(char *tochr, t_list *lst);
 int     echo(char **args);
 int     pwd();
 int     cd(char **args);
@@ -31,5 +33,6 @@ t_list  *list_env(char **env);
 char    **listtotab(t_list *lst);
 void    env_cmd(t_env *data);
 void	*ft_memdel(void *ptr);
+void replace_env(char *cmd, t_list *env);
 
 #endif // BUILTINS_H

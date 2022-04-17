@@ -17,6 +17,7 @@ static void	ft_epur_len2(char *line, size_t *i, size_t *count)
 	(*count)++;
 }
 
+
 static size_t	ft_epur_len(char *line)
 {
 	size_t	i;

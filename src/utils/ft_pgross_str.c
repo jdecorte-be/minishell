@@ -65,7 +65,6 @@ static char	*ft_pgross_creat(char *str, char *line)
 {
 	size_t	i;
 	size_t	i2;
-	char	c;
 
 	i = 0;
 	i2 = 0;

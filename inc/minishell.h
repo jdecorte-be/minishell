@@ -52,6 +52,7 @@ typedef struct s_mcmd//	cmd   ((ls )| cat)
 	struct s_mcmd	*next;
 }	t_mcmd;
 
+
 typedef struct s_cmd
 {
 	char			*line;
@@ -67,14 +68,40 @@ typedef struct s_data//  block de cmd
 	int		lastret;
 	int 	prioret;
 	int		isprio;
-
 	int		doandand;
-
 	t_cmd	*cmd;
 }	t_data;
 
 char	**ft_split2(char *str, char *set);
 char	*ft_onespace(char *line);
+
+t_data	*ft_datanew(char	*line);
+t_data	*ft_datalast(t_data *data);
+void	ft_dataadd_back(t_data **data, t_data *new);
+
+char	**ft_split2(char *str, char *set);
+char	*ft_onespace(char *line);
+char	*ft_epur_str(char *line);
+int		ft_str_isspace(char *str);
+void	ft_error(int e);
+
+int		ft_free(char *line);
+
+int	pipex(t_env *data, char *cmd);
+void	puterror(char *str);
+void	*ft_memdel(void *ptr);
+
+int cmdlexer(char *cmd, t_env *d_env);
+
+char **sort_exp(char **env);
+
+void tokenize(char *line);
+char	*ft_pgross_str(char *line);
+char	*ft_epur_str(char *line);
+int execute(char **input, t_data *data, t_env *d_env);
+
+
+//================================================================
 
 t_cmd	*ft_cmdnew(char	*line);
 t_cmd	*ft_cmdlast(t_cmd *cmd);
@@ -110,7 +137,6 @@ char	*ft_woquote(char *line);
 char	*ft_replace(char *str, char *search, char *replace);
 
 void	ft_error(int e);
-
 int		ft_free(char *line);
 
 int	pipex(t_env *data, char *cmd);

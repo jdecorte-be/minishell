@@ -4,7 +4,6 @@ static size_t	ft_count_words(char *str, char *set)
 {
 	size_t	i;
 	size_t	count;
-	char	c;
 
 	i = 0;
 	count = 0;

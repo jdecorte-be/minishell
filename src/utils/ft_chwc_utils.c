@@ -6,7 +6,6 @@ t_list	*ft_wcsearch(char *line)
 	size_t	end;
 	char	c1;
 	t_list	*wc;
-	char	c;
 
 	end = 0;
 	wc = 0;
@@ -96,7 +95,6 @@ char	*ft_readfile(char *wc, DIR *loc)
 
 char	*ft_wcfile(char *wc)
 {
-	struct dirent	*file;	
 	DIR				*loc;
 	char			path[PATH_MAX];
 	char			*match;

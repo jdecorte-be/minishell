@@ -20,7 +20,7 @@ void print_sort_exp(char **env, t_env *data)
     {
         int j = i+1;
         while (++j < len)
-            if (ft_strcmp(env[i], env[j]) > 0) {
+            if (ft_strcmp(env[i], env[j]) > 0 && env[i] && env[j]) {
                 char* temp = env[i]; 
                 env[i] = env[j]; 
                 env[j] = temp; 
@@ -41,7 +41,16 @@ int export(char **cmd,t_env *data)
     int i = 1;
     while(cmd[i])
     {
-        if(check_format(cmd[i]) == 1)
+        // if(checkvalid(cmd[i]) != -1 || checkvalid(cmd[i]) != 1)
+        //     return 0;
+        char *str = my_getenv(cmd[i], data->l_exp);
+        if(str != NULL)
+        {
+            printf("export %s\n", str);
+            replace_env(cmd[i], data->l_exp);
+            replace_env(cmd[i], data->l_env);
+        }
+        else if(check_format(cmd[i]) == 1)
         {
             t_list *new1 = ft_lstnew(ft_strjoin(cmd[i], "=\'\'"));
             ft_lstadd_back(&data->l_exp, new1);
