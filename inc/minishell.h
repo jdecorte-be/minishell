@@ -39,15 +39,6 @@ typedef struct s_here_doc
 	struct s_here_doc	*next;
 }	t_here_doc;
 
-typedef struct s_mcmd//	cmd   ((ls )| cat)
-{
-
-typedef struct s_here_doc
-{
-	char				*rule;
-	struct s_here_doc	*next;
-}	t_here_doc;
-
 typedef struct s_mcmd //	cmd   ((ls )| cat)
 {
 	char			*line;
@@ -114,7 +105,7 @@ void	ft_error(int e);
 
 int		ft_free(char *line);
 
-int	pipex(t_env *data, char *cmd);
+int		pipex(t_env *data, char *cmd);
 void	puterror(char *str);
 void	*ft_memdel(void *ptr);
 
@@ -126,5 +117,7 @@ void tokenize(char *line);
 char	*ft_pgross_str(char *line);
 char	*ft_epur_str(char *line);
 int execute(char **input, t_data *data, t_env *d_env);
+
+char	*ft_chwc(char *line);
 
 #endif

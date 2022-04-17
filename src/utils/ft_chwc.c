@@ -1,19 +1,18 @@
 #include "../../inc/minishell.h"
 
-size_t	ft_chwc_len(char *line)
-{
-	size_t	i;
-	size_t	count;
+// size_t	ft_chwc_len(char *line)
+// {
+// 	size_t	i;
+// 	size_t	count;
 
-	i = 0;
-	return (i + count);
-}
+// 	i = 0;
+// 	return (i + count);
+// }
 
 char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq)
 {
 	size_t	start;
 	size_t	end;
-	char	c1;
 	char	*str;
 	size_t	len;
 	size_t	i;

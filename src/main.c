@@ -66,33 +66,24 @@ int	main(int ac, char **av, char **env)
     d_env->l_exp = list_env(env);
 
 
-
+    (void)av;
 // testing =================================================
-    if(ft_strcmp(av[1], "-c") == 0)
-    {
-        line = ft_strdup(av[2]);
-        line = ft_epur_str(ft_pgross_str(line));
-        // printf("%s\n", line);
-        tokenize(line);
-        char **res = ft_split(line, "\1");
-        execute(res, data, d_env);
+    // if(ft_strcmp(av[1], "-c") == 0)
+    // {
+    //     line = ft_strdup(av[2]);
+    //     line = ft_epur_str(ft_pgross_str(line));
+    //     // printf("%s\n", line);
+    //     tokenize(line);
+    //     char **res = ft_split(line, "\1");
+    //     execute(res, data, d_env);
 
-        ft_free_tab(res);
-		free(line);
-        return 0;
-
-
-
-
-
-
-    }
+    //     ft_free_tab(res);
+	// 	free(line);
+    //     return 0;
+    // }
 
 
 // ==================================
-
-
-
 
 
 
@@ -103,7 +94,7 @@ int	main(int ac, char **av, char **env)
         signal(SIGINT, sigint_handler);
         signal(SIGTSTP , sigint_handler);
         printf("\e[0;36m ➜ ");
-		line = readline(formpath());
+		line = readline("MINISHELL -> ");
         if (!line)
         {
             write(1, "\b\bexit\n", 7);
@@ -120,18 +111,4 @@ int	main(int ac, char **av, char **env)
         ft_free_tab(res);
 		free(line);
 	}
-
-	// int i = 0;
-	// tab = ft_split2(line, "\t\f\r\v\n ");
-	// while(tab[i])
-	// {
-	// 	printf("|%s|\n", tab[i]);
-	// 	i++;
-	// }
-	// printf("");
-
-	// system("leaks a.out");
-	size_t len = 2;
-
-	// printf("%d\n", ft_strncmp("da", "da", 100));
 }
