@@ -45,20 +45,24 @@ char *findenv(char *name, int *offset)
 
 int my_setenv(char *name, char *value)
 {
-	static char **lastenv;			/* last value of environ */
+	static char **lastenv;
 	char *C;
 	int l_value, offset;
 
-	if (*value == '=')			/* no `=' in value */
+	if (*value == '=')
 		++value;
-	l_value = strlen(value);
-	if ((C = findenv(name, &offset))) {	/* find if already exists */
-		if ((int)strlen(C) >= l_value) {	/* old larger; copy over */
+	l_value = ft_strlen(value);
+	if ((C = findenv(name, &offset)))
+    {
+		if ((int)ft_strlen(C) >= l_value)
+        {
 			while ((*C++ = *value++))
 				;
 			return (0);
 		}
-	} else {					/* create new slot */
+	}
+    else
+    {					/* create new slot */
 		size_t cnt;
 		char **P;
 		for (P = data->env ; *P != NULL; P++)
@@ -73,8 +77,9 @@ int my_setenv(char *name, char *value)
 		offset = cnt;
 		data->env [cnt + 1] = NULL;
 	}
-	for (C = (char *)name; *C && *C != '='; ++C)
-		;				/* no `=' in name */
+    C = (char *)name;
+    while(*C && *C != '=')
+        ++C;
 	if (!(data->env [offset] =			/* name + `=' + value */
 	    malloc((size_t)((int)(C - name) + l_value + 2))))
 		return (-1);

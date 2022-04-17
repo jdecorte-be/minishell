@@ -76,19 +76,10 @@ int execute(t_token *token)
 
 	while(tmp)
 	{
-		data->stdin = dup(0);
-        data->stdout = dup(1);
-
-		if(tmp->redirect.infd != 0)
-			dup2(tmp->redirect.infd, 0);
-		if(tmp->redirect.outfd != 0)
-			dup2(tmp->redirect.outfd, 1);
-
-
+		data->stdin = tmp->redirect.infd;
+		data->stdout = tmp->redirect.outfd;
 		// start
-		if(start == 1 && what_im(tmp->cmd) == 0)
-			data->lastret = exec(tmp->cmd);
-		else if(start == 0 && what_im(tmp->cmd) == 1)
+		if(start == 0 && what_im(tmp->cmd) == 1)
 		{
 			if(data->lastret == 0 && tmp->next)
 			{
@@ -104,8 +95,26 @@ int execute(t_token *token)
 				data->lastret = exec(tmp->cmd);
 			}
 		}
-		dup2(data->stdin, 0);
-		dup2(data->stdout, 1);
+		else if(data->is_pipe == 0 && what_im(tmp->cmd) == 0 && tmp->next && tmp->next->cmd[0] == '|')
+		{
+			data->stdin_reset = dup(0);
+			data->stdout_reset = dup(1);
+			data->is_pipe = 1;
+			data->lastret = exec(tmp->cmd);
+		}
+		else if(data->is_pipe == 1 && what_im(tmp->cmd) == 0 && tmp->next && tmp->next->cmd[0] == '|')
+			data->lastret = exec(tmp->cmd);
+		else if (data->is_pipe == 1 && what_im(tmp->cmd) == 0)
+		{
+			exec(tmp->cmd);
+			data->is_pipe = 0;
+			dup2(data->stdin_reset, 0);
+			dup2(data->stdout_reset, 1);
+		}
+		else if(start == 1 && what_im(tmp->cmd) == 0 && data->is_pipe == 0)
+			data->lastret = exec(tmp->cmd);
+
+
 		tmp = tmp->next;
 		start = 0;
 	}

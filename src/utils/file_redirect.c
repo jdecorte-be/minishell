@@ -125,12 +125,12 @@ t_redirect	ft_init_redirect(void)
 	file.infile = 0;
 	file.outfile = 0;
 	file.infd = 0;
-	file.outfd = 0;
+	file.outfd = 1;
 	file.open = 0;
 	return (file);
 }
 
-t_redirect	ft_redirect(char *line, t_redirect file)
+t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 {
 	// t_redirect	file;
 	t_redirect	tmp;
@@ -142,6 +142,13 @@ t_redirect	ft_redirect(char *line, t_redirect file)
 	tmp = file;
 	file.infile = ft_file(line, '<', &(file.open));
 	file.outfile = ft_file(line, '>', &(file.open));
+	if (e)
+	{
+		if (e == 1)
+			file.outfd = fd;
+		else if (e == 2)
+			file.infd = fd;
+	}
 	// printf("1\n");
 	// printf("open == %d\n", file.open);
 	if (ft_redirect_check(file))// && dup2(fd, 1))

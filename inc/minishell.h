@@ -60,6 +60,8 @@ typedef struct s_data//  block de cmd
 {
 	char	**env;
 	int		lastret;
+	int		stdin_reset;
+	int		stdout_reset;
 	int		stdin;
 	int		stdout;
 	int		is_subshell;
@@ -112,8 +114,8 @@ void *ft_realloc(void *str, size_t len);
 
 
 int	first_pipe(t_data *d_env, char *cmd);
-int last_pipe(t_data *d_env, char *cmd);
-int	mid_pipe(t_data *d_env, char *cmd);
+int last_pipe(char *cmd);
+int	mid_pipe(char *cmd);
 
 
 
@@ -222,7 +224,7 @@ char	*ft_ecrase_p(char *line);
 
 int		ft_isprohibited(char *line);
 char	*ft_cutoff(char *str, size_t start, size_t len);
-t_redirect	ft_redirect(char *line, t_redirect file);
+t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd);
 t_list	*ft_sort_word(t_list *lst);
 char	**ft_list_to_tab(t_list *lst);
 

@@ -6,7 +6,7 @@
 /*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/01/24 17:48:07 by decortejohn      ###   ########.fr       */
+/*   Updated: 2022/01/26 14:22:17 by decortejohn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int exec(char *cmd)
 
     if(cmd[0] == '(')
        return subshell(ft_substr(cmd, 1, ft_strlen(cmd) - 2), data);
-	if(ft_strcmp(s_cmd[0], "echo") == 0)
+	else if(ft_strcmp(s_cmd[0], "echo") == 0)
         return echo(s_cmd);
     else if(ft_strcmp(s_cmd[0], "cd") == 0)
         return cd(s_cmd);
@@ -66,15 +66,31 @@ int cmd_sys(char *cmd)
 	char **args = ft_split(cmd, " ");
 	pid_t	pid;
 	int		ret;
-
+	
+	
 	pid = fork();
 	if (pid < 0)
 		return errno;
 	if (!pid)
+	{
+		if(data->stdin != 0)
+			close(data->stdin);
+		if(data->stdout != 1)
+			dup2(data->stdout, 1);	
 		execve(get_path(cmd), &args[0], data->env);
+	}
 	else
+	{
+		if(data->stdout != 1)
+			close(data->stdout);
+		if(data->stdin != 0)
+			dup2(data->stdin, 0);
 		waitpid(pid, &ret, 0);
-		
+	}
+	if(data->stdin != 0)
+		close(data->stdin);
+	if(data->stdout != 1)
+		close(data->stdout);
 	return ret;
 }
 
