@@ -1,20 +1,5 @@
 #include "builtins.h"
 
-// void replace_env(char *cmd, t_list *env)
-// {
-// 	t_list *tmp = env;
-// 	int i = 0;
-// 	while(cmd[i] && cmd[i] != '=')
-// 		i++;
-// 	char *var = ft_substr(cmd, 0, i);
-// 	while(tmp)
-// 	{
-// 		printf("%s\n", ft_substr(tmp->content, 0,i));
-// 		if(ft_strcmp(ft_substr(tmp->content, 0,i) , var) == 0)
-// 			tmp->content = cmd;
-// 		tmp = tmp->next;
-// 	}
-// }
 // work sauf avec unset et les pipes
 int pwd()
 {

@@ -17,7 +17,6 @@ t_list	*ft_wcsearch(char *line)
 		start = end;
 		if (line[end] && ft_strchr("\"\'", line[end]))
 		{
-			printf("1\n");
 			ft_creat_tab2(line, &end, 0, 1);
 		}
 		if (line[end] && !ft_isspace(line[end]) && !ft_strchr("\'\"&|", line[end]))
@@ -54,7 +53,6 @@ int	ft_wcmatch(char **wc_tab, char *file)
 	{
 		woq = ft_woquote(wc_tab[i]);
 		len = ft_strlen(woq);
-		printf("woq == %s && %zu\n", woq, len);
 		if (wc_tab[i] && *wc_tab[i] == '*' && ++i)
 		{
 			// printf("1\n");
@@ -66,7 +64,6 @@ int	ft_wcmatch(char **wc_tab, char *file)
 				// printf("2\n");
 				while (*file && ft_exist(file, len - 1) && ft_strncmp2(file, woq, len - 1))
 				{
-					printf("file++\n");
 					file++;
 				}
 			}
@@ -75,17 +72,16 @@ int	ft_wcmatch(char **wc_tab, char *file)
 				// printf("3\n");
 				while (*file)
 				{
-					printf("file++\n");
 					file++;
 				}
 			}
 		}
-		else if (printf("ncmp = %d\n", *file && wc_tab[i] && wc_tab[i + 1] && ft_exist(file, len - 1) && !ft_strncmp2(file, woq, len - 1)) && *file && wc_tab[i] && wc_tab[i + 1] && ft_exist(file, len - 1) && !ft_strncmp2(file, woq, len - 1) && ++i)
+		else if (*file && wc_tab[i] && wc_tab[i + 1] && ft_exist(file, len - 1) && !ft_strncmp2(file, woq, len - 1) && ++i)
 		{
 			// printf("4\n");
 			file += len;
 		}
-		else if (printf("rcmp = %d\n", *file) && *file && wc_tab[i] && !wc_tab[i + 1] && ft_exist(file, len - 1) && !ft_strrcmp2(file, woq, len) && ++i)
+		else if (*file && wc_tab[i] && !wc_tab[i + 1] && ft_exist(file, len - 1) && !ft_strrcmp2(file, woq, len) && ++i)
 		{
 			// printf("5\n");
 			while (*file)

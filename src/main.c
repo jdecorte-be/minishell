@@ -1,19 +1,13 @@
 #include "../inc/minishell.h"
 
-
-void	ft_free_tab(char **tab)
+void shlvlhandler(t_env *data)
 {
-	size_t	i;
+    char *var = getenv("SHLVL");
+    if(var)
+    {
+        int shlvl = ft_atoi(var) + 1;
+        my_setenv("SHLVL", ft_itoa(shlvl), data);
 
-	i = 0;
-    if (tab)
-	{
-        while (tab[i])
-        {
-            free(tab[i]);
-            i++;
-        }
-        free(tab);
     }
 }
 
@@ -43,11 +37,7 @@ char *formpath()
 void sigint_handler(int signum)
 {
     (void)signum;
-    // printf("%d\n", signum);
-    // if(signum == 2)
-    //     write(1, " ➜  42-minishell   \b\b", 23);
-    // else if(signum == 18)
-    //     write(1, "\r\b\b", 4);
+
     ft_putstr_fd("\n\e[0;36m ➜ ", 1);
     ft_putstr_fd(formpath(), 1);
 }
@@ -68,9 +58,8 @@ int	main(int ac, char **av, char **env)
     data->lastret = 0;
     d_env->env = env;
     d_env->exp = env;
-    d_env->l_env = list_env(env);
-    d_env->l_exp = list_env(env);
 
+    shlvlhandler(d_env);
 
 	char	*line;
 

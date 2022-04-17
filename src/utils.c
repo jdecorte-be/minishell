@@ -19,16 +19,3 @@ void	*ft_memdel(void *ptr)
 	}
 	return (NULL);
 }
-
-int printList(t_list *head)
-{
-	t_list *tmp = head;
-
-	while(tmp != NULL)
-	{
-		write(1, tmp->content, ft_strlen(tmp->content));
-		write(1, "\n", 2);
-		tmp = tmp->next;
-	}
-	return 0;
-}

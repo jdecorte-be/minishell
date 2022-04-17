@@ -6,7 +6,13 @@
 
 #include <crt_externs.h>
 
-
+int env_len(char **env)
+{
+    int i = 0;
+    while(env[i])
+        i++;
+    return i;
+}
 
 int my_setenv(char *name, char *value, t_env *data)
 {
@@ -47,21 +53,9 @@ int my_setenv(char *name, char *value, t_env *data)
 	return (0);
 }
 
-int check_format(char *str)
+void print_exp(char **env)
 {
-    int i = 0;
-    while(str[i] != '=' && str[i])
-        i++;
-    if(str[i] != '=')
-        return 1;
-    if(str[i] == '=')
-        return 2;
-    return 0;
-}
-
-void print_sort_exp(char **env, t_env *data)
-{
-    int len = ft_lstsize(data->l_exp);
+    int len = env_len(env);
     int i = 0;
     while(i < len)
     {
@@ -91,6 +85,11 @@ int repl_env(char **cmd)
 
 int export(char **cmd,t_env *data)
 {
+    if(!cmd[1])
+    {
+        print_exp(data->env);
+        return 0;
+    }
     int i = 0;
     while(cmd[1][i] && cmd[1][i] != '=')
         i++;

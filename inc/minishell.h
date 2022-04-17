@@ -163,5 +163,8 @@ int execute(char **input, t_data *data, t_env *d_env);
 char	*ft_strjoin2(char const *s1, char const *s2);
 int		ft_strncmp2(const char *s1, const char *s2, size_t n);
 int		ft_strrcmp2(const char *s1, const char *s2, size_t n);
+int print_env(char **env);
+void print_exp(char **env, t_env *data);
+int my_setenv(char *name, char *value, t_env *data);
 
 #endif

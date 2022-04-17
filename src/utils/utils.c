@@ -55,6 +55,8 @@ char	*ft_woquote(char *line)
 	char	c;
 	size_t	i2;
 
+	if (!line)
+		return (0);
 	if (ft_strchr(line, '\'') || ft_strchr(line, '\"'))
 	{
 		str = ft_calloc(sizeof(char), (ft_strlen(line) - 2 + 1));

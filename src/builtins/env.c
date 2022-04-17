@@ -1,19 +1,5 @@
 #include "builtins.h"
 
-char *my_getenv(char *tochr, t_list *lst)
-{
-	int i = 0;
-	while(tochr[i] && tochr[i] != '=')
-		i++;
-	t_list *tmp = lst;
-	while(tmp != NULL)
-	{
-		if(ft_strcmp(ft_substr(tmp->content, 0, i), ft_substr(tochr, 0, i)) == 0)
-			return ft_substr(tmp->content, i + 1, ft_strlen(tmp->content));
-		tmp = tmp->next;
-	}
-	return NULL;
-}
 
 int checkvalid(char *cmd)
 {
@@ -32,39 +18,24 @@ int checkvalid(char *cmd)
     return 1;
 }
 
-t_list *list_env(char **env)
+int print_env(char **env)
 {
-    t_list *lst = malloc(sizeof(t_list));
-    int i = 1;
-
-    lst = ft_lstnew(env[0]);
-    while(env[i])
-    {
-        t_list *tmp = ft_lstnew(env[i]);
-        ft_lstadd_back(&lst, tmp);
-        i++;
-    }
-    return lst;
+	int i = 0;
+	while(env[++i])
+	{
+		printf("%s\n", env[i]);
+	}
+	return 0;
 }
 
-char				**listtotab(t_list *lst)
+int unset(char **cmd, t_env *data)
 {
-	t_list      *ptr;
-	char		**array;
-	char		**ptr2;
-
-	if (!(array = malloc(sizeof(char *) * (ft_lstsize(lst) + 1))))
-		return (NULL);
-	ptr2 = array;
-	ptr = lst;
-	while (ptr)
-	{
-		if(ptr->content != NULL)
-		{
-			if (!(*ptr2++ = ft_strdup(ptr->content)))
-				return (NULL);
-		}
-		ptr = ptr->next;
-	}
-	return (array);
+    if(!cmd[1])
+        return 0;
+    int i = 1;
+    while(cmd[++i])
+    {
+        free(getenv(cmd[i]));
+    }
+    return 0;
 }

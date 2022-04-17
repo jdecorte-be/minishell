@@ -11,7 +11,7 @@ int cmdlexer(char *cmd, t_env *d_env)
     else if(ft_strcmp(s_cmd[0], "pwd") == 0)
         return pwd();
     else if(ft_strcmp(s_cmd[0], "env") == 0)
-        return printList(d_env->l_env);
+        return print_env(d_env->env);
     else if(ft_strcmp(s_cmd[0], "export") == 0)
         return export(s_cmd, d_env);
     else if(ft_strcmp(s_cmd[0], "unset") == 0)
