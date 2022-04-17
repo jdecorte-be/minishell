@@ -54,7 +54,7 @@ size_t	ft_chdollar_len(char *line, t_list **dollar)
 				{
 					while (line[i] && line[i] != '\"' && line[i] != '$')
 						i++;
-					if (line[i] && line[i + 1] && line[i] == '$' && !ft_strchr("\n\f\v\r\t \"+/%^~:.,    …•¶§∞¢£™¡", line[i + 1]))
+					if (line[i] && line[i + 1] && line[i] == '$' && !ft_strchr("\n\f\v\r\t \"+/%^~:.,  =   …•¶§∞¢£™¡", line[i + 1]))
 					{
 						start = i++;
 						if (line[i++] == '-')
@@ -65,7 +65,7 @@ size_t	ft_chdollar_len(char *line, t_list **dollar)
 						}
 						else
 						{
-							while (line[i] && !ft_strchr("\"\'+/%^~:.,-", line[i]) && !ft_isspace(line[i]))
+							while (line[i] && !ft_strchr("\"\'+/%^~:.,-=\'\"", line[i]) && !ft_isspace(line[i]))
 								i++;
 							end = i;
 							count += start - end;
@@ -79,7 +79,7 @@ size_t	ft_chdollar_len(char *line, t_list **dollar)
 					i++;
 			}
 		}
-		else if (line[i] && line[i + 1] && line[i] == '$' && !ft_strchr("\n\f\v\r\t \"+/%^~:.,   …•¶§∞¢£™¡", line[i + 1]))
+		else if (line[i] && line[i + 1] && line[i] == '$' && !ft_strchr("\n\f\v\r\t \"+/%^~:.,    =   …•¶§∞¢£™¡", line[i + 1]))
 		{
 			start = i++;
 			if (ft_strchr("\'\"", line[i]) && ++i)
@@ -91,7 +91,7 @@ size_t	ft_chdollar_len(char *line, t_list **dollar)
 			}
 			else
 			{
-				while (line[i] && !ft_strchr("\"\'+/%^~:.,-", line[i]) && !ft_isspace(line[i]))
+				while (line[i] && !ft_strchr("\"\'+/%^~:.,-=\'\"", line[i]) && !ft_isspace(line[i]))
 					i++;
 				end = i;
 				count += start - end;

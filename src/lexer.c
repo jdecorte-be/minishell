@@ -1,5 +1,6 @@
 #include "../inc/minishell.h"
 
+
 // return the return code of each command
 int cmdlexer(char *cmd, t_env *d_env)
 {
@@ -18,8 +19,13 @@ int cmdlexer(char *cmd, t_env *d_env)
         return unset(s_cmd, d_env);
     else if(ft_strncmp(s_cmd[0], "exit", 4) == 0)
     {
-        exit(1);
         printf("exit\n");
+        if(s_cmd[2])
+        {
+            ft_putstr_fd("bash: exit: too many arguments", 2);
+            return 1;
+        }
+        exit(ft_atoi(s_cmd[1]));
         return 0;
     }
     else

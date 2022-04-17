@@ -9,7 +9,8 @@ void	ft_count_words2(char *str, size_t *i, char *set)
 		c = str[(*i)++];
 		while (str[*i] && c != str[*i])
 			(*i)++;
-		(*i)++;
+		if (str[*i])
+			(*i)++;
 	}
 	if (str[*i] && !ft_strchr(set, str[*i]) && !ft_strchr("\'\"", str[*i]))
 		while (str[*i] && !ft_strchr(set, str[*i]) && !ft_strchr("\'\"", str[*i]))
