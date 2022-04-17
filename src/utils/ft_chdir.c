@@ -39,7 +39,7 @@ char	*ft_getpwd(char c)
 	size_t	i;
 
 	i = 0;
-	printf("%c\n", c);
+	// printf("%c\n", c);
 	if (ft_strchr("0+", c))
 	{
 		return (getenv("PWD"));
@@ -73,13 +73,13 @@ char	*ft_chdir(char *line)
 		{
 			if (line[end + 1] && line[end + 1] == '0')
 			{
-				printf("1\n");
+				// printf("1\n");
 				pwd = ft_getpwd('0');
 				end += 2;
 			}
 			else
 			{
-				printf("2\n");
+				// printf("2\n");
 				pwd = ft_getpwd(line[end]);
 				end++;
 			}

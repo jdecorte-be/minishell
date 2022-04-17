@@ -54,3 +54,8 @@ void	ft_tokenadd_back(t_token **atoken, t_token *new)
 		}
 	}
 }
+
+// t_token	*ft_token_next(t_token *token)
+// {
+
+// }

@@ -130,11 +130,10 @@ t_redirect	ft_init_redirect(void)
 	return (file);
 }
 
-t_redirect	ft_redirect(char *line, t_redirect file)
+t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 {
 	// t_redirect	file;
 	t_redirect	tmp;
-	int			fd;
 
 	// fd = dup(1);
 	// file = ft_init_redirect();
@@ -143,6 +142,13 @@ t_redirect	ft_redirect(char *line, t_redirect file)
 	tmp = file;
 	file.infile = ft_file(line, '<', &(file.open));
 	file.outfile = ft_file(line, '>', &(file.open));
+	if (e)
+	{
+		if (e == 1)
+			file.outfd = fd;
+		else if (e == 2)
+			file.infd = fd;
+	}
 	// printf("1\n");
 	// printf("open == %d\n", file.open);
 	if (ft_redirect_check(file))// && dup2(fd, 1))
