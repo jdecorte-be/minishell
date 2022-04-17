@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/18 10:03:35 by lxu-wu            #+#    #+#             */
-/*   Updated: 2021/12/23 22:12:10 by decortejohn      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -21,7 +10,6 @@
 # include <stdlib.h>
 # include <limits.h>
 
-void	ft_error(int e);
 
 typedef struct s_list
 {
@@ -29,8 +17,12 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+int		ft_strrcmp(const char *s1, const char *s2, size_t n);
+t_list	*ft_next(t_list *lst);
+void	ft_error(int e);
 char	*get_next_line(int fd);
 int		ft_strcmp(char *s1, char *s2);
+int		ft_isspace(char c);
 
 // parite 1
 

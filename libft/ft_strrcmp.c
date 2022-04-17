@@ -1,38 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_strrcmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lxu-wu <lxu-wu@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/04 21:42:34 by lxu-wu            #+#    #+#             */
-/*   Updated: 2021/12/22 23:15:21 by lxu-wu           ###   ########.fr       */
+/*   Created: 2021/12/22 21:17:38 by lxu-wu            #+#    #+#             */
+/*   Updated: 2021/12/22 21:55:40 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <printf.h>
+#include <stdio.h>
 
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+int	ft_strrcmp(const char *s1, const char *s2, size_t n)
 {
-	size_t	i;
-	size_t	i2;
+	size_t			i;
 
-	if (!src)
-		return (ft_strlen(dst));
-	i = -1;
-	while (++i < dstsize && *dst)
-		dst++;
-	if (i == dstsize)
-		return (i + ft_strlen(src));
-	i2 = 0;
-	while (src[i2] != '\0')
+	i = n;
+	while (*(unsigned char *)s1)
+		s1++;
+	while (i && (*(unsigned char *)s1 == ((unsigned char *)s2)[i]))
 	{
-		if (i2 <= dstsize - 1 - i)
-			*dst++ = src[i2++];
-		else
-			i2++;
+		s1--;
+		i--;
 	}
-	*dst = '\0';
-	return (i + i2);
+	return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
 }

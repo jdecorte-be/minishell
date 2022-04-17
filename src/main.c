@@ -120,6 +120,7 @@ int	main(int ac, char **av, char **env)
         ft_free_tab(res);
 		free(line);
 	}
+
 	// int i = 0;
 	// tab = ft_split2(line, "\t\f\r\v\n ");
 	// while(tab[i])
@@ -127,5 +128,10 @@ int	main(int ac, char **av, char **env)
 	// 	printf("|%s|\n", tab[i]);
 	// 	i++;
 	// }
-	// printf("")
+	// printf("");
+
+	// system("leaks a.out");
+	size_t len = 2;
+
+	// printf("%d\n", ft_strncmp("da", "da", 100));
 }
