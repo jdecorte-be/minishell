@@ -98,9 +98,10 @@ char	*ft_chwc2(char *line)
 	while (tmp.lst)
 	{
 		printf("tri == %s\n", ft_trijoin(home, "/", tmp.lst->content));
-		if (!access(ft_trijoin(home, "/", tmp.lst->content), F_OK))
+		if (!access(tmp.lst->content, F_OK))
 			ft_lstadd_back(&match2, ft_lstnew(tmp.lst->content));
-		else if (!access(tmp.lst->content, F_OK))
+
+		else if (!access(ft_trijoin(home, "/", tmp.lst->content), F_OK))
 			ft_lstadd_back(&match2, ft_lstnew(tmp.lst->content));
 		tmp.lst = tmp.lst->next;
 		printf("120\n");
