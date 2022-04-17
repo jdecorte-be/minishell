@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -lreadline -g
+CFLAGS = -Wall -Wextra -Werror -lreadline -g -fsanitize=address
 
 RM = rm -rf
 

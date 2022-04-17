@@ -2,53 +2,83 @@
 #include <errno.h>
 
 
-void exec(char *cmd, char **env)
+void exec(t_env *d_env, char *cmd)
 {
 	int i;
-	char **s_env = ft_split(getenv("PATH"), ":");
-	char *execs;
-
+	char **args = ft_split(cmd, " ");
+	char *exec;
+	char **allpath = ft_split(getenv("PATH"), ":");
 	i = -1;
-
-	char **s_cmd = ft_split(cmd, " ");
-
-	if (access(s_cmd[0], X_OK) == 0)
-		execs = s_cmd[0];
+	if (access(args[0], X_OK) == 0)
+		exec = args[0];
 	else
 	{
-		while (s_env[++i])
+		while (allpath[++i])
 		{
-			s_env[i] = ft_strjoin(s_env[i], "/");
-			execs = ft_strjoin(s_env[i], s_cmd[0]);
-			free(s_env[i]);
-			if (access(execs, F_OK | X_OK) == 0)
+			allpath[i] = ft_strjoin(allpath[i], "/");
+			exec = ft_strjoin(allpath[i], args[0]);
+			free(allpath[i]);
+			if (access(exec, F_OK | X_OK) == 0)
 				break ;
-			free(execs);
+			free(exec);
 		}
 	}
-	if (execve(execs, &s_cmd[0], env) == -1)
+	if(execve(exec, &args[0], d_env->env) == -1)
 	{
 		printf("minishell: %s: command not found\n", cmd);
 		exit (127);
 	}
-	
 }
 
-int	pipex(t_env *data, char *cmd)
+int	pipex(t_env *d_env, char *cmd)
 {
 	pid_t	pid;
-	int		fd[2];
+	int p_fd[2];
 
-	pipe(fd);
+
+	pipe(p_fd);
 	pid = fork();
 	if (pid < 0)
-		return -1;
+		return errno;
+
 	// first
 	if (pid)
+	{
+		dup2(p_fd[0], 0);
+		// dup2(fd2, 1);
+		close(p_fd[1]);
+		// close(fd2);
 		waitpid(pid, NULL, 0);
+	}
 	// second
 	else
-		exec(cmd, data->env);
-	// printf("= %d = \n", errno);
+	{
+		// dup2(fd1, 0);
+		dup2(p_fd[1], 1);
+		close(p_fd[0]);
+		// close(fd1);
+		exec(d_env, cmd);
+	}
+	return errno;
+}
+
+int	pipe_handler(t_env *d_env, char **input)
+{
+	if (splitlen(input) >= 3)
+	{
+		int i = 0;
+		while(i < splitlen(input) - 1)
+		{
+			if(input[i][0] == '|')
+				i++;
+			else
+				pipex(d_env, input[i++]);
+		}
+		exec(d_env, input[i]);
+		// close(tab->fd1);
+		// close(tab->fd2);
+	}
+	else
+		puterror("$RES_REAL: ambiguous redirect\n");
 	return errno;
 }

@@ -14,6 +14,7 @@
 # include <sys/stat.h>
 # include <limits.h>
 # include <dirent.h>
+# include <errno.h>
 
 typedef struct s_sep
 {
@@ -86,8 +87,7 @@ int		ft_str_isspace(char *str);
 void	ft_error(int e);
 
 int		ft_free(char *line);
-
-int	pipex(t_env *data, char *cmd);
+int	pipex(t_env *d_env, char *cmd);
 void	puterror(char *str);
 void	*ft_memdel(void *ptr);
 
@@ -147,8 +147,7 @@ char	*ft_trijoin3(char *s1, char *s2, char *s3);
 char	*ft_strjoin1(char const *s1, char const *s2);
 char	*ft_strjoin2(char const *s1, char const *s2);
 char	*ft_strjoin3(char const *s1, char const *s2);
-
-int	pipex(t_env *data, char *cmd);
+int	pipe_handler(t_env *d_env, char **input);
 void	puterror(char *str);
 void	*ft_memdel(void *ptr);
 
@@ -166,7 +165,7 @@ int		ft_strrcmp2(const char *s1, const char *s2, size_t n);
 int print_env(char **env);
 void print_exp(char **env, t_env *data);
 int my_setenv(char *name, char *value, t_env *data);
-
+int splitlen(char **split);
 char	*ft_chdir(char *line);
 
 #endif

@@ -46,6 +46,6 @@ int cmdlexer(char *cmd, t_env *d_env)
     else if(ft_strcmp(s_cmd[0], "exit") == 0)
         return exit_cmd(s_cmd);
     else
-        return pipex(d_env, cmd);
+        pipex(d_env, cmd);
     return 0;
 }

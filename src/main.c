@@ -71,7 +71,7 @@ int	main(int ac, char **av, char **env)
         tokenize(line);
         char **res = ft_split(line, "\1");
         ret = execute(res, data, d_env);
-        exit(ret);
+        // exit(ret);
     }
     else
     {
@@ -98,7 +98,7 @@ int	main(int ac, char **av, char **env)
             ft_free_tab(res);
             free(line);
         }
-        exit(ret);
+        // exit(ret);
     }
 
 }
