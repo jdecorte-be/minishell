@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 07:53:16 by lxu-wu            #+#    #+#             */
-/*   Updated: 2021/12/28 18:59:43 by decortejohn      ###   ########.fr       */
+/*   Updated: 2021/12/18 18:27:32 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ int	ft_strcmp(char *s1, char *s2)
 	size_t	i;
 
 	i = 0;
+	if (!s1)
+	{
+		write(1, "\b\b", 2);
+		return (0);
+	}
 	while (s1[i] || s2[i])
 	{
 		if (s1[i] != s2[i])

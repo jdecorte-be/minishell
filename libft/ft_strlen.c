@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 21:42:49 by lxu-wu            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/12/28 20:51:07 by jdecorte         ###   ########.fr       */
-=======
-/*   Updated: 2021/10/14 14:59:11 by lxu-wu           ###   ########.fr       */
->>>>>>> 032fb06ca1b34baf2ead7a4078944cdeea5fcb34
+/*   Updated: 2021/12/21 06:27:21 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);

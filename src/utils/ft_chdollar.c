@@ -107,7 +107,6 @@ char	*ft_chdollar_str(char *str, char *line, t_list *dollar, size_t len)
 {
 	size_t	i;
 	size_t	i2;
-	t_list	*tmp;
 
 	i = 0;
 	i2 = 0;
@@ -172,7 +171,6 @@ char	*ft_chdollar_str(char *str, char *line, t_list *dollar, size_t len)
 			str[i2++] = line[i++];
 		}
 	}
-	str[i2] = 0;
 	return (str);
 }
 
@@ -186,7 +184,7 @@ char	*ft_chdollar(char *line)
 		return (0);
 	dollar = 0;
 	len = ft_chdollar_len(line, &dollar);
-	str = malloc(sizeof(*str) * len + 1);
+	str = ft_calloc(sizeof(*str), len + 1);
 	str = ft_chdollar_str(str, line, dollar, len);
 	free(line);
 	return (str);

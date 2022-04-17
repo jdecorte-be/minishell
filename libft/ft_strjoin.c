@@ -6,11 +6,7 @@
 /*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 09:59:42 by lxu-wu            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/12/28 22:35:09 by jdecorte         ###   ########.fr       */
-=======
-/*   Updated: 2021/12/08 15:12:54 by lxu-wu           ###   ########.fr       */
->>>>>>> 032fb06ca1b34baf2ead7a4078944cdeea5fcb34
+/*   Updated: 2021/12/28 22:50:58 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +19,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	len_s1;
 	size_t	len_dst;
 
-	if (!s1 || !s2)
-		return (0);
+	if (!s1)
+		return (ft_strdup((char *)s2));
 	len_s1 = ft_strlen(s1);
 	len_dst = len_s1 + ft_strlen(s2);
 	dst = malloc(sizeof(*dst) * len_dst + 1);

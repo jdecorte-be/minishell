@@ -1,31 +1,5 @@
 #include "../inc/minishell.h"
 
-static int getshlvl(char *str)
-{
-    int neg;
-	int i;
-	int num;
-
-	i = 0;
-	neg = 1;
-	num = 0;
-	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || str[i] == '\v'
-			|| str[i] == '\f' || str[i] == '\r')
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			neg *= -1;
-		i++;
-	}
-	while (str[i] >= 48 && str[i] <= 57)
-	{
-		num = num * 10 + (str[i] - 48);
-		i++;
-	}
-	return (num * neg);
-}
-
 void	ft_free_tab(char **tab)
 {
 	size_t	i;
@@ -88,10 +62,6 @@ int	main(int ac, char **av, char **env)
     if(!(data = malloc(sizeof(t_data))))
         return 0;
 
-    *env = "Hello";
-    char *str = getenv("PATH");
-    str = 0;
-
     data->lastret = 0;
     d_env->env = env;
     d_env->exp = env;
@@ -117,7 +87,7 @@ int	main(int ac, char **av, char **env)
         if(*line)
             add_history(line);
     
-        line = ft_epur_str(ft_pgross_str(line));
+        line = ft_chdollar(ft_epur_str(ft_pgross_str(line)));
         tokenize(line);
         char **res = ft_split(line, "\1");
         execute(res, data, d_env);
