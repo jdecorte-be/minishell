@@ -8,10 +8,20 @@ RM = rm -rf
 
 SRCS = 	src/main.c\
         src/utils.c\
+		src/lexer.c\
+		src/ft_error.c\
+		\
+		src/builtins/cd.c\
+		src/builtins/echo.c\
+		src/builtins/env.c\
+		src/builtins/export.c\
+		src/builtins/unset.c\
+		\
         libft/libft.a\
+		# src/pipex.c\
 
 $(NAME) :
-	make all -C libft
+	make bonus -C libft
 	gcc $(CFLAGS) $(SRCS) -o $(NAME)
 
 all : $(NAME)
