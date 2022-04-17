@@ -43,10 +43,13 @@ static char	**ft_creat_tab(char **tab, char *str, char *set, size_t word)
 				end++;
 		else if (str[end] && !ft_strchr(set, str[end]))
 		{
-			while (str[end] && ft_strchr("\'\"", str[end]))
-				ft_creat_tab2(str, &end, 0, 1);
-			while (str[end] && !ft_strchr(set, str[end]) && !ft_strchr("\'\"", str[end]))
-				end++;
+			while (str[end] && !ft_strchr(set, str[end]))
+			{
+				while (str[end] && ft_strchr("\'\"", str[end]))
+					ft_skip_q(str, &end);
+				while (str[end] && !ft_strchr(set, str[end]) && !ft_strchr("\'\"", str[end]))
+					end++;
+			}
 		}
 		tab[i++] = ft_substr(str, start, end - start);
 	}
