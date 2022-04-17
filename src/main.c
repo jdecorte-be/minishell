@@ -8,6 +8,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	char	**tab;
 	pid_t	pid;
+	t_redirect	redirect;
 
 	while (1)
 	{
@@ -22,7 +23,17 @@ int	main(int argc, char **argv, char **envp)
 		data.line = ft_epur_str(ft_chwc(ft_add_q_dollar(ft_chdir(ft_chdollar(ft_pgross_str((line)))))));
 		// printf("!\n");
 		// data.line = ft_ecrase_q(data.line);
-		// ft_redirect(data.line);
+		redirect = ft_redirect(data.line);
+		while (redirect.infile)
+		{
+			printf("%s\n", redirect.infile->content);
+			redirect.infile = redirect.infile->next;
+		}
+		while (redirect.infile)
+		{
+			printf("%s\n", redirect.infile->content);
+			redirect.infile = redirect.infile->next;
+		}
 		// data.line = ft_cutoff(line, 5, 5);
 		printf("%s|\n", data.line);
 		free(data.line);

@@ -67,7 +67,7 @@ char	*ft_add_q_str(char *str, char *line, size_t i)
 					{
 						str = ft_quajoin(str, "\"", ft_substr(line, start, i - start), "\"");
 						start = i;
-						printf("3 str = %s\n", str);
+						// printf("3 str = %s\n", str);
 					}
 				}
 				else
@@ -77,7 +77,7 @@ char	*ft_add_q_str(char *str, char *line, size_t i)
 		
 		
 	}
-	printf("4 str = %s\n", str);
+	// printf("4 str = %s\n", str);
 	return (str);
 }
 
@@ -97,11 +97,11 @@ char	*ft_add_q_dollar(char *line)
 		start = end;
 		if (!ft_strncmp(line + end, "export ", 6))
 		{
-			printf("a = %s\n", str);
+			// printf("a = %s\n", str);
 			end = ft_next_word(line, end);
 			str = ft_strjoin1(str, ft_substr(line, start, end - start));
 			str = ft_add_q_str(str, line, end);
-			printf("5 str = %s\n", str);
+			// printf("5 str = %s\n", str);
 			// while (line[end] && !ft_isspace(line[end]))
 			// {
 			// 	while (line[end] && !ft_isspace(line[end] && !ft_strchr("\'\"", line[end]) && line[end] != '=' && trig != 1)
@@ -121,18 +121,18 @@ char	*ft_add_q_dollar(char *line)
 			// }
 			//pas fini, penser a faire --> export da'da=$ad'$a* ----> export dada="$ad<arg $a>*"
 			
-			printf("add_q = %s\n", line + end);
-			printf("export found\n");
+			// printf("add_q = %s\n", line + end);
+			// printf("export found\n");
 			break;
 		}
 		// else
 		end = ft_next_cmd(line, end);
-		printf("end %zu\n", end);
+		// printf("end %zu\n", end);
 		str = ft_strjoin1(str, ft_substr(line, start, end - start));
-		printf("1 str = %s\n", str);
+		// printf("1 str = %s\n", str);
 			// end = ft_next_word(line, end);
 	}
-	printf("str == %s\n", str);
+	// printf("str == %s\n", str);
 	return (str);
 }
 

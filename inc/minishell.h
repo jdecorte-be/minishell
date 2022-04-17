@@ -20,6 +20,7 @@ typedef struct s_redirect
 	t_list	*outfile;
 	int		infd;
 	int		outfd;
+	int		open;
 }	t_redirect;
 
 typedef struct s_sep
