@@ -135,13 +135,14 @@ char	*ft_readfile(char *wc, DIR *loc)
 	return (str);
 }
 
-char	*ft_wcfile(char *wc)
+char	*ft_wcfile(char *wc, char *path)
 {
 	DIR				*loc;
-	char			path[PATH_MAX];
+	char			current[PATH_MAX];
 	char			*match;
 
-	loc = opendir(getcwd(path, PATH_MAX));
+	if (!path)
+		loc = opendir(getcwd(current, PATH_MAX));
 	if (loc == 0)
 		ft_error(5);
 	match = ft_readfile(wc, loc);
