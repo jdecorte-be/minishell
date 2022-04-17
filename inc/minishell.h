@@ -14,13 +14,13 @@
 # include <limits.h>
 # include <dirent.h>
 
-typedef struct s_direct
+typedef struct s_redirect
 {
 	t_list	*infile;
 	t_list	*outfile;
 	int		infd;
 	int		outfd;
-}	t_direct;
+}	t_redirect;
 
 typedef struct s_sep
 {
@@ -141,6 +141,6 @@ char	*ft_ecrase_q(char *word);
 
 int		ft_isprohibited(char *line);
 char	*ft_cutoff(char *str, size_t start, size_t len);
-void	ft_redirect(char *line);
+t_redirect	ft_redirect(char *line);
 
 #endif
