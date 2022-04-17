@@ -37,7 +37,7 @@ void shlvlhandler(t_data *data)
     if(var)
     {
         int shlvl = ft_atoi(var) + 1;
-        my_setenv("SHLVL", ft_itoa(shlvl), data);
+        my_setenv("SHLVL", ft_itoa(shlvl));
 
     }
 }
@@ -86,7 +86,7 @@ int	main(int ac, char **av, char **env)
     
         line = ft_epur_str(ft_chwc(ft_add_q_dollar(ft_chdir(ft_chdollar(ft_pgross_str((line)))))));
         t_token *token = ft_parsing(line);
-        // printlist(data->token);
+        // printlist(token);
         // to delete
         execute(token);
     }

@@ -11,7 +11,7 @@ int pwd()
 	return 0;
 }
 
-int cd(char **cmd, t_data *d_env)
+int cd(char **cmd)
 {
 	char pwd_buff[1024];
 	char oldpwd_buff[1024];
@@ -26,8 +26,8 @@ int cd(char **cmd, t_data *d_env)
 	{
 		if(!getcwd(pwd_buff , sizeof(pwd_buff)))
 			return -1;
-		my_setenv("PWD", pwd_buff, d_env);
-		my_setenv("OLDPWD", oldpwd_buff, d_env);
+		my_setenv("PWD", pwd_buff);
+		my_setenv("OLDPWD", oldpwd_buff);
 	}
 	return 0;
 }

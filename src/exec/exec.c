@@ -6,7 +6,7 @@
 /*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/01/23 23:52:55 by decortejohn      ###   ########.fr       */
+/*   Updated: 2022/01/24 17:48:07 by decortejohn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int exec(char *cmd)
 	if(ft_strcmp(s_cmd[0], "echo") == 0)
         return echo(s_cmd);
     else if(ft_strcmp(s_cmd[0], "cd") == 0)
-        return cd(s_cmd, data);
+        return cd(s_cmd);
     else if(ft_strcmp(s_cmd[0], "pwd") == 0)
         return pwd();
     else if(ft_strcmp(s_cmd[0], "env") == 0)
