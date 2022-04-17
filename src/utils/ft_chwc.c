@@ -1,5 +1,28 @@
 #include "../../inc/minishell.h"
 
+int	ft_chwc_ok(char *line)
+{
+	size_t	i;
+	char	c;
+
+	i = 0;
+	while (line[i])
+	{
+		if (ft_strchr("\"\'", line[i]))
+		{
+			c = line[i++];
+			while (line[i] && line[i] != c)
+				i++;
+			if (line[i])
+				i++;
+		}
+		else if (line[i] == '*')
+			return (0);
+		else
+			i++;
+	}
+	return (1);
+}
 
 char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq)
 {
@@ -153,6 +176,8 @@ char	*ft_chwc(char *line)
 	name = 0;
 	if (!line)
 		return (0);
+	if (ft_chwc_ok(line))
+		return (line);
 	wc = ft_wcsearch(line);
 	tmp.lst = wc;
 	while (tmp.lst)

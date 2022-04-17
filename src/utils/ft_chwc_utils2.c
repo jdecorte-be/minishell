@@ -1,8 +1,28 @@
 #include "../../inc/minishell.h"
 
-char	*ft_checkexist(t_tmp tmp, char *line)
+int	ft_wc_in_fw(char *line)
 {
-	char	*str;
+	size_t	i;
+	char	c;
 
-	return (NULL);
+	i = 0;
+	while (line[i] && ft_isspace(line[i]))
+		i++;
+	while (line[i] && !ft_isspace(line[i]))
+	{
+		if (ft_strchr("\"\'", line[i]))
+		{
+			c = line[i++];
+			while (line[i] && !ft_isspace(line[i]) && line[i] != c)
+				i++;
+			if (line[i] && !ft_isspace(line[i]))
+				i++;
+		}
+		else if (line[i] == '*')
+			return (0);
+		else
+			i++;
+	}
+
+	return (1);
 }

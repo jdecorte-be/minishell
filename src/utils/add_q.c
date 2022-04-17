@@ -1,7 +1,13 @@
-#include "../../minishell.h"
+#include "../../inc/minishell.h"
 
-char	ft_add_q_dollar(char *line, int e)
+char	*ft_add_q_dollar(char *line)
 {
-	unsigned char	c;
+	size_t	end;
+	size_t	start;
+	char	*str;
 
+	i = 0;
+	while ()
+
+	
 }

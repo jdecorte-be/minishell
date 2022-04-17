@@ -145,5 +145,6 @@ t_redirect	ft_redirect(char *line);
 t_list	*ft_sort_word(t_list *lst);
 char	**ft_list_to_tab(t_list *lst);
 t_list	*ft_tab_to_list(char **tab, t_list *lst);
+int		ft_wc_in_fw(char *line);
 
 #endif

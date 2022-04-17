@@ -1,5 +1,27 @@
 #include "../../inc/minishell.h"
 
+int	ft_chdollar_ok(char *line)
+{
+	size_t	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '\'' && ++i)
+		{
+			while (line[i] && line[i] != '\'')
+				i++;
+			if (line[i])
+				i++;
+		}
+		else if (line[i] == '$')
+			return (0);
+		else
+			i++;
+	}
+	return (1);
+}
+
 char	*ft_changedollar(char *line, t_list **dollar)
 {
 	char	*str;
@@ -199,7 +221,8 @@ char	*ft_chdollar(char *line)
 
 	if (!line)
 		return (0);
-	if (ft_strchr(line, '$'))
+	if (ft_chdollar_ok(line))
+		return (line);
 	dollar = 0;
 	len = ft_chdollar_len(line, &dollar);
 	str = ft_calloc(sizeof(*str), len + 1);

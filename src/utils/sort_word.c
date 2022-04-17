@@ -9,6 +9,8 @@ t_list	*ft_sort_word(t_list *lst)
 	size_t	i2;
 	char	*str;
 
+	if (!lst)
+		return (0);
 	i2 = 0;
 	i = 0;
 	tab = ft_list_to_tab(lst);
