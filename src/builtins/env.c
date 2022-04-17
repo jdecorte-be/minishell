@@ -34,7 +34,8 @@ char *findenv(char *name, int *offset)
     p = environ;
     while((c = *p) != NULL)
     {
-		if (strncmp(c, name, len) == 0 && c[len] == '=') {
+		if (ft_strncmp(c, name, len) == 0 && c[len] == '=')
+		{
 			*offset = p - environ;
 			return (c + len + 1);
 		}
@@ -61,7 +62,7 @@ int my_setenv(char *name, char *value)
 		}
 	}
     else
-    {					/* create new slot */
+    {
 		size_t cnt;
 		char **P;
 		for (P = data->env ; *P != NULL; P++)
@@ -71,7 +72,7 @@ int my_setenv(char *name, char *value)
 		if (!P)
 			return (-1);
 		if (lastenv != data->env )
-			memcpy(P, data->env , cnt * sizeof(char *));
+			ft_memcpy(P, data->env , cnt * sizeof(char *));
 		lastenv = data->env  = P;
 		offset = cnt;
 		data->env [cnt + 1] = NULL;
@@ -79,8 +80,7 @@ int my_setenv(char *name, char *value)
     C = (char *)name;
     while(*C && *C != '=')
         ++C;
-	if (!(data->env [offset] =			/* name + `=' + value */
-	    malloc((size_t)((int)(C - name) + l_value + 2))))
+	if (!(data->env [offset] = malloc((size_t)((int)(C - name) + l_value + 2))))
 		return (-1);
     C = data->env[offset];
 	while((*C = *name++) && *C != '=')
@@ -90,7 +90,7 @@ int my_setenv(char *name, char *value)
 	return (0);
 }
 
-char *my_getenv(char *name, t_data *data)
+char *my_getenv(char *name)
 {
     int i = 0;
 

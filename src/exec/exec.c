@@ -6,7 +6,7 @@
 /*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/01/28 08:25:04 by decortejohn      ###   ########.fr       */
+/*   Updated: 2022/01/29 10:39:39 by decortejohn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int exec(char *cmd)
     else if(ft_strcmp(s_cmd[0], "export") == 0)
         return export(s_cmd, data);
     else if(ft_strcmp(s_cmd[0], "unset") == 0)
-        return unset(s_cmd, data);
+        return unset(s_cmd);
     else if(ft_strcmp(s_cmd[0], "exit") == 0)
         exit_cmd(s_cmd);
 	else

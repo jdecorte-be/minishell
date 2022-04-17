@@ -19,6 +19,7 @@ void printlist(t_token *token)
         printf("%s\n", token->cmd);
         printf("%d\n", token->redirect.infd);
         printf("%d\n", token->redirect.outfd);
+        printf("================================================================\n");
     // if (token->sub_token)
     //     token = token->sub_token;
     // else if (token->next)
@@ -58,16 +59,13 @@ char *prompt()
 int	main(int ac, char **av, char **env)
 {
     (void)av;
-
+	char	*line;
+    unsetenv("OLDPWD");
     if(!(data = malloc(sizeof(t_data))))
         return 0;
     data->lastret = 0;
     data->env = env;
-    free(my_getenv("OLDPWD", data));
     shlvlhandler(data);
-
-	char	*line;
-
     if(ac != 1)
         puterror("\e[0;37mUse : ./minishell without arguments\n");
     while (1)

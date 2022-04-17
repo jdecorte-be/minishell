@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
+/*   By: lxu-wu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 07:53:16 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/01/29 11:24:49 by decortejohn      ###   ########.fr       */
+/*   Created: 2021/08/10 09:14:56 by lxu-wu            #+#    #+#             */
+/*   Updated: 2021/08/10 13:32:53 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	ft_strcmp(char *s1, char *s2)
+char	*ft_strstr(char	*str, char	*to_find)
 {
-	size_t	i;
+	int	i;
 
-	i = 0;
-	if (!s1)
-		return -1;
-
-	while (s1[i] || s2[i])
+	if (to_find[0] == '\0')
+		return (str);
+	while (*str)
 	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
+		if (*str == *to_find)
+		{
+			i = 1;
+			while (to_find[i] && str[i] == to_find[i])
+				i++;
+			if (!to_find[i])
+				return (str);
+		}
+		str++;
 	}
 	return (0);
 }

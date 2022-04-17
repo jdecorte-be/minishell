@@ -93,12 +93,12 @@ typedef struct s_tmp
 t_data	*data;
 
 
-
+char *findenv(char *name, int *offset);
 char *get_path(char *cmd);
 int	pipex(char *cmd);
 char *prompt();
 void	sig_handler(int sig);
-char *my_getenv(char *name, t_data *data);
+char *my_getenv(char *name);
 int	my_setenv(char *name, char *value);
 void refresh_env(char **env, t_data *data);
 int checkvalid(char *cmd);
@@ -106,7 +106,7 @@ int     echo(char **args);
 int     pwd();
 int     cd(char **cmd);
 int     export(char **cmd,t_data *data);
-int     unset(char **cmd, t_data *data);
+int     unset(char **cmd);
 int     printList(t_list *head);
 
 t_list  *list_env(char **env);
@@ -268,6 +268,8 @@ t_token	*ft_parsing(char *line);
 char	*ft_redirect_chwc(char *line);
 int		ft_chwc_ok2(char *line);
 char	*ft_transf(char *line);
+int		ft_hd_exist(char *line);
+void	ft_here_doc(t_token *data);
 
 char *tokenize(char *line);
 char **parsing(char *input);

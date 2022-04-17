@@ -6,7 +6,7 @@
 #    By: lxu-wu <lxu-wu@student.s19.be>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/18 09:58:01 by lxu-wu            #+#    #+#              #
-#    Updated: 2021/12/22 21:19:29 by lxu-wu           ###   ########.fr        #
+#    Updated: 2022/01/28 07:46:47 by lxu-wu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS = ft_isdigit.c ft_memset.c ft_strjoin.c ft_strtrim.c\
 		ft_split.c ft_strncmp.c ft_isalpha.c ft_memcpy.c ft_strchr.c\
 		ft_strnstr.c ft_isascii.c ft_memmove.c ft_strdup.c ft_strrchr.c\
 		ft_striteri.c get_next_line.c ft_strcmp.c ft_isspace.c\
-		ft_strrcmp.c
+		ft_strrcmp.c ft_strstr.c
 
 
 BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstlast.c ft_lstsize.c\

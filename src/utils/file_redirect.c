@@ -89,7 +89,7 @@ t_list	*ft_file(char *line, char c, int *open)
 			if (line[i])
 				i++;
 		}
-		if (line[i] && ft_strchr("(", line[i]) && ++i)
+		else if (line[i] && ft_strchr("(", line[i]) && ++i)
 		{
 			v = 1;
 			while (line[i] && v != 0)
@@ -164,6 +164,11 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 				if (file.infd == -1)
 					perror("open rd");
 			}
+			else
+			{
+				file.outfd = -1;
+				file.infd = -1;
+			}
 			file.infile = ft_next(file.infile);
 		}
 		while (file.outfile)
@@ -180,7 +185,12 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 				if (file.outfd == -1)
 					perror("open wr");
 			}
-			printf("1\n");
+			else
+			{
+				file.outfd = -1;
+				file.infd = -1;
+			}
+			// printf("1\n");
 			file.outfile = ft_next(file.outfile);
 		}
 	}
