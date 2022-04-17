@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../inc/minishell.h"
 
 void	puterror(char *str)
 {
@@ -7,26 +7,27 @@ void	puterror(char *str)
 	i = -1;
 	while (str[++i])
 		write(2, &str[i], 1);
+	exit(0);
 }
 
-void exec(char *cmd, char **env)
+void	*ft_memdel(void *ptr)
 {
-	int i;
-	char **s_args = ft_split(cmd, ' ');
-	char **s_env = ft_split(getenv("PATH"), ':');
-	char *execs;
-
-	i = -1;
-	while (s_env[++i])
+	if (ptr)
 	{
-		s_env[i] = ft_strjoin(s_env[i], "/");
-		execs = ft_strjoin(s_env[i], s_args[0]);
-		free(s_env[i]);
-		if (access(execs, X_OK) == 0)
-			break ;
-		free(execs);
+		free(ptr);
+		ptr = NULL;
 	}
-	execve(execs, &s_args[0], env);
-	puterror(cmd);
-	exit(127);
+	return (NULL);
+}
+
+int printList(t_list *head)
+{
+	t_list *tmp = head;
+
+	while(tmp != NULL){
+		printf("%s\n", tmp->content);
+		tmp = tmp->next;
+	}
+	printf("\n");
+	return 0;
 }
