@@ -69,22 +69,21 @@ char	*ft_chdir(char *line)
 	while (line[end])
 	{
 		start = end;
-		if (((end && line[end - 1] == ' ') || !end) && line[end] && line[end + 1] && ((line[end + 2] && ft_strchr(" /0", line[end + 2])) || !line[end + 2]) && ft_strchr("+-0", line[end + 1]) && ++end)
+		if (((end && line[end - 1] == ' ') || !end) && line[end] && line[end] == '~' && line[end + 1] && ((line[end + 2] && ft_strchr(" /0", line[end + 2])) || !line[end + 2]) && ft_strchr("+-0", line[end + 1]))
 		{
-			if (line[end + 1] && line[end + 1] == '0')
-			{
-				// printf("1\n");
-				pwd = ft_getpwd('0');
-				end += 2;
-			}
-			else
-			{
 				// printf("2\n");
-				pwd = ft_getpwd(line[end]);
+			start = end++;
+			if (ft_strchr("+-", line[end]))
 				end++;
+			while (line[end] == '0')
+				end++;
+			if (ft_strchr("/ ", line[end]) || !line[end])
+			{
+				pwd = ft_getpwd(line[start + 1]);
+				str = ft_strjoin1(str, pwd);
+				start = end;
 			}
-			start = end;
-			str = ft_strjoin1(str, pwd);
+			// end++;
 		}
 		else if (line[end] && ft_strchr("\'\"", line[end]))
 			ft_creat_tab2(line, &end, 0, 1);
