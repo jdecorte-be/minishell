@@ -48,7 +48,7 @@ char	*ft_getpwd(char c)
 	{
 		str = getenv("OLDPWD");
 		if (str == 0)
-			str = "~-"
+			str = "~-";
 		// printf("%s\n", getenv("OLDPWD"));
 		return (str);
 	}
