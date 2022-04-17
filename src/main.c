@@ -10,6 +10,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		line = readline("caca->");
+		add_history(line);
 		if (!line)
 			break;
 		data.line = ft_chwc(ft_chdir(ft_chdollar(ft_epur_str(ft_pgross_str((line))))));
