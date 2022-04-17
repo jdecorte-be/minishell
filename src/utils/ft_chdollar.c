@@ -7,13 +7,19 @@ int	ft_chdollar_ok(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == '\'' && ++i)
+		if (line[i] == '\"' && ++i)
 		{
-			while (line[i] && line[i] != '\'')
+			while (line[i] != '\"')
+			{
+				if (line[i] == '$')
+					return (0);
 				i++;
+			}
 			if (line[i])
 				i++;
 		}
+		else if (line[i] == '\'')
+			ft_skip_q(line, &i);
 		else if (line[i] == '$')
 			return (0);
 		else
