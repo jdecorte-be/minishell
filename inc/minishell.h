@@ -114,4 +114,6 @@ char	*ft_strjoin3(char const *s1, char const *s2);
 int		ft_strncmp2(const char *s1, const char *s2, size_t n);
 int		ft_strrcmp2(const char *s1, const char *s2, size_t n);
 
+char	*ft_chdir(char *line);
+
 #endif
