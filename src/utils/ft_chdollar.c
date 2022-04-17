@@ -9,6 +9,7 @@ char	*ft_changedollar(char *line, t_list **dollar)
 	else
 		str = ft_strdup("569JNRXZghiklms");
 	ft_lstadd_back(dollar, ft_lstnew(str));
+	free(line);
 	return (str);
 }
 
@@ -133,18 +134,14 @@ char	*ft_chdollar_str(char *str, char *line, t_list *dollar, size_t len)
 						if (line[i++] == '-')
 						{
 							i2 = ft_strlcat(str, dollar->content, len);
-							tmp = dollar;
-							dollar = dollar->next;
-							free(tmp);
+							dollar = ft_next(dollar);
 						}
 						else
 						{
 							while (line[i] && !ft_strchr("\"\'+/%^~:.,-", line[i]) && !ft_isspace(line[i]))
 								i++;
 							i2 = ft_strlcat(str, dollar->content, len);
-							tmp = dollar;
-							dollar = dollar->next;
-							free(tmp);
+							dollar = ft_next(dollar);
 						}
 					}
 					else
@@ -158,18 +155,14 @@ char	*ft_chdollar_str(char *str, char *line, t_list *dollar, size_t len)
 			if (line[i] == '-' && ++i)
 			{
 				i2 = ft_strlcat(str, dollar->content, len);
-				tmp = dollar;
-				dollar = dollar->next;
-				free(tmp);
+				dollar = ft_next(dollar);
 			}
 			else
 			{
 				while (line[i] && !ft_strchr("+/%^~:.,-", line[i]) && !ft_isspace(line[i]))
 					i++;
 				i2 = ft_strlcat(str, dollar->content, len);
-				tmp = dollar;
-				dollar = dollar->next;
-				free(tmp);
+				dollar = ft_next(dollar);
 			}
 		}
 		else if (line[i] && line[i] == '$' && line[i + 1] && ft_strchr("\'\"", line[i + 1]))
@@ -188,7 +181,6 @@ char	*ft_chdollar(char *line)
 	size_t	len;
 	char	*str;
 	t_list	*dollar;
-
 
 	if (!line)
 		return (0);

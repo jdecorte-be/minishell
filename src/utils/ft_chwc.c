@@ -79,15 +79,13 @@ char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq)
 				while (line[end] && ft_exist(line + end, len - 1) && !ft_strncmp(line + end, wc->content, len -1))
 					end++;
 				str = ft_strjoin(str, ft_substr(line, start, end - start));
-				printf("%s\n", ft_substr(line, start, end - start));
 			}
 		}
 		else
 		{
 			while (line[end])
 				end++;
-			end++;
-			str = ft_strjoin(str, ft_substr(line, start, end - start - 1));
+			str = ft_strjoin(str, ft_substr(line, start, end - start));
 		}
 	}
 	return (str);

@@ -6,13 +6,13 @@
 /*   By: lxu-wu <lxu-wu@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 07:53:59 by lxu-wu            #+#    #+#             */
-/*   Updated: 2021/12/23 17:34:14 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2021/12/28 17:24:21 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	*ft_trijoin(char const *s1, char const *s2, char const *s3)
+char	*ft_trijoin(char *s1, char *s2, char *s3)
 {
 	char	*dst;
 	size_t	i;

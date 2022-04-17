@@ -10,8 +10,11 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		line = readline("caca->");
-		data.line = ft_chwc(ft_epur_str(ft_chdollar(ft_pgross_str(line))));
+		if (!line)
+			break;
+		data.line = ft_chwc(ft_epur_str(ft_chdollar(ft_epur_str(ft_pgross_str(line)))));
 		printf("%s|\n", data.line);
+		free(data.line);
 		line = 0;
 		// data.cmd = ft_creat_cmd(data.line);
 		// printf("4\n");
@@ -26,7 +29,7 @@ int	main(int argc, char **argv, char **envp)
 	// }
 	// printf("");
 
-	// system("leaks a.out");
+	system("leaks a.out");
 	size_t len = 2;
 
 	// printf("%d\n", ft_strncmp("da", "da", 100));

@@ -53,26 +53,28 @@ char	*ft_woquote(char *line)
 	char	*str;
 	size_t	i;
 	char	c;
+	size_t	i2;
 
 	if (ft_strchr(line, '\'') || ft_strchr(line, '\"'))
 	{
 		str = malloc(sizeof(char) * (ft_strlen(line) - 2 + 1));
 		i = 0;
-		while (*line)
+		i2 = 0;
+		while (line[i2])
 		{
-			if (ft_strchr("\'\"", *line))
+			if (ft_strchr("\'\"", line[i2]))
 			{
-				c = *line++;
-				while (*line && *line != c)
-					str[i++] = *line++;
-				line++;
+				c = line[i2++];
+				while (line[i2] && line[i2] != c)
+					str[i++] = line[i2++];
+				i2++;
 			}
 			else
-				str[i++] = *line++;
+				str[i++] = line[i2++];
 		}
 	}
 	else
-		return (line);
+		return (ft_strdup(line));
 	return (str);
 }
 

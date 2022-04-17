@@ -6,6 +6,7 @@ t_list	*ft_next(t_list *lst)
 
 	tmp = lst;
 	lst = lst->next;
+	free(tmp->content);
 	free(tmp);
 	return (lst);
 }
