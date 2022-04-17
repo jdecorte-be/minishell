@@ -93,7 +93,9 @@ char	*ft_chwc(char *line);
 char	*ft_wcfile(char *wc);
 t_list	*ft_wcsearch(char *line);
 
+char	*ft_trijoin(char const *s1, char const *s2, char const *s3);
 int		ft_exist(char *str, size_t len);
+char	*ft_lstmerge(t_list *lst);
 
 void	ft_error(int e);
 int		ft_free(char *line);

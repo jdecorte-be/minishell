@@ -29,3 +29,18 @@ int	ft_exist(char *str, size_t len)
 		return (1);
 	return (0);
 }
+
+char	*ft_lstmerge(t_list *lst)
+{
+	char	*str;
+
+	if (!lst)
+		return (0);
+	str = 0;
+	while (lst)
+	{
+		str = ft_trijoin(str, lst->content, " ");
+		lst = lst->next;
+	}
+	return (str);
+}

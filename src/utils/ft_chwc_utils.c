@@ -41,6 +41,8 @@ int	ft_wcmatch(char **wc_tab, char *file)
 	size_t	len;
 
 	i = 0;
+	if (wc_tab[0][0] != '.' && *file == '.')
+		return (0);
 	while (wc_tab[i])
 	{
 		len = ft_strlen(wc_tab[i]);
@@ -93,8 +95,8 @@ char	*ft_readfile(char *wc, DIR *loc)
 			ft_lstadd_back(&match, ft_lstnew(file->d_name));
 		file = readdir(loc);
 	}
-	// // str = ft_merge(match);
-	// ft_lstclear(&match, 0);
+	str = ft_lstmerge(match);
+	ft_lstclear(&match, 0);
 	return (str);
 }
 

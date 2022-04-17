@@ -29,13 +29,11 @@ char	*ft_chwc(char *line)
 	}
 	if (!name)
 		return (line);
-	while (wc)
+	int x = 0;
+	while (name)
 	{
-		printf("wc = %s\n", wc->content);
-		wc = wc->next;
+		printf("name = %s\n", name->content);
+		name = name->next;
 	}
-	// ft_pgross_str(str);
-	// loc = 
-	// len = ft_chwc_len(line);
 	return (0);
 }
