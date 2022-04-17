@@ -15,9 +15,9 @@ t_token	*ft_parsing2(t_token *sup_token)
 	{
 		tmp->redirect = ft_redirect(tmp->cmd, sup_token->redirect);
 		tmp->cmd = ft_cut_chevron(tmp->cmd);
-		printf("cmd %s\n", tmp->cmd);
-		printf("in %d\n", tmp->redirect.infd);
-		printf("out %d\n", tmp->redirect.outfd);
+		// printf("cmd %s\n", tmp->cmd);
+		// printf("in %d\n", tmp->redirect.infd);
+		// printf("out %d\n", tmp->redirect.outfd);
 		if (tmp->cmd[0] == '(')
 			tmp->sub_token = ft_parsing2(tmp);
 		tmp = tmp->next;
@@ -39,9 +39,9 @@ t_token	*ft_parsing(char *line)
 	{
 		tmp->redirect = ft_redirect(tmp->cmd, ft_init_redirect());
 		tmp->cmd = ft_cut_chevron(tmp->cmd);
-		printf("cmd %s\n", tmp->cmd);
-		printf("in %d\n", tmp->redirect.infd);
-		printf("out %d\n", tmp->redirect.outfd);
+		// printf("cmd %s\n", tmp->cmd);
+		// printf("in %d\n", tmp->redirect.infd);
+		// printf("out %d\n", tmp->redirect.outfd);
 		if (tmp->cmd[0] == '(')
 			tmp->sub_token = ft_parsing2(tmp);
 		tmp = tmp->next;
