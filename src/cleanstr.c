@@ -1,27 +1,40 @@
 #include "../inc/minishell.h"
 
-void delete_ext_quotes(char *line)
+char    *ft_ecrase_q(char *word)
 {
-	int i = 0;
-	int j = 0;
-	int next_index = 0;
-	while(line[i])
+	char	*new_word;
+	size_t	i;
+	size_t	start;
+	size_t	end;
+	char	c;
+
+	if (!word)
+		return (0);
+	i = 0;
+	end = 0;
+	new_word = 0;
+	while (word[end])
 	{
-		if(line[i] == '\"' || line[i] == '\'')
+		c = 0;
+		start = end;
+		if (word[end] && ft_strchr("\'\"", word[end]))
 		{
-			ft_memmove(&line[i] , &line[i + 1], ft_strlen(line) - i);
-			j = i;
-			while(line[j])
-			{
-				if(line[j] == line[i])
-					next_index = j;
-				i++;
-			}
-			ft_memmove(&line[next_index] , &line[next_index + 1], ft_strlen(line) - next_index);
-			break;
+			c = word[end++];
+			start = end;
+			while (word[end] && word[end] != c)
+				end++;
+			new_word = ft_strjoin1(new_word, ft_substr(word, start, end - start));
+			if (word[end])
+				end++;
 		}
-		i++;
+		else
+		{
+			while (word[end] && !ft_strchr("\'\"", word[end]))
+				end++;
+ 			new_word = ft_strjoin1(new_word, ft_substr(word, start, end - start));
+		}
 	}
+	return (new_word);
 }
 
 char *tokenize(char *line)
@@ -30,7 +43,7 @@ char *tokenize(char *line)
 
 	if (!line)
 		return NULL;
-	char *res = ft_strjoin(ft_strjoin(" ", line), " ");
+	char *res = ft_ecrase_q(ft_strjoin(ft_strjoin(" ", line), " "));
 	while(res[i])
 	{
 		if (((res[i] == '&' && res[i + 1] == '&') || (res[i] == '|' && res[i + 1] == '|')) && res[i + 2] && res[i - 1])
@@ -45,5 +58,6 @@ char *tokenize(char *line)
 		}
 		i++;
 	}
+
 	return res;
 }

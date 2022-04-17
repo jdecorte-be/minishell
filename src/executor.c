@@ -30,13 +30,13 @@ int execute(char **input, t_data *data, t_env *d_env)
 		return (0);
 	while(input[i])
 	{
-		if(start == 1)
+		if(start == 1 && input[i][0] != '(')
 			data->lastret = executeur(input[i], d_env);
 		else if(start == 0 && ft_strcmp(input[i - 1], "&&") == 0 && data->lastret == 0 && ft_strcmp(input[i], "(") && ft_strcmp(input[i], ")"))
 			data->lastret = executeur(input[i], d_env);
 		else if(start == 0 && ft_strcmp(input[i - 1], "||") == 0 && data->lastret != 0 && ft_strcmp(input[i], "(") && ft_strcmp(input[i], ")"))
 			data->lastret = executeur(input[i], d_env);
-		else if(ft_strcmp(input[i - 1], "(") == 0)
+		else if(input[i][0] != '(' && ft_strcmp(input[i - 1], "(") == 0)
 			data->lastret = subshell(input[i], d_env, data);
 		// printf("---> %d\n", data->lastret);
 
