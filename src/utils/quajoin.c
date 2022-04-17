@@ -15,5 +15,6 @@ char	*ft_quajoin(char *s1, const char *s2, char *s3, const char *s4)
 		*str++ = *s3++;
 	while (*s4)
 		*str++ = *s4++;
+	*str = 0;
 	return (ret);
 }

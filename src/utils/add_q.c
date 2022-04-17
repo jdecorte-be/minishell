@@ -14,11 +14,12 @@ char	*ft_add_q_str(char *str, char *line, size_t i)
 	while (line[i])
 	{
 		start = i;
-		while (line[i])
+		while (line[i] && line[i] != '=')
 		{
 			if (line[i] && !ft_isspace(line[i]) && ft_strchr("\'\"", line[i]) && c != 0)
 			{
 				c = 0;
+				i++;
 			}
 			else if (line[i] && !ft_isspace(line[i]) && ft_strchr("\'\"", line[i]) && c == 0)
 			{
@@ -27,18 +28,17 @@ char	*ft_add_q_str(char *str, char *line, size_t i)
 			else
 				i++;
 		}
-		if (c == 0)
-		{
-			str = ft_strjoin1(str, ft_substr(line, start, i - start));
-			start = i;
-			printf("2 str = %s\n", str);
-		}
+		// if (c == 0)
+		// {
+		str = ft_strjoin1(str, ft_substr(line, start, i - start + 1));
+		start = i;
+			// printf("2 str = %s\n", str);
+		// }
 		if (line[i] && line[i] == '=' && ++i)
 		{
-			str = ft_strjoin1(str, "=");
+			start = i;
 			while (line[i] && !ft_isspace(line[i]))
 			{
-				start = i;
 				if (c != 0)
 				{
 					while (line[i] && line[i] != c)
@@ -55,7 +55,7 @@ char	*ft_add_q_str(char *str, char *line, size_t i)
 				}
 				else if (line[i] && !ft_isspace(line[i]) && c == 0)
 				{
-					while (line[i] && !ft_isspace(line[i]) && !ft_strchr("\'\"", line[i]))
+					while (line[i] && !ft_isspace(line[i]) && !ft_strchr("\'\"", line[i]) && c == 0)
 					{
 						i++;
 					}
@@ -63,9 +63,10 @@ char	*ft_add_q_str(char *str, char *line, size_t i)
 					{
 						c = line[i];
 					}
-					if (i != start)
+					else if (i != start)
 					{
 						str = ft_quajoin(str, "\"", ft_substr(line, start, i - start), "\"");
+						start = i;
 						printf("3 str = %s\n", str);
 					}
 				}
@@ -96,6 +97,7 @@ char	*ft_add_q_dollar(char *line)
 		start = end;
 		if (!ft_strncmp(line + end, "export ", 6))
 		{
+			printf("a = %s\n", str);
 			end = ft_next_word(line, end);
 			str = ft_strjoin1(str, ft_substr(line, start, end - start));
 			str = ft_add_q_str(str, line, end);
@@ -130,6 +132,7 @@ char	*ft_add_q_dollar(char *line)
 		printf("1 str = %s\n", str);
 			// end = ft_next_word(line, end);
 	}
+	printf("str == %s\n", str);
 	return (str);
 }
 
