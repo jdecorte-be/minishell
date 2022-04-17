@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.s19.be>             +#+  +:+       +#+        */
+/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 10:03:35 by lxu-wu            #+#    #+#             */
-/*   Updated: 2021/12/18 20:33:02 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2021/12/18 22:37:53 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_error(int e);
 
 typedef struct s_list
 {
-	void			*content;
+	char			*content;
 	struct s_list	*next;
 }	t_list;
 
