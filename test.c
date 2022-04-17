@@ -5,5 +5,6 @@
 
 int		main()
 {
-	printf("%d\n%d\n", chdir("/"), chdir("/Users"));
+	while (1)
+		printf("1\n");
 }

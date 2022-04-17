@@ -7,8 +7,7 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 	char	*line;
 	char	**tab;
-	
-
+	pid_t	pid;
 
 	while (1)
 	{
