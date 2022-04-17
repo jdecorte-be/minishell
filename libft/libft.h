@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 10:03:35 by lxu-wu            #+#    #+#             */
-/*   Updated: 2021/12/18 20:33:02 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2021/12/18 22:06:33 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_list
 
 char	*get_next_line(int fd);
 int		ft_strcmp(char *s1, char *s2);
+int		ft_isspace(char c);
 
 // parite 1
 

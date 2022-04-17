@@ -6,11 +6,14 @@ int	ft_free(char *line)
 	return (1);
 }
 
-char	*ft_epur_str(char *line)
+int	ft_str_isspace(char *str)
 {
-	char	*str;
+	size_t	i;
 
-	
-	return (str);
+	i = 0;
+	while (str[i] && ft_isspace(str[i]))
+		i++;
+	if (!str[i])
+		return (1);
+	return (0);
 }
-
