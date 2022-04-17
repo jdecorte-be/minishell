@@ -161,5 +161,7 @@ char	*ft_pgross_str(char *line);
 char	*ft_epur_str(char *line);
 int execute(char **input, t_data *data, t_env *d_env);
 char	*ft_strjoin2(char const *s1, char const *s2);
+int		ft_strncmp2(const char *s1, const char *s2, size_t n);
+int		ft_strrcmp2(const char *s1, const char *s2, size_t n);
 
 #endif

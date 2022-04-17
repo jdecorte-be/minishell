@@ -35,7 +35,7 @@ t_list	*ft_wcsearch(char *line)
 			if (c1 == 1)
 				ft_lstadd_back(&wc, ft_lstnew(ft_substr(line, start, end - start)));
 		}
-		else
+		else if (line[end])
 			end++;
 	}
 	return (wc);
@@ -45,30 +45,58 @@ int	ft_wcmatch(char **wc_tab, char *file)
 {
 	size_t	i;
 	size_t	len;
+	char	*woq;
 
 	i = 0;
 	if (wc_tab[0][0] != '.' && *file == '.')
 		return (0);
 	while (wc_tab[i])
 	{
-		len = ft_strlen(wc_tab[i]);
-		if (wc_tab[i] && *(wc_tab[i]) == '*' && ++i)
+		woq = ft_woquote(wc_tab[i]);
+		len = ft_strlen(woq);
+		printf("woq == %s && %zu\n", woq, len);
+		if (wc_tab[i] && *wc_tab[i] == '*' && ++i)
 		{
-			len = ft_strlen(wc_tab[i]);
+			// printf("1\n");
+			free(woq);
+			woq = ft_woquote(wc_tab[i]);
+			len = ft_strlen(woq);
 			if (wc_tab[i])
-				while (*file && ft_exist(file, len - 1) && ft_strncmp(file, wc_tab[i], len - 1))
+			{
+				// printf("2\n");
+				while (*file && ft_exist(file, len - 1) && ft_strncmp2(file, woq, len - 1))
+				{
+					printf("file++\n");
 					file++;
+				}
+			}
 			else
+			{
+				// printf("3\n");
 				while (*file)
+				{
+					printf("file++\n");
 					file++;
+				}
+			}
 		}
-		else if (*file && wc_tab[i] && wc_tab[i + 1] && ft_exist(file, len - 1) && !ft_strncmp(file, wc_tab[i], len - 1) && ++i)
+		else if (printf("ncmp = %d\n", *file && wc_tab[i] && wc_tab[i + 1] && ft_exist(file, len - 1) && !ft_strncmp2(file, woq, len - 1)) && *file && wc_tab[i] && wc_tab[i + 1] && ft_exist(file, len - 1) && !ft_strncmp2(file, woq, len - 1) && ++i)
+		{
+			// printf("4\n");
 			file += len;
-		else if (*file && wc_tab[i] && !wc_tab[i + 1] && ft_exist(file, len - 1) && !ft_strrcmp(file, wc_tab[i], len) && ++i)
+		}
+		else if (printf("rcmp = %d\n", *file) && *file && wc_tab[i] && !wc_tab[i + 1] && ft_exist(file, len - 1) && !ft_strrcmp2(file, woq, len) && ++i)
+		{
+			// printf("5\n");
 			while (*file)
 				file++;
+		}
 		else
+		{
+			free(woq);
 			break ;
+		}
+		free(woq);
 	}
 	if (!wc_tab[i] && !*file)
 		return (1);
@@ -85,10 +113,19 @@ char	*ft_readfile(char *wc, DIR *loc)
 
 	match = 0;
 	wc_tab = ft_split4(wc, "*");
+	
+	i = 0;
+	while (wc_tab[i])
+	{
+		printf("wc == %s\n", wc_tab[i++]);
+	}
+
+
 	i = 0;
 	file = readdir(loc);
 	while (file)
 	{
+		printf("%s\n", file->d_name);
 		if (ft_wcmatch(wc_tab, file->d_name))
 			ft_lstadd_back(&match, ft_lstnew(ft_strdup(file->d_name)));
 			// ft_lstadd_back(&match, ft_lstnew(ft_trijoin("\'", file->d_name, "\'")));
