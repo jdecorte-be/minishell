@@ -81,7 +81,7 @@ int	main(int ac, char **av, char **env)
 		line = readline(formpath());
         if (!line)
         {
-            write(1, "\b\bexit\n", 7);
+            write(2, "\b\bexit\n", 7);
             exit (0);
         }
         if(*line)
