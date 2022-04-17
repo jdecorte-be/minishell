@@ -42,7 +42,7 @@ int	pipex(t_env *d_env, char *cmd)
 		return errno;
 
 	// first
-	if (pid)
+	if (!pid)
 	{
 		dup2(p_fd[0], 0);
 		// dup2(fd2, 1);
