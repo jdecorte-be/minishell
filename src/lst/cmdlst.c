@@ -9,34 +9,37 @@ t_cmd	*ft_cmdnew(char	*line)
 		ft_error(2);
 	cmd->next = 0;
 	cmd->line = line;
-	cmd->sep.p = 0;
-	cmd->sep.n = 0;
-	cmd->file.in = 0;
-	cmd->file.out = 0;
-	cmd->file.in_open_mode = 0;
+	cmd->p = 0;
+	cmd->n = 0;
 	cmd->mcmd = 0;
-	cmd->next = 0;
 	return (cmd);
 }
 
-t_data	*ft_datalast(t_data *data)
+t_cmd	*ft_cmdlast(t_cmd *cmd)
 {
-	t_data	*tmp;
+	t_cmd	*tmp;
 
-	tmp = data;
-	if (tmp)
+	if (cmd)
+	{
+		tmp = cmd;
 		while (tmp->next)
 			tmp = tmp->next;
+	}
 	return (tmp);
 }
 
-void	ft_dataadd_back(t_data **data, t_data *new)
+void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new)
 {
-	if (new)
+	t_cmd	*last_elem;
+
+	if (cmd && new)
 	{
-		if (!*data)
-			*data = new;
+		if (!*cmd)
+			*cmd = new;
 		else
-			ft_datalast(*data)->next = new;
+		{
+			last_elem = ft_cmdlast(*cmd);
+			last_elem->next = new;
+		}
 	}
 }
