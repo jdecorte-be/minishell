@@ -6,5 +6,5 @@
 
 int		main(int argc, char ** argv)
 {
-	ft_add_q_dollar(argv[1]);
+	printf("test == %s\n", ft_add_q_dollar(argv[1]));
 }

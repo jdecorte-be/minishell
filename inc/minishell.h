@@ -133,6 +133,8 @@ char	*ft_strjoin1(char const *s1, char const *s2);
 char	*ft_strjoin2(char const *s1, char const *s2);
 char	*ft_strjoin3(char const *s1, char const *s2);
 
+char	*ft_quajoin(char *s1, const char *s2, char *s3, const char *s4);
+
 int		ft_strncmp2(const char *s1, const char *s2, size_t n);
 int		ft_strrcmp2(const char *s1, const char *s2, size_t n);
 
@@ -150,6 +152,7 @@ int		ft_wc_in_fw(char *line);
 int		ft_next_word(char *line, size_t i);
 char	*ft_add_q_dollar(char *line);
 int		ft_next_cmd(char *line, size_t i);
+
 
 
 #endif
