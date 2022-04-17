@@ -172,8 +172,7 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 			if (ft_chwc_ok2(file.outfile->content) || ft_transf(file.outfile->content))
 			{
 				if (file.outfd != tmp.outfd)
-					close(file.outfd);
-				str = 
+					close(file.outfd); 
 				if (file.open == 0)
 					file.outfd = open(ft_ecrase_q(ft_redirect_chwc(file.outfile->content)), O_WRONLY | O_TRUNC | O_CREAT, 0644);
 				else if (file.open == 1)
