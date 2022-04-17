@@ -90,7 +90,8 @@ char	*ft_readfile(char *wc, DIR *loc)
 		file = readdir(loc);
 	}
 	str = ft_lstmerge(match);
-	ft_lstclear(&match, 0);
+	ft_free_tab(wc_tab);
+	ft_lstclear(&match, free);
 	return (str);
 }
 

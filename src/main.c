@@ -30,7 +30,6 @@ int	main(int argc, char **argv, char **envp)
 	// printf("");
 
 	system("leaks a.out");
-	size_t len = 2;
 
 	// printf("%d\n", ft_strncmp("da", "da", 100));
 }

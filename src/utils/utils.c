@@ -40,9 +40,9 @@ char	*ft_lstmerge(t_list *lst)
 	while (lst)
 	{
 		if (lst->next)
-			str = ft_trijoin(str, lst->content, " ");
+			str = ft_trijoin1(str, lst->content, " ");
 		else
-			str = ft_strjoin(str, lst->content);
+			str = ft_strjoin1(str, lst->content);
 		lst = lst->next;
 	}
 	return (str);

@@ -19,10 +19,10 @@ char	*ft_replace(char *str, char *search, char *replace)
 		{
 			while (str[end] && !ft_strrcmp(str + end, search, len - 1))
 				end++;
-			ret = ft_strjoin(ret, ft_substr(str, start, end - start - 1));
+			ret = ft_strjoin3(ret, ft_substr(str, start, end - start - 1));
 		}
 		if (str[end] && ft_strrcmp(str + end, search, len - 1))
-			ret = ft_strjoin(ret, replace);
+			ret = ft_strjoin3(ret, replace);
 	}
 	return (ret);
 }

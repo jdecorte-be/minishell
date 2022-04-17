@@ -41,7 +41,6 @@ static char	**ft_creat_tab(char **tab, char *str, char *set, size_t word)
 				end++;
 		tab[i++] = ft_substr(str, start, end - start);
 	}
-	tab[i] = 0;
 	return (tab);
 }
 
@@ -53,7 +52,7 @@ char	**ft_split4(char *str, char *set)
 	if (!str && !*str)
 		return (0);
 	word = ft_count_words(str, set);
-	tab = malloc(sizeof(char *) * word + 1);
+	tab = ft_calloc(sizeof(char *), word + 1);
 	if (!tab)
 		ft_error(2);
 	return (ft_creat_tab(tab, str, set, word));
