@@ -88,8 +88,12 @@ t_mcmd	*ft_creat_mcmd(char *line);
 char	*ft_pgross_str(char *line);
 char	*ft_chdollar(char *line);
 
+char	**ft_split4(char *str, char *set);
 char	*ft_chwc(char *line);
+char	*ft_wcfile(char *wc);
 t_list	*ft_wcsearch(char *line);
+
+int		ft_exist(char *str, size_t len);
 
 void	ft_error(int e);
 int		ft_free(char *line);

@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 10:03:35 by lxu-wu            #+#    #+#             */
-/*   Updated: 2021/12/21 07:16:36 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2021/12/22 16:25:30 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <stdlib.h>
 # include <limits.h>
 
-void	ft_error(int e);
 
 typedef struct s_list
 {
@@ -29,6 +28,8 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+t_list	*ft_next(t_list *lst);
+void	ft_error(int e);
 char	*get_next_line(int fd);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_isspace(char c);

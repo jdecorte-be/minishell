@@ -5,7 +5,6 @@ t_list	*ft_wcsearch(char *line)
 	size_t	i;
 	size_t	start;
 	size_t	end;
-	char	c;
 	char	c1;
 	t_list	*wc;
 
@@ -18,7 +17,7 @@ t_list	*ft_wcsearch(char *line)
 		start = end;
 		if (line[end] && ft_strchr("\"\'", line[end]))
 			ft_creat_tab2(line, &end, 0, 1);
-		if (!ft_isspace(line[end]) && !ft_strchr("\'\"&|", line[end]))
+		else if (line[end] && !ft_isspace(line[end]) && !ft_strchr("\'\"&|", line[end]))
 		{
 			while (line[end] && !ft_isspace(line[end]))
 			{
@@ -27,14 +26,11 @@ t_list	*ft_wcsearch(char *line)
 					printf("1\n");
 					c1 = 1;
 				}
-				printf("%c\n", line[end]);
 			}
-			printf("%zu\n%zu\n", start, end);
+			printf("start =  %zu\nend = %zu\n", start, end);
+			printf("str = %s\n", line + start);
 			if (c1 == 1)
-			{
-				printf("2\n");
 				ft_lstadd_back(&wc, ft_lstnew(ft_substr(line, start, end - start)));
-			}
 		}
 		else
 			end++;
@@ -42,29 +38,71 @@ t_list	*ft_wcsearch(char *line)
 	return (wc);
 }
 
+int	ft_wcmatch(char **wc_tab, char *file)
+{
+	size_t	i;
+	size_t	len;
 
+	i = 0;
+	while (wc_tab[i] && *file)
+	{
+		len = ft_strlen(wc_tab[i]);
+		if (wc_tab[i] && *(wc_tab[i]) == '*')
+		{
+			len = ft_strlen(wc_tab[i++]);
+			while (ft_exist(file, len - 1) && (!wc_tab[i] || ft_strncmp(file, wc_tab[i], len - 1)))
+				file++;
+		}
+		else if (wc_tab[i] && ft_exist(file, len - 1) && !ft_strncmp(file, wc_tab[i], len - 1) && ++i)
+			file += len;
+		else
+			break ;
+	}
+	if (!wc_tab[i] && !*file)
+		return (1);
+	return (0);
+}
 
+t_list	*ft_readfile(char *wc, DIR *loc)
+{
+	struct dirent	*file;
+	char			**wc_tab;
+	t_list			*match;
+	char			*str;
+	size_t			i;
 
+	match = 0;
+	wc_tab = ft_split4(wc, "*");
+	i = 0;
+	file = readdir(loc);
+	while (file)
+	{
+		printf("%s\n", file->d_name);
+		if (ft_wcmatch(wc_tab, file->d_name))
+		{
+			printf("wc match = %d\n", ft_wcmatch(wc_tab, file->d_name));
+			ft_lstadd_back(&match, ft_lstnew(file->d_name));
+			// str = ft_merge(match);
+			ft_lstclear(&match, 0);
+			ft_lstadd_back(&match, ft_lstnew(str));
+		}
+		file = readdir(loc);
+	}
+	return (match);
+}
 
-// t_list	*ft_wcfile(t_list *wc)
-// {
-// 	struct dirent	*dir;	
-// 	DIR				*loc;
-// 	char			path[PATH_MAX];
-// 	t_list			*file;
+char	*ft_wcfile(char *wc)
+{
+	struct dirent	*file;	
+	DIR				*loc;
+	char			path[PATH_MAX];
+	t_list			*match;
 
-// 	if (!wc)
-// 		return (0);
-// 	loc = opendir(getcwd(path, PATH_MAX));
-// 	if (loc == 0)
-// 		ft_error(5);
-// 	dir = readdir(loc);
-// 	while (dir)
-// 	{
-// 		printf("%s\n", dir->d_name);
-// 		ft_lstadd_back(&file, ft_lstnew(dir->d_name));
-// 		dir = readdir(loc);
-// 	}
-// 	if (closedir(loc) == -1)
-// 		ft_error(6);
-// }
+	loc = opendir(getcwd(path, PATH_MAX));
+	if (loc == 0)
+		ft_error(5);
+	match = ft_readfile(wc, loc);
+	if (closedir(loc) == -1)
+		ft_error(6);
+	return (0);
+}

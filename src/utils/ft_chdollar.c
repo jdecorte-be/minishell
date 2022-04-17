@@ -8,7 +8,6 @@ char	*ft_changedollar(char *line, t_list **dollar)
 		str = getenv(line + 1);
 	else
 		str = "569JNRXZghiklms";
-	printf("%s\n", str);
 	ft_lstadd_back(dollar, ft_lstnew(str));
 	return (str);
 }
@@ -34,7 +33,6 @@ size_t	ft_chdollar_len(char *line, t_list **dollar)
 			}
 			else if (line[i] == '\"' && ++i)
 			{
-					printf("%zu\n", i);
 				while (line[i] && line[i] != '\"')
 				{
 					while (line[i] && line[i] != '\"' && line[i] != '$')
@@ -177,9 +175,9 @@ char	*ft_chdollar(char *line)
 		return (0);
 	dollar = 0;
 	len = ft_chdollar_len(line, &dollar);
-	printf("len = %zu\n", len);
 	str = malloc(sizeof(*str) * len + 1);
 	str = ft_chdollar_str(str, line, dollar, len);
 	printf("line line = %s\n", str);
+	free(line);
 	return (str);
 }

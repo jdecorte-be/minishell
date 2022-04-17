@@ -13,16 +13,22 @@ char	*ft_chwc(char *line)
 {
 	char	*str;
 	char	*len;
-	t_list	*file;
+	t_list	*name;
 	t_list	*wc;
 
+	wc = 0;
+	name = 0;
 	if (!line)
 		return (0);
 	printf("line = %s\n", line);
 	wc = ft_wcsearch(line);
-	// file = ft_wcfile(wc);
-	// if (!file)
-	// 	return (line);
+	while (wc)
+	{
+		ft_lstadd_back(&name, ft_lstnew(ft_wcfile(wc->content)));
+		wc = ft_next(wc);
+	}
+	if (!name)
+		return (line);
 	while (wc)
 	{
 		printf("wc = %s\n", wc->content);
