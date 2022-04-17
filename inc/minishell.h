@@ -70,6 +70,7 @@ typedef struct s_data//  block de cmd
 typedef struct s_tmp
 {
 	int		i;
+	int		i2;
 	char	c;
 	t_list	*lst;
 	void	*tmp;
@@ -104,7 +105,7 @@ char	*ft_chdollar(char *line);
 
 char	**ft_split4(char *str, char *set);
 char	*ft_chwc(char *line);
-char	*ft_wcfile(char *wc, char *path, char mode, char *add);
+t_list	*ft_wcfile(char *wc, char *path, char mode, char *add);
 t_list	*ft_wcsearch(char *line);
 
 char	*ft_trijoin(char *s1, char *s2, char *s3);

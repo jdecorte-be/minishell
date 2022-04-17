@@ -41,3 +41,20 @@ int	ft_strrcmp2(const char *s1, const char *s2, size_t n)
 	// printf("rr %c, %c\n", ((unsigned char *)s1)[i], ((unsigned char *)s2)[i]);
 	return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
 }
+
+void	ft_lstdel(t_list **lst, t_list *elem)
+{
+	t_list	*tmp;
+	t_list	*tmp2;
+
+	tmp = *lst;
+	while (tmp && (tmp)->next && (tmp)->next != elem && (tmp) != elem)
+		tmp = (tmp)->next;
+	if ((tmp)->next)
+	{
+		tmp2 = tmp->next;
+		tmp->next = tmp2->next;
+		free(tmp2->content);
+		free(tmp2);
+	}
+}
