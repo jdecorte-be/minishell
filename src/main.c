@@ -10,7 +10,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		line = readline("caca->");
-		data.line = ft_epur_str(ft_pgross_str(ft_chwc(line)));
+		data.line = ft_epur_str(ft_chwc(ft_chdollar(ft_pgross_str(line))));
 		printf("%s|\n", data.line);
 		line = 0;
 		// data.cmd = ft_creat_cmd(data.line);

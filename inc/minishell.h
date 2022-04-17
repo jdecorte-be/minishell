@@ -86,8 +86,10 @@ char	**ft_split3(char *str, char *set);
 t_cmd	*ft_creat_cmd(char *line);
 t_mcmd	*ft_creat_mcmd(char *line);
 char	*ft_pgross_str(char *line);
+char	*ft_chdollar(char *line);
 
-void	ft_chwc(void);
+char	*ft_chwc(char *line);
+t_list	*ft_wcsearch(char *line);
 
 void	ft_error(int e);
 int		ft_free(char *line);

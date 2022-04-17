@@ -80,6 +80,8 @@ char	*ft_pgross_str(char *line)
 	char	*newline;
 	size_t	len;
 
+	if (!line)
+		return (0);
 	len = ft_pgross_len(line);
 	newline = malloc(sizeof(char) * (len + 1));
 	newline = ft_pgross_creat(newline, line);
