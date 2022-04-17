@@ -1,4 +1,6 @@
-void exec(t_pipex *tab, char *cmd)
+#include "minishell.h"
+
+void exec(t_mini *tab, char *cmd)
 {
 	int i;
 	char **args = ft_split(cmd, ' ');
@@ -15,6 +17,5 @@ void exec(t_pipex *tab, char *cmd)
 	}
 	execve(tab->exec, &args[0], tab->env);
 	puterror(cmd);
-	puterror(": command not found\n");;
 	exit(127);
 }
