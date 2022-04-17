@@ -36,5 +36,5 @@ int execute(char **input, t_data *data, t_env *d_env)
 		i++;
 		start = 0;
 	}
-	return 0;
+	return data->lastret ;
 }

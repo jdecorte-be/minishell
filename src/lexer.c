@@ -1,6 +1,32 @@
 #include "../inc/minishell.h"
 
 
+int exit_cmd(char **s_cmd)
+{
+        int i  = 0;
+        while(s_cmd[1][i])
+        {
+            if(!ft_isdigit(s_cmd[1][i]))
+                return 255;
+            i++;
+        }
+        // printf("exit\n");
+        if(s_cmd[2])
+        {
+            ft_putstr_fd("bash: exit: too many arguments\n", 2);
+            return 1;
+        }
+        else if (s_cmd[1][0] == '+' && ft_isdigit(s_cmd[1][1]))
+            return 0;
+        else if (s_cmd[1][0] == '-' && ft_isdigit(s_cmd[1][1]))
+            return 2;
+        else if ((s_cmd[1][0] == '-' || s_cmd[1][0] == '+') && (s_cmd[1][1] == '-' || s_cmd[1][1] == '+') || s_cmd[1][0] == '-'  && ft_isdigit(s_cmd[1][1]))
+            return 255;
+        exit(ft_atoi(s_cmd[1]));
+
+        return 0;
+}
+
 // return the return code of each command
 int cmdlexer(char *cmd, t_env *d_env)
 {
@@ -17,17 +43,8 @@ int cmdlexer(char *cmd, t_env *d_env)
         return export(s_cmd, d_env);
     else if(ft_strcmp(s_cmd[0], "unset") == 0)
         return unset(s_cmd, d_env);
-    else if(ft_strncmp(s_cmd[0], "exit", 4) == 0)
-    {
-        printf("exit\n");
-        if(s_cmd[2])
-        {
-            ft_putstr_fd("bash: exit: too many arguments", 2);
-            return 1;
-        }
-        exit(ft_atoi(s_cmd[1]));
-        return 0;
-    }
+    else if(ft_strcmp(s_cmd[0], "exit") == 0)
+        return exit_cmd(s_cmd);
     else
         return pipex(d_env, cmd);
     return 0;

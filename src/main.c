@@ -71,37 +71,34 @@ int	main(int ac, char **av, char **env)
         tokenize(line);
         char **res = ft_split(line, "\1");
         ret = execute(res, data, d_env);
-        return 0;
+        exit(ret);
     }
-    if(ac != 1)
-        puterror("\e[0;37mUse : ./minishell without arguments\n");
-	while (1)
-	{
-        signal(SIGINT, sigint_handler);
-        signal(SIGTSTP , sigint_handler);
-        printf("\e[0;36m ➜ ");
-		line = readline(formpath());
-        if (!line)
+    else
+    {
+        if(ac != 1)
+            puterror("\e[0;37mUse : ./minishell without arguments\n");
+        while (1)
         {
-            write(2, "\b\bexit\n", 7);
-            exit (0);
+            signal(SIGINT, sigint_handler);
+            signal(SIGTSTP , sigint_handler);
+            printf("\e[0;36m ➜ ");
+            line = readline(formpath());
+            if (!line)
+            {
+                ft_putstr_fd("\b\bexit\n", 1);
+                exit (0);
+            }
+            if(*line)
+                add_history(line);
+        
+            line = ft_chdir(ft_chwc(ft_chdollar(ft_epur_str(ft_pgross_str(line)))));
+            tokenize(line);
+            char **res = ft_split(line, "\1");
+            ret = execute(res, data, d_env);
+            ft_free_tab(res);
+            free(line);
         }
-        if(*line)
-            add_history(line);
-    
-        line = ft_chdir(ft_chwc(ft_chdollar(ft_epur_str(ft_pgross_str(line)))));
-        tokenize(line);
-        char **res = ft_split(line, "\1");
-        ret = execute(res, data, d_env);
-        ft_free_tab(res);
-		free(line);
+        exit(ret);
+    }
 
-	}
-
-
-
-
-
-
-    return errno;
 }
