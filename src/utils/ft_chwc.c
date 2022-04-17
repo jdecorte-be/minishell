@@ -1,13 +1,5 @@
 #include "../../inc/minishell.h"
 
-size_t	ft_chwc_len(char *line)
-{
-	size_t	i;
-	size_t	count;
-
-	i = 0;
-	return (i + count);
-}
 
 char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq)
 {
@@ -55,13 +47,24 @@ char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq)
 	return (str);
 }
 
+char	*ft_chwc2(char *line)
+{
+	char	*str;
+	t_list	*woq;
+	t_list	*name;
+	t_list	*wc;
+	t_tmp	tmp;
+
+	return (ft_wcfile(line));
+}
+
 char	*ft_chwc(char *line)
 {
 	char	*str;
 	t_list	*woq;
 	t_list	*name;
 	t_list	*wc;
-	t_list	*tmp;
+	t_tmp	tmp;
 
 	woq = 0;
 	wc = 0;
@@ -69,17 +72,17 @@ char	*ft_chwc(char *line)
 	if (!line)
 		return (0);
 	wc = ft_wcsearch(line);
-	tmp = wc;
-	while (tmp)
+	tmp.tmp = wc;
+	while (tmp.tmp)
 	{
-		ft_lstadd_back(&name, ft_lstnew(ft_wcfile(tmp->content, 0)));
-		tmp = tmp->next;
+		ft_lstadd_back(&name, ft_lstnew(ft_chwc2((tmp.tmp)->content)));
+		tmp.tmp = (tmp.tmp)->next;
 	}
-	tmp = wc;
-	while (tmp)
+	tmp.tmp = wc;
+	while (tmp.tmp)
 	{
-		ft_lstadd_back(&woq, ft_lstnew(ft_woquote(tmp->content)));
-		tmp = tmp->next;
+		ft_lstadd_back(&woq, ft_lstnew(ft_woquote((tmp.tmp)->content)));
+		tmp.tmp = (tmp.tmp)->next;
 	}
 	if (!name)
 		return (line);

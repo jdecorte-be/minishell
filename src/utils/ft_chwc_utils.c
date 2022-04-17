@@ -140,8 +140,7 @@ char	*ft_wcfile(char *wc, char *path)
 	char			current[PATH_MAX];
 	char			*match;
 
-	if (!path)
-		loc = opendir(getcwd(current, PATH_MAX));
+	loc = opendir(path);
 	if (loc == 0)
 		ft_error(5);
 	match = ft_readfile(wc, loc);

@@ -15,22 +15,41 @@ char	*ft_gethome(void)
 	{
 		if (trig == 3)
 		{
-			printf("3\n");
+			// printf("3\n");
 			break ;
 		}
 		if (str[i] && str[i] == '/')
 		{
-			printf("1\n");
+			// printf("1\n");
 			trig++;
 		}
 		if (str[i])
 		{
-			printf("2\n");
+			// printf("2\n");
 			i++;
 		}
 	}
 	home = ft_substr(str, 0, i - 1);
 	return (home);
+}
+
+char	*ft_getpwd(char c)
+{
+	char	*str;
+	size_t	i;
+
+	i = 0;
+	printf("%c\n", c);
+	if (ft_strchr("0+", c))
+	{
+		return (getenv("PWD"));
+	}
+	else if (c == '-')
+	{
+		printf("%s\n", getenv("OLDPWD"));
+		return (getenv("OLDPWD"));
+	}
+	return (0);
 }
 
 char	*ft_chdir(char *line)
@@ -39,6 +58,7 @@ char	*ft_chdir(char *line)
 	size_t	end;
 	char	*home;
 	char	*str;
+	char	*pwd;
 
 	home = ft_gethome();
 	end = 0;
@@ -46,9 +66,26 @@ char	*ft_chdir(char *line)
 	while (line[end])
 	{
 		start = end;
-		if (ft_strchr("\'\"", line[end]))
+		if (((end && line[end - 1] == ' ') || !end) && line[end] && line[end + 1] && ft_strchr(" /0", line[end + 2]) && ft_strchr("+-0", line[end + 1]) && ++end)
+		{
+			if (line[end + 1] && line[end + 1] == '0')
+			{
+				printf("1\n");
+				pwd = ft_getpwd('0');
+				end += 2;
+			}
+			else
+			{
+				printf("2\n");
+				pwd = ft_getpwd(line[end]);
+				end++;
+			}
+			start = end;
+			str = ft_strjoin1(str, pwd);
+		}
+		else if (line[end] && ft_strchr("\'\"", line[end]))
 			ft_creat_tab2(line, &end, 0, 1);
-		else if (line[end] == '~' && ++end)
+		else if (((end && line[end - 1] == ' ') || !end) && line[end] && ft_strchr(" /", line[end + 1]) && line[end] == '~' && ++end)
 		{
 			start = end;
 			str = ft_strjoin1(str, home);

@@ -14,6 +14,7 @@
 # include <limits.h>
 # include <dirent.h>
 
+
 typedef struct s_sep
 {
 	char	p;
@@ -65,6 +66,18 @@ typedef struct s_data//  block de cmd
 	char	*line;// ls  //after prompt, without \32\32 space, "" or ''
 	t_cmd	*cmd;
 }	t_data;
+
+typedef struct s_tmp
+{
+	int		i;
+	char	c;
+	t_list	lst;
+	void	*tmp;
+	char	*path;
+	char	**tab;
+	char	*str;
+	void	*ptr;
+}	t_tmp;
 
 t_cmd	*ft_cmdnew(char	*line);
 t_cmd	*ft_cmdlast(t_cmd *cmd);

@@ -12,7 +12,7 @@ int	main(int argc, char **argv, char **envp)
 		line = readline("caca->");
 		if (!line)
 			break;
-		data.line = ft_chdir(line);
+		data.line = ft_chwc(ft_chdir(ft_chdollar(ft_epur_str(ft_pgross_str((line))))));
 		printf("%s|\n", data.line);
 		free(data.line);
 		line = 0;
