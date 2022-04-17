@@ -1,11 +1,23 @@
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
-typedef struct l_mini
+#include "../libft/libft.h"
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <stdlib.h>
+#include<fcntl.h>
+#include<unistd.h>
+#include<errno.h>
+#include<sys/types.h>
+#include<sys/stat.h>
+
+typedef struct s_mini
 {
 
 }		t_mini;
 
-void exec(t_mini *tab, char *cmd);
+void exec(char *cmd);
+void	puterror(char *str);
 
 #endif // MINISHELL_H

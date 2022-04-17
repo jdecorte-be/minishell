@@ -1,21 +1,33 @@
 #include "minishell.h"
 
-void exec(t_mini *tab, char *cmd)
+void	puterror(char *str)
 {
-	int i;
-	char **args = ft_split(cmd, ' ');
+	int	i;
 
 	i = -1;
-	while (tab->allpath[++i])
+	while (str[++i])
+		write(STDERR, &str[i], 1);
+}
+
+void exec(char *cmd)
+{
+	int i;
+	char *env = getenv("PATH");
+	char **s_args = ft_split(cmd, ' ');
+	char **s_env = ft_split(env, ' ');
+	char *execs;
+
+	i = -1;
+	while (s_env[++i])
 	{
-		tab->allpath[i] = ft_strjoin(tab->allpath[i], "/");
-		tab->exec = ft_strjoin(tab->allpath[i], args[0]);
-		free(tab->allpath[i]);
-		if (access(tab->exec, X_OK) == 0)
+		s_env[i] = ft_strjoin(s_env[i], "/");
+		execs = ft_strjoin(s_env[i], s_args[0]);
+		free(s_env[i]);
+		if (access(execs, X_OK) == 0)
 			break ;
-		free(tab->exec);
+		free(execs);
 	}
-	execve(tab->exec, &args[0], tab->env);
+	execve(execs, &s_args[0], &env);
 	puterror(cmd);
 	exit(127);
 }
