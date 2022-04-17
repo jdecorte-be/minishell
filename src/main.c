@@ -28,9 +28,9 @@ int	main(int argc, char **argv, char **envp)
 		// 	// break;
 		data.line = ft_epur_str(ft_chwc(ft_add_q_dollar(ft_chdir(ft_chdollar(ft_pgross_str((line)))))));
 		// printf("!\n");
-		data.line = ft_ecrase_q(data.line);
+		// data.line = ft_ecrase_q(data.line);
 		printf("data.line = %s\n", data.line);
-		// token = ft_parsing(data.line);
+		token = ft_parsing(data.line);
 		// while (token)
 		// {
 		// 	printf("%s\n", token->cmd);

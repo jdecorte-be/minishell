@@ -230,5 +230,6 @@ char	*ft_chwc(char *line)
 		return (line);
 	str = ft_chwc_str(line, name, wc, woq);
 	free(line);
+	str = ft_trijoin("\"", str, "\"");
 	return (str);
 }
