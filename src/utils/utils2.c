@@ -58,3 +58,5 @@ void	ft_lstdel(t_list **lst, t_list *elem)
 		free(tmp2);
 	}
 }
+
+
