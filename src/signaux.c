@@ -9,7 +9,7 @@ void	sig_handler(int sig)
 {
     if(sig == SIGINT)
     {
-        ft_putstr_fd("\n", 1);
+        ft_putstr_fd("\n", 0);
         ft_putstr_fd(prompt(), 1);
     }
     else if(sig == SIGTSTP)
