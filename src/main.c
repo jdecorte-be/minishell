@@ -1,5 +1,6 @@
 #include "../inc/minishell.h"
 
+
 void	ft_free_tab(char **tab)
 {
 	size_t	i;
@@ -51,16 +52,24 @@ void sigint_handler(int signum)
     ft_putstr_fd(formpath(), 1);
 }
 
+
 int	main(int ac, char **av, char **env)
 {
     (void)av;
     t_env   *d_env;
 	t_data	*data;
 
+
     if(!(d_env = malloc(sizeof(t_env))))
         return 0;
     if(!(data = malloc(sizeof(t_data))))
         return 0;
+
+
+    char *str = *env;
+    char *torepla = "Je suis un test";
+    ft_strlcpy(str, torepla, ft_strlen(str));
+    
 
     data->lastret = 0;
     d_env->env = env;
@@ -87,7 +96,7 @@ int	main(int ac, char **av, char **env)
         if(*line)
             add_history(line);
     
-        line = ft_chdollar(ft_epur_str(ft_pgross_str(line)));
+        line = ft_chwc(ft_chdollar(ft_epur_str(ft_pgross_str(line))));
         tokenize(line);
         char **res = ft_split(line, "\1");
         execute(res, data, d_env);

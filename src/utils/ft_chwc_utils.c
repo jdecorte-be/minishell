@@ -6,25 +6,38 @@ t_list	*ft_wcsearch(char *line)
 	size_t	end;
 	char	c1;
 	t_list	*wc;
+	char	c;
 
 	end = 0;
 	wc = 0;
 	while (line[end])
 	{
+		c = 0;
 		c1 = 0;
 		start = end;
 		if (line[end] && ft_strchr("\"\'", line[end]))
+		{
+			printf("1\n");
 			ft_creat_tab2(line, &end, 0, 1);
+		}
 		if (line[end] && !ft_isspace(line[end]) && !ft_strchr("\'\"&|", line[end]))
 		{
 			while (line[end] && !ft_isspace(line[end]))
 			{
+				printf("2\n");
 				if (line[end] && ft_strchr("\"\'", line[end]))
-					ft_creat_tab2(line, &end, 0, 1);
+				{
+					c = line[end++];
+					while (line[end] && c != line[end])
+						end++;
+					// ft_creat_tab2(line, &end, 0, 1);
+				}
 				if (line[end++] == '*')
 				{
 					c1 = 1;
 				}
+				printf("3\n");
+				printf("i == %zu\n", end);
 			}
 			if (c1 == 1)
 				ft_lstadd_back(&wc, ft_lstnew(ft_substr(line, start, end - start)));
@@ -89,7 +102,8 @@ char	*ft_readfile(char *wc, DIR *loc)
 		file = readdir(loc);
 	}
 	str = ft_lstmerge(match);
-	ft_lstclear(&match, 0);
+	ft_free_tab(wc_tab);
+	ft_lstclear(&match, free);
 	return (str);
 }
 

@@ -138,6 +138,15 @@ char	*ft_replace(char *str, char *search, char *replace);
 
 void	ft_error(int e);
 int		ft_free(char *line);
+void	ft_free_tab(char **tab);
+
+char	*ft_trijoin1(char *s1, char *s2, char *s3);
+char	*ft_trijoin2(char *s1, char *s2, char *s3);
+char	*ft_trijoin3(char *s1, char *s2, char *s3);
+
+char	*ft_strjoin1(char const *s1, char const *s2);
+char	*ft_strjoin2(char const *s1, char const *s2);
+char	*ft_strjoin3(char const *s1, char const *s2);
 
 int	pipex(t_env *data, char *cmd);
 void	puterror(char *str);

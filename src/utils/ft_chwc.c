@@ -66,9 +66,9 @@ char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq)
 				while (((char *)(wc->content))[i] && ++i)
 					end++;
 				if (name->content)
-					str = ft_strjoin(str, name->content);
+					str = ft_strjoin1(str, name->content);
 				else
-					str = ft_strjoin(str, woq->content);
+					str = ft_strjoin1(str, woq->content);
 				woq = ft_next(woq);
 				wc = ft_next(wc);
 				name = ft_next(name);
@@ -77,14 +77,14 @@ char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq)
 			{
 				while (line[end] && ft_exist(line + end, len - 1) && ft_strncmp(line + end, wc->content, len -1))
 					end++;
-				str = ft_strjoin(str, ft_substr(line, start, end - start));
+				str = ft_strjoin3(str, ft_substr(line, start, end - start));
 			}
 		}
 		else
 		{
 			while (line[end])
 				end++;
-			str = ft_strjoin(str, ft_substr(line, start, end - start));
+			str = ft_strjoin3(str, ft_substr(line, start, end - start));
 		}
 	}
 	return (str);
@@ -119,7 +119,11 @@ char	*ft_chwc(char *line)
 	}
 	if (!name)
 		return (line);
+	// ft_lstclear(&name, free);
+	// ft_lstclear(&woq, free);
+	// ft_lstclear(&wc, free);
 	str = ft_chwc_str(line, name, wc, woq);
+	free(line);
 	return (str);
 }
 
