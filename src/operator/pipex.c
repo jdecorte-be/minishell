@@ -67,12 +67,13 @@ int	pipe_handler(t_env *d_env, char **input)
 	if (splitlen(input) >= 3)
 	{
 		int i = 0;
-		while(i < splitlen(input) - 1)
+		while(input[i + 1] && ft_strcmp(input[i + 1],"&&") != 0 && ft_strcmp(input[i + 1],"||") != 0)
 		{
 			if(input[i][0] == '|')
 				i++;
 			else
 				pipex(d_env, input[i++]);
+			// i++;
 		}
 		exec(d_env, input[i]);
 		// close(tab->fd1);
