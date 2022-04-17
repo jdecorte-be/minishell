@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <limits.h>
 #include <dirent.h>
+#include "./inc/minishell.h"
 
-int		main()
+int		main(int argc, char ** argv)
 {
-	while (1)
-		printf("1\n");
+	ft_add_q_dollar(argv[1]);
 }

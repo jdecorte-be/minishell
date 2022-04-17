@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 		data.line = ft_epur_str(ft_chwc(ft_chdir(ft_chdollar(ft_pgross_str((line))))));
 		// printf("!\n");
 		data.line = ft_ecrase_q(data.line);
-		ft_redirect(data.line);
+		// ft_redirect(data.line);
 		// data.line = ft_cutoff(line, 5, 5);
 		printf("%s|\n", data.line);
 		free(data.line);

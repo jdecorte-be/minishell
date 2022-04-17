@@ -30,3 +30,21 @@ t_list	*ft_tab_to_list(char **tab, t_list *lst)
 	}
 	return (lst);
 }
+
+int	ft_next_word(char *line, size_t i)
+{
+	while (line[i] && !ft_isspace(line[i]))
+		i++;
+	while (line[i] && ft_isspace(line[i]))
+		i++;
+	return (i);
+}
+
+int	ft_next_cmd(char *line, size_t i)
+{
+	while (line[i] && !ft_strchr("|&", line[i]))
+		i++;
+	while (line[i] && (ft_strchr("|&", line[i]) || ft_isspace(line[i])))
+		i++;
+	return (i);
+}

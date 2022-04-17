@@ -144,7 +144,12 @@ char	*ft_cutoff(char *str, size_t start, size_t len);
 t_redirect	ft_redirect(char *line);
 t_list	*ft_sort_word(t_list *lst);
 char	**ft_list_to_tab(t_list *lst);
+
 t_list	*ft_tab_to_list(char **tab, t_list *lst);
 int		ft_wc_in_fw(char *line);
+int		ft_next_word(char *line, size_t i);
+char	*ft_add_q_dollar(char *line);
+int		ft_next_cmd(char *line, size_t i);
+
 
 #endif
