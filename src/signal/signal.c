@@ -39,4 +39,3 @@ void	ft_signal(int sig)
 	if (sig == SIGQUIT)
 		signal(SIGQUIT, &ft_exit_bs_loop);
 }
-
