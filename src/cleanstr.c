@@ -24,10 +24,3 @@ char *tokenize(char *line)
 
 	return res;
 }
-
-char **parsing(char *input)
-{
-	tokenize(ft_epur_str(ft_pgross_str(input)));
-	char **res = ft_split(input , "\1");
-    return res;
-}
