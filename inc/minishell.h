@@ -72,6 +72,10 @@ t_cmd	*ft_cmdnew(char	*line);
 t_cmd	*ft_cmdlast(t_cmd *cmd);
 void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new);
 
+t_mcmd	*ft_mcmdnew(char *line);
+t_mcmd	*ft_mcmdlast(t_mcmd *mcmd);
+void	ft_mcmdadd_back(t_mcmd **mcmd, t_mcmd *new);
+
 char	**ft_split2(char *str, char *set);
 char	*ft_onespace(char *line);
 char	*ft_epur_str(char *line);
@@ -82,6 +86,7 @@ void	ft_count_words2(char *str, size_t *i, char *set);
 char	**ft_split3(char *str, char *set);
 
 t_cmd	*ft_creat_cmd(char *line);
+t_mcmd	*ft_creat_mcmd(char *line);
 
 
 

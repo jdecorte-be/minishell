@@ -12,14 +12,24 @@ static size_t	ft_count_words(char *str, char *set)
 	{
 		if (str[i] && ft_strchr(set, str[i]))
 			i++;
-		if (str[i] && !ft_strchr(set, str[i]) && ++count)
-			while (str[i] && !ft_strchr(set, str[i]))
-				ft_count_words2(str, &i, set);
+		else if (str[i] && !ft_strchr(set, str[i]) && ++count)
+		{
+			if (str[i] && ft_strchr("\'\"", str[i]))
+			{
+				c = str[i++];
+				while (str[i] && c != str[i])
+					i++;
+				i++;
+			}
+			if (!ft_strchr(set, str[i]))
+				while (str[i] && !ft_strchr(set, str[i]))
+					i++;
+		}
 	}
 	return (count);
 }
 
-static char	**ft_creat_tab(char **tab, char *str, char *set, size_t word)
+static char	**ft_creat_tab(char **tab, const char *str, char *set, size_t word)
 {
 	size_t	i;
 	size_t	start;
@@ -30,13 +40,18 @@ static char	**ft_creat_tab(char **tab, char *str, char *set, size_t word)
 	while (i < word)
 	{
 		start = end;
-		while (str[start] && (ft_strchr(set, str[start])
-				|| ft_isspace(str[start])))
+		while (str[start] && ft_strchr(set, str[start]))
 			start++;
 		end = start;
+		if (str[start] && ft_strchr("\'\"", str[start]) && ++end)
+		{
+			while (str[start] != str[end])
+				end++;
+			end++;
+		}
 		if (str[start] && !ft_strchr(set, str[start]))
 			while (str[end] && !ft_strchr(set, str[end]))
-				ft_creat_tab2(str, &end, set, 3);
+				end++;
 		tab[i++] = ft_substr(str, start, end - start);
 	}
 	tab[i] = 0;

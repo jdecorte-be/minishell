@@ -1,6 +1,85 @@
 #include "../inc/minishell.h"
 
-t_cmd	*ft_creat_mcmd(char *line)
+
+static size_t	ft_many_space(char *str)
+{
+	size_t	i;
+	size_t	space;
+
+	i = 0;
+	space = 0;
+	while (str[i] && ft_isspace(str[i++]))
+		space++;
+	i = ft_strlen(str) - 1;
+	while (i > 0 && ft_isspace(str[i--]))
+		space++;
+	return (space);
+}
+
+static size_t	ft_count_words(char *str, char *set)
+{
+	size_t	i;
+	size_t	count;
+	char	c;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] && ft_strchr(set, str[i]))
+			i++;
+		if (str[i] && !ft_strchr(set, str[i]) && ++count)
+			while (str[i] && !ft_strchr(set, str[i]))
+				ft_count_words2(str, &i, set);
+	}
+	return (count);
+}
+
+static char	**ft_creat_tab(char **tab, char *str, char *set, size_t word)
+{
+	size_t	i;
+	size_t	start;
+	size_t	end;
+
+	i = 0;
+	end = 0;
+	printf("x\n");
+	while (i < word)
+	{
+		start = end;
+		while (str[start] && (ft_strchr(set, str[start])
+				|| ft_isspace(str[start])))
+			start++;
+		end = start;
+		if (str[start] && !ft_strchr(set, str[start]))
+			while (str[end] && !ft_strchr(set, str[end]))
+				ft_creat_tab2(str, &end, set, 3);
+		if ((!str[end] || ft_strchr(set, str[end])) && --end)
+			ft_creat_tab2(str, &end, set, 2);
+		tab[i++] = ft_substr(str, start, end - start);
+	}
+	tab[i] = 0;
+	printf("z\n");
+	return (tab);
+}
+
+char	**ft_split4(char *str, char *set)
+{
+	char	**tab;
+	size_t	word;
+
+	printf("g\n");
+	if (!str && !*str)
+		return (0);
+	word = ft_count_words(str, set);
+	printf("f\n");
+	tab = malloc(sizeof(char *) * word + 1);
+	if (!tab)
+		ft_error(2);
+	return (ft_creat_tab(tab, str, set, word));
+}
+
+t_mcmd	*ft_creat_mcmd(char *line)
 {
 	t_mcmd	*mcmd;
 	char	**tab;
@@ -8,16 +87,20 @@ t_cmd	*ft_creat_mcmd(char *line)
 	t_mcmd	*tmp;
 
 	i = 0;
-	cmd = 0;
-	tab = ft_split3(line, "|");
-	while (tab[i])
-	{
-		ft_mcmdadd_back(&cmd, ft_mcmdnew(tab[i++]));
-	}
-	tmp = mcmd;
-	while (tmp)
-	{
-		printf("%s\n", tmp->line);
-		tmp = tmp->next;
-	}
+	mcmd = 0;
+	printf("d\n");
+	printf("%s\n", line);
+	tab = ft_split4(line, "|");
+	printf("e\n");
+	// while (tab[i])
+	// {
+	// 	ft_mcmdadd_back(&mcmd, ft_mcmdnew(tab[i++]));
+	// }
+	// tmp = mcmd;
+	// while (tmp)
+	// {
+	// 	printf("%s\n", tmp->line);
+	// 	tmp = tmp->next;
+	// }
 	return (mcmd);
+}

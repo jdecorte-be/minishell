@@ -9,10 +9,8 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		printf("1\n");
-		line = readline("bsh-0.01$> ");
+		line = get_next_line(0);
 		printf("2\n");
-		if (!ft_strcmp(line, "exit") && ft_str_isspace(line))
-			exit(0);
 		data.line = ft_epur_str(line);
 		printf("3\n");
 		line = 0;

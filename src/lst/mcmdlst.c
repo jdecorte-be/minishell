@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-t_mcmd	*ft_mcmdnew(char *line, t_file file)
+t_mcmd	*ft_mcmdnew(char *line)
 {
 	t_mcmd	*mcmd;
 
@@ -16,7 +16,9 @@ t_mcmd	*ft_mcmdnew(char *line, t_file file)
 	mcmd->sep.n = 0;
 	mcmd->fd.in = 0;
 	mcmd->fd.out = 1;
-	mcmd->file = file;
+	mcmd->file.in = 0;
+	mcmd->file.out = 0;
+	mcmd->file.in_open_mode = 0;
 	return (mcmd);
 }
 

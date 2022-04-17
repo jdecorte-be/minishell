@@ -12,7 +12,6 @@ void	ft_add_cmd_sep(t_cmd **cmd)
 		tmp->sep.n = '&';
 		tmp = tmp->next;
 	}
-	tmp = tmp->next;
 	tmp->sep.p = '&';
 }
 
@@ -24,28 +23,34 @@ t_cmd	*ft_creat_cmd(char *line)
 	char	**tab;
 	t_cmd	*tmp;
 
-	i = 0;
 	cmd = 0;
+	printf("a\n");
 	tab = ft_split3(line, "&");
+	printf("DA\n");
+	i = 0;
+	while (tab[i])
+		printf("tab = %s\n", tab[i++]);
+	i = 0;
 	while (tab[i])
 	{
+		printf("tab[i] = %s\n", tab[i]);
 		ft_cmdadd_back(&cmd, ft_cmdnew(tab[i++]));
 	}
+	printf("b\n");
 	if (i > 1)
 		ft_add_cmd_sep(&cmd);
+	printf("c\n");
 	tmp = cmd;
-	i = 0;
-	// while (tab[i])
-	// 	printf("%s\n", tab[i++]);
+	while (tmp)
+	{
+		printf("%s\n", tmp->line);
+		tmp = tmp->next;
+	}
 	// while (tmp)
 	// {
 	// 	printf("%s\n", tmp->line);
+	// 	tmp->mcmd = ft_creat_mcmd(tmp->line);
 	// 	tmp = tmp->next;
 	// }
-	while (tmp)
-	{
-		tmp->mcmd = ft_creat_mcmd(tmp->line);
-		tmp = tmp->next;
-	}
 	return (cmd);
 }

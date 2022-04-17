@@ -18,22 +18,29 @@ t_cmd	*ft_cmdnew(char	*line)
 
 t_cmd	*ft_cmdlast(t_cmd *cmd)
 {
-	t_cmd	*tmp;
+	t_cmd	*last_elem;
 
-	tmp = cmd;
-	if (tmp)
-		while (tmp->next)
-			tmp = tmp->next;
-	return (tmp);
+	if (!cmd)
+		return (0);
+	last_elem = cmd;
+	while (last_elem->next != NULL)
+		last_elem = last_elem->next;
+	return (last_elem);
 }
 
 void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new)
 {
-	if (new)
+	t_cmd	*last_elem;
+
+	if (cmd && new)
 	{
 		if (!*cmd)
 			*cmd = new;
 		else
-			ft_cmdlast(*cmd)->next = new;
+		{
+			last_elem = ft_cmdlast(*cmd);
+			last_elem->next = new;
+		}
 	}
+	printf("new = %s\n", new->line);
 }
