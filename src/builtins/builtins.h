@@ -21,7 +21,7 @@ typedef struct l_env
 }   t_env;
 
 int checkvalid(char *cmd);
-
+char	*my_getenv(char *tochr, t_list *lst);
 int     echo(char **args);
 int     pwd();
 int     cd(char **args);

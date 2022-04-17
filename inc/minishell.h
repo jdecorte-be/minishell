@@ -77,7 +77,6 @@ typedef struct s_data//  block de cmd
 
 char	**ft_split2(char *str, char *set);
 char	*ft_onespace(char *line);
-
 void	ft_error(int e);
 
 int		ft_free(char *line);

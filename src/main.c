@@ -40,10 +40,16 @@ char *formpath()
     return res;
 }
 
-void sigint_handler(int signum) { //Handler for SIGINT
-   //Reset handler to catch SIGINT next time.
-   (void)signum;
-    printf("\n\b\b➜ 42-minishell ");
+void sigint_handler(int signum)
+{
+    (void)signum;
+    // printf("%d\n", signum);
+    // if(signum == 2)
+    //     write(1, " ➜  42-minishell   \b\b", 23);
+    // else if(signum == 18)
+    //     write(1, "\r\b\b", 4);
+    ft_putstr_fd("\b\b  \n\e[0;36m ➜ ", 1);
+    ft_putstr_fd(formpath(), 1);
 }
 
 int	main(int ac, char **av, char **env)
@@ -94,9 +100,10 @@ int	main(int ac, char **av, char **env)
         puterror("\e[0;37mUse : ./minishell without arguments\n");
 	while (1)
 	{
+        signal(SIGINT, sigint_handler);
+        signal(SIGTSTP , sigint_handler);
         printf("\e[0;36m ➜ ");
 		line = readline(formpath());
-        signal(SIGINT, sigint_handler);
         if (!line)
         {
             write(1, "\b\bexit\n", 7);
