@@ -77,6 +77,7 @@ typedef struct s_tmp
 	char	**tab;
 	char	*str;
 	void	*ptr;
+	char	home[PATH_MAX];
 }	t_tmp;
 
 t_cmd	*ft_cmdnew(char	*line);

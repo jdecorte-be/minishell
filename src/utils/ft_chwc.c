@@ -11,14 +11,20 @@ char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq)
 
 	end = 0;
 	str = 0;
+
+		printf("%s== wc\n", wc->content);
+
 	while (line[end])
 	{
+		// printf("%zu\n", end);
 		start = end;
 		if (wc)
 		{
+			// printf("1\n");
 			len = ft_strlen(wc->content);
 			if (line[end] && ft_exist(line + end, len - 1) && !ft_strncmp(line + end, wc->content, len -1))
 			{
+				// printf("2\n");
 				i = 0;
 				while (((char *)(wc->content))[i] && ++i)
 					end++;
@@ -32,6 +38,7 @@ char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq)
 			}
 			else
 			{
+				// printf("cmp %d\n",ft_exist(line + end, len - 1));
 				while (line[end] && ft_exist(line + end, len - 1) && ft_strncmp(line + end, wc->content, len -1))
 					end++;
 				str = ft_strjoin3(str, ft_substr(line, start, end - start));
@@ -59,17 +66,19 @@ char	*ft_chwc2(char *line)
 	if (ft_strchr(line, '/'))
 	{
 		tmp.tab = ft_split4(line, "/");
-		if (tmp.tab[tmp.i])
+		if (tmp.tab[0])
 		{
 			if (!tmp.i && ft_strchr(tmp.tab[tmp.i], '*'))
 			{
-				line += ft_strlen(tmp.tab[tmp.i]);
-				if (tmp[1] && tmp[2])
-					tmp.str = ft_wcfile(tmp.tab[0], getcwd(tmp.path, PATH_MAX), 2, line);
+				if (tmp.tab[1] && tmp.tab[2])
+				{
+					tmp.str = ft_wcfile(tmp.tab[0], getcwd(tmp.path, PATH_MAX), 2, line + ft_strlen(tmp.tab[tmp.i]));
+					tmp.str = ft_checkexist(tmp, line);
+				}
 				else if (tmp.tab[1] && ft_strchr(tmp.tab[1], '/'))
 				{
 					printf("1\n");
-					tmp.str = ft_wcfile(tmp.tab[0], getcwd(tmp.path, PATH_MAX), 1, line);
+					tmp.str = ft_wcfile(tmp.tab[0], getcwd(tmp.path, PATH_MAX), 1, line + ft_strlen(tmp.tab[tmp.i]));
 				}
 				else
 				{
@@ -77,7 +86,6 @@ char	*ft_chwc2(char *line)
 				}
 			}
 		}
-		line += 1;
 		printf("line = %s\n", tmp.str);
 		return (tmp.str);
 	}
@@ -101,15 +109,20 @@ char	*ft_chwc(char *line)
 	tmp.lst = wc;
 	while (tmp.lst)
 	{
+		printf("1\n");
 		ft_lstadd_back(&name, ft_lstnew(ft_chwc2((tmp.lst)->content)));
+		printf("1\n");
 		tmp.lst = (tmp.lst)->next;
 	}
 	tmp.lst = wc;
 	while (tmp.lst)
 	{
+		printf("2\n");
 		ft_lstadd_back(&woq, ft_lstnew(ft_woquote((tmp.lst)->content)));
+		printf("1\n");
 		tmp.lst = (tmp.lst)->next;
 	}
+	printf("2\n");
 	if (!name)
 		return (line);
 	str = ft_chwc_str(line, name, wc, woq);

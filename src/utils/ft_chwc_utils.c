@@ -134,10 +134,7 @@ char	*ft_readfile(char *wc, DIR *loc, char mode, char *add)
 				// ft_lstadd_back(&match, ft_lstnew(ft_trijoin("\'", file->d_name, "\'")));
 		file = readdir(loc);
 	}
-	if (mode == 2)
-		return (); //trouver le path a partir de la fin
-	else
-		str = ft_lstmerge(match);
+	str = ft_lstmerge(match);
 	ft_free_tab(wc_tab);
 	ft_lstclear(&match, free);
 	return (str);
