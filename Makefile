@@ -11,10 +11,12 @@ SRCS = 	src/main.c\
 		src/ft_error.c\
 		src/parsing/clean.c\
 		\
-		src/builtins/cd.c\
+		src/builtins/rep.c\
 		src/builtins/echo.c\
 		src/builtins/env.c\
 		src/builtins/export.c\
+		src/builtins/others.c\
+		src/builtins/utils.c\
 		\
         libft/libft.a\
 		src/utils/*\

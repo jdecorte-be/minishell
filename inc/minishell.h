@@ -1,6 +1,11 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#include <strings.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
+#include <crt_externs.h>
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <readline/readline.h>
@@ -100,7 +105,7 @@ void    env_cmd(t_data *data);
 void	*ft_memdel(void *ptr);
 void replace_env(char *cmd, t_list *env);
 
-
+void *ft_realloc(void *str, size_t len);
 
 
 int	first_pipe(t_data *d_env, char *cmd);
