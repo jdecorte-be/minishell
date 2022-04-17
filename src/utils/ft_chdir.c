@@ -66,7 +66,7 @@ char	*ft_chdir(char *line)
 	while (line[end])
 	{
 		start = end;
-		if (((end && line[end - 1] == ' ') || !end) && line[end] && line[end + 1] && ft_strchr(" /0", line[end + 2]) && ft_strchr("+-0", line[end + 1]) && ++end)
+		if (((end && line[end - 1] == ' ') || !end) && line[end] && line[end + 1] && ((line[end + 2] && ft_strchr(" /0", line[end + 2])) || !line[end + 2]) && ft_strchr("+-0", line[end + 1]) && ++end)
 		{
 			if (line[end + 1] && line[end + 1] == '0')
 			{
@@ -85,7 +85,7 @@ char	*ft_chdir(char *line)
 		}
 		else if (line[end] && ft_strchr("\'\"", line[end]))
 			ft_creat_tab2(line, &end, 0, 1);
-		else if (((end && line[end - 1] == ' ') || !end) && line[end] && ft_strchr(" /", line[end + 1]) && line[end] == '~' && ++end)
+		else if (((end && line[end - 1] == ' ') || !end) && line[end] && ((ft_strchr(" /", line[end + 1]) && line[end + 1]) || !line[end + 1]) && line[end] == '~' && ++end)
 		{
 			start = end;
 			str = ft_strjoin1(str, home);
