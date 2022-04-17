@@ -13,50 +13,14 @@ char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq)
 {
 	size_t	start;
 	size_t	end;
-	char	c1;
 	char	*str;
 	size_t	len;
 	size_t	i;
 
 	end = 0;
 	str = 0;
-
-
-
-
 	while (line[end])
 	{
-		// c1 = 0;
-		// start = end;
-		// if (line[end] && ft_strchr("\"\'", line[end]))
-		// {
-		// 	ft_creat_tab2(line, &end, 0, 1);
-		// }
-		// if (line[end] && !ft_isspace(line[end]) && !ft_strchr("\'\"&|", line[end]))
-		// {
-		// 	while (line[end] && !ft_isspace(line[end]))
-		// 	{
-		// 		if (line[end++] == '*')
-		// 			c1 = 1;
-		// 	}
-		// }
-		// else
-		// 	while (line[end] && (ft_isspace(line[end]) || ft_strchr("&|", line[end])))
-		// 		end++;
-		// if (c1 == 0)
-		// {
-		// 	printf("1\n");
-		// 	str = ft_strjoin(str, ft_substr(line, start, end - start));
-		// }
-		// else if (c1 == 1)
-		// {
-		// 	if (name->content)
-		// 		str = ft_strjoin(str, name->content);
-		// 	else
-		// 		str = ft_strjoin(str, woq->content);
-		// 	name = name->next;
-		// 	woq = ft_next(woq);
-		// }
 		start = end;
 		if (wc)
 		{
@@ -102,7 +66,6 @@ char	*ft_chwc(char *line)
 	woq = 0;
 	wc = 0;
 	name = 0;
-
 	if (!line)
 		return (0);
 	wc = ft_wcsearch(line);
@@ -120,19 +83,7 @@ char	*ft_chwc(char *line)
 	}
 	if (!name)
 		return (line);
-	// ft_lstclear(&name, free);
-	// ft_lstclear(&woq, free);
-	// ft_lstclear(&wc, free);
 	str = ft_chwc_str(line, name, wc, woq);
 	free(line);
 	return (str);
 }
-
-
-				// if (c1 == 0)
-				// 	str = ft_strjoin(str, ft_substr(line, start, end - start));
-				// else if (c1 == 1)
-				// {
-				// 	str = ft_strjoin(str, name->content);
-				// 	name = name->next;
-				// }
