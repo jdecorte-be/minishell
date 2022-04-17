@@ -6,8 +6,22 @@ t_token	*ft_tokennew(char *newcmd)
 
 	token = malloc(sizeof(t_token));
 	token->cmd = newcmd;
+	token->sup_token = 0;
+	token->sub_token = 0;
 	token->next = 0;
-	// token->redirect = ft_init_redirect();
+	return (token);
+}
+
+t_token	*ft_sub_tokennew(char *newcmd, t_token *sup)
+{
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	token->cmd = newcmd;
+	token->sup_token = sup;
+	token->sub_token = 0;
+	token->next = 0;
+	// token->redirect = redirect;
 	return (token);
 }
 

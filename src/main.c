@@ -25,16 +25,17 @@ int	main(int argc, char **argv, char **envp)
 		// 	// break;
 		data.line = ft_epur_str(ft_chwc(ft_add_q_dollar(ft_chdir(ft_chdollar(ft_pgross_str((line)))))));
 		// printf("!\n");
-		// data.line = ft_ecrase_q(data.line);
-		data.line = tokenize(data.line);
-		tab = ft_split(data.line, "\1");
-		token = ft_tab_to_token(tab);
-		tmp = token;
-		while (tmp)
-		{
-			printf("%s\n", tmp->cmd);
-			tmp = tmp->next;
-		}
+		// data.line = ft_ecrase_p(data.line);
+		token = ft_parsing(data.line);
+		// data.line = tokenize(data.line);
+		// tab = ft_split(data.line, "\1");
+		// token = ft_tab_to_token(tab);
+		// tmp = token;
+		// while (tmp)
+		// {
+		// 	printf("%s\n", tmp->cmd);
+		// 	tmp = tmp->next;
+		// }
 		// while (tmp)
 		// {
 		// 	tmp->redirect = ft_redirect(tmp->cmd);
@@ -62,7 +63,7 @@ int	main(int argc, char **argv, char **envp)
 		// 	printf("|%s|\n", *tab++);
 		// printf("%s|\n", data.line);
 		// free(data.line);
-		line = 0;
+		// line = 0;
 		// data.cmd = ft_creat_cmd(data.line);
 		// printf("4\n");
 	}

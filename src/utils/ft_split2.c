@@ -34,6 +34,7 @@ static char	**ft_creat_tab(char **tab, const char *str, char *set, size_t word)
 	size_t	i;
 	size_t	start;
 	size_t	end;
+	char	c;
 
 	i = 0;
 	end = 0;
@@ -43,13 +44,15 @@ static char	**ft_creat_tab(char **tab, const char *str, char *set, size_t word)
 		while (str[start] && ft_strchr(set, str[start]))
 			start++;
 		end = start;
-		if (str[start] && ft_strchr("\'\"", str[start]) && ++end)
+		if (str[end] && ft_strchr("\'\"", str[end]))
 		{
-			while (str[start] != str[end])
+			c = str[end++];
+			while (str[end] && c != str[end])
 				end++;
-			end++;
+			if (str[end])
+				end++;
 		}
-		if (str[start] && !ft_strchr(set, str[start]))
+		else if (str[end] && !ft_strchr(set, str[end]))
 			while (str[end] && !ft_strchr(set, str[end]))
 				end++;
 		tab[i++] = ft_substr(str, start, end - start);

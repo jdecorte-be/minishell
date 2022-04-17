@@ -27,6 +27,8 @@ typedef struct s_token
 {
 	char			*cmd;
 	t_redirect		redirect;
+	struct s_token	*sup_token;
+	struct s_token	*sub_token;
 	struct s_token	*next;
 }	t_token;
 
@@ -44,8 +46,7 @@ typedef struct s_cmd
 typedef struct s_data//  block de cmd  
 {
 	char	*line;// ls  //after prompt, without \32\32 space, "" or ''
-	t_cmd	*cmd;
-	struct s_data	*next;
+	t_token	*token;
 }	t_data;
 
 typedef struct s_tmp
@@ -104,30 +105,38 @@ int		ft_strrcmp2(const char *s1, const char *s2, size_t n);
 
 char	*ft_chdir(char *line);
 char	*ft_ecrase_q(char *word);
+char	*ft_ecrase_p(char *line);
 
 int		ft_isprohibited(char *line);
 char	*ft_cutoff(char *str, size_t start, size_t len);
-t_redirect	ft_redirect(char *line);
+t_redirect	ft_redirect(char *line, t_redirect file);
 t_list	*ft_sort_word(t_list *lst);
 char	**ft_list_to_tab(t_list *lst);
 
 t_list	*ft_tab_to_list(char **tab, t_list *lst);
 t_token	*ft_tab_to_token(char **tab);
+t_token	*ft_tab_to_token2(char **tab, t_token *sup_token);
 int		ft_wc_in_fw(char *line);
 int		ft_next_word(char *line, size_t i);
+
 char	*ft_add_q_dollar(char *line);
 
 int		ft_next_cmd(char *line, size_t i);
 char	*ft_cut_chevron(char *str);
 
+t_redirect	ft_init_redirect(void);
+
 t_token	*ft_tokennew(char *newcmd);
+t_token	*ft_sub_tokennew(char *newcmd, t_token *sup);
 t_token	*ft_tokenlast(t_token *token);
 void	ft_tokenadd_back(t_token **atoken, t_token *new);
 
-int	ft_strstrchr(char *str, char *set);
+int		ft_strstrchr(char *str, char *set);
 
 void	ft_skip_p(char *str, size_t *i);
 void	ft_skip_q(char *str, size_t *i);
+
+t_token	*ft_parsing(char *line);
 
 char *tokenize(char *line);
 char **parsing(char *input);

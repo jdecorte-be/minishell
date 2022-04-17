@@ -13,7 +13,7 @@ int	ft_redirect_check(t_redirect file)
 		if (c != 0)
 		{
 
-			printf("1\n");
+			// printf("1\n");
 			// dup2(2, 1);
 			printf("bash: syntax error near unexpected token `%c'\n", c);
 			return (0);
@@ -27,7 +27,7 @@ int	ft_redirect_check(t_redirect file)
 		if (c != 0)
 		{
 
-			printf("1\n");
+			// printf("1\n");
 			// dup2(2, 1);
 			printf("bash: syntax error near unexpected token `%c'\n", c);
 			return (0);
@@ -130,15 +130,17 @@ t_redirect	ft_init_redirect(void)
 	return (file);
 }
 
-t_redirect	ft_redirect(char *line)
+t_redirect	ft_redirect(char *line, t_redirect file)
 {
-	t_redirect	file;
+	// t_redirect	file;
+	t_redirect	tmp;
 	int			fd;
 
 	// fd = dup(1);
-	file = ft_init_redirect();
+	// file = ft_init_redirect();
 	if (!line)
 		return (file);
+	tmp = file;
 	file.infile = ft_file(line, '<', &(file.open));
 	file.outfile = ft_file(line, '>', &(file.open));
 	// printf("1\n");
@@ -148,6 +150,8 @@ t_redirect	ft_redirect(char *line)
 		while (file.infile)
 		{
 			// printf("infile %s\n", file.infile->content);
+			if (file.infd != tmp.infd)
+				close(file.infd);
 			file.infd = open(file.infile->content, O_RDONLY);
 			if (file.infd == -1)
 				perror("open rd");
@@ -156,6 +160,8 @@ t_redirect	ft_redirect(char *line)
 		while (file.outfile)
 		{
 			// printf("outfile %s\n", (file.outfile->content));
+			if (file.outfd != tmp.outfd)
+				close(file.outfd);
 			if (file.open == 0)
 				file.outfd = open(file.outfile->content, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 			else if (file.open == 1)

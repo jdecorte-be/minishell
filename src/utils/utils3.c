@@ -49,33 +49,19 @@ t_token	*ft_tab_to_token(char **tab)
 	return (token);
 }
 
-int	ft_next_word(char *line, size_t i)
+t_token	*ft_tab_to_token2(char **tab, t_token *sup_token)
 {
-	char	c;
+	size_t	i;
+	t_token	*token;
 
-	while (line[i] && !ft_isspace(line[i]))
+	if (!tab || !*tab)
+		return (0);
+	token = 0;
+	i = 0;
+	while (tab[i])
 	{
-		if (ft_strchr("\"\'", line[i]))
-		{
-			c = line[i++];
-			while (line[i] && line[i] != c)
-				i++;
-			if (line[i])
-				i++;
-		}
-		else
-			i++;
+		ft_tokenadd_back(&token, ft_sub_tokennew(tab[i++], sup_token));
 	}
-	while (line[i] && ft_isspace(line[i]))
-		i++;
-	return (i);
-}
-
-int	ft_next_cmd(char *line, size_t i)
-{
-	while (line[i] && !ft_strchr("|&", line[i]))
-		i++;
-	while (line[i] && (ft_strchr("|&", line[i]) || ft_isspace(line[i])))
-		i++;
-	return (i);
+	free(tab);
+	return (token);
 }

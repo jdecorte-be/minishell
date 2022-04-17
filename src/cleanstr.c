@@ -63,6 +63,8 @@ char *tokenize(char *line)
 	int		par;
 	char	c;
 	
+	if (!line)
+		return (line);
 	i = 0;
 	par = 0;
 	while (line[i])

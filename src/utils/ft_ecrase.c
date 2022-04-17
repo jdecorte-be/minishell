@@ -36,3 +36,37 @@ char    *ft_ecrase_q(char *word)
 	}
 	return (new_word);
 }
+
+char	*ft_ecrase_p(char *line)
+{
+	char	*str;
+	size_t	start;
+	size_t	end;
+
+	if (!line)
+		return (line);
+	str = 0;
+	end = 0;
+	while (line[end])
+	{
+		start = end;
+		if (line[end] && ft_strchr("\"\'", line[end]))
+		{
+			ft_skip_q(line, &end);
+			str = ft_strjoin1(str, ft_substr(line, start, end - start));
+		}
+		else if (line[end] && line[end] == '(')
+		{
+			ft_skip_p(line, &end);
+			start += 2;
+			str = ft_strjoin1(str, ft_substr(line, start, end - start - 2));
+		}
+		else
+		{
+			while (line[end] && line[end] != '(' && !ft_strchr("\"\'", line[end]))
+				end++;
+			str = ft_strjoin1(str, ft_substr(line, start, end - start));
+		}
+	}
+	return (str);
+}
