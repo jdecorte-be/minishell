@@ -35,6 +35,10 @@ typedef struct s_data//  block de cmd
 	char	*line;// ls  //after prompt, without \32\32 space, "" or ''
 	char	**env;
 	int		lastret;
+	int		stdin;
+	int		stdout;
+	int		is_subshell;
+	int		is_pipe;
 }	t_data;
 
 
@@ -99,9 +103,9 @@ void replace_env(char *cmd, t_list *env);
 
 
 
-
-
-
+int	first_pipe(t_data *d_env, char *cmd);
+int last_pipe(t_data *d_env, char *cmd);
+int	mid_pipe(t_data *d_env, char *cmd);
 
 
 
@@ -122,7 +126,7 @@ int		ft_str_isspace(char *str);
 void	ft_error(int e);
 
 int		ft_free(char *line);
-int	pipex(t_data *d_env, char *cmd, int *p_fd);
+int	pipex(t_data *d_env, char *cmd);
 void	puterror(char *str);
 void	*ft_memdel(void *ptr);
 int run_cmd(t_data *d_env, char *cmd);
@@ -190,7 +194,7 @@ void	puterror(char *str);
 void	*ft_memdel(void *ptr);
 int pipe_is_after(char **input, int i);
 int cmdlexer(char *cmd, t_data *d_env);
-
+int cmd_exec(t_data *d_env, char *cmd);
 char **sort_exp(char **env);
 
 char *tokenize(char *line);
@@ -204,5 +208,6 @@ void print_exp(t_data *data);
 int my_setenv(char *name, char *value, t_data *data);
 int splitlen(char **split);
 char	*ft_chdir(char *line);
+int what_im(char *input);
 
 #endif

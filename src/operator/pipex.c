@@ -1,37 +1,12 @@
 #include "../../inc/minishell.h"
 #include <errno.h>
 
-char *get_path(char *cmd)
+int	mid_pipe(t_data *d_env, char *cmd)
 {
-	int i;
-	char **args = ft_split(cmd, " ");
-	char *exec;
-	char **allpath = ft_split(getenv("PATH"), ":");
-	i = -1;
-	if (access(args[0], X_OK) == 0)
-		exec = args[0];
-	else
-	{
-		while (allpath[++i])
-		{
-			allpath[i] = ft_strjoin(allpath[i], "/");
-			exec = ft_strjoin(allpath[i], args[0]);
-			free(allpath[i]);
-			if (access(exec, F_OK | X_OK) == 0)
-				break ;
-			free(exec);
-		}
-	}
-	return exec;
-}
-
-int	pipex(t_data *d_env, char *cmd, int *p_fd)
-{
-
+	int		p_fd[2];
 	pid_t	pid;
-	int 	err = 0;
-	char	**args = ft_split(cmd, " ");
 
+	pipe( p_fd);
 	pid = fork();
 	if (pid < 0)
 		return errno;
@@ -39,7 +14,7 @@ int	pipex(t_data *d_env, char *cmd, int *p_fd)
 	{
 		close(p_fd[0]);
 		dup2(p_fd[1], 1);
-		err = execve(get_path(cmd), &args[0], d_env->env);
+		d_env->lastret = cmdlexer(cmd, d_env);
 	}
 	else
 	{
@@ -50,45 +25,47 @@ int	pipex(t_data *d_env, char *cmd, int *p_fd)
 	}
 	close(p_fd[1]);
 	close(p_fd[0]);
-	return err;
+	return d_env->lastret ;
 }
 
-int run_cmd(t_data *d_env, char *cmd)
+int last_pipe(t_data *d_env, char *cmd)
 {
 	pid_t	pid;
-	int err = 0;
-	char **args = ft_split(cmd, " ");
 
 	pid = fork();
 	if (pid < 0)
 		return errno;
 	if (!pid)
-	{
-		if((err = execve(get_path(cmd), &args[0], d_env->env)) == -1)
-		{
-			printf("minishell: %s: command not found\n", cmd);
-			exit (127);
-		}
-	}
+		d_env->lastret = cmdlexer(cmd, d_env);
+	
+	dup2(d_env->stdin, 0);
+	dup2(d_env->stdout, 0);
 	wait(&pid);
-	return err;
+	return d_env->lastret;
+}
+
+int cmd_exec(t_data *d_env, char *cmd)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid < 0)
+		return errno;
+	if (!pid)
+		d_env->lastret = cmdlexer(cmd, d_env);
+	wait(&pid);
+	return d_env->lastret;
 }
 
 
 
-int	pipe_handler(t_data *d_env, char **input, int *i)
+int	first_pipe(t_data *d_env, char *cmd)
 {
-	int		p_fd[2];
-	int stdin = dup(0);
-	int stdout = dup(1);
-	pipe(p_fd);
-	
-	while(input[*i + 1] && pipe_is_after(input, *i))
-			pipex(d_env, input[*i++], p_fd);
-	run_cmd(d_env, input[*i]);
-	dup2(stdin, 0);
-	dup2(stdout, 0);
+	d_env->stdin = dup(0);
+	d_env->stdout = dup(1);
+
+	return mid_pipe(d_env, cmd);
+
 	// puterror("$RES_REAL: ambiguous redirect\n");
 	// printf("%d: %s\n", errno, input[i]);
-	return 0;
 }

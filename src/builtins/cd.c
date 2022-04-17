@@ -8,7 +8,7 @@ int pwd()
 	if(!getcwd(buffer, sizeof(buffer)))
 		return -1;
 	printf("%s\n", buffer);
-	return 0;
+	exit(0);
 }
 
 int cd(char **cmd, t_data *d_env)
@@ -29,5 +29,5 @@ int cd(char **cmd, t_data *d_env)
 		my_setenv("PWD", pwd_buff, d_env);
 		my_setenv("OLDPWD", oldpwd_buff, d_env);
 	}
-	return 0;
+	exit(0);
 }

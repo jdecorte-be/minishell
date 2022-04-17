@@ -27,13 +27,39 @@ int exit_cmd(char **s_cmd)
         return 0;
 }
 
-
+char *get_path(char *cmd)
+{
+	int i;
+	char **args = ft_split(cmd, " ");
+	char *exec;
+	char **allpath = ft_split(getenv("PATH"), ":");
+	i = -1;
+	if (access(args[0], X_OK) == 0)
+		exec = args[0];
+	else
+	{
+		while (allpath[++i])
+		{
+			allpath[i] = ft_strjoin(allpath[i], "/");
+			exec = ft_strjoin(allpath[i], args[0]);
+			free(allpath[i]);
+			if (access(exec, F_OK | X_OK) == 0)
+				break ;
+			free(exec);
+		}
+	}
+	return exec;
+}
 
 // return the return code of each command
 int cmdlexer(char *cmd, t_data *d_env)
 {
     char **s_cmd = ft_split(cmd," ");
-    if(ft_strcmp(s_cmd[0], "echo") == 0)
+	char **args = ft_split(cmd, " ");
+
+    if(d_env->is_subshell == 1)
+        return subshell(cmd, d_env);
+    else if(ft_strcmp(s_cmd[0], "echo") == 0)
         return echo(s_cmd);
     else if(ft_strcmp(s_cmd[0], "cd") == 0)
         return cd(s_cmd, d_env);
@@ -46,8 +72,8 @@ int cmdlexer(char *cmd, t_data *d_env)
     else if(ft_strcmp(s_cmd[0], "unset") == 0)
         return unset(s_cmd, d_env);
     else if(ft_strcmp(s_cmd[0], "exit") == 0)
-        return exit_cmd(s_cmd);
+         exit_cmd(s_cmd);
     else
-        return run_cmd(d_env, cmd);
-    return 0;
+        return execve(get_path(cmd), &args[0], d_env->env);
+    return -1;
 }

@@ -91,7 +91,7 @@ int	main(int ac, char **av, char **env)
         char **res = ft_split(line, "\1");
 
         // to delete
-            print2darray(res);
+            // print2darray(res);
         ret = execute(res, data);
     }
         // exit(ret);
