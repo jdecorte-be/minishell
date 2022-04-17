@@ -6,8 +6,21 @@ char	*ft_add_q_dollar(char *line)
 	size_t	start;
 	char	*str;
 
-	i = 0;
-	while ()
+	end = 0;
+	while (line[end])
+	{
+		start = end;
+		
+	}
 
 	
 }
+
+
+
+
+
+
+/*
+
+-> export hello=""
