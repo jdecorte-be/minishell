@@ -10,19 +10,19 @@ size_t	ft_pgross_len(char *line)
 	count = 0;
 	while (line[i])
 	{
-		if (ft_strchr("\'\"", line[i]))
+		if (line[i] && ft_strchr("\'\"", line[i]))
 		{
 			c = line[i++];
 			while (line[i] && line[i] != c)
 				i++;
 			i++;
 		}
-		else if ((!ft_strncmp(&line[i], "&&", 2)
+		else if (line[i] && (!ft_strncmp(&line[i], "&&", 2)
 				|| !ft_strncmp(&line[i], "||", 2)) && ++i && ++i)
 			count += 2;
-		else if (ft_strchr("()&|", line[i]) && ++i)
+		else if (line[i] && ft_strchr("()&|", line[i]) && ++i)
 			count += 2;
-		else
+		else if (line[i])
 			i++;
 	}
 	return (i + count);

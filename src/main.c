@@ -45,7 +45,6 @@ void sigint_handler(int signum)
 
 int	main(int ac, char **av, char **env)
 {
-    (void)av;
     t_env   *d_env;
 	t_data	*data;
 
@@ -63,6 +62,15 @@ int	main(int ac, char **av, char **env)
 
 	char	*line;
 
+
+    if (ac >= 3 && !ft_strncmp(av[1], "-c", 2))
+    {
+        line = ft_chwc(ft_chdollar(ft_epur_str(ft_pgross_str(ft_strdup(av[2])))));
+        tokenize(line);
+        char **res = ft_split(line, "\1");
+        execute(res, data, d_env);
+        return 0;
+    }
     if(ac != 1)
         puterror("\e[0;37mUse : ./minishell without arguments\n");
 	while (1)
@@ -86,4 +94,11 @@ int	main(int ac, char **av, char **env)
         ft_free_tab(res);
 		free(line);
 	}
+
+
+
+
+
+
+
 }

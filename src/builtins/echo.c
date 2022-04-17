@@ -4,6 +4,8 @@
 // marche + fix lors du parsing avec '' et ""
 // code d'exit a modifier
 
+// void delete_ext_quotes(char **args)
+
 int echo(char **args)
 {
 	int i;

@@ -23,7 +23,6 @@ t_list	*ft_wcsearch(char *line)
 		{
 			while (line[end] && !ft_isspace(line[end]))
 			{
-				printf("2\n");
 				if (line[end] && ft_strchr("\"\'", line[end]))
 					ft_creat_tab2(line, &end, 0, 1);
 				if (line[end] && line[end] == '*' && ++end)

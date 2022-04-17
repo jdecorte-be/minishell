@@ -25,7 +25,8 @@ void	ft_creat_tab2(char *str, size_t *end, char *set, int e)
 		c = str[(*end)++];
 		while (str[*end] && c != str[*end])
 			(*end)++;
-		(*end)++;
+		if (str[*end])
+			(*end)++;
 	}
 	if (e == 2)
 	{

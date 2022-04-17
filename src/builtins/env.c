@@ -30,6 +30,7 @@ int print_env(char **env)
 
 int unset(char **cmd, t_env *data)
 {
+	(void) data;
     if(!cmd[1])
         return 0;
     int i = 1;
