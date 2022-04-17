@@ -90,7 +90,7 @@ char	*ft_chdollar(char *line);
 
 char	**ft_split4(char *str, char *set);
 char	*ft_chwc(char *line);
-char	*ft_wcfile(char *wc);
+char	*ft_wcfile(char *wc, char *path);
 t_list	*ft_wcsearch(char *line);
 
 char	*ft_trijoin(char *s1, char *s2, char *s3);

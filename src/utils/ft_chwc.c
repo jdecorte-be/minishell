@@ -72,7 +72,7 @@ char	*ft_chwc(char *line)
 	tmp = wc;
 	while (tmp)
 	{
-		ft_lstadd_back(&name, ft_lstnew(ft_wcfile(tmp->content)));
+		ft_lstadd_back(&name, ft_lstnew(ft_wcfile(tmp->content, 0)));
 		tmp = tmp->next;
 	}
 	tmp = wc;

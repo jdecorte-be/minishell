@@ -139,7 +139,7 @@ char	*ft_chdollar_str(char *str, char *line, t_list *dollar, size_t len)
 						}
 						else
 						{
-							while (line[i] && !ft_strchr("\"\'+/%^~:.,-=", line[i]) && !ft_isspace(line[i]))
+							while (line[i] && !ft_strchr("\"\'+/%^~:.,-=\'\"", line[i]) && !ft_isspace(line[i]))
 								i++;
 							i2 = ft_strlcat(str, dollar->content, len);
 							dollar = ft_next(dollar);
@@ -161,7 +161,7 @@ char	*ft_chdollar_str(char *str, char *line, t_list *dollar, size_t len)
 			}
 			else
 			{
-				while (line[i] && !ft_strchr("+/%^~:.,-=", line[i]) && !ft_isspace(line[i]))
+				while (line[i] && !ft_strchr("+/%^~:.,-=\'\"", line[i]) && !ft_isspace(line[i]))
 					i++;
 				i2 = ft_strlcat(str, dollar->content, len);
 				dollar = ft_next(dollar);
