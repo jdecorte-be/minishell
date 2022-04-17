@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 09:59:01 by lxu-wu            #+#    #+#             */
-/*   Updated: 2021/12/21 13:12:54 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2021/12/22 21:42:29 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	**ft_split(char const *s, char *set)
 {
 	char	**tab;
 
-	if (!s ||ß !*s)
+	if (!s || !*s)
 		return (0);
 	tab = malloc(sizeof(char *) * (ft_count_words(s, set) + 1));
 	if (!tab)

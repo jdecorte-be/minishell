@@ -24,6 +24,7 @@ char	*ft_chwc(char *line)
 	while (wc)
 	{
 		ft_lstadd_back(&name, ft_lstnew(ft_wcfile(wc->content)));
+		printf("\n\n\n\n");
 		wc = ft_next(wc);
 	}
 	if (!name)
