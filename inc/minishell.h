@@ -73,6 +73,8 @@ typedef struct s_data//  block de cmd
 	t_cmd	*cmd;
 }	t_data;
 
+int		subshell(char *line, t_env *d_env, t_data *data);
+void	addspace(char **str);
 char	**ft_split2(char *str, char *set);
 char	*ft_onespace(char *line);
 
@@ -87,15 +89,15 @@ int		ft_str_isspace(char *str);
 void	ft_error(int e);
 
 int		ft_free(char *line);
-int	pipex(t_env *d_env, char *cmd);
+int	pipex(t_env *d_env, char *cmd, int *p_fd);
 void	puterror(char *str);
 void	*ft_memdel(void *ptr);
-
+int run_cmd(t_env *d_env, char *cmd);
 int cmdlexer(char *cmd, t_env *d_env);
 
 char **sort_exp(char **env);
 
-void tokenize(char *line);
+char *tokenize(char *line);
 char	*ft_pgross_str(char *line);
 char	*ft_epur_str(char *line);
 int execute(char **input, t_data *data, t_env *d_env);
@@ -155,7 +157,7 @@ int cmdlexer(char *cmd, t_env *d_env);
 
 char **sort_exp(char **env);
 
-void tokenize(char *line);
+char *tokenize(char *line);
 char	*ft_pgross_str(char *line);
 char	*ft_epur_str(char *line);
 int execute(char **input, t_data *data, t_env *d_env);

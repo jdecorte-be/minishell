@@ -17,8 +17,8 @@ size_t	ft_pgross_len(char *line)
 				i++;
 			i++;
 		}
-		else if (line[i] && (!ft_strncmp(&line[i], "&&", 2)
-				|| !ft_strncmp(&line[i], "||", 2)) && ++i && ++i)
+		else if (line[i] && (!ft_strncmp(&line[i], "&&", 1)
+				|| !ft_strncmp(&line[i], "||", 1)) && ++i && ++i)
 			count += 2;
 		else if (line[i] && ft_strchr("()&|", line[i]) && ++i)
 			count += 2;
@@ -48,8 +48,8 @@ void	ft_pgross_creat2(char *str, size_t *i, size_t *i2, char *line)
 			str[(*i)++] = line[(*i2)++];
 		str[(*i)++] = line[(*i2)++];
 	}
-	else if (!ft_strncmp(&line[*i2], "&&", 2)
-		|| !ft_strncmp(&line[*i2], "||", 2))
+	else if (!ft_strncmp(&line[*i2], "&&", 1)
+		|| !ft_strncmp(&line[*i2], "||", 1))
 		ft_pgross_creat3(str, i, i2, line);
 	else if (ft_strchr("()|&", line[*i2]))
 	{

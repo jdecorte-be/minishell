@@ -1,6 +1,16 @@
 #include "../inc/minishell.h"
 #include <errno.h>
 
+void print2darray(char **arr)
+{
+    int i = 0;
+    while(arr[i])
+    {
+        printf("%d\\ %s ", i ,arr[i]);
+        i++; //
+    }
+}
+
 void shlvlhandler(t_env *data)
 {
     char *var = getenv("SHLVL");
@@ -85,18 +95,18 @@ int	main(int ac, char **av, char **env)
             line = readline(formpath());
             if (!line)
             {
-                ft_putstr_fd("\b\bexit\n", 1);
+                ft_putstr_fd("\b\bexit\n", 2);
                 exit (0);
             }
-            if(*line)
+            if(line[0] != '\n')
                 add_history(line);
         
-            line = ft_chdir(ft_chwc(ft_chdollar(ft_epur_str(ft_pgross_str(line)))));
-            tokenize(line);
+            line = tokenize(ft_chdir(ft_chwc(ft_chdollar(ft_epur_str(ft_pgross_str(line))))));
             char **res = ft_split(line, "\1");
+    
+            // to delete
+                // print2darray(res);
             ret = execute(res, data, d_env);
-            ft_free_tab(res);
-            free(line);
         }
         // exit(ret);
     }

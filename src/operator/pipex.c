@@ -1,8 +1,7 @@
 #include "../../inc/minishell.h"
 #include <errno.h>
 
-
-void exec(t_env *d_env, char *cmd)
+char *get_path(char *cmd)
 {
 	int i;
 	char **args = ft_split(cmd, " ");
@@ -23,63 +22,72 @@ void exec(t_env *d_env, char *cmd)
 			free(exec);
 		}
 	}
-	if(execve(exec, &args[0], d_env->env) == -1)
-	{
-		printf("minishell: %s: command not found\n", cmd);
-		exit (127);
-	}
+	return exec;
 }
 
-int	pipex(t_env *d_env, char *cmd)
+int	pipex(t_env *d_env, char *cmd, int *p_fd)
 {
+
 	pid_t	pid;
-	int p_fd[2];
+	int 	err = 0;
+	char	**args = ft_split(cmd, " ");
 
-
-	pipe(p_fd);
 	pid = fork();
 	if (pid < 0)
 		return errno;
-
-	// first
 	if (!pid)
 	{
-		dup2(p_fd[0], 0);
-		// dup2(fd2, 1);
-		close(p_fd[1]);
-		// close(fd2);
-		waitpid(pid, NULL, 0);
+		close(p_fd[0]);
+		dup2(p_fd[1], 1);
+		err = execve(get_path(cmd), &args[0], d_env->env);
 	}
-	// second
 	else
 	{
-		// dup2(fd1, 0);
-		dup2(p_fd[1], 1);
-		close(p_fd[0]);
-		// close(fd1);
-		exec(d_env, cmd);
+		close(p_fd[1]);
+		dup2(p_fd[0], 0);
+		waitpid(pid, NULL, 0);
+
 	}
-	return errno;
+	close(p_fd[1]);
+	close(p_fd[0]);
+	return err;
+}
+
+int run_cmd(t_env *d_env, char *cmd)
+{
+	pid_t	pid;
+	int err = 0;
+	char **args = ft_split(cmd, " ");
+
+	pid = fork();
+	if (pid < 0)
+		return errno;
+	if (!pid)
+	{
+		if((err = execve(get_path(cmd), &args[0], d_env->env)) == -1)
+		{
+			printf("minishell: %s: command not found\n", cmd);
+			exit (127);
+		}
+	}
+	wait(&pid);
+	return err;
 }
 
 int	pipe_handler(t_env *d_env, char **input)
 {
-	if (splitlen(input) >= 3)
-	{
-		int i = 0;
-		while(input[i + 1] && ft_strcmp(input[i + 1],"&&") != 0 && ft_strcmp(input[i + 1],"||") != 0)
-		{
-			if(input[i][0] == '|')
-				i++;
-			else
-				pipex(d_env, input[i++]);
-			// i++;
-		}
-		exec(d_env, input[i]);
-		// close(tab->fd1);
-		// close(tab->fd2);
-	}
-	else
-		puterror("$RES_REAL: ambiguous redirect\n");
-	return errno;
+	int		p_fd[2];
+	int i = 0;
+	int stdin = dup(0);
+	int stdout = dup(1);
+	pipe(p_fd);
+	
+	while(input[i + 1])
+			pipex(d_env, input[i++], p_fd);
+	run_cmd(d_env, input[i]);
+	dup2(stdin, 0);
+	dup2(stdout, 0);
+	// puterror("$RES_REAL: ambiguous redirect\n");
+	// printf("%d: %s\n", errno, input[i]);
+	return 0;
 }

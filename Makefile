@@ -20,6 +20,7 @@ SRCS = 	src/main.c\
 		\
         libft/libft.a\
 		src/operator/pipex.c\
+		src/operator/priority.c\
 		src/utils/*\
 
 $(NAME) :

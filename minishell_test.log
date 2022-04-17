@@ -1,0 +1,470 @@
+|> WITH echo $PWD; echo $OLDPWD; cd .; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd.;pwd;echoecho     $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd ..; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/Users/decortejohn/.cache/minishell_test$
+/Users/decortejohn/.cache/minishell_test$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd..;pwd;echoecho     $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd ../..; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/Users/decortejohn/.cache$
+/Users/decortejohn/.cache$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd../..;pwd;echoecho     $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd ../../..; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/Users/decortejohn$
+/Users/decortejohn$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd../../..;pwd;echoecho     $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd ../../../..; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/Users$
+/Users$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd../../../..;pwd;echoecho     $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd ../../../../..; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/$
+/$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd../../../../..;pwd;echoecho     $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd ../../../../../..; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/$
+/$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd../../../../../..;pwd;echoecho     $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd /; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/$
+/$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd/;pwd;echoecho     $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd ''; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd;pwd;echoecho     $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd '' ''; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd;pwd;echoecho      $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd '' '' ''; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd;pwd;echoecho       $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd ' '; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+minishell: cd:  : No such file or directory$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+|---------------------------------------ACTUAL----------------------------------
+echocd;pwd;echoecho      $
+================================================================================
+
+|> WITH [SETUP mkdir d] echo $PWD; echo $OLDPWD; cd d ''; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/Users/decortejohn/.cache/minishell_test/sandbox/d$
+/Users/decortejohn/.cache/minishell_test/sandbox/d$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocdd;pwd;echoecho      $
+================================================================================
+
+|> WITH [SETUP mkdir d] echo $PWD; echo $OLDPWD; cd d d; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/Users/decortejohn/.cache/minishell_test/sandbox/d$
+/Users/decortejohn/.cache/minishell_test/sandbox/d$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocddd;pwd;echoecho      $
+================================================================================
+
+|> WITH [SETUP mkdir d] echo $PWD; echo $OLDPWD; cd d ' '; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/Users/decortejohn/.cache/minishell_test/sandbox/d$
+/Users/decortejohn/.cache/minishell_test/sandbox/d$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocdd;pwd;echoecho       $
+================================================================================
+
+|> WITH [EXPORTS HOME='/Users/decortejohn'] echo $PWD; echo $OLDPWD; cd $HOME; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/Users/decortejohn$
+/Users/decortejohn$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocdpwd;echoecho    $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd /; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/$
+/$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd/;pwd;echoecho     $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd /.; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/$
+/$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd/.;pwd;echoecho     $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd /./; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/$
+/$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd/./;pwd;echoecho     $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd /././././; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/$
+/$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd/././././;pwd;echoecho     $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd //; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/$
+/$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd/;pwd;echoecho     $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd ///; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/$
+/$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd///;pwd;echoecho     $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd ////; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/$
+/$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd////;pwd;echoecho     $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd //////////////////////////////////////////////////////; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/$
+/$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd//////////////////////////////////////////////////////;pwd;echoecho     $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+minishell: cd: HOME not set$
+$
+|---------------------------------------ACTUAL----------------------------------
+echocd;echo  $
+================================================================================
+
+|> WITH [EXPORTS HOME='/Users/decortejohn'] echo $PWD; echo $OLDPWD; cd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/Users/decortejohn$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd;echoecho   $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd ' /'; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+minishell: cd:  /: No such file or directory$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+|---------------------------------------ACTUAL----------------------------------
+echocd/;pwd;echoecho      $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd ' / '; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+minishell: cd:  / : No such file or directory$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+|---------------------------------------ACTUAL----------------------------------
+echocd/;pwd;echoecho       $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd '                  /'; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+minishell: cd:                   /: No such file or directory$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+|---------------------------------------ACTUAL----------------------------------
+echocd/;pwd;echoecho      $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd '                  /              '; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+minishell: cd:                   /              : No such file or directory$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+|---------------------------------------ACTUAL----------------------------------
+echocd/;pwd;echoecho       $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd ' // '; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+minishell: cd:  // : No such file or directory$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+|---------------------------------------ACTUAL----------------------------------
+echocd//;pwd;echoecho       $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd //home; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+/home$
+/home$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+|---------------------------------------ACTUAL----------------------------------
+echocd/home;pwd;echoecho     $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd ' //home'; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+minishell: cd:  //home: No such file or directory$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+|---------------------------------------ACTUAL----------------------------------
+echocd//home;pwd;echoecho      $
+================================================================================
+
+|> WITH echo $PWD; echo $OLDPWD; cd '     //home    '; pwd; echo $PWD; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+minishell: cd:      //home    : No such file or directory$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+|---------------------------------------ACTUAL----------------------------------
+echocd//home;pwd;echoecho       $
+================================================================================
+
+|> WITH [SETUP mkdir -m 000 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+minishell: cd: d: Permission denied$
+$
+|---------------------------------------ACTUAL----------------------------------
+echocdd;echo   $
+================================================================================
+
+|> WITH [SETUP mkdir -m 001 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+minishell: cd: d: Permission denied$
+$
+|---------------------------------------ACTUAL----------------------------------
+echocdd;echo   $
+================================================================================
+
+|> WITH [SETUP mkdir -m 002 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+minishell: cd: d: Permission denied$
+$
+|---------------------------------------ACTUAL----------------------------------
+echocdd;echo   $
+================================================================================
+
+|> WITH [SETUP mkdir -m 003 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+minishell: cd: d: Permission denied$
+$
+|---------------------------------------ACTUAL----------------------------------
+echocdd;echo   $
+================================================================================
+
+|> WITH [SETUP mkdir -m 004 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+minishell: cd: d: Permission denied$
+$
+|---------------------------------------ACTUAL----------------------------------
+echocdd;echo   $
+================================================================================
+
+|> WITH [SETUP mkdir -m 005 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+minishell: cd: d: Permission denied$
+$
+|---------------------------------------ACTUAL----------------------------------
+echocdd;echo   $
+================================================================================
+
+|> WITH [SETUP mkdir -m 006 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+minishell: cd: d: Permission denied$
+$
+|---------------------------------------ACTUAL----------------------------------
+echocdd;echo   $
+================================================================================
+
+|> WITH [SETUP mkdir -m 007 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+minishell: cd: d: Permission denied$
+$
+|---------------------------------------ACTUAL----------------------------------
+echocdd;echo   $
+================================================================================
+
+|> WITH [SETUP mkdir -m 010 d] echo $PWD; echo $OLDPWD; cd d; echo $OLDPWD\n
+|---------------------------------------EXPECTED--------------------------------
+/Users/decortejohn/.cache/minishell_test/sandbox$
+$
+minishell: cd: d: Permission denied$
+$
+|---------------------------------------ACTUAL----------------------------------
+echocdd;echo   $
+================================================================================
+

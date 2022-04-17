@@ -27,6 +27,8 @@ int exit_cmd(char **s_cmd)
         return 0;
 }
 
+
+
 // return the return code of each command
 int cmdlexer(char *cmd, t_env *d_env)
 {
@@ -46,6 +48,6 @@ int cmdlexer(char *cmd, t_env *d_env)
     else if(ft_strcmp(s_cmd[0], "exit") == 0)
         return exit_cmd(s_cmd);
     else
-        pipex(d_env, cmd);
+        return run_cmd(d_env, cmd);
     return 0;
 }

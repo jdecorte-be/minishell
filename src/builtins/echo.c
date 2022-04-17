@@ -17,7 +17,8 @@ int echo(char **args)
             i++;
         while(args[i])
         {
-            printf("%s", args[i]);
+
+           printf("%s", args[i]);
             if(args[i + 1])
                 printf(" ");
             i++;

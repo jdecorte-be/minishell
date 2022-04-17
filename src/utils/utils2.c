@@ -5,6 +5,8 @@ void	ft_free_tab(char **tab)
 {
 	size_t	i;
 
+	if(!tab)
+		return ;
 	i = 0;
 	while (tab[i])
 	{
