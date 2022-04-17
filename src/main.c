@@ -68,7 +68,6 @@ int	main(int ac, char **av, char **env)
 
 	char	*line;
 
-
     if(ac != 1)
         puterror("\e[0;37mUse : ./minishell without arguments\n");
     while (1)

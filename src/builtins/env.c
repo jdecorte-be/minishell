@@ -56,8 +56,7 @@ int my_setenv(char *name, char *value)
     {
 		if ((int)ft_strlen(C) >= l_value)
         {
-			while ((*C++ = *value++))
-				;
+			while ((*C++ = *value++));
 			return (0);
 		}
 	}
@@ -83,10 +82,11 @@ int my_setenv(char *name, char *value)
 	if (!(data->env [offset] =			/* name + `=' + value */
 	    malloc((size_t)((int)(C - name) + l_value + 2))))
 		return (-1);
-	for (C = data->env [offset]; (*C = *name++) && *C != '='; ++C)
-		;
-	for (*C++ = '='; (*C++ = *value++); )
-		;
+    C = data->env[offset];
+	while((*C = *name++) && *C != '=')
+        ++C;
+    *C++ = '=';
+	while((*C++ = *value++));
 	return (0);
 }
 

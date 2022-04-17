@@ -14,13 +14,13 @@ t_token	*ft_parsing2(t_token *sup_token)
 	tmp = token;
 	while (tmp)
 	{
-		if (tmp->next && ft_strcmp(tmp->next->cmd, "|"))
+		if (tmp->next && !ft_strcmp(tmp->next->cmd, "|"))
 		{
 			if (pipe(fd) == -1)
 				ft_error(3);
 			tmp->redirect = ft_redirect(tmp->cmd, sup_token->redirect, 1, fd[1]);
 		}
-		else if (ft_strcmp(tmp->cmd, "|"))
+		else if (!ft_strcmp(tmp->cmd, "|"))
 		{
 			tmp = tmp->next;
 			tmp->redirect = ft_redirect(tmp->cmd, sup_token->redirect, 2, fd[0]);
@@ -52,7 +52,6 @@ t_token	*ft_parsing(char *line)
 	while (tmp)
 	{
 
-		// printf("tmp = %s\n", tmp->cmd);
 		if (tmp->next && !ft_strcmp(tmp->next->cmd, "|"))
 		{
 			// printf("1\n");

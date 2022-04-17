@@ -13,9 +13,9 @@ t_list	*ft_wcsearch(char *line)
 	{
 		c1 = 0;
 		start = end;
-		if (line[end] && ft_strchr("\"\'", line[end]))
-			ft_creat_tab2(line, &end, 0, 1);
-		if (line[end] && !ft_isspace(line[end]) && !ft_strchr("\'\"&|", line[end]))
+		if (line[end] && ft_strchr("<>", line[end]))
+			end = ft_next_word(line, ft_next_word(line, end));
+		else if (line[end] && !ft_isspace(line[end]) && !ft_strchr("&|", line[end]))
 		{
 			while (line[end] && !ft_isspace(line[end]))
 			{

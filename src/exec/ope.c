@@ -38,23 +38,6 @@ int what_before(char **input, int i)
 	return 0;
 }
 
-int pipe_is_after(char **input, int i)
-{
-	int j = i;
-
-	while(input[j])
-	{
-		if(ft_strcmp(input[j], "&&") == 0)
-			return 0;
-		if(ft_strcmp(input[j], "||") == 0)
-			return 0;
-		if(ft_strcmp(input[j], "|") == 0)
-			return 1;
-		j++;
-	}
-	return 0;
-}
-
 int have_pipe(char *cmd)
 {
 	int i = 0;
@@ -76,8 +59,22 @@ int execute(t_token *token)
 
 	while(tmp)
 	{
-		data->stdin = tmp->redirect.infd;
-		data->stdout = tmp->redirect.outfd;
+		data->is_redir_in = 0;
+		data->is_redir_out = 0;
+		char **args = ft_split(tmp->cmd, " ");
+
+		if(tmp->redirect.infd != 0)
+		{
+			data->is_redir_in = 1;
+			data->inredirrs = dup(0);
+			dup2(tmp->redirect.infd, 0);
+		}
+		if(tmp->redirect.outfd != 1)
+		{
+			data->is_redir_out = 1;
+			data->outredirrs = dup(1);
+			dup2(tmp->redirect.outfd, 1);
+		}
 		// start
 		if(start == 0 && what_im(tmp->cmd) == 1)
 		{
@@ -100,21 +97,24 @@ int execute(t_token *token)
 			data->stdin_reset = dup(0);
 			data->stdout_reset = dup(1);
 			data->is_pipe = 1;
-			data->lastret = exec(tmp->cmd);
+			data->lastret = pipex(tmp->cmd);
 		}
 		else if(data->is_pipe == 1 && what_im(tmp->cmd) == 0 && tmp->next && tmp->next->cmd[0] == '|')
-			data->lastret = exec(tmp->cmd);
+			data->lastret = pipex(tmp->cmd);
 		else if (data->is_pipe == 1 && what_im(tmp->cmd) == 0)
 		{
-			exec(tmp->cmd);
 			data->is_pipe = 0;
+			exec(tmp->cmd);
 			dup2(data->stdin_reset, 0);
 			dup2(data->stdout_reset, 1);
 		}
 		else if(start == 1 && what_im(tmp->cmd) == 0 && data->is_pipe == 0)
 			data->lastret = exec(tmp->cmd);
 
-
+		if(data->is_redir_in == 1)
+			dup2(data->inredirrs, 0);
+		if(data->is_redir_out == 1)
+			dup2(data->outredirrs, 1);
 		tmp = tmp->next;
 		start = 0;
 	}

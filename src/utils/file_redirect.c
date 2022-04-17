@@ -111,7 +111,7 @@ t_list	*ft_file(char *line, char c, int *open)
 		}
 		else if (line[i] && line[i + 1] && line[i] == '<' && line[i + 1] == '<')
 			i += 2;
-		else
+		else if (line[i])
 			i++;
 
 	}
@@ -156,24 +156,31 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 		while (file.infile)
 		{
 			// printf("infile %s\n", file.infile->content);
-			if (file.infd != tmp.infd)
-				close(file.infd);
-			file.infd = open(file.infile->content, O_RDONLY);
-			if (file.infd == -1)
-				perror("open rd");
+			if (ft_chwc_ok2(file.infile->content) || ft_transf(file.infile->content))
+			{
+				if (file.infd != tmp.infd)
+					close(file.infd);
+				file.infd = open(ft_ecrase_q(ft_redirect_chwc(file.infile->content)), O_RDONLY);
+				if (file.infd == -1)
+					perror("open rd");
+			}
 			file.infile = ft_next(file.infile);
 		}
 		while (file.outfile)
 		{
 			// printf("outfile %s\n", (file.outfile->content));
-			if (file.outfd != tmp.outfd)
-				close(file.outfd);
-			if (file.open == 0)
-				file.outfd = open(file.outfile->content, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-			else if (file.open == 1)
-				file.outfd = open(file.outfile->content, O_WRONLY | O_APPEND | O_CREAT, 0644);
-			if (file.outfd == -1)
-				perror("open wr");
+			if (ft_chwc_ok2(file.outfile->content) || ft_transf(file.outfile->content))
+			{
+				if (file.outfd != tmp.outfd)
+					close(file.outfd); 
+				if (file.open == 0)
+					file.outfd = open(ft_ecrase_q(ft_redirect_chwc(file.outfile->content)), O_WRONLY | O_TRUNC | O_CREAT, 0644);
+				else if (file.open == 1)
+					file.outfd = open(ft_ecrase_q(ft_redirect_chwc(file.outfile->content)), O_WRONLY | O_APPEND | O_CREAT, 0644);
+				if (file.outfd == -1)
+					perror("open wr");
+			}
+			printf("1\n");
 			file.outfile = ft_next(file.outfile);
 		}
 	}

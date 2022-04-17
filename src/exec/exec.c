@@ -6,7 +6,7 @@
 /*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/01/26 14:29:12 by decortejohn      ###   ########.fr       */
+/*   Updated: 2022/01/28 08:25:04 by decortejohn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int exec(char *cmd)
 {
     char **s_cmd = ft_split(cmd," ");
-
+	
     if(cmd[0] == '(')
        return subshell(ft_substr(cmd, 1, ft_strlen(cmd) - 2), data);
 	else if(ft_strcmp(s_cmd[0], "echo") == 0)
@@ -73,18 +73,19 @@ int cmd_sys(char *cmd)
 		return errno;
 	if (!pid)
 	{
-		if(data->stdin != 0)
-			close(data->stdin);
-		if(data->stdout != 1)
-			dup2(data->stdout, 1);	
+		// dup2(data->stdin, 0);
+		// if(data->stdin != 0)
+			// close(data->stdin);
+		// if(data->stdout != 1)
+		// dup2(data->stdout, 1);	
 		execve(get_path(cmd), &args[0], data->env);
 	}
 	else
 	{
-		if(data->stdout != 1)
-			close(data->stdout);
-		if(data->stdin != 0)
-			dup2(data->stdin, 0);
+		// if(data->stdout != 1)
+		// 	close(data->stdout);
+		// // if(data->stdin != 0)
+		// 	dup2(data->stdin, 0);
 		waitpid(pid, &ret, 0);
 	}
 	return ret;
@@ -98,4 +99,35 @@ int subshell(char *line, t_data *data)
 	t_token *token = ft_parsing(line);
     ret = execute(token);
 	return ret;
+}
+
+int	pipex(char *cmd)
+{
+	pid_t	pid;
+	char **args = ft_split(cmd, " ");
+	int p_fd[2];
+	pipe(p_fd);
+	pid = fork();
+	if (pid < 0)
+		return -1;
+
+	// first
+	if (pid)
+	{
+		dup2(p_fd[0], 0);
+		// dup2(tab->fd2, 1);
+		close(p_fd[1]);
+		// close(tab->fd2);
+		// waitpid(pid, NULL, 0);
+	}
+	// second
+	else
+	{
+		// dup2(tab->fd1, 0);
+		dup2(p_fd[1], 1);
+		close(p_fd[0]);
+		// close(tab->fd1);
+		execve(get_path(cmd), &args[0], data->env);
+	}
+	return 0;
 }

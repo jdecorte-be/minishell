@@ -42,6 +42,7 @@ typedef struct s_token
 	t_redirect		redirect;
 	struct s_token	*sup_token;
 	struct s_token	*sub_token;
+	struct s_token	*prev;
 	struct s_token	*next;
 }	t_token;
 
@@ -62,6 +63,10 @@ typedef struct s_data//  block de cmd
 	int		lastret;
 	int		stdin_reset;
 	int		stdout_reset;
+	int		inredirrs;
+	int		outredirrs;
+	int 	is_redir_in;
+	int 	is_redir_out;
 	int		stdin;
 	int		stdout;
 	int		is_subshell;
@@ -89,8 +94,8 @@ t_data	*data;
 
 
 
-
-
+char *get_path(char *cmd);
+int	pipex(char *cmd);
 char *prompt();
 void	sig_handler(int sig);
 char *my_getenv(char *name, t_data *data);
@@ -136,7 +141,6 @@ int		ft_str_isspace(char *str);
 void	ft_error(int e);
 
 int		ft_free(char *line);
-int	pipex(t_data *d_env, char *cmd);
 void	puterror(char *str);
 void	*ft_memdel(void *ptr);
 int run_cmd(t_data *d_env, char *cmd);
@@ -249,6 +253,11 @@ t_token	*ft_parsing(char *line);
 char    *ft_ecrase_q(char *word);
 char	*ft_ecrase_p(char *line);
 
+t_token	*ft_token_next(t_token *token);
+void	ft_token_free_and_next(t_token **token);
+void	ft_token_free_and_sup(t_token **token);
+void	ft_tokenclean_all(t_token **token);
+
 int		ft_strstrchr(char *str, char *set);
 
 void	ft_skip_p(char *str, size_t *i);
@@ -256,7 +265,13 @@ void	ft_skip_q(char *str, size_t *i);
 
 t_token	*ft_parsing(char *line);
 
+char	*ft_redirect_chwc(char *line);
+int		ft_chwc_ok2(char *line);
+char	*ft_transf(char *line);
+
 char *tokenize(char *line);
 char **parsing(char *input);
+char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq);
+
 
 #endif
