@@ -26,26 +26,11 @@ t_list	*ft_wcsearch(char *line)
 			{
 				printf("2\n");
 				if (line[end] && ft_strchr("\"\'", line[end]))
-<<<<<<< HEAD
-				{
-					c = line[end++];
-					while (line[end] && c != line[end])
-						end++;
-					// ft_creat_tab2(line, &end, 0, 1);
-				}
-				if (line[end++] == '*')
-				{
-					c1 = 1;
-				}
-				printf("3\n");
-				printf("i == %zu\n", end);
-=======
 					ft_creat_tab2(line, &end, 0, 1);
 				if (line[end] && line[end] == '*' && ++end)
 					c1 = 1;
 				else if (line[end])
 					end++;
->>>>>>> e7583a9
 			}
 			if (c1 == 1)
 				ft_lstadd_back(&wc, ft_lstnew(ft_substr(line, start, end - start)));

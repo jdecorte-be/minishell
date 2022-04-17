@@ -1,4 +1,51 @@
 #include "builtins.h"
+#include <strings.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <crt_externs.h>
+
+
+
+int my_setenv(char *name, char *value, t_env *data)
+{
+	static char **lastenv;			/* last value of environ */
+	char *C;
+	int l_value, offset;
+	if (*value == '=')			/* no `=' in value */
+		++value;
+	l_value = strlen(value);
+	if ((C = getenv(name))) {	/* find if already exists */
+		if ((int)strlen(C) >= l_value) {	/* old larger; copy over */
+			while ((*C++ = *value++));
+			return (0);
+		}
+	} else {					/* create new slot */
+		size_t cnt;
+		char **P;
+		for (P = data->env; *P != NULL; P++);
+		cnt = P - data->env;
+        P = (char **)realloc(lastenv, sizeof(char *) * (cnt + 2));
+		if (!P)
+			return (-1);
+		if (lastenv != data->env)
+			memcpy(P, data->env, cnt * sizeof(char *));
+		lastenv = data->env = P;
+		offset = cnt;
+		data->env[cnt + 1] = NULL;
+	}
+	for (C = (char *)name; *C && *C != '='; ++C)
+		;				/* no `=' in name */
+	if (!(data->env[offset] =			/* name + `=' + value */
+	    malloc((size_t)((int)(C - name) + l_value + 2))))
+		return (-1);
+	for (C = data->env[offset]; (*C = *name++) && *C != '='; ++C)
+		;
+	for (*C++ = '='; (*C++ = *value++); )
+		;
+	return (0);
+}
 
 int check_format(char *str)
 {
@@ -31,37 +78,27 @@ void print_sort_exp(char **env, t_env *data)
     }
 }
 
+int repl_env(char **cmd)
+{
+    int i = 0;
+    while(cmd[1][i] && cmd[1][i] != '=')
+        i++;
+    char *var = getenv(ft_substr(cmd[1], 0, i));
+    printf("export %s\n", ft_substr(cmd[1], 0, i));
+    ft_memcpy(var, ft_substr(cmd[1], i + 1, ft_strlen(cmd[1])), ft_strlen(var));
+    return 0;
+}
+
 int export(char **cmd,t_env *data)
 {
-    if(!cmd[1])
-    {
-        print_sort_exp(listtotab(data->l_exp), data);
-        return 0;
-    }
-    int i = 1;
-    while(cmd[i])
-    {
-        // if(checkvalid(cmd[i]) != -1 || checkvalid(cmd[i]) != 1)
-        //     return 0;
-        char *str = my_getenv(cmd[i], data->l_exp);
-        if(str != NULL)
-        {
-            printf("export %s\n", str);
-            replace_env(cmd[i], data->l_exp);
-            replace_env(cmd[i], data->l_env);
-        }
-        else if(check_format(cmd[i]) == 1)
-        {
-            t_list *new1 = ft_lstnew(ft_strjoin(cmd[i], "=\'\'"));
-            ft_lstadd_back(&data->l_exp, new1);
-        }
-        else if(check_format(cmd[i]) == 2)
-        {
-            t_list *new2 = ft_lstnew(cmd[i]);
-            ft_lstadd_back(&data->l_env, new2);
-            ft_lstadd_back(&data->l_exp, new2);
-        }
+    int i = 0;
+    while(cmd[1][i] && cmd[1][i] != '=')
         i++;
-    }
+    char *var = getenv(ft_substr(cmd[1], 0, i));
+    if(var)
+        ft_memcpy(var, ft_substr(cmd[1], i + 1, ft_strlen(cmd[1])), ft_strlen(cmd[1]));
+    else
+        my_setenv(ft_substr(cmd[1], 0, i), ft_substr(cmd[1], i + 1, ft_strlen(cmd[1])), data);
+
     return 0;
 }

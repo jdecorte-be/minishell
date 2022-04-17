@@ -65,12 +65,6 @@ int	main(int ac, char **av, char **env)
     if(!(data = malloc(sizeof(t_data))))
         return 0;
 
-
-    char *str = *env;
-    char *torepla = "Je suis un test";
-    ft_strlcpy(str, torepla, ft_strlen(str));
-    
-
     data->lastret = 0;
     d_env->env = env;
     d_env->exp = env;
@@ -100,7 +94,6 @@ int	main(int ac, char **av, char **env)
         tokenize(line);
         char **res = ft_split(line, "\1");
         execute(res, data, d_env);
-
         ft_free_tab(res);
 		free(line);
 	}
