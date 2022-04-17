@@ -24,7 +24,7 @@ int execute(char **input, t_data *data, t_env *d_env)
 			data->lastret = cmdlexer(input[i], d_env);
 		else if(ft_strcmp(input[i - 1], "&&") == 0 && data->lastret == 0)
 			data->lastret = cmdlexer(input[i], d_env);
-		else if(ft_strcmp(input[i - 1], "||") == 0)
+		else if(ft_strcmp(input[i - 1], "||") == 0 && data->lastret != 0)
 			data->lastret = cmdlexer(input[i], d_env);
 		else if(data->lastret == 0 && ft_strcmp(input[i - 1], "||") != 0 && ft_strcmp(input[i - 1], "&&") != 0 && ft_strcmp(input[i], "&&") != 0 && ft_strcmp(input[i], "||") != 0)
 			data->lastret = cmdlexer(input[i], d_env);

@@ -42,8 +42,8 @@ char *formpath()
 
 void sigint_handler(int signum) { //Handler for SIGINT
    //Reset handler to catch SIGINT next time.
-   (void)(signum);
-    printf("\n ➜ 42-minishell ");
+   (void)signum;
+    printf("\n\b\b➜ 42-minishell ");
 }
 
 int	main(int ac, char **av, char **env)

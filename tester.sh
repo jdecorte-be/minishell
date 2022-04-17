@@ -2,25 +2,17 @@
 #!/bin/ls
 #!/bin/echo
 
-PATH=$PATH:/bin:/usr/bin/ls
-export PATH
-
 clear
 
-
-
-for value in 'echo test' "'echo test && echo test'"
+for value in 'ls' "cat test.c && ls" "cat test.c || ls" "export && ls" "cat test.c || ls"
 do
     ((i=i+1))
     echo TEST $i ================ ---\> $value
 
-    $value > shell.op
-    ./minishell -c "$value" > me.op
-
-
-
-
-
+    eval $value > shell.op
+    echo RETURN ERROR SHELL : ${LINENO}
+    eval ./minishell -c '"' $value '"' > me.op
+    echo RETURN ERROR ME : ${LINENO}
 
     if diff shell.op me.op
     then

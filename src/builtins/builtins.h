@@ -20,6 +20,8 @@ typedef struct l_env
     t_list *l_exp;
 }   t_env;
 
+int checkvalid(char *cmd);
+
 int     echo(char **args);
 int     pwd();
 int     cd(char **args);
