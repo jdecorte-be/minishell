@@ -74,6 +74,6 @@ char	*ft_epur_str(char *line)
 	if (ft_isspace(line[i - 1]))
 		i2--;
 	str[i2] = 0;
-	// free(line);
+	free(line);
 	return (str);
 }

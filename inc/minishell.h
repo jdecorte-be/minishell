@@ -11,6 +11,8 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <limits.h>
+# include <dirent.h>
 
 typedef struct s_sep
 {
@@ -85,7 +87,7 @@ t_cmd	*ft_creat_cmd(char *line);
 t_mcmd	*ft_creat_mcmd(char *line);
 char	*ft_pgross_str(char *line);
 
-
+void	ft_chwc(void);
 
 void	ft_error(int e);
 int		ft_free(char *line);

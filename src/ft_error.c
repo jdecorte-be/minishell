@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 07:53:49 by lxu-wu            #+#    #+#             */
-/*   Updated: 2021/12/18 17:18:31 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2021/12/21 02:06:54 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ void	ft_error(int e)
 		perror("pipe");
 	else if (e == 4)
 		perror("fork");
+	else if (e == 5)
+		perror("loc");
+	else if (e == 6)
+		perror("closedir");
 	else if (e == 8)
 		perror("dup2");
 	else if (e == 9)
