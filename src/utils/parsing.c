@@ -26,7 +26,7 @@ t_token	*ft_parsing2(t_token *sup_token)
 			tmp->redirect = ft_redirect(tmp->cmd, sup_token->redirect, 2, fd[0]);
 		}
 		else
-			tmp->redirect = ft_redirect(tmp->cmd, sup_token->redirect, 0, 0);
+		tmp->redirect = ft_redirect(tmp->cmd, sup_token->redirect, 0, 0);
 		tmp->cmd = ft_cut_chevron(tmp->cmd);
 		// printf("cmd %s\n", tmp->cmd);
 		// printf("in %d\n", tmp->redirect.infd);
@@ -52,7 +52,7 @@ t_token	*ft_parsing(char *line)
 	while (tmp)
 	{
 
-		printf("tmp = %s\n", tmp->cmd);
+		// printf("tmp = %s\n", tmp->cmd);
 		if (tmp->next && !ft_strcmp(tmp->next->cmd, "|"))
 		{
 			// printf("1\n");

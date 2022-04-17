@@ -16,13 +16,18 @@ char	*ft_cut_chevron(char *str)
 			ft_skip_q(str, &end);
 		else if (str[end] == '(')
 			ft_skip_p(str, &end);
+		else if (ft_strnstr(str + end, "<<", 2))
+		{
+			write(1, "caac\n", 5);
+			end = ft_next_word(str, ft_next_word(str, end));
+		}
 		else if (ft_strchr("><", str[end]))
 		{
 			end = ft_next_word(str, ft_next_word(str, end));
 			tmp = str;
 			str = ft_cutoff(tmp, start, end - start);
 			free(tmp);
-			end = 0;
+			end -= end - start;
 		}
 		else
 			end++;
