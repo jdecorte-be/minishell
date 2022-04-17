@@ -34,8 +34,8 @@ int	main(int argc, char **argv, char **envp)
 		while (token)
 		{
 			printf("%s\n", token->cmd);
-			// printf("%d\n", token->redirect.infd);
-			// printf("%d\n", token->redirect.outfd);
+			printf("%d\n", token->redirect.infd);
+			printf("%d\n", token->redirect.outfd);
 			if (token->sub_token)
 				token = token->sub_token;
 			else if (token->next)

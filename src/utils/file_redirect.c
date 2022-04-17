@@ -89,7 +89,7 @@ t_list	*ft_file(char *line, char c, int *open)
 			if (line[i])
 				i++;
 		}
-		if (line[i] && ft_strchr("(", line[i]) && ++i)
+		else if (line[i] && ft_strchr("(", line[i]) && ++i)
 		{
 			v = 1;
 			while (line[i] && v != 0)

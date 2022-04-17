@@ -147,6 +147,8 @@ t_token	*ft_parsing(char *line);
 char	*ft_redirect_chwc(char *line);
 int		ft_chwc_ok2(char *line);
 char	*ft_transf(char *line);
+int		ft_hd_exist(char *line);
+void	ft_here_doc(t_token *data);
 
 char *tokenize(char *line);
 char **parsing(char *input);
