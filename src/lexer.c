@@ -58,7 +58,10 @@ int cmdlexer(char *cmd, t_data *d_env)
 	char **args = ft_split(cmd, " ");
 
     if(d_env->is_subshell == 1)
+    {
+        d_env->is_subshell = 0;
         return subshell(cmd, d_env);
+    }
     else if(ft_strcmp(s_cmd[0], "echo") == 0)
         return echo(s_cmd);
     else if(ft_strcmp(s_cmd[0], "cd") == 0)

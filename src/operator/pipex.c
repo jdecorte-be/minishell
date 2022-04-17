@@ -5,7 +5,6 @@ int	mid_pipe(t_data *d_env, char *cmd)
 {
 	int		p_fd[2];
 	pid_t	pid;
-
 	pipe( p_fd);
 	pid = fork();
 	if (pid < 0)
@@ -56,16 +55,5 @@ int cmd_exec(t_data *d_env, char *cmd)
 	wait(&pid);
 	return d_env->lastret;
 }
-
-
-
-int	first_pipe(t_data *d_env, char *cmd)
-{
-	d_env->stdin = dup(0);
-	d_env->stdout = dup(1);
-
-	return mid_pipe(d_env, cmd);
-
-	// puterror("$RES_REAL: ambiguous redirect\n");
-	// printf("%d: %s\n", errno, input[i]);
-}
+// puterror("$RES_REAL: ambiguous redirect\n");
+// printf("%d: %s\n", errno, input[i]);

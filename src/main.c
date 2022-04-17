@@ -22,13 +22,6 @@ void shlvlhandler(t_data *data)
     }
 }
 
-char **parsing(char *input)
-{
-	tokenize(ft_epur_str(ft_pgross_str(input)));
-	char **res = ft_split(input , "\1");
-    return res;
-}
-
 char *formpath()
 {
     char path[1024];
@@ -91,7 +84,6 @@ int	main(int ac, char **av, char **env)
         char **res = ft_split(line, "\1");
 
         // to delete
-            // print2darray(res);
         ret = execute(res, data);
     }
         // exit(ret);

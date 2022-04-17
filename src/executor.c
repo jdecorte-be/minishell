@@ -77,22 +77,27 @@ int execute(char **input, t_data *data)
 		return (0);
 	while(input[i])
 	{
-		if(start == 0 && ft_strcmp(input[i - 1], "(") == 0)
+		data->stdin = dup(0);
+		data->stdout = dup(1);
+		if(ft_strcmp(input[i], "(") == 0)
 			data->is_subshell = 1;
-		else
+		if(ft_strcmp(input[i], ")") == 0)
 			data->is_subshell = 0;
 		// start
 		if(start == 1 && what_im(input[i]) == 0 && pipe_is_after(input, i) == 0)
 			data->lastret = cmd_exec(data, input[i]);
 		// start but pipe after
 		// no '|' behind cmd and '|' after
-		else if((start == 1 && what_im(input[i]) == 0 && pipe_is_after(input, i) == 1) || (what_before(input, i) == 3 && what_im(input[i]) == 0 && pipe_is_after(input, i) == 1))
+		else if(data->is_pipe == 1  && what_before(input, i) == 3 && what_im(input[i]) == 0 && pipe_is_after(input, i) == 0)
 		{
-			if(start == 1 || (what_before(input, i) == 2 && data->lastret != 0) || (what_before(input, i) == 1 && data->lastret == 0))
-			{
-				data->is_pipe = 1;
-				data->lastret = first_pipe(data, input[i]);
-			}
+			data->is_pipe = 0;
+			data->lastret = last_pipe(data,input[i]);
+		}
+		else if(data->is_pipe == 1 || (start == 1 && what_im(input[i]) == 0 && pipe_is_after(input, i) == 1)|| (what_before(input, i) == 1 && data->lastret == 0 && what_im(input[i]) == 0 && (pipe_is_after(input, i) == 1 || (what_before(input, i) == 3 && pipe_is_after(input, i) == 1)))
+			|| (what_before(input, i) == 2 && data->lastret != 0 && what_im(input[i]) == 0 && (pipe_is_after(input, i) == 1 || (what_before(input, i) == 3 && pipe_is_after(input, i) == 1))))
+		{
+			data->is_pipe = 1;
+			data->lastret = mid_pipe(data, input[i]);
 		}
 		// '&&' behind cmd
 		else if(start == 0 && what_before(input, i) == 1 && what_im(input[i]) == 0 && data->lastret == 0)
@@ -101,23 +106,16 @@ int execute(char **input, t_data *data)
 		else if(start == 0 && what_before(input, i) == 2 && what_im(input[i]) == 0 && data->lastret != 0)
 			data->lastret = cmd_exec(data, input[i]);
 		// '|' behind cmd and no '|' after
-		else if(data->is_pipe == 1  && what_before(input, i) == 3 && what_im(input[i]) == 0 && pipe_is_after(input, i) == 0)
-		{
-			data->is_pipe = 0;
-			data->lastret = last_pipe(data,input[i]);
-		}
 		// '|' behind cmd and '|' after
 		else if(data->is_pipe == 1 && what_im(input[i]) == 0 && pipe_is_after(input, i) == 1)
 			data->lastret = mid_pipe(data, input[i]);
 		// '||' behind the parentheses cmd
 		// '&&' behind the parentheses cmd
 		else if((what_before(input, i) == 2 && what_im(input[i]) == 0 && data->lastret != 0 && ft_strcmp(input[i - 1], "(") == 0) || (what_before(input, i) == 1 && what_im(input[i]) == 0 && data->lastret == 0 && ft_strcmp(input[i - 1], "(") == 0))
-			data->lastret = subshell(input[i], data);
+			data->lastret = cmd_exec(data, input[i]);
 
 
-
-		data->is_subshell = 0;
-		printf("---> %d\n", data->lastret);
+		// printf("---> %d\n", data->lastret);
 		i++;
 		start = 0;
 	}
