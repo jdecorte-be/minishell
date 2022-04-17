@@ -167,4 +167,6 @@ int print_env(char **env);
 void print_exp(char **env, t_env *data);
 int my_setenv(char *name, char *value, t_env *data);
 
+char	*ft_chdir(char *line);
+
 #endif

@@ -89,12 +89,13 @@ int	main(int ac, char **av, char **env)
         if(*line)
             add_history(line);
     
-        line = ft_chwc(ft_chdollar(ft_epur_str(ft_pgross_str(line))));
+        line = ft_chdir(ft_chwc(ft_chdollar(ft_epur_str(ft_pgross_str(line)))));
         tokenize(line);
         char **res = ft_split(line, "\1");
         ret = execute(res, data, d_env);
         ft_free_tab(res);
 		free(line);
+
 	}
 
 
