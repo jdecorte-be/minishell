@@ -8,11 +8,16 @@ int	main(int argc, char **argv, char **envp)
 
 	while (1)
 	{
+		printf("1\n");
 		line = readline("bsh-0.01$> ");
-		if (!ft_strcmp(line, "exit") && ft_str_isspace(line) && ft_free(line))
+		printf("2\n");
+		if (!ft_strcmp(line, "exit") && ft_str_isspace(line))
 			exit(0);
 		data.line = ft_epur_str(line);
-		data.cmd = ft_creat_cmd(data);
+		printf("3\n");
+		line = 0;
+		data.cmd = ft_creat_cmd(data.line);
+		printf("4\n");
 	}
 	// int i = 0;
 	// tab = ft_split2(line, "\t\f\r\v\n ");

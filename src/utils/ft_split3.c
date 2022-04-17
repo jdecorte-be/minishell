@@ -1,5 +1,20 @@
 #include "../../inc/minishell.h"
 
+static size_t	ft_many_space(char *str)
+{
+	size_t	i;
+	size_t	space;
+
+	i = 0;
+	space = 0;
+	while (str[i] && ft_isspace(str[i++]))
+		space++;
+	i = ft_strlen(str) - 1;
+	while (i > 0 && ft_isspace(str[i--]))
+		space++;
+	return (space);
+}
+
 static size_t	ft_count_words(char *str, char *set)
 {
 	size_t	i;
@@ -37,13 +52,15 @@ static char	**ft_creat_tab(char **tab, char *str, char *set, size_t word)
 		if (str[start] && !ft_strchr(set, str[start]))
 			while (str[end] && !ft_strchr(set, str[end]))
 				ft_creat_tab2(str, &end, set, 3);
+		if ((!str[end] || ft_strchr(set, str[end])) && --end)
+			ft_creat_tab2(str, &end, set, 2);
 		tab[i++] = ft_substr(str, start, end - start);
 	}
 	tab[i] = 0;
 	return (tab);
 }
 
-char	**ft_split2(char *str, char *set)
+char	**ft_split3(char *str, char *set)
 {
 	char	**tab;
 	size_t	word;

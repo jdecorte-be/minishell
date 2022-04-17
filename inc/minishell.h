@@ -20,15 +20,15 @@ typedef struct s_sep
 
 typedef struct s_fd
 {
-	int	in;
-	int	out;
+	int	*in;
+	int	*out;
 }	t_fd;
 
 typedef struct s_file
 {
-	char	*in;
-	char	*out;
-	char	in_open_mode;
+	char	**in;
+	char	**out;
+	char	*in_open_mode;
 }	t_file;
 
 typedef struct s_here_doc
@@ -39,10 +39,13 @@ typedef struct s_here_doc
 
 typedef struct s_micro_cmd//	cmd   ((ls )| cat)
 {
+	char				*line;
 	char				*path;
 	t_here_doc			here_doc;
 	char				**cmdv;
 	t_sep				sep;
+	t_fd				fd;
+	t_file				file;
 	struct s_micro_cmd	*next;
 }	t_micro_cmd;
 
@@ -50,9 +53,7 @@ typedef struct s_cmd
 {
 	char				*line;
 	t_sep				sep;
-	t_fd				fd;
-	t_file				file;
-	struct s_micro_cmd	mcmd;
+	struct s_micro_cmd	*mcmd;
 	struct s_cmd		*next;
 }	t_cmd;
 
@@ -67,14 +68,24 @@ typedef struct s_data//  block de cmd
 	// struct s_data	*next;
 }	t_data;
 
-t_data	*ft_datanew(char	*line);
-t_data	*ft_datalast(t_data *data);
-void	ft_dataadd_back(t_data **data, t_data *new);
+t_cmd	*ft_cmdnew(char	*line);
+t_cmd	*ft_cmdlast(t_cmd *cmd);
+void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new);
 
 char	**ft_split2(char *str, char *set);
 char	*ft_onespace(char *line);
 char	*ft_epur_str(char *line);
 int		ft_str_isspace(char *str);
+
+void	ft_creat_tab2(char *str, size_t *end, char *set, int e);
+void	ft_count_words2(char *str, size_t *i, char *set);
+char	**ft_split3(char *str, char *set);
+
+t_cmd	*ft_creat_cmd(char *line);
+
+
+
+
 void	ft_error(int e);
 int		ft_free(char *line);
 

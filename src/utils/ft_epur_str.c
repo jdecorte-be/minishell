@@ -54,7 +54,7 @@ char	*ft_epur_str2(char *str, char *line, size_t *i2, size_t *i)
 		while (line[*i] && !ft_isspace(line[*i]) && !ft_strchr("\'\"", line[*i]))
 			str[(*i2)++] = line[(*i)++];
 		if (line[*i] && ft_isspace(line[*i]))
-			str[(*i2)++] = line[*i];
+			str[(*i2)++] = ' ';
 	}
 	return (str);
 }
@@ -74,6 +74,6 @@ char	*ft_epur_str(char *line)
 	if (ft_isspace(line[i - 1]))
 		i2--;
 	str[i2] = 0;
-	free(line);
+	// free(line);
 	return (str);
 }
