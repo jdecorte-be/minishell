@@ -26,7 +26,7 @@ char	*ft_chrredirect(char *line, char c)
 	start = end;
 	while (line[end] && !ft_isspace(line[end]))
 		end++;
-	return (ft_substr(line, 0, end));//remplacer le 0 par start; et end par end - start;
+	return (ft_substr(line, start, end));//remplacer le 0 par start; et end par end - start;
 }
 
 t_list	*ft_file(char *line, char c)
@@ -79,7 +79,7 @@ t_redirect	ft_redirect(char *line)
 	file.infile = ft_file(line, '<');
 	file.outfile = ft_file(line, '>');
 	if (file.outfile)
-		file.open = ft_how_open(file.out); //a faire
+		file.open = ft_how_open(file.outfile); //a faire
 	while (file.infile)
 	{
 		printf("infile %s\n", file.infile->content);

@@ -27,7 +27,7 @@ int	main(int argc, char **argv, char **envp)
 		// redirect = ft_redirect(data.line);
 		data.line = tokenize(data.line);
 		tab = ft_split(data.line, "\1");
-		lsttoken = ft_tokennew(tab[0]);
+		// lsttoken = ft_tokennew(tab[0]);
 		// while (redirect.infile)
 		// {
 		// 	printf("%s\n", redirect.infile->content);
@@ -41,7 +41,7 @@ int	main(int argc, char **argv, char **envp)
 		// data.line = ft_cutoff(line, 5, 5);
 		while (*tab)
 			printf("|%s|\n", *tab++);
-		printf("%s|\n", data.line);
+		// printf("%s|\n", data.line);
 		// free(data.line);
 		line = 0;
 		// data.cmd = ft_creat_cmd(data.line);

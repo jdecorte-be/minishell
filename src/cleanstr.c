@@ -14,7 +14,7 @@ char *tokenize(char *line)
 			res[i + 2] = 1;
 			res[i - 1] = 1;
 		}
-		else if((res[i] == '>' || res[i] == '<') || (res[i] == '(' || res[i] == ')'))
+		else if((res[i] == '(' || res[i] == ')'))
 		{
 			res[i + 1] = 1;
 			res[i - 1] = 1;
