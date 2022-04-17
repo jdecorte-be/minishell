@@ -58,13 +58,30 @@ char	*ft_chwc2(char *line)
 	tmp.i = 0;
 	if (ft_strchr(line, '/'))
 	{
-		wc = ft_split4(line, "/");
-		while (wc[tmp.i])
+		tmp.tab = ft_split4(line, "/");
+		if (tmp.tab[tmp.i])
 		{
-			
+			if (!tmp.i && ft_strchr(tmp.tab[tmp.i], '*'))
+			{
+				line += ft_strlen(tmp.tab[tmp.i]);
+				if (tmp[1] && tmp[2])
+					tmp.str = ft_wcfile(tmp.tab[0], getcwd(tmp.path, PATH_MAX), 2, line);
+				else if (tmp.tab[1] && ft_strchr(tmp.tab[1], '/'))
+				{
+					printf("1\n");
+					tmp.str = ft_wcfile(tmp.tab[0], getcwd(tmp.path, PATH_MAX), 1, line);
+				}
+				else
+				{
+					tmp.str = ft_wcfile(tmp.tab[0], getcwd(tmp.path, PATH_MAX), 0, 0);
+				}
+			}
 		}
-	else
-		return (ft_wcfile(line, getcwd(tmp.path, MAX_PATH)));
+		line += 1;
+		printf("line = %s\n", tmp.str);
+		return (tmp.str);
+	}
+	return (ft_wcfile(line, getcwd(tmp.path, PATH_MAX), 0, 0));
 }
 
 char	*ft_chwc(char *line)
@@ -81,17 +98,17 @@ char	*ft_chwc(char *line)
 	if (!line)
 		return (0);
 	wc = ft_wcsearch(line);
-	tmp.tmp = wc;
-	while (tmp.tmp)
+	tmp.lst = wc;
+	while (tmp.lst)
 	{
-		ft_lstadd_back(&name, ft_lstnew(ft_chwc2((tmp.tmp)->content)));
-		tmp.tmp = (tmp.tmp)->next;
+		ft_lstadd_back(&name, ft_lstnew(ft_chwc2((tmp.lst)->content)));
+		tmp.lst = (tmp.lst)->next;
 	}
-	tmp.tmp = wc;
-	while (tmp.tmp)
+	tmp.lst = wc;
+	while (tmp.lst)
 	{
-		ft_lstadd_back(&woq, ft_lstnew(ft_woquote((tmp.tmp)->content)));
-		tmp.tmp = (tmp.tmp)->next;
+		ft_lstadd_back(&woq, ft_lstnew(ft_woquote((tmp.lst)->content)));
+		tmp.lst = (tmp.lst)->next;
 	}
 	if (!name)
 		return (line);

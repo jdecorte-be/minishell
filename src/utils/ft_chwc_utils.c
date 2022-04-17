@@ -99,7 +99,7 @@ int	ft_wcmatch(char **wc_tab, char *file)
 	return (0);
 }
 
-char	*ft_readfile(char *wc, DIR *loc, char mode)
+char	*ft_readfile(char *wc, DIR *loc, char mode, char *add)
 {
 	struct dirent	*file;
 	char			**wc_tab;
@@ -121,19 +121,29 @@ char	*ft_readfile(char *wc, DIR *loc, char mode)
 	file = readdir(loc);
 	while (file)
 	{
-		// printf("%s\n", file->d_name);
-		if (ft_wcmatch(wc_tab, file->d_name))
-			ft_lstadd_back(&match, ft_lstnew(ft_strdup(file->d_name)));
-			// ft_lstadd_back(&match, ft_lstnew(ft_trijoin("\'", file->d_name, "\'")));
+		printf("%s\n", file->d_name);
+		if (mode == 1 || mode == 2)
+		{
+			if (file->d_type == 4)
+				if (ft_wcmatch(wc_tab, file->d_name))
+					ft_lstadd_back(&match, ft_lstnew(ft_strjoin(file->d_name, add)));
+		}
+		else
+			if (ft_wcmatch(wc_tab, file->d_name))
+				ft_lstadd_back(&match, ft_lstnew(ft_strdup(file->d_name)));
+				// ft_lstadd_back(&match, ft_lstnew(ft_trijoin("\'", file->d_name, "\'")));
 		file = readdir(loc);
 	}
-	str = ft_lstmerge(match);
+	if (mode == 2)
+		return (); //trouver le path a partir de la fin
+	else
+		str = ft_lstmerge(match);
 	ft_free_tab(wc_tab);
 	ft_lstclear(&match, free);
 	return (str);
 }
 
-char	*ft_wcfile(char *wc, char *path)
+char	*ft_wcfile(char *wc, char *path, char mode, char *add)
 {
 	struct dirent	*file;	
 	DIR				*loc;
@@ -143,7 +153,7 @@ char	*ft_wcfile(char *wc, char *path)
 	loc = opendir(path);
 	if (loc == 0)
 		ft_error(5);
-	match = ft_readfile(wc, loc);
+	match = ft_readfile(wc, loc, mode, add);
 	if (closedir(loc) == -1)
 		ft_error(6);
 	return (match);
