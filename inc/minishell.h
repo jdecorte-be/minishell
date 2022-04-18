@@ -14,6 +14,12 @@
 # include <limits.h>
 # include <dirent.h>
 
+typedef struct s_hd
+{
+	int			fd;
+	struct s_hd *next;
+}	t_hd;
+
 typedef struct s_redirect
 {
 	t_list	*infile;
@@ -47,8 +53,21 @@ typedef struct s_cmd
 
 typedef struct s_data//  block de cmd  
 {
-	char	*line;// ls  //after prompt, without \32\32 space, "" or ''
+	char	**env;
+	int		lastret;
+	int		stdin_reset;
+	int		stdout_reset;
+	int		inredirrs;
+	int		outredirrs;
+	int 	is_redir_in;
+	int 	is_redir_out;
+	int		stdin;
+	int		stdout;
+	int		is_subshell;
+	int		is_pipe;
+	int		pipe[2];
 	t_token	*token;
+	t_hd	*hd;
 }	t_data;
 
 typedef struct s_tmp
@@ -64,6 +83,8 @@ typedef struct s_tmp
 	void	*ptr;
 	char	home[PATH_MAX];
 }	t_tmp;
+
+t_data	*data;
 
 char	**ft_split2(char *str, char *set);
 char	*ft_onespace(char *line);
@@ -152,6 +173,12 @@ int		ft_hd_exist(char *line);
 int	ft_here_doc(char *line);
 
 char	*ft_purge_q(char *line);
+
+t_hd	*ft_hd_finder(char *line);
+
+t_hd	*ft_hdnew(int fd);
+t_hd	*ft_hdlast(t_hd *hd);
+void	ft_hdadd_back(t_hd **hd, t_hd *new);
 
 char *tokenize(char *line);
 char **parsing(char *input);

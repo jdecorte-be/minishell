@@ -4,8 +4,7 @@ void	ft_signal(int sig);
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_token	*tmp;
-	t_data	data;
+	// t_token	*tmp;
 	char	*line;
 	// char	**tab;
 	pid_t	pid;
@@ -13,9 +12,11 @@ int	main(int argc, char **argv, char **envp)
 	t_redirect	redirect;
 	int		fd[10];
 	char	**tab;
+	t_hd	*tmp;
 	// char	*tab2[2];
 
 
+	data = malloc(sizeof(t_data));
 	while (1)
 	{
 		ft_signal(SIGINT);
@@ -26,31 +27,42 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 			exit(0);
 		// 	// break;
-		data.line = ft_epur_str(ft_chwc(ft_add_q_dollar(ft_chdir(ft_chdollar(ft_pgross_str((line)))))));
+		line = ft_epur_str(ft_chwc(ft_add_q_dollar(ft_chdir(ft_chdollar(ft_pgross_str((line)))))));
+		data->hd = 0;
+		data->hd = ft_hd_finder(line);
 		// printf("!\n");
-		// data.line = ft_chwc(line);
+		// line = ft_chwc(line);
 		// tab = ft_split2(line, "/");
 		
 		// int	i = 0;
 		// while (tab[i])
 		// 	printf("%s|\n", tab[i++]);
-		// data.line = ft_ecrase_q(data.line);
-		printf("%s\n", data.line);
-		token = ft_parsing(data.line);
-		while (token)
+		// line = ft_ecrase_q(line);
+
+		tmp = data->hd;
+		while (tmp)
 		{
-			printf("%s\n", token->cmd);
-			printf("%d\n", token->redirect.infd);
-			printf("%d\n", token->redirect.outfd);
-			if (token->sub_token)
-				token = token->sub_token;
-			else if (token->next)
-				token = token->next;
-			else if (!token->next && token->sup_token)
-				token = token->sup_token->next;
-			else
-				token = token->next;
+			printf("tmp == %d\n", tmp->fd);
+			tmp = tmp->next;
 		}
+
+
+		// printf("%s\n", line);
+		// token = ft_parsing(line);
+		// while (token)
+		// {
+		// 	printf("%s\n", token->cmd);
+		// 	printf("%d\n", token->redirect.infd);
+		// 	printf("%d\n", token->redirect.outfd);
+		// 	if (token->sub_token)
+		// 		token = token->sub_token;
+		// 	else if (token->next)
+		// 		token = token->next;
+		// 	else if (!token->next && token->sup_token)
+		// 		token = token->sup_token->next;
+		// 	else
+		// 		token = token->next;
+		// }
 
 
 

@@ -3,20 +3,20 @@
 int	ft_hd_exist(char *line)
 {
 	size_t	i;
+	size_t	n;
 
+	n = 0;
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == '(')
-			ft_skip_p(line, &i);
-		else if (ft_strchr("\'\"", line[i]))
+		if (ft_strchr("\'\"", line[i]))
 			ft_skip_q(line, &i);
 		else if (!ft_strncmp(line + i, "<< ", 2))
-			return (1);
+			n++;
 		else
 			i++;
 	}
-	return (0);
+	return (n);
 }
 
 char	*ft_chlimiter(char *line, size_t *v)
@@ -68,6 +68,7 @@ int	ft_here_doc(char *line)
 	char	*str;
 	int		fd[2];
 
+	// printf("line == %s\n", line);
 	str = 0;
 	if (pipe(fd) == -1)
 		ft_error(3);
@@ -85,4 +86,30 @@ int	ft_here_doc(char *line)
 	free(line);
 	close(fd[1]);
 	return (fd[0]);
+}
+
+t_hd	*ft_hd_finder(char *line)
+{
+	size_t	end;
+	size_t	start;
+	t_hd	*hd;
+	
+	end = 0;
+	hd = 0;
+	while (line[end])
+	{
+		if (ft_strchr("\'\"", line[end]))
+			ft_skip_q(line, &end);
+		else if (!ft_strncmp(line + end, "<< ", 2))
+		{
+			end = ft_next_word(line, end);
+			start = end;
+			while (line[end] && !ft_isspace(line[end]))
+				end++;
+			ft_hdadd_back(&hd, ft_hdnew((ft_here_doc(ft_substr(line, start, end - start)))));
+		}
+		else
+			end++;
+	}
+	return (hd);
 }
