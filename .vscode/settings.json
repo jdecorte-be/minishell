@@ -4,6 +4,8 @@
         "libft.h": "c",
         "typeinfo": "c",
         "queue": "c",
-        "malloc.h": "c"
+        "malloc.h": "c",
+        "ratio": "c",
+        "minishell.h": "c"
     }
 }

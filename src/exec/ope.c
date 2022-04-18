@@ -43,19 +43,22 @@ int execute(t_token *token)
 	t_token *tmp = token;
 	int		savein;
 	int		saveout;
-	savein = dup(0);
-	saveout = dup(1);
 	int is_and = 0;
 	int is_or = 0;
+	int is_ope = 1;
+
 	while(tmp)
 	{
 		tmp->cmd = ft_chdollar(tmp->cmd);
-		
+
 
 		ft_redirect_for_john(tmp);
-		
 		redirect(tmp, savein, saveout);
 		tmp->cmd = ft_cut_chevron(tmp->cmd);
+
+
+
+
 		// start
 		if(start == 0 && what_im(tmp->cmd) == 1 && data->lastret == 0 || is_and == 1)
 		{
@@ -76,21 +79,21 @@ int execute(t_token *token)
 				}
 				is_or = 1;
 		}
-		else if(data->is_pipe == 0 && what_im(tmp->cmd) == 0 && tmp->next && tmp->next->cmd[0] == '|' && token->redirect.outfd == 1)
+		else if(data->is_pipe == 0 && what_im(tmp->cmd) == 0 && tmp->next && what_im(tmp->next->cmd) == 3 && token->redirect.outfd == 1)
 		{
 			data->stdin_reset = dup(0);
 			data->stdout_reset = dup(1);
 			data->is_pipe = 1;
 			data->lastret = pipex(tmp->cmd);
 		}
-		else if(data->is_pipe == 1 && what_im(tmp->cmd) == 0 && tmp->next && tmp->next->cmd[0] == '|')
+		else if(data->is_pipe == 1 && what_im(tmp->cmd) == 0 && tmp->next && what_im(tmp->next->cmd) == 3)
 			data->lastret = pipex(tmp->cmd);
 		else if (data->is_pipe == 1 && what_im(tmp->cmd) == 0)
 		{
 			data->is_pipe = 0;
 			data->lastret = exec(tmp->cmd);
-			dup2(savein, 0);
-			dup2(saveout, 1);
+			dup2(data->stdin_reset, 0);
+			dup2(data->stdin_reset, 1);
 		}
 		else if(start == 1 && what_im(tmp->cmd) == 0 && data->is_pipe == 0)
 			data->lastret = exec(tmp->cmd);

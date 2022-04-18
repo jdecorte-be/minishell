@@ -2,6 +2,32 @@
 #include <errno.h>
 
 
+int syntax_check(t_token *token)
+{
+    t_token *tmp = token;
+    int is_ope = 1;
+    int start = 1;
+    int old_ope;
+
+    while(tmp)
+    {
+        old_ope = is_ope;
+        if(what_im(tmp->cmd) == 0)
+            is_ope = 0;
+        else
+            is_ope = 1;
+        if((is_ope == old_ope )|| (start == 1 && is_ope == 1))
+        {
+            data->lastret = 2;
+            return 0;
+        }
+        start = 0;
+        tmp = tmp->next;
+    }
+    return 1;
+}
+
+
 void printlist(t_token *token)
 {
     int i = 0;
@@ -21,15 +47,6 @@ void printlist(t_token *token)
         token = token->next;
     }
 }
-
-
-// void	newprompt(int sig)
-// {
-//     printf("\n");
-//     rl_on_new_line();
-//     rl_replace_line("", 0);
-//     rl_redisplay();
-// }
 
 void shlvlhandler()
 {
@@ -58,13 +75,30 @@ int	main(int ac, char **av, char **env)
 {
     (void)av;
 	char	*line;
-    unsetenv("OLDPWD");
     if(!(data = malloc(sizeof(t_data))))
         return 0;
     data->lastret = 0;
     data->env = env;
     data->hd = 0;
+
+    
     shlvlhandler();
+    my_setenv("_=/usr/bin/env");
+
+
+
+    if (ac >= 3 && !ft_strncmp(av[1], "-c", 2))
+    {
+        char *tmp = ft_strdup(av[2]);
+        line = ft_epur_str(ft_chwc(ft_chdir(ft_pgross_str((tmp)))));
+        t_token *token = ft_parsing(line);
+        execute(token);
+        exit(data->lastret);
+    }
+
+
+
+
     if(ac != 1)
         puterror("\e[0;37mUse", "./minishell without arguments");
     while (1)
@@ -81,9 +115,13 @@ int	main(int ac, char **av, char **env)
     
         line = ft_epur_str(ft_chwc(ft_chdir(ft_pgross_str((line)))));
         t_token *token = ft_parsing(line);
-        printlist(token);
+        if(syntax_check(token) == 0)
+            puterror("syntax error near unexpected token", "test");
+        else
+            execute(token);
+
+        // printlist(token);
         // to delete
-        execute(token);
     }
         // exit(ret);
 

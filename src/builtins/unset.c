@@ -29,7 +29,7 @@ int unset(char **cmd)
     int i = 1;
     while(cmd[i])
     {
-        del_element(cmd[i]);
+        del_element(ft_ecrase_q(cmd[i]));
         i++;
     }
     return 0;

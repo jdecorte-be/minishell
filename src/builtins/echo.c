@@ -13,7 +13,7 @@ int echo(char **cmd)
     }
     while(cmd[i])
     {
-        ft_putstr_fd(cmd[i], 1);
+        ft_putstr_fd(ft_ecrase_q(cmd[i]), 1);
         if(cmd[i + 1])
             ft_putstr_fd(" ", 1);
         i++;

@@ -5,7 +5,6 @@ int checkvalid(char *cmd)
     int i = 0;
     while(cmd[i] && cmd[i] != '=')
     {
-        printf("%c\n", cmd[i]);
         if((ft_isalnum(cmd[i]) == 0 && cmd[i] != '\'' && cmd[i] != '"' && cmd[i] != '_') || ft_isdigit(cmd[0]) == 1 || cmd[0] == '=')
         {
             puterror(cmd, "not a valid identifier");
@@ -23,7 +22,7 @@ char **array_dup(char **tab)
     int i = 0;
 
     res = malloc(sizeof(char *) * splitlen(data->env));
-    while(data->env[i])
+    while(i < splitlen(data->env))
     {
         res[i] = ft_strdup(data->env[i]);
         i++;
@@ -41,14 +40,14 @@ void export_print()
     {
         int j = i + 1;
         while (++j < len)
-            if (ft_strcmp(env[i], env[j]) > 0 && data->env[i] && data->env[j])
+            if (ft_strcmp(env[i], env[j]) > 0 && env[i] && env[j])
             {
-                char* temp = data->env[i]; 
-                data->env[i] = data->env[j]; 
-                data->env[j] = temp; 
+                char* temp = env[i]; 
+                env[i] = env[j]; 
+                env[j] = temp; 
              }
-             if(data->env[i])
-                format_env(data->env[i]);
+             if(env[i])
+                format_env(env[i]);
         i++;
     }
 }

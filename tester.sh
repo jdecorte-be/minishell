@@ -11,7 +11,7 @@ do
     echo TEST $i ================ ---\> $value
 
     eval $value > shell.op
-    eval ./minishell -c '"'$value'"' > me.op
+    eval ../minishell -c '"'$value'"' > me.op
 
     echo RETURN ERROR ME : ${LINENO}
 

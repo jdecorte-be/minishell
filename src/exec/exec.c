@@ -6,7 +6,7 @@
 /*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/01/31 04:55:20 by decortejohn      ###   ########.fr       */
+/*   Updated: 2022/01/31 09:27:16 by decortejohn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int exec(char *cmd)
     else if(ft_strcmp(s_cmd[0], "unset") == 0)
         return unset(s_cmd);
     else if(ft_strcmp(s_cmd[0], "exit") == 0)
-        exit_cmd(s_cmd);
+        return exit_cmd(s_cmd);
 	else
 		return cmd_sys(cmd);
 	return -1;
@@ -76,13 +76,18 @@ int cmd_sys(char *cmd)
 		if(execve(get_path(cmd), &args[0], data->env) == -1)
 		{
 			puterror(ft_ecrase_q(args[0]), "command not found");
-			exit (127);
+			exit (EXIT_FAILURE);
 		}
 	}
 	else
-		waitpid(pid, &ret, WCONTINUED);
+	{
+		waitpid(pid, &ret, 0);
+		kill(pid, SIGTERM);
+	}
 	return ret;
 }
+
+// (ret == 32256 || ret == 32512) ? ret / 256 : !!ret
 
 int subshell(char *line, t_data *data)
 {

@@ -20,8 +20,11 @@ int cd(char **cmd)
 		perror("getcwd");
 	if(!cmd[1])
 		return 134;
-	if(chdir(cmd[1]) == -1)
+	if(chdir(ft_ecrase_q(cmd[1])) == -1)
+	{
 		perror("cd");
+		return 1;
+	}
 	else
 	{
 		if(!getcwd(pwd_buff , sizeof(pwd_buff)))

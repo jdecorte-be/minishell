@@ -86,7 +86,7 @@ char	**ft_split2(char *str, char *set)
 	if (!str && !*str)
 		return (0);
 	word = ft_count_words(str, set);
-	printf("word = %zu\n", word);
+	// printf("word = %zu\n", word);
 	tab = malloc(sizeof(char *) * (word + 1));
 	if (!tab)
 		ft_error(2);
