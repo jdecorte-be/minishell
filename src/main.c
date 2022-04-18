@@ -60,8 +60,8 @@ int	main(int argc, char **argv, char **envp)
 			printf("%s\n", token->cmd);
 			printf("%d\n", token->redirect.infd);
 			printf("%d\n", token->redirect.outfd);
-			printf("open 1 %d\n", token->redirect.open->fd);
-			printf("open 2 %d\n", token->redirect.open2->fd);
+			// printf("open 1 %d\n", token->redirect.open->fd);
+			// printf("open 2 %d\n", token->redirect.open2->fd);
 			if (token->sub_token)
 				token = token->sub_token;
 			else if (token->next)
