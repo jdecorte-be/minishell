@@ -14,8 +14,8 @@ t_token	*ft_parsing2(t_token *sup_token)
 	tmp = token;
 	while (tmp)
 	{
-		ft_hdadd_back(&data->hd, ft_hd_finder(tmp->cmd));
-		tmp->redirect = ft_init_redirect();
+		// ft_hdadd_back(&data->hd, ft_hd_finder(tmp->cmd));
+		// tmp->redirect = ft_init_redirect();
 		// if (tmp->next && !ft_strcmp(tmp->next->cmd, "|"))
 		// {
 		// 	if (pipe(fd) == -1)
@@ -28,7 +28,7 @@ t_token	*ft_parsing2(t_token *sup_token)
 		// 	tmp->redirect = ft_redirect(tmp->cmd, sup_token->redirect, 2, fd[0]);
 		// }
 		// else
-		// tmp->redirect = ft_redirect(tmp->cmd, sup_token->redirect, 0, 0);
+		tmp->redirect = ft_redirect(tmp->cmd, sup_token->redirect, 0, 0);
 		// if (ft_hd_exist(tmp->cmd))
 		// {
 		// 	ft_here_doc(tmp);
@@ -64,7 +64,7 @@ t_token	*ft_parsing(char *line)
 		// 	// printf("1\n");
 		// 	if (pipe(fd) == -1)
 		// 		ft_error(3);
-		tmp->redirect = ft_init_redirect();
+		// tmp->redirect = ft_init_redirect();
 		// 	tmp->redirect = ft_redirect(tmp->cmd, ft_init_redirect(), 1, fd[1]);
 		// }
 		// else if (!ft_strcmp(tmp->cmd, "|"))
@@ -75,7 +75,7 @@ t_token	*ft_parsing(char *line)
 		// 	tmp->redirect = ft_redirect(tmp->cmd, ft_init_redirect(), 2, fd[0]);
 		// }
 		// else
-		// tmp->redirect = ft_redirect(tmp->cmd, ft_init_redirect(), 0, 0);
+		tmp->redirect = ft_redirect(tmp->cmd, ft_init_redirect(), 0, 0);
 		// if (ft_hd_exist(tmp->cmd))
 		// {
 		// 	ft_here_doc(tmp);
