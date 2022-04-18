@@ -95,10 +95,10 @@ char	*ft_chwc2(char *line)
 
 	size_t	i = 0;
 
-	printf("line == %s\n", line);
+	// printf("line == %s\n", line);
 
-	while (tmp.tab[i++])
-		printf("tab == %s\n", tmp.tab[0]);
+	// while (tmp.tab[i++])
+	// 	printf("tab == %s\n", tmp.tab[0]);
 
 	while (tmp.tab[tmp.i] && !ft_strchr(tmp.tab[tmp.i], '*'))
 		tmp.i++;
@@ -230,6 +230,6 @@ char	*ft_chwc(char *line)
 		return (line);
 	str = ft_chwc_str(line, name, wc, woq);
 	free(line);
-	str = ft_trijoin("\"", str, "\"");
+	// str = ft_trijoin("\"", str, "\"");
 	return (str);
 }

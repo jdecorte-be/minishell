@@ -28,13 +28,14 @@ int	main(int argc, char **argv, char **envp)
 		// 	// break;
 		data.line = ft_epur_str(ft_chwc(ft_add_q_dollar(ft_chdir(ft_chdollar(ft_pgross_str((line)))))));
 		// printf("!\n");
+		// data.line = ft_chwc(line);
 		// tab = ft_split2(line, "/");
 		
 		// int	i = 0;
 		// while (tab[i])
 		// 	printf("%s|\n", tab[i++]);
 		// data.line = ft_ecrase_q(data.line);
-		printf("data.line = %s\n", data.line);
+		printf("%s\n", data.line);
 		// token = ft_parsing(data.line);
 		// while (token)
 		// {
