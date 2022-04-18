@@ -27,6 +27,12 @@
 # include <sys/stat.h>
 
 
+typedef struct s_hd
+{
+	int			fd;
+	struct s_hd *next;
+}	t_hd;
+
 typedef struct s_redirect
 {
 	t_list	*infile;
@@ -74,6 +80,7 @@ typedef struct s_data//  block de cmd
 	int		is_pipe;
 	int		pipe[2];
 	t_token	*token;
+	t_hd	*hd;
 }	t_data;
 
 typedef struct s_tmp
@@ -275,6 +282,16 @@ int	ft_here_doc(char *line);
 
 char	*ft_purge_q(char *line);
 int	pipex2(char *cmd);
+
+t_hd	*ft_hd_finder(char *line);
+
+t_hd	*ft_hdnew(int fd);
+t_hd	*ft_hdlast(t_hd *hd);
+void	ft_hdadd_back(t_hd **hd, t_hd *new);
+int		ft_hdsize(t_hd *hd);
+
+int		*ft_hd_to_tab(t_hd *hd);
+t_hd	*ft_sort_hd(t_hd *hd, char *line, t_token *token);
 
 char *tokenize(char *line);
 char **parsing(char *input);

@@ -99,7 +99,7 @@ int execute(t_token *token)
 
 		dup2(savein, 0);
 		dup2(saveout, 1);
-		printf("%s --> %d %d \n", tmp->cmd,tmp->redirect.infd, tmp->redirect.outfd);
+		// printf("%s --> %d %d \n", tmp->cmd,tmp->redirect.infd, tmp->redirect.outfd);
 
 		tmp = tmp->next;
 		start = 0;

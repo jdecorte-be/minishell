@@ -140,6 +140,9 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 {
 	// t_redirect	file;
 	t_redirect	tmp;
+	t_hd		*tmp2;
+
+	// tmp2 = data->hd;
 
 	// fd = dup(1);
 	// file = ft_init_redirect();
@@ -171,7 +174,8 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 					file.infd = open(ft_ecrase_q(ft_redirect_chwc(ft_cut_chevron(file.infile->content))), O_RDONLY);
 				else if (file.open2 == 1)
 				{
-					file.infd = ft_here_doc(ft_ecrase_q(ft_redirect_chwc(file.infile->content)));
+					file.infd = data->hd->fd;
+					data->hd = data->hd->next;
 					// printf("caca\n");
 				}
 				if (file.infd == -1)
