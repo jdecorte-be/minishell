@@ -36,21 +36,21 @@ int	main(int argc, char **argv, char **envp)
 		// 	printf("%s|\n", tab[i++]);
 		// data.line = ft_ecrase_q(data.line);
 		printf("%s\n", data.line);
-		// token = ft_parsing(data.line);
-		// while (token)
-		// {
-		// 	printf("%s\n", token->cmd);
-		// 	printf("%d\n", token->redirect.infd);
-		// 	printf("%d\n", token->redirect.outfd);
-		// 	if (token->sub_token)
-		// 		token = token->sub_token;
-		// 	else if (token->next)
-		// 		token = token->next;
-		// 	else if (!token->next && token->sup_token)
-		// 		token = token->sup_token->next;
-		// 	else
-		// 		token = token->next;
-		// }
+		token = ft_parsing(data.line);
+		while (token)
+		{
+			printf("%s\n", token->cmd);
+			printf("%d\n", token->redirect.infd);
+			printf("%d\n", token->redirect.outfd);
+			if (token->sub_token)
+				token = token->sub_token;
+			else if (token->next)
+				token = token->next;
+			else if (!token->next && token->sup_token)
+				token = token->sup_token->next;
+			else
+				token = token->next;
+		}
 
 
 

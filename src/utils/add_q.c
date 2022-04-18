@@ -12,6 +12,8 @@ char	*ft_add_q_str(char *str, char *line, size_t *end)
 	size_t	i;
 
 	i = 0;
+	if (!line[*end])
+		return (str);
 	start = *end;
 	while (line[*end] && !ft_isspace(line[*end]))
 		(*end)++;
@@ -19,10 +21,12 @@ char	*ft_add_q_str(char *str, char *line, size_t *end)
 	while (s1[i] && !ft_isspace(s1[i]) && s1[i] != '=')
 		i++;
 	if (s1[i] == '=')
+	{
 		i++;
-	printf("s1 == %s\n", s1);
-	str = ft_strjoin2(str, ft_substr(s1, 0, i));
-	str = ft_quajoin(str, "\"", s1 + i, "\"");
+	// printf("s1 == %s\n", s1);
+		str = ft_strjoin2(str, ft_substr(s1, 0, i));
+		str = ft_quajoin(str, "\"", s1 + i, "\"");
+	}
 	return (str);
 	// trig = 0;
 	// c = 0;
