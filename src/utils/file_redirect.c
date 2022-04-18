@@ -59,13 +59,13 @@ char	*ft_chrredirect(char *line, t_hd **open, t_hd **open2, size_t *v)
 		while (line[end] == '>' && i--)
 			end++;
 	if (i == 0)
-		ft_hdadd_back(open, ft_hdnew(1));
-	else if (i != 0)
-		ft_hdadd_back(open, ft_hdnew(0));
-	if (i2 == 0)
 		ft_hdadd_back(open2, ft_hdnew(1));
-	else if (i2 != 0)
+	else if (i != 0)
 		ft_hdadd_back(open2, ft_hdnew(0));
+	if (i2 == 0)
+		ft_hdadd_back(open, ft_hdnew(1));
+	else if (i2 != 0)
+		ft_hdadd_back(open, ft_hdnew(0));
 	while (ft_isspace(line[end]))
 		end++;
 	start = end;
@@ -174,9 +174,9 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 				// printf("%s\n", file.infile->content);
 				if (file.infd != tmp.infd)
 					close(file.infd);
-				if (file.open2->fd == 0)
+				if (file.open->fd == 0)
 					file.infd = open(ft_ecrase_q(ft_redirect_chwc(ft_cut_chevron(file.infile->content))), O_RDONLY);
-				else if (file.open2->fd == 1)
+				else if (file.open->fd == 1)
 				{
 					if (data->hd)
 					{
@@ -189,10 +189,7 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 					perror("open rd");
 			}
 			else
-			{
-				file.outfd = -1;
 				file.infd = -1;
-			}
 			file.infile = ft_next(file.infile);
 			if (file.open2->next)
 				file.open2 = file.open2 = file.open2->next;
@@ -204,18 +201,15 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 			{
 				if (file.outfd != tmp.outfd)
 					close(file.outfd);
-				if (file.open->fd == 0)
+				if (file.open2->fd == 0)
 					file.outfd = open(ft_ecrase_q(ft_redirect_chwc(ft_cut_chevron(file.outfile->content))), O_WRONLY | O_TRUNC | O_CREAT, 0644);
-				else if (file.open->fd == 1)
+				else if (file.open2->fd == 1)
 					file.outfd = open(ft_ecrase_q(ft_redirect_chwc(ft_cut_chevron(file.outfile->content))), O_WRONLY | O_APPEND | O_CREAT, 0644);
 				if (file.outfd == -1)
 					perror("open wr");
 			}
 			else
-			{
 				file.outfd = -1;
-				file.infd = -1;
-			}
 			// printf("1\n");
 			file.outfile = ft_next(file.outfile);
 			if (file.open->next)

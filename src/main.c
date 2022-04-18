@@ -1,6 +1,7 @@
 #include "../inc/minishell.h"
 
 void	ft_signal(int sig);
+int	ft_hd_replace(int fd);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -27,7 +28,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 			exit(0);
 		// 	// break;
-		line = ft_epur_str(ft_chwc(ft_chdir(ft_chdollar(ft_pgross_str(line)))));
+		line = ft_epur_str(ft_chwc(ft_add_q_dollar(ft_chdir(ft_chdollar(ft_pgross_str(line))))));
 		data->hd = 0;
 
 		// tmp = data->hd;
@@ -59,6 +60,8 @@ int	main(int argc, char **argv, char **envp)
 			printf("%s\n", token->cmd);
 			printf("%d\n", token->redirect.infd);
 			printf("%d\n", token->redirect.outfd);
+			printf("open 1 %d\n", token->redirect.open->fd);
+			printf("open 2 %d\n", token->redirect.open2->fd);
 			if (token->sub_token)
 				token = token->sub_token;
 			else if (token->next)
@@ -68,6 +71,10 @@ int	main(int argc, char **argv, char **envp)
 			else
 				token = token->next;
 		}
+		
+		ft_hd_replace(4);
+		line = get_next_line(4);
+		printf("%s\n", line);
 		// tab = ft_split2(line, " ");
 		// // hd = ft_sort_hd(hd, line, token);
 		// size_t i = 0;

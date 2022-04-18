@@ -14,10 +14,20 @@ char	*ft_add_q_str(char *str, char *line, size_t end)
 	i = 0;
 	start = end;
 	while (line[end] && !ft_isspace(line[end]))
-		(end)++;
+	{
+		if (ft_strchr("\"\'", line[end]))
+			ft_skip_q(line, &end);
+		else
+			end++;
+	}
 	s1 = ft_ecrase_q(ft_substr(line, start, end - start));
 	while (s1[i] && !ft_isspace(s1[i]) && s1[i] != '=')
-		i++;
+	{
+		if (ft_strchr("\'\"", s1[i]))
+			ft_skip_q(s1, &i);
+		else
+			i++;
+	}
 	if (s1[i] == '=')
 	{
 		i++;

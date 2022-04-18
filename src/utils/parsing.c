@@ -93,20 +93,3 @@ t_token	*ft_parsing(char *line)
 	}
 	return (token);
 }
-
-void	ft_redirect_for_john(t_token *token)
-{
-	t_token	*tmp;
-
-	tmp = token;
-	token->redirect = ft_redirect(token->cmd, token->redirect, 0, 0);
-	if (tmp->sub_token)
-	{
-		tmp = tmp->sub_token;
-		while (tmp)
-		{
-			tmp->redirect = tmp->sup_token->redirect;
-			tmp = tmp->next;
-		}
-	}
-}

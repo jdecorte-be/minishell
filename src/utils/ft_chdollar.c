@@ -114,7 +114,7 @@ size_t	ft_chdollar_len(char *line, t_list **dollar)
 					i++;
 			}
 		}
-		else if (line[i] && line[i + 1] && line[i] == '$' && (ft_isalnum(line[i + 1]) || ft_strchr("_?", line[i + 1])))//!ft_strchr("\n\f\v\r\t \"+/%^~:.,   …•¶§∞¢£™¡", line[i + 1]))
+		else if (line[i] && line[i + 1] && line[i] == '$' && (ft_isalnum(line[i + 1]) || ft_strchr("?", line[i + 1])))//!ft_strchr("\n\f\v\r\t \"+/%^~:.,   …•¶§∞¢£™¡", line[i + 1]))
 		{
 			start = i++;
 			if (ft_strchr("\'\"", line[i]) && ++i)
