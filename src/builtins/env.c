@@ -51,12 +51,11 @@ int my_setenv(char *var)
 		value = ft_substr(var, egal_len(var) + 1, ft_strlen(var));
 	else
 		value = ft_strdup("\0");
+	
 	static char **lastenv;
 	char *C;
 	int l_value, offset;
 
-	if (*value == '=')
-		++value;
 	l_value = ft_strlen(value);
 	if ((C = findenv(name, &offset)))
     {
@@ -68,11 +67,9 @@ int my_setenv(char *var)
 	}
     else
     {
-
 		size_t cnt;
 		char **P;
-		for (P = data->env ; *P != NULL; P++)
-			;
+		for (P = data->env ; *P != NULL; P++);
 		cnt = P - data->env ;
         P = ft_realloc(lastenv, sizeof(char *) * (cnt + 2));
 		if (!P)

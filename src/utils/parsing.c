@@ -56,7 +56,6 @@ t_token	*ft_parsing(char *line)
 	tmp = token;
 	while (tmp)
 	{
-<<<<<<< HEAD
 		// printf("tmp = %s\n", tmp->cmd);
 		// if (tmp->next && !ft_strcmp(tmp->next->cmd, "|"))
 		// {
@@ -74,25 +73,6 @@ t_token	*ft_parsing(char *line)
 		// }
 		// else
 		tmp->redirect = ft_redirect(tmp->cmd, ft_init_redirect(), 0, 0);
-=======
-
-		if (tmp->next && !ft_strcmp(tmp->next->cmd, "|"))
-		{
-			// printf("1\n");
-			if (pipe(fd) == -1)
-				ft_error(3);
-			tmp->redirect = ft_redirect(tmp->cmd, ft_init_redirect(), 1, fd[1]);
-		}
-		else if (!ft_strcmp(tmp->cmd, "|"))
-		{
-			// printf("3\n");
-			tmp->redirect = ft_redirect(tmp->cmd, ft_init_redirect(), 0, 0);
-			tmp = tmp->next;
-			tmp->redirect = ft_redirect(tmp->cmd, ft_init_redirect(), 2, fd[0]);
-		}
-		else
-			tmp->redirect = ft_redirect(tmp->cmd, ft_init_redirect(), 0, 0);
->>>>>>> fe9aa9732eca25491461c7226333409f43befdf0
 		// if (ft_hd_exist(tmp->cmd))
 		// {
 		// 	ft_here_doc(tmp);
