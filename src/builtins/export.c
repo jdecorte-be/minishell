@@ -1,18 +1,8 @@
 # include "../../inc/minishell.h"
 
-void   ft_print_n_tab(char **tab, size_t maxIndex)
-{
-    size_t i;
-
-    i =0;
-    while (tab[i] && i <= maxIndex)
-       printf("%s\n", tab[i++]);
-} 
-
 int checkvalid(char *cmd)
 {
     int i = 0;
-    printf("%s\n", cmd);
     while(cmd[i] && cmd[i] != '=')
     {
         printf("%c\n", cmd[i]);
@@ -65,14 +55,13 @@ void export_print()
 
 int export(char **cmd)
 {
-    ft_print_n_tab(cmd, 10);
     if(!cmd[1])
     {
         export_print();
         return 0;
     }
     int i = 1;
-    while(cmd[i])
+    while(cmd && cmd[i])
     {
         if(!checkvalid(ft_ecrase_q(cmd[i])))
             return 0;
