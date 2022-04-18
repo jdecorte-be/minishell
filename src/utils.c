@@ -23,6 +23,7 @@ void	*ft_memdel(void *ptr)
 int splitlen(char **split)
 {
 	int i = 0;
+
 	while(split[i] != NULL)
 		i++;
 	return i;

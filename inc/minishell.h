@@ -93,14 +93,14 @@ typedef struct s_tmp
 
 t_data	*data;
 
-
+void format_env(char *var);
 char *findenv(char *name, int *offset);
 char *get_path(char *cmd);
 int	pipex(char *cmd);
 char *prompt();
 void	sig_handler(int sig);
 char *my_getenv(char *name);
-int	my_setenv(char *name, char *value);
+int	my_setenv(char *name);
 void refresh_env(char **env, t_data *data);
 int checkvalid(char *cmd);
 int     echo(char **args);

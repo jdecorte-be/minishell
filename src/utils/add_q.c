@@ -11,6 +11,7 @@ char	*ft_add_q_str(char *str, char *line, size_t *end)
 	char	*s1;
 	size_t	i;
 
+<<<<<<< HEAD
 	i = 0;
 	start = *end;
 	while (line[*end] && !ft_isspace(line[*end]))
@@ -89,6 +90,73 @@ char	*ft_add_q_str(char *str, char *line, size_t *end)
 	// 			// 	i++;
 	// 		}
 	// 	}
+=======
+	trig = 0;
+	c = 0;
+	while (line[i])
+	{
+		start = i;
+		while (line[i] && line[i] != '=')
+		{
+			if (line[i] && !ft_isspace(line[i]) && ft_strchr("\'\"", line[i]) && c != 0)
+			{
+				c = 0;
+				i++;
+			}
+			else if (line[i] && !ft_isspace(line[i]) && ft_strchr("\'\"", line[i]) && c == 0)
+			{
+				c = line[i++];
+			}
+			else
+				i++;
+		}
+		// if (c == 0)
+		// {
+		str = ft_strjoin1(str, ft_substr(line, start, i - start + 1));
+		start = i;
+			// printf("2 str = %s\n", str);
+		// }
+		if (line[i] && line[i] == '=' && ++i)
+		{
+			start = i;
+			while (line[i] && (!ft_isspace(line[i]) || c))
+			{
+				if (c != 0)
+				{
+					while (line[i] && line[i] != c)
+					{
+						i++;
+					}
+					if (line[i])
+					{
+						i++;
+						c = 0;
+					}
+					str = ft_strjoin1(str, ft_substr(line, start, i - start));
+					start = i;
+				}
+				else if (line[i] && !ft_isspace(line[i]) && c == 0)
+				{
+					while (line[i] && !ft_isspace(line[i]) && !ft_strchr("\'\"", line[i]) && c == 0)
+					{
+						i++;
+					}
+					if (i != start)
+					{
+						str = ft_quajoin(str, "\"", ft_substr(line, start, i - start), "\"");
+						start = i;
+						// printf("3 str = %s\n", str);
+					}
+					if (line[i] && ft_strchr("\'\"", line[i]))
+					{
+						c = line[i++];
+					}
+				}
+				// else
+				// 	i++;
+			}
+		}
+>>>>>>> fe9aa9732eca25491461c7226333409f43befdf0
 		
 		
 	// }

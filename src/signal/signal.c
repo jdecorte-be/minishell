@@ -29,6 +29,7 @@
 // void	ft_nothing(int i)
 // {
 // }
+<<<<<<< HEAD
 
 // void	ft_signal(int sig)
 // {
@@ -40,3 +41,5 @@
 // 		signal(SIGQUIT, &ft_exit_c_loop);
 // }
 
+=======
+>>>>>>> fe9aa9732eca25491461c7226333409f43befdf0

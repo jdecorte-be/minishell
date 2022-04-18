@@ -26,8 +26,8 @@ int cd(char **cmd)
 	{
 		if(!getcwd(pwd_buff , sizeof(pwd_buff)))
 			return -1;
-		my_setenv("PWD", pwd_buff);
-		my_setenv("OLDPWD", oldpwd_buff);
+		my_setenv(ft_strjoin("PWD", pwd_buff));
+		my_setenv(ft_strjoin("OLDPWD", oldpwd_buff));
 	}
 	return 0;
 }

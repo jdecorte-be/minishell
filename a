@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "a"
 *
 *dodo
@@ -29,3 +30,5 @@ test
 test.c
 tester.sh
 testls
+=======
+>>>>>>> fe9aa9732eca25491461c7226333409f43befdf0
