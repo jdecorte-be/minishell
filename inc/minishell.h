@@ -291,6 +291,7 @@ int		ft_hdsize(t_hd *hd);
 
 int		*ft_hd_to_tab(t_hd *hd);
 t_hd	*ft_sort_hd(t_hd *hd, char *line, t_token *token);
+char	*ft_chdollar_hd(char *line);
 
 char *tokenize(char *line);
 char **parsing(char *input);

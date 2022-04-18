@@ -65,6 +65,7 @@ int export(char **cmd)
     {
         if(!checkvalid(ft_ecrase_q(cmd[i])))
             return 0;
+        cmd[i] = ft_add_q_dollar(cmd[i]);
         my_setenv(ft_ecrase_q(cmd[i]));
         i++;
     }

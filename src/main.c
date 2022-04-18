@@ -1,7 +1,6 @@
 #include "../inc/minishell.h"
 #include <errno.h>
 
-
 int syntax_check(t_token *token)
 {
     t_token *tmp = token;
@@ -75,6 +74,7 @@ int	main(int ac, char **av, char **env)
 {
     (void)av;
 	char	*line;
+
     if(!(data = malloc(sizeof(t_data))))
         return 0;
     data->lastret = 0;
@@ -90,7 +90,7 @@ int	main(int ac, char **av, char **env)
     if (ac >= 3 && !ft_strncmp(av[1], "-c", 2))
     {
         char *tmp = ft_strdup(av[2]);
-        line = ft_epur_str(ft_chwc(ft_chdir(ft_pgross_str((tmp)))));
+        line = ft_epur_str(ft_chdir(ft_pgross_str((tmp))));
         t_token *token = ft_parsing(line);
         execute(token);
         exit(data->lastret);
@@ -113,7 +113,7 @@ int	main(int ac, char **av, char **env)
         if(*line)
             add_history(line);
     
-        line = ft_epur_str(ft_chwc(ft_chdir(ft_pgross_str((line)))));
+        line = ft_epur_str(ft_chdir(ft_pgross_str((line))));
         t_token *token = ft_parsing(line);
         if(syntax_check(token) == 0)
             puterror("syntax error near unexpected token", "test");
@@ -123,5 +123,6 @@ int	main(int ac, char **av, char **env)
         // to delete
     }
         // exit(ret);
+
 
 }

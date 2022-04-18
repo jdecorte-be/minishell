@@ -59,13 +59,13 @@ t_token	*ft_parsing(char *line)
 	while (tmp)
 	{
 		ft_hdadd_back(&data->hd, ft_hd_finder(tmp->cmd));
+		tmp->redirect = ft_init_redirect();
 		// printf("tmp = %s\n", tmp->cmd);
 		// if (tmp->next && !ft_strcmp(tmp->next->cmd, "|"))
 		// {
 		// 	// printf("1\n");
 		// 	if (pipe(fd) == -1)
 		// 		ft_error(3);
-		tmp->redirect = ft_init_redirect();
 		// 	tmp->redirect = ft_redirect(tmp->cmd, ft_init_redirect(), 1, fd[1]);
 		// }
 		// else if (!ft_strcmp(tmp->cmd, "|"))
@@ -91,21 +91,4 @@ t_token	*ft_parsing(char *line)
 		tmp = tmp->next;
 	}
 	return (token);
-}
-
-void	ft_redirect_for_john(t_token *token)
-{
-	t_token	*tmp;
-
-	tmp = token;
-	token->redirect = ft_redirect(token->cmd, token->redirect, 0, 0);
-	if (tmp->sub_token)
-	{
-		tmp = tmp->sub_token;
-		while (tmp)
-		{
-			tmp->redirect = tmp->sup_token->redirect;
-			tmp = tmp->next;
-		}
-	}
 }
