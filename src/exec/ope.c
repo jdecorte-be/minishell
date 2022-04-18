@@ -74,7 +74,7 @@ int execute(t_token *token)
 				}
 				is_or = 1;
 		}
-		else if(data->is_pipe == 0 && what_im(tmp->cmd) == 0 && tmp->next && tmp->next->cmd[0] == '|')
+		else if(data->is_pipe == 0 && what_im(tmp->cmd) == 0 && tmp->next && tmp->next->cmd[0] == '|' && token->redirect.outfd == 1)
 		{
 			data->stdin_reset = dup(0);
 			data->stdout_reset = dup(1);

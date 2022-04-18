@@ -34,7 +34,7 @@ t_token	*ft_parsing2(t_token *sup_token)
 		// 	ft_here_doc(tmp);
 		// 	printf("%d\n", tmp->redirect.infd);
 		// }
-		// tmp->cmd = ft_cut_chevron(tmp->cmd);
+		tmp->cmd = ft_cut_chevron(tmp->cmd);
 		// printf("cmd %s\n", tmp->cmd);
 		// printf("in %d\n", tmp->redirect.infd);
 		// printf("out %d\n", tmp->redirect.outfd);
@@ -81,7 +81,7 @@ t_token	*ft_parsing(char *line)
 		// 	ft_here_doc(tmp);
 		// 	printf("%d\n", tmp->redirect.infd);
 		// }
-		// tmp->cmd = ft_cut_chevron(tmp->cmd);
+		tmp->cmd = ft_cut_chevron(tmp->cmd);
 		// printf("cmd %s\n", tmp->cmd);
 		// printf("in %d\n", tmp->redirect.infd);
 		// printf("out %d\n", tmp->redirect.outfd);
