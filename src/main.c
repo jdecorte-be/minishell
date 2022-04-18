@@ -38,7 +38,7 @@ int	main(int argc, char **argv, char **envp)
 		// int	i = 0;
 		// while (tab[i])
 		// 	printf("%s|\n", tab[i++]);
-		line = ft_ecrase_q(line);
+		// line = ft_ecrase_q(line);
 
 		// tmp = data->hd;
 		// while (tmp)
@@ -68,11 +68,13 @@ int	main(int argc, char **argv, char **envp)
 		// 	else
 		// 		token = token->next;
 		// }
-
+		tab = ft_split2(line, " ");
 		// hd = ft_sort_hd(hd, line, token);
 		size_t i = 0;
-		while (line[i])
-			printf("%d\n", line[i++]);
+		while (tab[i])
+			printf("tab = |%s|\n", tab[i++]);
+		// while (line[i])
+		// 	printf("%d\n", line[i++]);
 
 
 

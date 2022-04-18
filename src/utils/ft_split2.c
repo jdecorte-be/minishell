@@ -12,22 +12,40 @@ static size_t	ft_count_words(char *str, char *set)
 	{
 		if (str[i] && ft_strchr(set, str[i]))
 			i++;
-		else if (str[i] && !ft_strchr(set, str[i]) && ++count)
-		{
-			if (str[i] && ft_strchr("\'\"", str[i]))
-			{
-				c = str[i++];
-				while (str[i] && c != str[i])
-					i++;
-				i++;
-			}
-			if (!ft_strchr(set, str[i]))
-				while (str[i] && !ft_strchr(set, str[i]))
-					i++;
-		}
+		if (str[i] && !ft_strchr(set, str[i]) && ++count)
+			while (str[i] && !ft_strchr(set, str[i]))
+				ft_count_words2(str, &i, set);
 	}
 	return (count);
 }
+// static size_t	ft_count_words(char *str, char *set)
+// {
+// 	size_t	i;
+// 	size_t	count;
+// 	char	c;
+
+// 	i = 0;
+// 	count = 0;
+// 	while (str[i])
+// 	{
+// 		if (str[i] && ft_strchr(set, str[i]))
+// 			i++;
+// 		else if (str[i] && !ft_strchr(set, str[i]) && ++count)
+// 		{
+// 			if (str[i] && ft_strchr("\'\"", str[i]))
+// 			{
+// 				c = str[i++];
+// 				while (str[i] && c != str[i])
+// 					i++;
+// 				i++;
+// 			}
+// 			if (!ft_strchr(set, str[i]))
+// 				while (str[i] && !ft_strchr(set, str[i]))
+// 					i++;
+// 		}
+// 	}
+// 	return (count);
+// }
 
 static char	**ft_creat_tab(char **tab, char *str, char *set, size_t word)
 {
@@ -68,6 +86,7 @@ char	**ft_split2(char *str, char *set)
 	if (!str && !*str)
 		return (0);
 	word = ft_count_words(str, set);
+	printf("word = %zu\n", word);
 	tab = malloc(sizeof(char *) * (word + 1));
 	if (!tab)
 		ft_error(2);
