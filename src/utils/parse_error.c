@@ -37,18 +37,34 @@ int	ft_check_p_ok(char *line, size_t i)
 	return (0);
 }
 
+void	ft_p_unexpected(char *line, size_t end)
+{
+	size_t	start;
+	char	*str;
+
+	start = end;
+	while (line[end] && !ft_isspace(line[end]))
+		end++;
+	str = ft_substr(line, start, end - start);
+	printf("%s\n", str);
+	write(2, "minishell: syntax error near unexpected token `", 47);
+	write(2, str, ft_strlen(str));
+	write(2, "\'\n", 2);
+	data->lastret = 258;
+}
+
 void	ft_parse_error(int e)
 {
 	if (e == 1)
 		write(2, "prohibited character or input not close\n", 40);
 	else if (e == 2)
-		write(2, "syntax error near unexpected token `)'\n", 39);
+		write(2, "minishell: syntax error near unexpected token `)'\n", 50);
 	else if (e == 3)
-		write(2, "syntax error near unexpected token `&&'\n", 40);
+		write(2, "minishell: syntax error near unexpected token `&&'\n", 51);
 	else if (e == 4)
-		write(2, "syntax error near unexpected token `||'\n", 40);
+		write(2, "minishell: syntax error near unexpected token `||'\n", 51);
 	else if (e == 5)
-		write(2, "syntax error near unexpected token `|'\n", 39);
+		write(2, "minishell: syntax error near unexpected token `|'\n", 50);
 	data->lastret = 258;
 }
 
@@ -99,17 +115,23 @@ int	ft_isprohibited(char *line)
 		}
 		else if ((!i || ft_isspace(line[i - 1])) && ft_check_p_ok(line, i))
 		{
-			printf("je suis dans \n");
+			// printf("je suis dans \n");
 			return (1);
 		}
 		else if (line[i] == '(')
 		{
 			par++;
-			if (line[i + 1] == ')')
+			if (line[i + 1] == ')' && (!line[ft_next_word(line, i)] || ft_strchr("&|", line[ft_next_word(line, i)])))
 			{
 				ft_parse_error(2);
 				return (1);	
 			}
+			else if (line[ft_next_word(line, i)] && !ft_strchr("&|", line[ft_next_word(line, i)]))
+			{
+				ft_p_unexpected(line, ft_next_word(line, i));
+				return (1);
+			}
+
 		}
 		else if (line[i] == ')')
 		{

@@ -23,10 +23,10 @@ int	main(int argc, char **argv, char **envp)
 	{
 		ft_signal(SIGINT);
 		line = readline("caca->");
+		add_history(line);
 		ret = ft_isprohibited(line);
 		if (ret == 1)
 			continue;
-		add_history(line);
 		if (!line)
 			exit(0);
 		// 	// break;
@@ -88,7 +88,7 @@ int	main(int argc, char **argv, char **envp)
 
 
 
-		ft_skip_hd("hello << a << a");
+		// ft_skip_hd("hello << a << a");
 
 
 		// data.line = tokenize(data.line);
