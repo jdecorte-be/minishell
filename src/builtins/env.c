@@ -1,56 +1,55 @@
 # include "../../inc/minishell.h"
 
+char **dont_exist(char **lastenv, int *index)
+{
+	char **P = data->env;
+	int cnt;
+
+	while (*P)
+		P++;
+	cnt = splitlen(data->env);
+	P = ft_realloc(lastenv, sizeof(char *) * (cnt + 2));
+	if (!P)
+		return NULL;
+	if (lastenv != data->env)
+		ft_memcpy(P, data->env , cnt * sizeof(char *));
+	*index = cnt;
+	data->env [cnt + 1] = NULL;
+	return P;
+}
+
 int my_setenv(char *var)
 {
-	int l_value, offset;
+	int offset;
 	char *C;
 	static char **lastenv;
 	char *name;
 	char *value;
-	size_t cnt;
-	char **P = data->env;
+	int		e_len;
 
-	name = ft_substr(var, 0, egal_len(var));
-	if(var[egal_len(var)] == '=')
-		value = ft_substr(var, egal_len(var) + 1, ft_strlen(var));
+	e_len = egal_len(var);
+	name = ft_substr(var, 0, e_len);
+	if(var[e_len] == '=')
+		value = ft_substr(var, e_len + 1, ft_strlen(var));
 	else
 		value = ft_strdup("\0");
-	
-
-	l_value = ft_strlen(value);
 	C = my_getenv(name, &offset);
-	printf("%s %d\n", C, offset);
 	if (C)
-    {
-		if ((int)ft_strlen(C) >= l_value)
-        {
-			ft_strlcpy(C,  value, ft_strlen(C));
+	{
+		if ((int)ft_strlen(C) >= ft_strlen(value))
+		{
+			while ((*C++ = *value++));
 			return (0);
 		}
 	}
-    else
-    {
-		while (*P)
-			P++;
-		cnt = splitlen(data->env);
-        P = ft_realloc(lastenv, sizeof(char *) * (cnt + 2));
-		if (!P)
-			return (-1);
-		if (lastenv != data->env)
-			ft_memcpy(P, data->env , cnt * sizeof(char *));
-		lastenv = P;
-		offset = cnt;
-		data->env [cnt + 1] = NULL;
-	}
-    C = name;
-    while(*C && *C != '=')
-        ++C;
-	if (!(data->env[offset] = ft_calloc(1, (size_t)((int)(C - name) + l_value + 2))))
+	else
+		lastenv = dont_exist(lastenv, &offset);
+	if (!(data->env[offset] = ft_calloc(1, (size_t)((e_len + ft_strlen(value) + 2)))))
 		return (-1);
-    C = data->env[offset];
+	C = data->env[offset];
 	while((*C = *name++) && *C != '=')
-        ++C;
-	if(var[egal_len(var)] == '=')
+		++C;
+	if(var[e_len] == '=')
 		*C++ = '=';
 	while((*C++ = *value++));
 	return (0);
@@ -58,21 +57,21 @@ int my_setenv(char *var)
 
 char *my_getenv(char *name, int *index)
 {
-    int i = 0;
+	int i = 0;
 
-    while(data->env[i])
-    {
-        int j = 0;
-        while(data->env[i][j] && data->env[i][j] != '=')
-            j++;
-        if(ft_strcmp(ft_substr(data->env[i], 0, j), name) == 0)
+	while(data->env[i])
+	{
+		int j = 0;
+		while(data->env[i][j] && data->env[i][j] != '=')
+			j++;
+		if(ft_strcmp(ft_substr(data->env[i], 0, j), name) == 0)
 		{
 			if(index != NULL)
 				*index = i;
-            return ft_substr(data->env[i], j + 1, ft_strlen(data->env[i]));
+			return data->env[i] + j + 1;
 		}
-        i++;
-    }
-    return NULL;
+		i++;
+	}
+	return NULL;
 }
 

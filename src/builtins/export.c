@@ -16,10 +16,16 @@ int checkvalid(char *cmd)
     return 1;
 }
 
+// char **array_dup(char **tab)
+// {
+
+// }
+
 void export_print()
 {
     int len = splitlen(data->env);
     int i = 0;
+
     while(i < len)
     {
         int j = i + 1;

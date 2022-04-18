@@ -35,7 +35,7 @@ char	*ft_changedollar(char *line, t_list **dollar)
 	// printf("%s\n", line);
 	if (ft_isdigit(line[0]))
 		str = 0;
-	else if (ft_strncmp(line, "$-", 2))
+	else if (ft_strncmp(line, "$-", 1))
 		str = ft_strdup(getenv(line + 1));
 	else
 		str = ft_strdup("himBH");
