@@ -29,6 +29,8 @@ int unset(char **cmd)
     int i = 1;
     while(cmd[i])
     {
+        if(!checkvalid(cmd[i]))
+            return 1;
         del_element(ft_ecrase_q(cmd[i]));
         i++;
     }

@@ -3,14 +3,15 @@
 int checkvalid(char *cmd)
 {
     int i = 0;
-    while(cmd[i] && cmd[i] != '=')
+    while(cmd[i])
     {
         if((ft_isalnum(cmd[i]) == 0 && cmd[i] != '\'' && cmd[i] != '"' && cmd[i] != '_') || ft_isdigit(cmd[0]) == 1 || cmd[0] == '=')
         {
             puterror(cmd, "not a valid identifier");
-            data->lastret = 1;
             return 0;
         }
+        if(cmd[i] == '=')
+            break;
         i++;
     }
     return 1;

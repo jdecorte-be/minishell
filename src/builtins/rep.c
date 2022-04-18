@@ -19,7 +19,7 @@ int cd(char **cmd)
 	if(!getcwd(oldpwd_buff , sizeof(oldpwd_buff)))
 		perror("getcwd");
 	if(!cmd[1])
-		return 134;
+		return 0;
 	if(chdir(ft_ecrase_q(cmd[1])) == -1)
 	{
 		perror("cd");

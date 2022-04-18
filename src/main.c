@@ -120,7 +120,6 @@ int	main(int ac, char **av, char **env)
         else
             execute(token);
 
-        // printlist(token);
         // to delete
     }
         // exit(ret);
