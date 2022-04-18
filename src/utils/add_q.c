@@ -3,7 +3,7 @@
 
 //  export bon'jour=salut'hello"blabla"dodo*'riri'
 
-char	*ft_add_q_str(char *str, char *line, size_t *end)
+char	*ft_add_q_str(char *str, char *line, size_t end)
 {
 	int		trig;
 	char	c;
@@ -12,12 +12,10 @@ char	*ft_add_q_str(char *str, char *line, size_t *end)
 	size_t	i;
 
 	i = 0;
-	if (!line[*end])
-		return (str);
-	start = *end;
-	while (line[*end] && !ft_isspace(line[*end]))
-		(*end)++;
-	s1 = ft_ecrase_q(ft_substr(line, start, *end - start));
+	start = end;
+	while (line[end] && !ft_isspace(line[end]))
+		(end)++;
+	s1 = ft_ecrase_q(ft_substr(line, start, end - start));
 	while (s1[i] && !ft_isspace(s1[i]) && s1[i] != '=')
 		i++;
 	if (s1[i] == '=')
@@ -27,7 +25,19 @@ char	*ft_add_q_str(char *str, char *line, size_t *end)
 		str = ft_strjoin2(str, ft_substr(s1, 0, i));
 		str = ft_quajoin(str, "\"", s1 + i, "\"");
 	}
+	else
+		str = ft_strjoin2(str, ft_substr(s1, 0, i));
+	start = end;
+	while (line[end] && ft_isspace(line[end]))
+		(end)++;
+	if (start != end)
+		str = ft_strjoin2(str, ft_substr(line, start, end - start));
 	return (str);
+
+
+
+
+
 	// trig = 0;
 	// c = 0;
 	// while (line[*end])
@@ -121,7 +131,11 @@ char	*ft_add_q_dollar(char *line)
 			// printf("a = %s\n", str);
 			end = ft_next_word(line, end);
 			str = ft_strjoin1(str, ft_substr(line, start, end - start));
-			str = ft_add_q_str(str, line, &end);
+			while (line[end] && !ft_strchr("&|", line[end]))
+			{
+				str = ft_add_q_str(str, line, end);
+				end = ft_next_word(line, end);
+			}
 			end = ft_next_cmd(line, end);
 			// printf("5 str = %s\n", str);
 			// while (line[end] && !ft_isspace(line[end]))
