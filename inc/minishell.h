@@ -179,6 +179,10 @@ t_hd	*ft_hd_finder(char *line);
 t_hd	*ft_hdnew(int fd);
 t_hd	*ft_hdlast(t_hd *hd);
 void	ft_hdadd_back(t_hd **hd, t_hd *new);
+int		ft_hdsize(t_hd *hd);
+
+int		*ft_hd_to_tab(t_hd *hd);
+t_hd	*ft_sort_hd(t_hd *hd, char *line, t_token *token);
 
 char *tokenize(char *line);
 char **parsing(char *input);

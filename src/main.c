@@ -28,8 +28,9 @@ int	main(int argc, char **argv, char **envp)
 			exit(0);
 		// 	// break;
 		line = ft_epur_str(ft_chwc(ft_add_q_dollar(ft_chdir(ft_chdollar(ft_pgross_str((line)))))));
-		data->hd = 0;
-		data->hd = ft_hd_finder(line);
+		// data->hd = 0;
+
+		tmp = data->hd;
 		// printf("!\n");
 		// line = ft_chwc(line);
 		// tab = ft_split2(line, "/");
@@ -39,32 +40,33 @@ int	main(int argc, char **argv, char **envp)
 		// 	printf("%s|\n", tab[i++]);
 		// line = ft_ecrase_q(line);
 
-		tmp = data->hd;
-		while (tmp)
-		{
-			printf("tmp == %d\n", tmp->fd);
-			tmp = tmp->next;
-		}
-
-
-		// printf("%s\n", line);
-		// token = ft_parsing(line);
-		// while (token)
+		// tmp = data->hd;
+		// while (tmp)
 		// {
-		// 	printf("%s\n", token->cmd);
-		// 	printf("%d\n", token->redirect.infd);
-		// 	printf("%d\n", token->redirect.outfd);
-		// 	if (token->sub_token)
-		// 		token = token->sub_token;
-		// 	else if (token->next)
-		// 		token = token->next;
-		// 	else if (!token->next && token->sup_token)
-		// 		token = token->sup_token->next;
-		// 	else
-		// 		token = token->next;
+		// 	printf("tmp == %d\n", tmp->fd);
+		// 	tmp = tmp->next;
 		// }
 
+		data->hd = ft_hd_finder(line);
 
+		token = ft_parsing(line);
+		while (token)
+		{
+			printf("%s\n", token->cmd);
+			printf("%d\n", token->redirect.infd);
+			printf("%d\n", token->redirect.outfd);
+			if (token->sub_token)
+				token = token->sub_token;
+			else if (token->next)
+				token = token->next;
+			else if (!token->next && token->sup_token)
+				token = token->sup_token->next;
+			else
+				token = token->next;
+		}
+
+		hd = ft_sort_hd(hd, line, token);
+		printf("%s\n", line);
 
 
 

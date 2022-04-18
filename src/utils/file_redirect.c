@@ -140,6 +140,9 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 {
 	// t_redirect	file;
 	t_redirect	tmp;
+	t_hd		*tmp2;
+
+	// tmp2 = data->hd;
 
 	// fd = dup(1);
 	// file = ft_init_redirect();

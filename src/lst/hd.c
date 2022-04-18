@@ -40,3 +40,37 @@ void	ft_hdadd_back(t_hd **hd, t_hd *new)
 	}
 }
 
+int	ft_hdsize(t_hd *hd)
+{
+	int		i;
+	t_hd	*current;
+
+	if (!hd)
+		return (0);
+	i = 1;
+	current = hd;
+	while (current->next != NULL)
+	{
+		i++;
+		current = current->next;
+	}
+	return (i);
+}
+
+int	*ft_hd_to_tab(t_hd *hd)
+{
+	size_t	i;
+	size_t	size;
+	int		*tab;
+
+	i = 0;
+	size = ft_hdsize(hd);
+	tab = malloc(sizeof(tab) * size);
+	while (i < size)
+	{
+		tab[i++] = hd->fd;
+		hd = hd->next;
+	}
+	free(hd);
+	return (tab);
+}

@@ -88,6 +88,20 @@ int	ft_here_doc(char *line)
 	return (fd[0]);
 }
 
+t_hd	*ft_hd_order(char *line, t_token *token)
+{
+
+}
+
+t_hd	*ft_sort_hd(t_hd *hd, char *line, t_token *token)
+{
+	int		*tab;
+	size_t	i;
+
+	tab = ft_hd_to_tab(hd);
+	hd = ft_hd_order(line, token);
+}
+
 t_hd	*ft_hd_finder(char *line)
 {
 	size_t	end;
@@ -111,5 +125,6 @@ t_hd	*ft_hd_finder(char *line)
 		else
 			end++;
 	}
+	// hd = ft_sort_hd(hd, line);
 	return (hd);
 }
