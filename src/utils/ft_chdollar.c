@@ -110,7 +110,7 @@ size_t	ft_chdollar_len(char *line, t_list **dollar)
 					else if (line[i] && line[i] != '\"')
 						i++;
 				}
-				if (line[i] && line[i])
+				if (line[i])
 					i++;
 			}
 		}

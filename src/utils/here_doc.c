@@ -150,3 +150,12 @@ t_hd	*ft_hd_finder(char *line)
 	// hd = ft_sort_hd(hd, line);
 	return (hd);
 }
+
+void	ft_skip_hd(char *line)
+{
+	size_t	i;
+
+	i = ft_hd_exist(line);
+	while (i--)
+		data->hd = data->hd->next;
+}
