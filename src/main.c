@@ -14,6 +14,7 @@ int	main(int argc, char **argv, char **envp)
 	int		fd[10];
 	char	**tab;
 	t_hd	*tmp;
+	int		ret;
 	// char	*tab2[2];
 
 
@@ -22,8 +23,9 @@ int	main(int argc, char **argv, char **envp)
 	{
 		ft_signal(SIGINT);
 		line = readline("caca->");
-		if (ft_isprohibited(line))
-			exit(EXIT_FAILURE);
+		ret = ft_isprohibited(line);
+		if (ret == 1)
+			continue;
 		add_history(line);
 		if (!line)
 			exit(0);
