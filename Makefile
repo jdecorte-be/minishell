@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = gcc
 
-CFLAGS = -lreadline -g -fsanitize=address
+CFLAGS = -lreadline -g -fsanitize=address -L .brew/opt/readline/lib -I .brew/opt/readline/include
 
 RM = rm -rf
 

@@ -21,7 +21,15 @@ void printlist(t_token *token)
     }
 }
 
-void shlvlhandler(t_data *data)
+// void	newprompt(int sig)
+// {
+//     printf("\n");
+//     rl_on_new_line();
+//     rl_replace_line("", 0);
+//     rl_redisplay();
+// }
+
+void shlvlhandler()
 {
     char *var = getenv("SHLVL");
     if(var)
@@ -53,13 +61,12 @@ int	main(int ac, char **av, char **env)
         return 0;
     data->lastret = 0;
     data->env = env;
-    // shlvlhandler(data);
+    shlvlhandler();
     if(ac != 1)
         puterror("\e[0;37mUse", "./minishell without arguments");
     while (1)
     {
-        signal(SIGINT, sig_handler);
-        signal(SIGTSTP, sig_handler);
+        // signal(SIGINT, newprompt);
         line = readline(prompt());
         if (!line)
         {
@@ -69,13 +76,13 @@ int	main(int ac, char **av, char **env)
         if(*line)
             add_history(line);
     
-        line = ft_epur_str(ft_chwc((ft_chdir(ft_chdollar(ft_pgross_str((line)))))));
+        line = ft_epur_str(ft_chwc(ft_chdir(ft_pgross_str((line)))));
         t_token *token = ft_parsing(line);
-        printlist(token);
+        // printlist(token);
         // to delete
         execute(token);
     }
         // exit(ret);
 
-
+    
 }

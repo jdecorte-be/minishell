@@ -6,33 +6,16 @@
 /*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/01/30 06:37:17 by decortejohn      ###   ########.fr       */
+/*   Updated: 2022/01/30 20:38:47 by decortejohn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void redir()
-{
-	if(data->inredirrs != 0)
-	{
-		dup2(data->stdin_reset, 0);
-		data->stdin_reset = dup(0);
-		dup2(data->inredirrs, 0);
-	}
-	if(data->outredirrs != 1)
-	{
-		dup2(data->stdout_reset, 1);
-		data->stdout_reset = dup(1);
-		dup2(data->outredirrs, 1);
-	}
-
-}
-
 int exec(char *cmd)
 {
     char **s_cmd = ft_split(cmd," ");
-	// redir();
+
     if(cmd[0] == '(')
        return subshell(ft_ecrase_p(cmd), data);
 	else if(ft_strcmp(s_cmd[0], "echo") == 0)
@@ -107,7 +90,6 @@ int subshell(char *line, t_data *data)
 
     line = ft_epur_str(ft_chwc(ft_add_q_dollar(ft_chdir(ft_chdollar(ft_pgross_str((line)))))));
 	t_token *token = ft_parsing(line);
-	printlist(token);
     ret = execute(token);
 
 	return ret;
