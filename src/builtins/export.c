@@ -3,7 +3,7 @@
 int checkvalid(char *cmd)
 {
     int i = 0;
-    while(cmd[i] && cmd[i] != '=')
+    while(cmd[i + 1] && cmd[i + 1] != '=')
     {
         printf("%c\n", cmd[i]);
         if((ft_isalnum(cmd[i]) == 0 && cmd[i] != '\'' && cmd[i] != '"' && cmd[i] != '_') || ft_isdigit(cmd[0]) == 1 || cmd[0] == '=')
@@ -23,7 +23,7 @@ char **array_dup(char **tab)
     int i = 0;
 
     res = malloc(sizeof(char *) * splitlen(data->env));
-    while(res[i])
+    while(data->env[i])
     {
         res[i] = ft_strdup(data->env[i]);
         i++;
@@ -61,7 +61,7 @@ int export(char **cmd)
         return 0;
     }
     int i = 1;
-    while(cmd && cmd[i])
+    while(cmd[i] && cmd[i][0])
     {
         if(!checkvalid(ft_ecrase_q(cmd[i])))
             return 0;

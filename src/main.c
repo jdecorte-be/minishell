@@ -22,6 +22,7 @@ void printlist(t_token *token)
 }
 
 
+
 // void	newprompt(int sig)
 // {
 //     printf("\n");

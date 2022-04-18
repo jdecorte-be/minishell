@@ -7,6 +7,7 @@
 # include <stdio.h>
 int main(int argc, char **argv, char **envp)
 {
+<<<<<<< HEAD
 	printf("Delete: %s\n", *envp);
 	ft_memmove(*envp, *envp + ft_strlen(*envp), ft_strlen(*envp) + 1);
 	int i = 0;
@@ -15,4 +16,8 @@ int main(int argc, char **argv, char **envp)
 		printf("%s\n", envp[i]);
 		i++;
 	}
+=======
+	printf("%s\n", ft_ecrase_q(argv[1]));
+    
+>>>>>>> origin/lxu-wu
 }
