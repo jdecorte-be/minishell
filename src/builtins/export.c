@@ -16,21 +16,32 @@ int checkvalid(char *cmd)
     return 1;
 }
 
-// char **array_dup(char **tab)
-// {
+char **array_dup(char **tab)
+{
+    char **res;
+    int i = 0;
 
-// }
+    res = malloc(sizeof(char *) * splitlen(data->env));
+    while(res[i])
+    {
+        res[i] = ft_strdup(data->env[i]);
+        i++;
+    }
+    return res;
+}
 
 void export_print()
 {
     int len = splitlen(data->env);
+    char **env = array_dup(data->env);
     int i = 0;
 
     while(i < len)
     {
         int j = i + 1;
         while (++j < len)
-            if (ft_strcmp(data->env[i], data->env[j]) > 0 && data->env[i] && data->env[j]) {
+            if (ft_strcmp(env[i], data->env[j]) > 0 && data->env[i] && data->env[j])
+            {
                 char* temp = data->env[i]; 
                 data->env[i] = data->env[j]; 
                 data->env[j] = temp; 
