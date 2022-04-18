@@ -1,46 +1,24 @@
 # include "../../inc/minishell.h"
 
-// char *findenv(char *name, int *offset)
-// {
-// 	int len;
-// 	const char *np;
-// 	char **p, *c;
-//     char **environ = data->env;
-
-// 	if (name == NULL || environ == NULL)
-// 		return (NULL);
-//     np = name;
-//     while(*np && *np != '=')
-//         ++np;
-// 	len = np - name;
-//     p = environ;
-//     while((c = *p) != NULL)
-//     {
-// 		if (strncmp(c, name, len) == 0 && c[len] == '=')
-// 		{
-// 			*offset = p - environ;
-// 			return (c + len + 1);
-// 		}
-//         ++p;
-//     }
-// 	return (NULL);
-// }
-
 int my_setenv(char *var)
 {
-	char *name = ft_substr(var, 0, egal_len(var));
+	int l_value, offset;
+	char *C;
+	static char **lastenv;
+	char *name;
 	char *value;
+	size_t cnt;
+	char **P = data->env;
+
+	name = ft_substr(var, 0, egal_len(var));
 	if(var[egal_len(var)] == '=')
 		value = ft_substr(var, egal_len(var) + 1, ft_strlen(var));
 	else
 		value = ft_strdup("\0");
 	
-	static char **lastenv;
-	char *C;
-	int l_value, offset;
 
 	l_value = ft_strlen(value);
-	C = my_getenv(name, NULL);
+	C = my_getenv(name, &offset);
 	printf("%s %d\n", C, offset);
 	if (C)
     {
@@ -52,17 +30,15 @@ int my_setenv(char *var)
 	}
     else
     {
-		size_t cnt;
-		char **P = data->env;
-		while (*P != NULL)
+		while (*P)
 			P++;
-		cnt = P - data->env ;
+		cnt = splitlen(data->env);
         P = ft_realloc(lastenv, sizeof(char *) * (cnt + 2));
 		if (!P)
 			return (-1);
-		if (lastenv != data->env )
+		if (lastenv != data->env)
 			ft_memcpy(P, data->env , cnt * sizeof(char *));
-		lastenv = data->env  = P;
+		lastenv = P;
 		offset = cnt;
 		data->env [cnt + 1] = NULL;
 	}
