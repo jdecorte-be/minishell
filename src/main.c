@@ -52,7 +52,7 @@ int	main(int argc, char **argv, char **envp)
 
 		// data->hd = ft_hd_finder(line);
 
-		// token = ft_parsing(line);
+		token = ft_parsing(line);
 		// while (token)
 		// {
 		// 	if (token->sup_token)
@@ -76,19 +76,19 @@ int	main(int argc, char **argv, char **envp)
 		
 		// ft_hd_replace(4);
 		// line = get_next_line(4);
-		tab = ft_split2(line, " ");
-		// hd = ft_sort_hd(hd, line, token);
-		size_t i = 0;
-		while (tab[i])
-			printf("tab = |%s|\n", tab[i++]);
-		while (line[i])
-			printf("%d\n", line[i++]);
-		printf("%s\n", line);
+		// tab = ft_split2(line, " ");
+		// // hd = ft_sort_hd(hd, line, token);
+		// size_t i = 0;
+		// while (tab[i])
+		// 	printf("tab = |%s|\n", tab[i++]);
+		// while (line[i])
+		// 	printf("%d\n", line[i++]);
+		// printf("%s\n", line);
 
 
 
 
-
+		ft_skip_hd("hello << a << a");
 
 
 		// data.line = tokenize(data.line);

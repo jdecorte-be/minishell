@@ -7,10 +7,34 @@ int	ft_parsing_redirect(char *line, size_t i)
 	a = 0;
 	i = ft_next_word(line, i);
 	if (line[i] == '<' && ++a)
-		write(2, "bash: syntax error near unexpected token `<'\n", 46);
+		write(2, "minishell: syntax error near unexpected token `<'\n", 51);
 	else if (line[i] == '>' && ++a)
-		write(2, "bash: syntax error near unexpected token `>'\n", 46);
+		write(2, "minishell: syntax error near unexpected token `>'\n", 51);
+	if (a)
+		data->lastret = 258;
 	return (a);
+}
+
+int	ft_check_p_ok(char *line, size_t i)
+{
+	size_t	start;
+	char	*str;
+
+	start = i;
+	if (!ft_strchr("&|", line[i]))
+	{
+		i = ft_next_word(line, i);
+		if (line[i] && line[i] == '(')
+		{
+			str = ft_substr(line, start, i - start - 1);
+			write(2, "minishell: syntax error near unexpected token `", 47);
+			write(2, str, ft_strlen(str));
+			write(2, "\'\n", 2);
+			return (1);
+		}
+	}
+	i = start;
+	return (0);
 }
 
 void	ft_parse_error(int e)
@@ -19,6 +43,13 @@ void	ft_parse_error(int e)
 		write(2, "prohibited character or input not close\n", 40);
 	else if (e == 2)
 		write(2, "syntax error near unexpected token `)'\n", 39);
+	else if (e == 3)
+		write(2, "syntax error near unexpected token `&&'\n", 40);
+	else if (e == 4)
+		write(2, "syntax error near unexpected token `||'\n", 40);
+	else if (e == 5)
+		write(2, "syntax error near unexpected token `|'\n", 39);
+	data->lastret = 258;
 }
 
 int	ft_isprohibited(char *line)
@@ -33,6 +64,21 @@ int	ft_isprohibited(char *line)
 	i = 0;
 	par = 0;
 	quote = 0;
+	if (!ft_strncmp("&&", line, 1))
+	{
+		ft_parse_error(3);
+		return (1);
+	}
+	else if (!ft_strncmp("||", line, 1))
+	{
+		ft_parse_error(4);
+		return (1);
+	}
+	else if (line[i] == '|')
+	{
+		ft_parse_error(5);
+		return (1);
+	}
 	while (line[i])
 	{
 		if (ft_strchr("\'\"", line[i]))
@@ -51,8 +97,20 @@ int	ft_isprohibited(char *line)
 			if (ft_parsing_redirect(line, i) > 0)
 				return (1);
 		}
+		else if ((!i || ft_isspace(line[i - 1])) && ft_check_p_ok(line, i))
+		{
+			printf("je suis dans \n");
+			return (1);
+		}
 		else if (line[i] == '(')
+		{
 			par++;
+			if (line[i + 1] == ')')
+			{
+				ft_parse_error(2);
+				return (1);	
+			}
+		}
 		else if (line[i] == ')')
 		{
 			par--;
@@ -63,6 +121,7 @@ int	ft_isprohibited(char *line)
 			}
 		}
 		i++;
+		// printf("%d\n", i);
 	}
 	if (quote % 2 != 0 || par)
 	{
