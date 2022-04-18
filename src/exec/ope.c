@@ -5,7 +5,6 @@ void redirect(t_token *token, int savein, int saveout)
 	if(token->redirect.outfd != 0)
 	{
 		savein = dup(0);
-		close(0);
 		dup2(token->redirect.infd, 0);
 		// data->stdin_reset = dup(0);
 
@@ -13,7 +12,6 @@ void redirect(t_token *token, int savein, int saveout)
 	if(token->redirect.outfd != 1)
 	{
 		saveout = dup(1);
-		close(1);
 		dup2(token->redirect.outfd, 1);
 		// data->stdout_reset = dup(1);
 	}
@@ -96,9 +94,10 @@ int execute(t_token *token)
 			data->lastret = exec(tmp->cmd);
 
 
-
-		dup2(savein, 0);
-		dup2(saveout, 1);
+		if(token->redirect.infd != 0)
+			dup2(savein, 0);
+		if(token->redirect.outfd != 1)
+			dup2(saveout, 1);
 		// printf("%s --> %d %d \n", tmp->cmd,tmp->redirect.infd, tmp->redirect.outfd);
 
 		tmp = tmp->next;
