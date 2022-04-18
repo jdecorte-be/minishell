@@ -7,17 +7,14 @@ int pwd()
 
 	if(!getcwd(buffer, sizeof(buffer)))
 		return -1;
-	printf("%s\n", buffer);
+	ft_putstr_fd(buffer, 1);
 	return 0;
 }
 
 int cd(char **cmd)
 {
 	char pwd_buff[1024];
-	char oldpwd_buff[1024];
 
-	if(!getcwd(oldpwd_buff , sizeof(oldpwd_buff)))
-		perror("getcwd");
 	if(!cmd[1])
 		return 0;
 	if(chdir(ft_ecrase_q(cmd[1])) == -1)
@@ -29,8 +26,13 @@ int cd(char **cmd)
 	{
 		if(!getcwd(pwd_buff , sizeof(pwd_buff)))
 			return -1;
-		my_setenv(ft_strjoin("PWD", pwd_buff));
-		my_setenv(ft_strjoin("OLDPWD", oldpwd_buff));
+		if(my_getenv("ENV", NULL))
+		{
+			my_setenv(ft_strjoin("OLDPWD", my_getenv("pwd",NULL)));
+			my_setenv(ft_strjoin("PWD", pwd_buff));
+		}
+		else
+			my_setenv("OLDPWD=");
 	}
 	return 0;
 }

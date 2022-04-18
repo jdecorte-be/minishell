@@ -26,6 +26,7 @@ int print_env(char **env)
         }
         i++;
     }
+    ft_putstr_fd("_=/usr/bin/env\n", 1);
 	return 0;
 }
 

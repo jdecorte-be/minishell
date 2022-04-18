@@ -10,9 +10,9 @@ int checkvalid(char *cmd)
             puterror(cmd, "not a valid identifier");
             return 0;
         }
+        i++;
         if(cmd[i] == '=')
             break;
-        i++;
     }
     return 1;
 }
@@ -63,9 +63,10 @@ int export(char **cmd)
     int i = 1;
     while(cmd[i])
     {
+        if(cmd[i][0] == '_' && cmd[i][1] == '=')
+            return 0;
         if(!checkvalid(ft_ecrase_q(cmd[i])))
             return 0;
-        cmd[i] = ft_add_q_dollar(cmd[i]);
         my_setenv(ft_ecrase_q(cmd[i]));
         i++;
     }

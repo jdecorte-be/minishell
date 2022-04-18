@@ -49,13 +49,15 @@ int execute(t_token *token)
 
 	while(tmp)
 	{
+		tmp->cmd = ft_add_q_dollar(tmp->cmd);
+		printf("1 = %s\n", tmp->cmd);
 		tmp->cmd = ft_chdollar(tmp->cmd);
-
+		printf("2 = %s\n", tmp->cmd);
 
 		ft_redirect_for_john(tmp);
 		redirect(tmp, savein, saveout);
 		tmp->cmd = ft_cut_chevron(tmp->cmd);
-
+		tmp->cmd = ft_chwc(tmp->cmd);
 
 
 

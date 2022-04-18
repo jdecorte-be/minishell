@@ -189,7 +189,7 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 					perror("open rd");
 			}
 			else
-				file.infd = -1;
+				file.infd = -2;
 			file.infile = ft_next(file.infile);
 			if (file.open2->next)
 				file.open2 = file.open2 = file.open2->next;
@@ -209,7 +209,7 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 					perror("open wr");
 			}
 			else
-				file.outfd = -1;
+				file.outfd = -2;
 			// printf("1\n");
 			file.outfile = ft_next(file.outfile);
 			if (file.open->next)

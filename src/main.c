@@ -18,6 +18,7 @@ int syntax_check(t_token *token)
         if((is_ope == old_ope )|| (start == 1 && is_ope == 1))
         {
             data->lastret = 2;
+            puterror("syntax error near unexpected token", tmp->cmd);
             return 0;
         }
         start = 0;
@@ -49,12 +50,15 @@ void printlist(t_token *token)
 
 void shlvlhandler()
 {
-    char *var = getenv("SHLVL");
-    if(var)
-    {
-        int shlvl = ft_atoi(var) + 1;
-        my_setenv(ft_strjoin("SHLVL", ft_itoa(shlvl)));
-    }
+    char *var = my_getenv("SHLVL", NULL);
+    int shlvl = ft_atoi(var) + 1;
+
+    if (shlvl > 1000)
+        shlvl = 1;
+    if (shlvl == 1000)
+            my_setenv(ft_strjoin("SHLVL=", 0));
+    else
+        my_setenv(ft_strjoin("SHLVL=", ft_itoa(shlvl)));
 }
 
 char *prompt()
@@ -83,7 +87,7 @@ int	main(int ac, char **av, char **env)
 
     
     shlvlhandler();
-    my_setenv("_=/usr/bin/env");
+   
 
 
 
@@ -92,7 +96,9 @@ int	main(int ac, char **av, char **env)
         char *tmp = ft_strdup(av[2]);
         line = ft_epur_str(ft_chdir(ft_pgross_str((tmp))));
         t_token *token = ft_parsing(line);
-        execute(token);
+        if(syntax_check(token) == 0);
+        else
+            execute(token);
         exit(data->lastret);
     }
 
@@ -115,14 +121,14 @@ int	main(int ac, char **av, char **env)
     
         line = ft_epur_str(ft_chdir(ft_pgross_str((line))));
         t_token *token = ft_parsing(line);
-        if(syntax_check(token) == 0)
-            puterror("syntax error near unexpected token", "test");
+        if(syntax_check(token) == 0);
         else
             execute(token);
 
         // to delete
     }
         // exit(ret);
+
 
 
 }
