@@ -87,8 +87,8 @@ int execute(t_token *token)
 		{
 			data->is_pipe = 0;
 			data->lastret = exec(tmp->cmd);
-			dup2(data->stdin_reset, 0);
-			dup2(data->stdout_reset, 1);
+			dup2(savein, 0);
+			dup2(saveout, 1);
 		}
 		else if(start == 1 && what_im(tmp->cmd) == 0 && data->is_pipe == 0)
 			data->lastret = exec(tmp->cmd);
