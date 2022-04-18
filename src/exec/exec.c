@@ -6,7 +6,7 @@
 /*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/01/30 20:38:47 by decortejohn      ###   ########.fr       */
+/*   Updated: 2022/01/30 22:53:11 by decortejohn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char *get_path(char *cmd)
 	int i;
 	char **args = ft_split(cmd, " ");
 	char *exec;
-	char **allpath = ft_split(my_getenv("PATH"), ":");
+	char **allpath = ft_split(my_getenv("PATH", NULL), ":");
 	i = -1;
 	if (access(args[0], X_OK) == 0)
 		exec = args[0];
@@ -76,7 +76,7 @@ int cmd_sys(char *cmd)
 		if(execve(get_path(cmd), &args[0], data->env) == -1)
 		{
 			puterror(args[0], "command not found");
-			return 127;
+			exit (127);
 		}
 	}
 	else

@@ -108,7 +108,7 @@ char *findenv(char *name, int *offset);
 char *get_path(char *cmd);
 int	pipex(char *cmd);
 char *prompt();
-char *my_getenv(char *name);
+char *my_getenv(char *name, int *index);
 int	my_setenv(char *name);
 void refresh_env(char **env, t_data *data);
 int checkvalid(char *cmd);

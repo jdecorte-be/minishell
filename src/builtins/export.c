@@ -5,7 +5,7 @@ int checkvalid(char *cmd)
     int i = 0;
     while(cmd[i])
     {
-        if((ft_isalnum(cmd[i]) == 0 && cmd[i] != '\'' && cmd[i] != '"' && cmd[i] != '_') || ft_isdigit(cmd[0]) == 1 || cmd[0] == '=')
+        if((ft_isalnum(cmd[i]) == 0 && cmd[i] != '\'' && cmd[i] != '"' && cmd[i] != '_' && cmd[i] != '=') || ft_isdigit(cmd[0]) == 1 || cmd[0] == '=')
         {
             puterror(cmd, "not a valid identifier");
             data->lastret = 1;
@@ -45,7 +45,7 @@ int export(char **cmd)
     int i = 1;
     while(cmd[i])
     {
-        if(checkvalid(cmd[i]))
+        if(!checkvalid(cmd[i]))
             return 0;
         my_setenv(cmd[i]);
         i++;

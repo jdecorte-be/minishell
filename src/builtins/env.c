@@ -1,30 +1,30 @@
 # include "../../inc/minishell.h"
 
-char *findenv(char *name, int *offset)
-{
-	int len;
-	const char *np;
-	char **p, *c;
-    char **environ = data->env;
+// char *findenv(char *name, int *offset)
+// {
+// 	int len;
+// 	const char *np;
+// 	char **p, *c;
+//     char **environ = data->env;
 
-	if (name == NULL || environ == NULL)
-		return (NULL);
-    np = name;
-    while(*np && *np != '=')
-        ++np;
-	len = np - name;
-    p = environ;
-    while((c = *p) != NULL)
-    {
-		if (strncmp(c, name, len) == 0 && c[len] == '=')
-		{
-			*offset = p - environ;
-			return (c + len + 1);
-		}
-        ++p;
-    }
-	return (NULL);
-}
+// 	if (name == NULL || environ == NULL)
+// 		return (NULL);
+//     np = name;
+//     while(*np && *np != '=')
+//         ++np;
+// 	len = np - name;
+//     p = environ;
+//     while((c = *p) != NULL)
+//     {
+// 		if (strncmp(c, name, len) == 0 && c[len] == '=')
+// 		{
+// 			*offset = p - environ;
+// 			return (c + len + 1);
+// 		}
+//         ++p;
+//     }
+// 	return (NULL);
+// }
 
 int my_setenv(char *var)
 {
@@ -40,7 +40,9 @@ int my_setenv(char *var)
 	int l_value, offset;
 
 	l_value = ft_strlen(value);
-	if ((C = findenv(name, &offset)))
+	C = my_getenv(name, NULL);
+	printf("%s %d\n", C, offset);
+	if (C)
     {
 		if ((int)ft_strlen(C) >= l_value)
         {
@@ -78,7 +80,7 @@ int my_setenv(char *var)
 	return (0);
 }
 
-char *my_getenv(char *name)
+char *my_getenv(char *name, int *index)
 {
     int i = 0;
 
@@ -88,7 +90,11 @@ char *my_getenv(char *name)
         while(data->env[i][j] && data->env[i][j] != '=')
             j++;
         if(ft_strcmp(ft_substr(data->env[i], 0, j), name) == 0)
+		{
+			if(index != NULL)
+				*index = i;
             return ft_substr(data->env[i], j + 1, ft_strlen(data->env[i]));
+		}
         i++;
     }
     return NULL;
