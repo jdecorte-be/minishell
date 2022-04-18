@@ -94,9 +94,9 @@ int execute(t_token *token)
 			data->lastret = exec(tmp->cmd);
 
 
-		if(token->redirect.infd != 0)
+		if(token->redirect.infd != 0 && data->is_pipe == 0)
 			dup2(savein, 0);
-		if(token->redirect.outfd != 1)
+		if(token->redirect.outfd != 1 && data->is_pipe == 0)
 			dup2(saveout, 1);
 		// printf("%s --> %d %d \n", tmp->cmd,tmp->redirect.infd, tmp->redirect.outfd);
 
