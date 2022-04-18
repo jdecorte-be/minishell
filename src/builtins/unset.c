@@ -4,9 +4,10 @@ int del_element(char *name)
 {
     char **p_env = data->env;
     char **p_env2;
+
     while(*p_env)
     {
-        if(ft_strncmp(*p_env, name, strlen(name)) == 0)
+        if(ft_strncmp(*p_env, name, ft_strlen(name) - 1) == 0)
         {
             p_env2 = p_env;
             while(*p_env2)
