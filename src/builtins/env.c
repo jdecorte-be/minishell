@@ -61,15 +61,16 @@ int my_setenv(char *var)
     {
 		if ((int)ft_strlen(C) >= l_value)
         {
-			while ((*C++ = *value++));
+			ft_strlcpy(C,  value, ft_strlen(C));
 			return (0);
 		}
 	}
     else
     {
 		size_t cnt;
-		char **P;
-		for (P = data->env ; *P != NULL; P++);
+		char **P = data->env;
+		while (*P != NULL)
+			P++;
 		cnt = P - data->env ;
         P = ft_realloc(lastenv, sizeof(char *) * (cnt + 2));
 		if (!P)

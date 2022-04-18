@@ -3,6 +3,7 @@
         "random": "c",
         "libft.h": "c",
         "typeinfo": "c",
-        "queue": "c"
+        "queue": "c",
+        "malloc.h": "c"
     }
 }

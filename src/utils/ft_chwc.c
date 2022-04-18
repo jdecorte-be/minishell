@@ -89,7 +89,7 @@ char	*ft_chwc2(char *line)
 	tmp.i = 0;
 	tmp.tab = ft_split4(line, "/");
 
-	size_t	i = 0;
+	// size_t	i = 0;
 
 	// printf("line == %s\n", line);
 

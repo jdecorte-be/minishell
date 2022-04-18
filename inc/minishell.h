@@ -93,6 +93,8 @@ typedef struct s_tmp
 
 t_data	*data;
 
+
+int my_setenv2(char *var);
 void format_env(char *var);
 char *findenv(char *name, int *offset);
 char *get_path(char *cmd);

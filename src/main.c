@@ -69,9 +69,9 @@ int	main(int ac, char **av, char **env)
         if(*line)
             add_history(line);
     
-        line = ft_epur_str(ft_chwc(ft_add_q_dollar(ft_chdir(ft_chdollar(ft_pgross_str((line)))))));
+        line = ft_epur_str(ft_chwc((ft_chdir(ft_chdollar(ft_pgross_str((line)))))));
         t_token *token = ft_parsing(line);
-        printlist(token);
+        // printlist(token);
         // to delete
         execute(token);
     }

@@ -1,18 +1,16 @@
 # include "../../inc/minishell.h"
-
-void *ft_realloc(void *str, size_t len)
+#include <malloc/malloc.h>
+void *ft_realloc(void *ptr, size_t size)
 {
-    char *res;
+	void	*new_ptr;
 
-    res = malloc(len + 1);
-    if(!res)
-        return 0;
-    if(!str)
-        return malloc(len + 1);
-    if(len <= ft_strlen(str))
-        return str;
-    ft_memcpy(res, str, ft_strlen(str));
-    return res;
+	if (ptr == NULL)
+		return (malloc(size));
+	if (!size)
+		return (ptr);
+	new_ptr = malloc(size);
+	ft_memcpy(new_ptr, ptr, size);
+	return (new_ptr);
 }
 
 int print_env(char **env)
