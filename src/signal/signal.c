@@ -39,3 +39,4 @@
 // 	if (sig == SIGQUIT)
 // 		signal(SIGQUIT, &ft_exit_c_loop);
 // }
+

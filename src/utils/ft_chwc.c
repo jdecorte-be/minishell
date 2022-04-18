@@ -88,6 +88,14 @@ char	*ft_chwc2(char *line)
 
 	tmp.i = 0;
 	tmp.tab = ft_split4(line, "/");
+
+	size_t	i = 0;
+
+	printf("line == %s\n", line);
+
+	while (tmp.tab[i++])
+		printf("tab == %s\n", tmp.tab[0]);
+
 	while (tmp.tab[tmp.i] && !ft_strchr(tmp.tab[tmp.i], '*'))
 		tmp.i++;
 	if (tmp.tab[tmp.i])
@@ -101,6 +109,10 @@ char	*ft_chwc2(char *line)
 	pref = tmp.tmp;
 	tmp.i2 = tmp.i + 1;
 	suff = 0;
+
+	// printf("str == %s\n", tmp.str);
+
+
 	while (tmp.tab[tmp.i2])
 		suff = ft_strjoin1(suff, tmp.tab[tmp.i2++]);
 	// printf("suff %s\n", suff);
@@ -170,12 +182,21 @@ char	*ft_chwc(char *line)
 	woq = 0;
 	wc = 0;
 	name = 0;
+	// printf("%s\n", line);
 	if (!line)
 		return (0);
 	if (ft_chwc_ok(line))
 		return (line);
-	printf("ga\n");
+	// printf("ga\n");
 	wc = ft_wcsearch(line);
+	// printf("line == %s\n", wc->content);
+	// tmp.lst = wc;
+	// while (tmp.lst)
+	// {
+	// 	printf("wc == %s\n", tmp.lst->content);
+	// 	tmp.lst = tmp.lst->next;
+	// }
+
 	tmp.lst = wc;
 	while (tmp.lst)
 	{
@@ -184,6 +205,14 @@ char	*ft_chwc(char *line)
 		// printf("1\n");
 		tmp.lst = (tmp.lst)->next;
 	}
+
+	// tmp.lst = name;
+	// while (tmp.lst)
+	// {
+	// 	printf("wc == %s\n", tmp.lst->content);
+	// 	tmp.lst = tmp.lst->next;
+	// }
+
 	tmp.lst = wc;
 	while (tmp.lst)
 	{
@@ -197,5 +226,6 @@ char	*ft_chwc(char *line)
 		return (line);
 	str = ft_chwc_str(line, name, wc, woq);
 	free(line);
+	str = ft_trijoin("\"", str, "\"");
 	return (str);
 }

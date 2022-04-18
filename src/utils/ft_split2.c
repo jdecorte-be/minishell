@@ -29,7 +29,7 @@ static size_t	ft_count_words(char *str, char *set)
 	return (count);
 }
 
-static char	**ft_creat_tab(char **tab, const char *str, char *set, size_t word)
+static char	**ft_creat_tab(char **tab, char *str, char *set, size_t word)
 {
 	size_t	i;
 	size_t	start;
@@ -44,17 +44,16 @@ static char	**ft_creat_tab(char **tab, const char *str, char *set, size_t word)
 		while (str[start] && ft_strchr(set, str[start]))
 			start++;
 		end = start;
-		if (str[end] && ft_strchr("\'\"", str[end]))
+		if (str[end] && !ft_strchr(set, str[end]))
 		{
-			c = str[end++];
-			while (str[end] && c != str[end])
-				end++;
-			if (str[end])
-				end++;
-		}
-		else if (str[end] && !ft_strchr(set, str[end]))
 			while (str[end] && !ft_strchr(set, str[end]))
-				end++;
+			{
+				if (ft_strchr("\'\"", str[end]))
+					ft_skip_q(str, &end);
+				else
+					end++;
+			}
+		}
 		tab[i++] = ft_substr(str, start, end - start);
 	}
 	tab[i] = 0;
@@ -69,7 +68,7 @@ char	**ft_split2(char *str, char *set)
 	if (!str && !*str)
 		return (0);
 	word = ft_count_words(str, set);
-	tab = malloc(sizeof(char *) * word + 1);
+	tab = malloc(sizeof(char *) * (word + 1));
 	if (!tab)
 		ft_error(2);
 	return (ft_creat_tab(tab, str, set, word));

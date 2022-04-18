@@ -67,7 +67,7 @@ char	**ft_split3(char *str, char *set)
 	if (!str && !*str)
 		return (0);
 	word = ft_count_words(str, set);
-	tab = malloc(sizeof(char *) * word + 1);
+	tab = malloc(sizeof(char *) * (word + 1));
 	if (!tab)
 		ft_error(2);
 	return (ft_creat_tab(tab, str, set, word));
