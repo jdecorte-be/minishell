@@ -6,7 +6,7 @@
 /*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/01/31 02:43:10 by decortejohn      ###   ########.fr       */
+/*   Updated: 2022/01/31 03:05:45 by decortejohn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int exec(char *cmd)
 {
     char **s_cmd = ft_split2(cmd," ");
-
+	
     if(cmd[0] == '(')
        return subshell(ft_ecrase_p(cmd), data);
 	else if(ft_strcmp(s_cmd[0], "echo") == 0)
@@ -75,7 +75,7 @@ int cmd_sys(char *cmd)
 	{
 		if(execve(get_path(cmd), &args[0], data->env) == -1)
 		{
-			puterror(args[0], "command not found");
+			puterror(ft_ecrase_q(args[0]), "command not found");
 			exit (127);
 		}
 	}

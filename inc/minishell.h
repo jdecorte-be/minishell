@@ -220,7 +220,7 @@ char	*ft_epur_str(char *line);
 char	*ft_strjoin2(char const *s1, char const *s2);
 
 char	*ft_quajoin(char *s1, const char *s2, char *s3, const char *s4);
-
+char    *ft_ecrase_q(char *word);
 int		ft_strncmp2(const char *s1, const char *s2, size_t n);
 int		ft_strrcmp2(const char *s1, const char *s2, size_t n);
 int print_env(char **env);
