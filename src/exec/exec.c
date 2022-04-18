@@ -6,7 +6,7 @@
 /*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/01/30 22:53:11 by decortejohn      ###   ########.fr       */
+/*   Updated: 2022/01/31 02:43:10 by decortejohn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int exec(char *cmd)
 {
-    char **s_cmd = ft_split(cmd," ");
+    char **s_cmd = ft_split2(cmd," ");
 
     if(cmd[0] == '(')
        return subshell(ft_ecrase_p(cmd), data);
