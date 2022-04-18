@@ -28,7 +28,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 			exit(0);
 		// 	// break;
-		line = ft_epur_str(ft_chwc(ft_add_q_dollar(ft_chdir(ft_chdollar(ft_pgross_str(line))))));
+		line = ft_epur_str(ft_chwc(ft_add_q_dollar(ft_chdir((ft_pgross_str(line))))));
 		data->hd = 0;
 
 		// tmp = data->hd;
