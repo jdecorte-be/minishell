@@ -23,3 +23,11 @@ int print_env(char **env)
 		printf("%s\n", env[i]);
 	return 0;
 }
+
+int egal_len(char *cmd)
+{
+    int i = 0;
+    while(cmd[i] && cmd[i] != '=')
+        i++;
+    return i;
+}

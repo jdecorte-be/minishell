@@ -65,7 +65,7 @@ int	main(int ac, char **av, char **env)
         return 0;
     data->lastret = 0;
     data->env = env;
-    shlvlhandler(data);
+    // shlvlhandler(data);
     if(ac != 1)
         puterror("\e[0;37mUse : ./minishell without arguments\n");
     while (1)

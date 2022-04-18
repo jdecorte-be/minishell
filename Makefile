@@ -15,7 +15,7 @@ SRCS = 	src/main.c\
 		src/builtins/echo.c\
 		src/builtins/env.c\
 		src/builtins/export.c\
-		src/builtins/others.c\
+		src/builtins/unset.c\
 		src/builtins/utils.c\
 		\
         libft/libft.a\

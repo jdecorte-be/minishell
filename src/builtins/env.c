@@ -27,15 +27,12 @@ char *findenv(char *name, int *offset)
 
 	if (name == NULL || environ == NULL)
 		return (NULL);
-    np = name;
-    while(*np && *np != '=')
-        ++np;
-	len = np - name;
+	len = egal_len(name);
     p = environ;
     while((c = *p) != NULL)
     {
-		if (ft_strncmp(c, name, len) == 0 && c[len] == '=')
-		{
+		// printf("%s\n",c);
+		if (ft_strncmp(c, name, len) == 0 && c[len] == '=') {
 			*offset = p - environ;
 			return (c + len + 1);
 		}
@@ -50,8 +47,6 @@ int my_setenv(char *name, char *value)
 	char *C;
 	int l_value, offset;
 
-	if (*value == '=')
-		++value;
 	l_value = ft_strlen(value);
 	if ((C = findenv(name, &offset)))
     {

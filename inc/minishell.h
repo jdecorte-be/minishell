@@ -105,7 +105,8 @@ int checkvalid(char *cmd);
 int     echo(char **args);
 int     pwd();
 int     cd(char **cmd);
-int     export(char **cmd,t_data *data);
+int     export(char **cmd);
+int egal_len(char *cmd);
 int     unset(char **cmd);
 int     printList(t_list *head);
 
