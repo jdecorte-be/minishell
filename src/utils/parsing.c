@@ -60,13 +60,13 @@ t_token	*ft_parsing(char *line)
 	{
 
 		ft_hdadd_back(&data->hd, ft_hd_finder(tmp->cmd));
+		tmp->redirect = ft_init_redirect();
 		// printf("tmp = %s\n", tmp->cmd);
 		// if (tmp->next && !ft_strcmp(tmp->next->cmd, "|"))
 		// {
 		// 	// printf("1\n");
 		// 	if (pipe(fd) == -1)
 		// 		ft_error(3);
-		tmp->redirect = ft_init_redirect();
 		// 	tmp->redirect = ft_redirect(tmp->cmd, ft_init_redirect(), 1, fd[1]);
 		// }
 		// else if (!ft_strcmp(tmp->cmd, "|"))

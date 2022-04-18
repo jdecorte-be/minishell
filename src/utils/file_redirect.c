@@ -194,7 +194,8 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 				file.infd = -1;
 			}
 			file.infile = ft_next(file.infile);
-			file.open2 = file.open2 = file.open2->next;
+			if (file.open2->next)
+				file.open2 = file.open2 = file.open2->next;
 		}
 		while (file.outfile)
 		{
@@ -217,7 +218,8 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 			}
 			// printf("1\n");
 			file.outfile = ft_next(file.outfile);
-			file.open = file.open = file.open->next;
+			if (file.open->next)
+				file.open = file.open = file.open->next;
 		}
 	}
 	return (file);

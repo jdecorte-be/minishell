@@ -49,30 +49,30 @@ int	main(int argc, char **argv, char **envp)
 
 		// data->hd = ft_hd_finder(line);
 
-		// token = ft_parsing(line);
-		// while (token)
-		// {
-		// 	if (token->sup_token)
-		// 		token->redirect = ft_redirect(token->cmd, token->sup_token->redirect, 0, 0);
-		// 	else
-		// 		token->redirect = ft_redirect(token->cmd, ft_init_redirect(), 0, 0);
-		// 	printf("%s\n", token->cmd);
-		// 	printf("%d\n", token->redirect.infd);
-		// 	printf("%d\n", token->redirect.outfd);
-		// 	if (token->sub_token)
-		// 		token = token->sub_token;
-		// 	else if (token->next)
-		// 		token = token->next;
-		// 	else if (!token->next && token->sup_token)
-		// 		token = token->sup_token->next;
-		// 	else
-		// 		token = token->next;
-		// }
-		tab = ft_split2(line, " ");
-		// hd = ft_sort_hd(hd, line, token);
-		size_t i = 0;
-		while (tab[i])
-			printf("tab = |%s|\n", tab[i++]);
+		token = ft_parsing(line);
+		while (token)
+		{
+			if (token->sup_token)
+				token->redirect = ft_redirect(token->cmd, token->sup_token->redirect, 0, 0);
+			else
+				token->redirect = ft_redirect(token->cmd, ft_init_redirect(), 0, 0);
+			printf("%s\n", token->cmd);
+			printf("%d\n", token->redirect.infd);
+			printf("%d\n", token->redirect.outfd);
+			if (token->sub_token)
+				token = token->sub_token;
+			else if (token->next)
+				token = token->next;
+			else if (!token->next && token->sup_token)
+				token = token->sup_token->next;
+			else
+				token = token->next;
+		}
+		// tab = ft_split2(line, " ");
+		// // hd = ft_sort_hd(hd, line, token);
+		// size_t i = 0;
+		// while (tab[i])
+		// 	printf("tab = |%s|\n", tab[i++]);
 		// while (line[i])
 		// 	printf("%d\n", line[i++]);
 
