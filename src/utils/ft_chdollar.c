@@ -87,30 +87,30 @@ size_t	ft_chdollar_len(char *line, t_list **dollar)
 				{
 					while (line[i] && line[i] != '\"' && line[i] != '$')
 						i++;
-					if (line[i] && line[i + 1] && line[i] == '$' && (ft_isalnum(line[i + 1]) || ft_strchr("?", line[i + 1])))//!ft_strchr("\n\f\v\r\t \"+/%^~:.,   …•¶§∞¢£™¡", line[i + 1]))
+					if (line[i] && line[i] != '\"' && line[i + 1] && line[i] == '$' && (ft_isalnum(line[i + 1]) || ft_strchr("?", line[i + 1])))//!ft_strchr("\n\f\v\r\t \"+/%^~:.,   …•¶§∞¢£™¡", line[i + 1]))
 					{
 						start = i++;
-						if ((line[i] == '?' || ft_isdigit(line[i])) && ++i)
+						if (line[i] && line[i] != '\"' && (line[i] == '?' || ft_isdigit(line[i])) && ++i)
 						{
 							end = i;
 							count += start - end;
 							count += ft_strlen(ft_changedollar(ft_substr(line, start, end - start), dollar));
 						}
-						else
+						else if (line[i] != '\"')
 						{
 							// if (line[i] && !ft_strchr("\"\'+/%^~:.,-", line[i]) && !ft_isspace(line[i]))
 							// 	i++;
-							while (line[i] && (ft_isalnum(line[i]) || ft_strchr("?", line[i])))//!ft_strchr("\"\'+/%^~:.,-", line[i]) && !ft_isspace(line[i]))
+							while (line[i] && line[i] != '\"' && (ft_isalnum(line[i]) || ft_strchr("?", line[i])))//!ft_strchr("\"\'+/%^~:.,-", line[i]) && !ft_isspace(line[i]))
 								i++;
 							end = i;
 							count += start - end;
 							count += ft_strlen(ft_changedollar(ft_substr(line, start, end - start), dollar));
 						}
 					}
-					else if (line[i])
+					else if (line[i] && line[i] != '\"')
 						i++;
 				}
-				if (line[i])
+				if (line[i] && line[i])
 					i++;
 			}
 		}
@@ -145,6 +145,7 @@ char	*ft_chdollar_str(char *str, char *line, t_list *dollar, size_t len)
 {
 	size_t	i;
 	size_t	i2;
+	t_list	*tmp;
 
 	i = 0;
 	i2 = 0;
@@ -166,25 +167,25 @@ char	*ft_chdollar_str(char *str, char *line, t_list *dollar, size_t len)
 				{
 					while (line[i] && line[i] != '\"' && line[i] != '$')
 						str[i2++] = line[i++];
-					if (line[i] && line[i + 1] && line[i] == '$' && (ft_isalnum(line[i + 1]) || ft_strchr("_?", line[i + 1])) && ++i)//!ft_strchr("\n\f\v\r\t \"+/%^~:.,   …•¶§∞¢£™¡", line[i + 1]))
+					if (line[i] && line[i] != '\"' && line[i + 1] && line[i] == '$' && (ft_isalnum(line[i + 1]) || ft_strchr("_?", line[i + 1])) && ++i)//!ft_strchr("\n\f\v\r\t \"+/%^~:.,   …•¶§∞¢£™¡", line[i + 1]))
 					{
-						if ((line[i] == '?' || ft_isdigit(line[i])) && ++i)
+						if (line[i] && line[i] != '\"' && (line[i] == '?' || ft_isdigit(line[i])) && ++i)
 						{
 							i2 = ft_strlcat(str, dollar->content, len);
 							dollar = ft_next(dollar);
 						}
-						else
+						else if (line[i] != '\"')
 						{
 							// if (line[i] && !ft_strchr("\"\'+/%^~:.,-", line[i]) && !ft_isspace(line[i]))
 							// 	i++;
-							while (line[i] && (ft_isalnum(line[i]) || ft_strchr("?", line[i])))//!ft_strchr("\"\'+/%^~:.,-=\'\"", line[i]) && !ft_isspace(line[i]))
+							while (line[i] && line[i] != '\"' && (ft_isalnum(line[i]) || ft_strchr("?", line[i])))//!ft_strchr("\"\'+/%^~:.,-=\'\"", line[i]) && !ft_isspace(line[i]))
 								i++;
 							i2 = ft_strlcat(str, dollar->content, len);
 							// printf("1\n");
 							dollar = ft_next(dollar);
 						}
 					}
-					else if (line[i])
+					else if (line[i] && line[i] != '\"')
 						str[i2++] = line[i++];
 				}
 				if (line[i])

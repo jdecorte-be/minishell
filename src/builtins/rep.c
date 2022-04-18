@@ -26,13 +26,13 @@ int cd(char **cmd)
 	{
 		if(!getcwd(pwd_buff , sizeof(pwd_buff)))
 			return -1;
-		if(my_getenv("ENV", NULL))
+		char *PWD_var = my_getenv("PWD", NULL);
+		if(PWD_var)
 		{
-			my_setenv(ft_strjoin("OLDPWD", my_getenv("pwd",NULL)));
-			my_setenv(ft_strjoin("PWD", pwd_buff));
+			char *tmp =  my_getenv("PWD",NULL);
+			my_setenv(ft_strjoin("OLDPWD=", tmp));
+			my_setenv(ft_strjoin("PWD=", pwd_buff));
 		}
-		else
-			my_setenv("OLDPWD=");
 	}
 	return 0;
 }

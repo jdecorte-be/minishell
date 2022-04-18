@@ -53,10 +53,11 @@ void shlvlhandler()
     char *var = my_getenv("SHLVL", NULL);
     int shlvl = ft_atoi(var) + 1;
 
+    my_setenv("OLDPWD");
     if (shlvl > 1000)
         shlvl = 1;
     if (shlvl == 1000)
-            my_setenv(ft_strjoin("SHLVL=", 0));
+            my_setenv("SHLV");
     else
         my_setenv(ft_strjoin("SHLVL=", ft_itoa(shlvl)));
 }
@@ -98,7 +99,7 @@ int	main(int ac, char **av, char **env)
         t_token *token = ft_parsing(line);
         if(syntax_check(token) == 0);
         else
-            execute(token);
+            data->lastret = execute(token);
         exit(data->lastret);
     }
 
@@ -123,7 +124,7 @@ int	main(int ac, char **av, char **env)
         t_token *token = ft_parsing(line);
         if(syntax_check(token) == 0);
         else
-            execute(token);
+            data->lastret = execute(token);
 
         // to delete
     }

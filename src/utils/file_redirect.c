@@ -189,7 +189,11 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 					perror("open rd");
 			}
 			else
-				file.infd = -2;
+			{
+				file.infd = -1;
+				write(2, "minishell: *: ambiguous redirect\n", 33);
+				data->lastret = 1;
+			}
 			file.infile = ft_next(file.infile);
 			if (file.open2->next)
 				file.open2 = file.open2 = file.open2->next;
@@ -209,7 +213,11 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 					perror("open wr");
 			}
 			else
-				file.outfd = -2;
+			{
+				file.outfd = -1;
+				write(2, "minishell: *: ambiguous redirect\n", 33);
+				data->lastret = 1;
+			}
 			// printf("1\n");
 			file.outfile = ft_next(file.outfile);
 			if (file.open->next)
