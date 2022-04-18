@@ -62,34 +62,27 @@ t_list	*ft_search_limiters(char *line)
 	return (lst);
 }
 
-void	ft_here_doc(t_token *data)
+int	ft_here_doc(char *line)
 {
 	t_list	*limiters;
 	char	*str;
 	int		fd[2];
 
-
-	char *test;
-
 	str = 0;
-	limiters = ft_search_limiters(data->cmd);
-	if (limiters)
+	if (pipe(fd) == -1)
+		ft_error(3);
+	// limiters = ft_search_limiters(line);
+	while (ft_strcmp(str, line))
 	{
-		if (pipe(fd) == -1)
-			ft_error(3);
-		while (limiters)
-		{
-			// printf("lssss\n");
-			str = readline("> ");
-			if (!limiters->next)
-			{
-				ft_putstr_fd(str, fd[1]);
-				ft_putchar_fd('\n', fd[1]);
-			}
-			if (!ft_strcmp(str, limiters->content))
-				limiters = ft_next(limiters);
-		}
-		close(fd[1]);
+		// printf("salsal\n");
+		// printf("lssss\n");
+		str = readline("> ");
+		if (!str)
+			break ;
+		ft_putstr_fd(str, fd[1]);
+		ft_putchar_fd('\n', fd[1]);
 	}
-	data->redirect.infd = fd[0];
+	free(line);
+	close(fd[1]);
+	return (fd[0]);
 }

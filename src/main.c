@@ -1,16 +1,6 @@
 #include "../inc/minishell.h"
 #include <errno.h>
 
-// void print2darray(char **arr)
-// {
-//     int i = 0;
-//     while(arr[i])
-//     {
-//         printf("%d\\ %s ", i ,arr[i]);
-//         i++; //
-//     }
-// }
-
 void printlist(t_token *token)
 {
     int i = 0;
@@ -38,8 +28,7 @@ void shlvlhandler(t_data *data)
     if(var)
     {
         int shlvl = ft_atoi(var) + 1;
-        my_setenv("SHLVL", ft_itoa(shlvl));
-
+        my_setenv(ft_strjoin("SHLVL", ft_itoa(shlvl)));
     }
 }
 

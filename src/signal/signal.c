@@ -29,13 +29,3 @@
 // void	ft_nothing(int i)
 // {
 // }
-
-// void	ft_signal(int sig)
-// {
-// 	int i = 10;
-
-// 	if (sig == SIGINT)
-// 		signal(sig, &ft_newprompt);
-// 	if (sig == SIGQUIT)
-// 		signal(SIGQUIT, &ft_exit_c_loop);
-// }

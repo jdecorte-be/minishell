@@ -27,11 +27,11 @@ t_token	*ft_parsing2(t_token *sup_token)
 		}
 		else
 		tmp->redirect = ft_redirect(tmp->cmd, sup_token->redirect, 0, 0);
-		if (ft_hd_exist(tmp->cmd))
-		{
-			ft_here_doc(tmp);
-			printf("%d\n", tmp->redirect.infd);
-		}
+		// if (ft_hd_exist(tmp->cmd))
+		// {
+		// 	ft_here_doc(tmp);
+		// 	printf("%d\n", tmp->redirect.infd);
+		// }
 		tmp->cmd = ft_cut_chevron(tmp->cmd);
 		// printf("cmd %s\n", tmp->cmd);
 		// printf("in %d\n", tmp->redirect.infd);
@@ -73,11 +73,11 @@ t_token	*ft_parsing(char *line)
 		}
 		else
 			tmp->redirect = ft_redirect(tmp->cmd, ft_init_redirect(), 0, 0);
-		if (ft_hd_exist(tmp->cmd))
-		{
-			ft_here_doc(tmp);
-			printf("%d\n", tmp->redirect.infd);
-		}
+		// if (ft_hd_exist(tmp->cmd))
+		// {
+		// 	ft_here_doc(tmp);
+		// 	printf("%d\n", tmp->redirect.infd);
+		// }
 		tmp->cmd = ft_cut_chevron(tmp->cmd);
 		// printf("cmd %s\n", tmp->cmd);
 		// printf("in %d\n", tmp->redirect.infd);

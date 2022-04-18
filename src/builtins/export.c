@@ -14,11 +14,7 @@ void export_print()
                 data->env[j] = temp; 
              }
              if(data->env[i])
-             {
-                ft_putstr_fd("declare -x ", 1);
-                ft_putstr_fd(data->env[i], 1);
-                ft_putstr_fd("\n", 1);
-             }
+                format_env(data->env[i]);
         i++;
     }
 }
@@ -33,7 +29,7 @@ int export(char **cmd)
     int i = 1;
     while(cmd[i])
     {
-        my_setenv(ft_substr(cmd[i], 0, egal_len(cmd[i])), ft_substr(cmd[i], egal_len(cmd[i]) + 1, ft_strlen(cmd[i])));
+        my_setenv(cmd[i]);
         i++;
     }
 
