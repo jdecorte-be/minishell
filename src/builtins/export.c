@@ -3,7 +3,7 @@
 int checkvalid(char *cmd)
 {
     int i = 0;
-    while(cmd[i + 1] && cmd[i + 1] != '=')
+    while(cmd[i] && cmd[i] != '=')
     {
         printf("%c\n", cmd[i]);
         if((ft_isalnum(cmd[i]) == 0 && cmd[i] != '\'' && cmd[i] != '"' && cmd[i] != '_') || ft_isdigit(cmd[0]) == 1 || cmd[0] == '=')
@@ -61,7 +61,7 @@ int export(char **cmd)
         return 0;
     }
     int i = 1;
-    while(cmd[i] && cmd[i][0])
+    while(cmd[i])
     {
         if(!checkvalid(ft_ecrase_q(cmd[i])))
             return 0;

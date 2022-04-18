@@ -6,7 +6,7 @@
 /*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/01/31 04:18:01 by decortejohn      ###   ########.fr       */
+/*   Updated: 2022/01/31 04:55:20 by decortejohn      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char *get_path(char *cmd)
 	char **allpath = ft_split(my_getenv("PATH", NULL), ":");
 	i = -1;
 	if (access(args[0], X_OK) == 0)
-		return cmd;
+		return args[0];
 	else
 	{
 		while (allpath[++i])

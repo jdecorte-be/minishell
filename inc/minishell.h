@@ -230,7 +230,7 @@ char	*ft_chdir(char *line);
 int what_im(char *input);
 int exit_cmd(char **s_cmd);
 int cmd_sys(char *cmd);
-
+void	ft_redirect_for_john(t_token *token);
 char	*ft_ecrase_q(char *word);
 char	*ft_ecrase_p(char *line);
 

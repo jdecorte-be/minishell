@@ -50,10 +50,12 @@ int execute(t_token *token)
 	while(tmp)
 	{
 		tmp->cmd = ft_chdollar(tmp->cmd);
+		
 
-
+		ft_redirect_for_john(tmp);
+		
 		redirect(tmp, savein, saveout);
-
+		tmp->cmd = ft_cut_chevron(tmp->cmd);
 		// start
 		if(start == 0 && what_im(tmp->cmd) == 1 && data->lastret == 0 || is_and == 1)
 		{

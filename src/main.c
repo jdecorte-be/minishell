@@ -1,12 +1,13 @@
 #include "../inc/minishell.h"
 #include <errno.h>
 
+
 void printlist(t_token *token)
 {
     int i = 0;
     while(token)
     {
-        printf("%s|\n", token->cmd);
+        printf("%s\n", token->cmd);
         printf("%d\n", token->redirect.infd);
         printf("%d\n", token->redirect.outfd);
         printf("================================================================\n");
@@ -20,7 +21,6 @@ void printlist(t_token *token)
         token = token->next;
     }
 }
-
 
 
 // void	newprompt(int sig)
@@ -63,6 +63,7 @@ int	main(int ac, char **av, char **env)
         return 0;
     data->lastret = 0;
     data->env = env;
+    data->hd = 0;
     shlvlhandler();
     if(ac != 1)
         puterror("\e[0;37mUse", "./minishell without arguments");
