@@ -1,34 +1,3 @@
-<<<<<<< HEAD
-"a"
-*
-*dodo
-42-minishell_bash_tester_2022
-<
->
-Makefile
-Makefile copy
-Z
-a
-a.out
-a.out.dSYM
-g
-inc
-kj
-leijie
-libft
-libft.a
-mini_tester
-minishell
-minishell.dSYM
-minishell_test.log
-next
-pappapapa
-po
-poito
-src
-test
-test.c
-tester.sh
-testls
-=======
->>>>>>> fe9aa9732eca25491461c7226333409f43befdf0
+test1
+test2
+[0;36m42-minishell[0;37m ❯ ^D

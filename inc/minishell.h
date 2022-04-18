@@ -93,7 +93,7 @@ typedef struct s_tmp
 
 t_data	*data;
 
-
+void	puterror(char *cmd, char *msg);
 int my_setenv2(char *var);
 void format_env(char *var);
 char *findenv(char *name, int *offset);
@@ -111,7 +111,7 @@ int     cd(char **cmd);
 int     export(char **cmd);
 int egal_len(char *cmd);
 int     unset(char **cmd);
-int     printList(t_list *head);
+void     printlist(t_token *head);
 
 t_list  *list_env(char **env);
 char    **listtotab(t_list *lst);
@@ -145,7 +145,6 @@ int		ft_str_isspace(char *str);
 void	ft_error(int e);
 
 int		ft_free(char *line);
-void	puterror(char *str);
 void	*ft_memdel(void *ptr);
 int run_cmd(t_data *d_env, char *cmd);
 int cmdlexer(char *cmd, t_data *d_env);
@@ -204,7 +203,6 @@ char	*ft_strjoin1(char const *s1, char const *s2);
 char	*ft_strjoin2(char const *s1, char const *s2);
 char	*ft_strjoin3(char const *s1, char const *s2);
 int	pipe_handler(t_data *d_env, char **input, int *i);
-void	puterror(char *str);
 void	*ft_memdel(void *ptr);
 int pipe_is_after(char **input, int i);
 int exec(char *cmd);
@@ -276,6 +274,7 @@ int		ft_hd_exist(char *line);
 int	ft_here_doc(char *line);
 
 char	*ft_purge_q(char *line);
+int	pipex2(char *cmd);
 
 char *tokenize(char *line);
 char **parsing(char *input);

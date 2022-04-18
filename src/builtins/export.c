@@ -1,5 +1,21 @@
 # include "../../inc/minishell.h"
 
+int checkvalid(char *cmd)
+{
+    int i = 0;
+    while(cmd[i])
+    {
+        if((ft_isalnum(cmd[i]) == 0 && cmd[i] != '\'' && cmd[i] != '"' && cmd[i] != '_') || ft_isdigit(cmd[0]) == 1 || cmd[0] == '=')
+        {
+            puterror(cmd, "not a valid identifier");
+            data->lastret = 1;
+            return 0;
+        }
+        i++;
+    }
+    return 1;
+}
+
 void export_print()
 {
     int len = splitlen(data->env);
@@ -29,9 +45,11 @@ int export(char **cmd)
     int i = 1;
     while(cmd[i])
     {
+        if(checkvalid(cmd[i]))
+            return 0;
         my_setenv(cmd[i]);
         i++;
     }
-
+    data->lastret = 0;
     return 0;
 }

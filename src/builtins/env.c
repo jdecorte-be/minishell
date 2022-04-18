@@ -1,22 +1,5 @@
 # include "../../inc/minishell.h"
 
-int checkvalid(char *cmd)
-{
-    int i = 0;
-    while(cmd[i])
-    {
-		if(cmd[0] != '=' && cmd[i] == '=')
-			return -1;
-        else if((ft_isalnum(cmd[i]) == 0 && cmd[i] != '\'' && cmd[i] != '"' && cmd[i] != '_') || ft_isdigit(cmd[0]) == 1)
-        {
-            printf("minishell: unset: %s: not a valid identifier\n", cmd);
-            return 0;
-        }
-        i++;
-    }
-    return 1;
-}
-
 char *findenv(char *name, int *offset)
 {
 	int len;

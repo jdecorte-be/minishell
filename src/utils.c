@@ -1,13 +1,12 @@
 #include "../inc/minishell.h"
 
-void	puterror(char *str)
+void	puterror(char *cmd, char *msg)
 {
-	int	i;
-
-	i = -1;
-	while (str[++i])
-		write(2, &str[i], 1);
-	// exit(0);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(msg, 2);
+	ft_putstr_fd("\n", 2);
 }
 
 void	*ft_memdel(void *ptr)

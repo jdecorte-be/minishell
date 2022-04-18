@@ -6,7 +6,7 @@ void printlist(t_token *token)
     int i = 0;
     while(token)
     {
-        printf("%s\n", token->cmd);
+        printf("%s|\n", token->cmd);
         printf("%d\n", token->redirect.infd);
         printf("%d\n", token->redirect.outfd);
         printf("================================================================\n");
@@ -55,7 +55,7 @@ int	main(int ac, char **av, char **env)
     data->env = env;
     // shlvlhandler(data);
     if(ac != 1)
-        puterror("\e[0;37mUse : ./minishell without arguments\n");
+        puterror("\e[0;37mUse", "./minishell without arguments");
     while (1)
     {
         signal(SIGINT, sig_handler);
@@ -71,7 +71,7 @@ int	main(int ac, char **av, char **env)
     
         line = ft_epur_str(ft_chwc((ft_chdir(ft_chdollar(ft_pgross_str((line)))))));
         t_token *token = ft_parsing(line);
-        // printlist(token);
+        printlist(token);
         // to delete
         execute(token);
     }
