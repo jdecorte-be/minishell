@@ -25,7 +25,7 @@ SRCS = 	src/main.c\
 		src/exec/ope.c\
 		src/builtins/exit.c\
 		\
-		src/lst/cmdlst.c\
+		src/lst/*.c\
 		src/parsing/parsing.c\
 		src/parsing/file.c\
 		src/utils/*\

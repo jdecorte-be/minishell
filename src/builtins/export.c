@@ -40,7 +40,7 @@ void export_print()
     {
         int j = i + 1;
         while (++j < len)
-            if (ft_strcmp(env[i], data->env[j]) > 0 && data->env[i] && data->env[j])
+            if (ft_strcmp(env[i], env[j]) > 0 && data->env[i] && data->env[j])
             {
                 char* temp = data->env[i]; 
                 data->env[i] = data->env[j]; 

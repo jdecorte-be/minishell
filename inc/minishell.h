@@ -39,8 +39,8 @@ typedef struct s_redirect
 	t_list	*outfile;
 	int		infd;
 	int		outfd;
-	int		open;
-	int		open2;
+	t_hd	*open;
+	t_hd	*open2;
 }	t_redirect;
 
 typedef struct s_token
@@ -169,7 +169,6 @@ int execute(t_token *token);
 
 //================================================================
 
-t_cmd	*ft_cmdnew(char	*line);
 t_cmd	*ft_cmdlast(t_cmd *cmd);
 void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new);
 
