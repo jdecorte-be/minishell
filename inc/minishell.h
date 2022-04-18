@@ -26,8 +26,8 @@ typedef struct s_redirect
 	t_list	*outfile;
 	int		infd;
 	int		outfd;
-	int		open;
-	int		open2;
+	t_hd	*open;
+	t_hd	*open2;
 }	t_redirect;
 
 typedef struct s_token

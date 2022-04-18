@@ -28,9 +28,9 @@ int	main(int argc, char **argv, char **envp)
 			exit(0);
 		// 	// break;
 		line = ft_epur_str(ft_chwc(ft_add_q_dollar(ft_chdir(ft_chdollar(ft_pgross_str((line)))))));
-		// data->hd = 0;
+		data->hd = 0;
 
-		tmp = data->hd;
+		// tmp = data->hd;
 		// printf("!\n");
 		// line = ft_chwc(line);
 		// tab = ft_split2(line, "/");
@@ -47,11 +47,15 @@ int	main(int argc, char **argv, char **envp)
 		// 	tmp = tmp->next;
 		// }
 
-		data->hd = ft_hd_finder(line);
+		// data->hd = ft_hd_finder(line);
 
 		token = ft_parsing(line);
 		while (token)
 		{
+			if (token->sup_token)
+				token->redirect = ft_redirect(token->cmd, token->sup_token->redirect, 0, 0);
+			else
+				token->redirect = ft_redirect(token->cmd, ft_init_redirect(), 0, 0);
 			printf("%s\n", token->cmd);
 			printf("%d\n", token->redirect.infd);
 			printf("%d\n", token->redirect.outfd);
@@ -65,8 +69,8 @@ int	main(int argc, char **argv, char **envp)
 				token = token->next;
 		}
 
-		hd = ft_sort_hd(hd, line, token);
-		printf("%s\n", line);
+		// hd = ft_sort_hd(hd, line, token);
+		// printf("%s\n", line);
 
 
 

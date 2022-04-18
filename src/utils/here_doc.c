@@ -88,19 +88,39 @@ int	ft_here_doc(char *line)
 	return (fd[0]);
 }
 
-t_hd	*ft_hd_order(char *line, t_token *token)
-{
+// t_hd	*ft_hd_order(char *line, t_token *token)
+// {
+// 	size_t	i;
+// 	t_hd	*hd;
 
-}
+// 	i = 0;
+// 	while (token)
+// 	{
 
-t_hd	*ft_sort_hd(t_hd *hd, char *line, t_token *token)
-{
-	int		*tab;
-	size_t	i;
+// 	}
+// }
 
-	tab = ft_hd_to_tab(hd);
-	hd = ft_hd_order(line, token);
-}
+// t_hd	*ft_sort_hd(t_hd *hd, char *line, t_token *token)
+// {
+// 	int		*tab;
+// 	t_hd	*sorted;
+// 	t_token	*tmp;
+// 	size_t	i;
+
+// 	tmp = token;
+// 	tab = ft_hd_to_tab(hd);
+// 	free(hd);
+// 	hd = 0;
+// 	sorted = ft_hd_order(line, tmp);
+// 	i = 0;
+// 	while (sorted)
+// 	{
+// 		i = sorted->fd - 1;
+// 		ft_lstadd_back(&hd, tab[i]);
+// 		sorted = sorted->next;
+// 	}
+// 	return (hd);
+// }
 
 t_hd	*ft_hd_finder(char *line)
 {
@@ -112,7 +132,9 @@ t_hd	*ft_hd_finder(char *line)
 	hd = 0;
 	while (line[end])
 	{
-		if (ft_strchr("\'\"", line[end]))
+		if (line[end] == '(')
+			ft_skip_p(line, &end);
+		else if (ft_strchr("\'\"", line[end]))
 			ft_skip_q(line, &end);
 		else if (!ft_strncmp(line + end, "<< ", 2))
 		{

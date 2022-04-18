@@ -14,6 +14,8 @@ t_token	*ft_parsing2(t_token *sup_token)
 	tmp = token;
 	while (tmp)
 	{
+		ft_hdadd_back(&data->hd, ft_hd_finder(tmp->cmd));
+		tmp->redirect = ft_init_redirect();
 		// if (tmp->next && !ft_strcmp(tmp->next->cmd, "|"))
 		// {
 		// 	if (pipe(fd) == -1)
@@ -26,13 +28,13 @@ t_token	*ft_parsing2(t_token *sup_token)
 		// 	tmp->redirect = ft_redirect(tmp->cmd, sup_token->redirect, 2, fd[0]);
 		// }
 		// else
-		tmp->redirect = ft_redirect(tmp->cmd, sup_token->redirect, 0, 0);
+		// tmp->redirect = ft_redirect(tmp->cmd, sup_token->redirect, 0, 0);
 		// if (ft_hd_exist(tmp->cmd))
 		// {
 		// 	ft_here_doc(tmp);
 		// 	printf("%d\n", tmp->redirect.infd);
 		// }
-		tmp->cmd = ft_cut_chevron(tmp->cmd);
+		// tmp->cmd = ft_cut_chevron(tmp->cmd);
 		// printf("cmd %s\n", tmp->cmd);
 		// printf("in %d\n", tmp->redirect.infd);
 		// printf("out %d\n", tmp->redirect.outfd);
@@ -57,12 +59,14 @@ t_token	*ft_parsing(char *line)
 	while (tmp)
 	{
 
+		ft_hdadd_back(&data->hd, ft_hd_finder(tmp->cmd));
 		// printf("tmp = %s\n", tmp->cmd);
 		// if (tmp->next && !ft_strcmp(tmp->next->cmd, "|"))
 		// {
 		// 	// printf("1\n");
 		// 	if (pipe(fd) == -1)
 		// 		ft_error(3);
+		tmp->redirect = ft_init_redirect();
 		// 	tmp->redirect = ft_redirect(tmp->cmd, ft_init_redirect(), 1, fd[1]);
 		// }
 		// else if (!ft_strcmp(tmp->cmd, "|"))
@@ -73,13 +77,13 @@ t_token	*ft_parsing(char *line)
 		// 	tmp->redirect = ft_redirect(tmp->cmd, ft_init_redirect(), 2, fd[0]);
 		// }
 		// else
-		tmp->redirect = ft_redirect(tmp->cmd, ft_init_redirect(), 0, 0);
+		// tmp->redirect = ft_redirect(tmp->cmd, ft_init_redirect(), 0, 0);
 		// if (ft_hd_exist(tmp->cmd))
 		// {
 		// 	ft_here_doc(tmp);
 		// 	printf("%d\n", tmp->redirect.infd);
 		// }
-		tmp->cmd = ft_cut_chevron(tmp->cmd);
+		// tmp->cmd = ft_cut_chevron(tmp->cmd);
 		// printf("cmd %s\n", tmp->cmd);
 		// printf("in %d\n", tmp->redirect.infd);
 		// printf("out %d\n", tmp->redirect.outfd);
@@ -92,7 +96,17 @@ t_token	*ft_parsing(char *line)
 
 void	ft_redirect_for_john(t_token *token)
 {
+	t_token	*tmp;
+
+	tmp = token;
 	token->redirect = ft_redirect(token->cmd, token->redirect, 0, 0);
-	if (token->sub_token)
-		token->sub_token->redirect = token->redirect;
+	if (tmp->sub_token)
+	{
+		tmp = tmp->sub_token;
+		while (tmp)
+		{
+			tmp->redirect = tmp->sup_token->redirect;
+			tmp = tmp->next;
+		}
+	}
 }
