@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:57:04 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 16:03:59 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/04 21:16:50 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,15 @@ int	ft_isprohibited_2_1(char *line, size_t *i, int *par)
 	else if (line[ft_next_word(line, *i)] && !ft_strchr("&|",
 			line[ft_next_word(line, *i)]))
 		return (ft_p_unexpected(line, ft_next_word(line, *i)));
+	return (0);
+}
+
+int	ft_next_p(char *line, size_t i)
+{
+	while (line[i] != ')')
+		i++;
+	if (line[i] != ')')
+		return (1);
 	return (0);
 }
 
@@ -51,7 +60,8 @@ int	ft_isprohibited_2(char *line, size_t *i, int *quote, int *par)
 	}
 	else if ((!(*i) || ft_isspace(line[(*i) - 1])) && ft_check_p_ok(line, *i))
 		return (1);
-	else if (line[*i] == '(')
+	else if (line[*i] == '(' && ++(*par)
+		&& line[(*i) + 1] && ft_next_p(line, *i))
 		return (ft_isprohibited_2_1(line, i, par));
 	else if (line[*i] == ')' && (--(*par) < 0))
 		return (ft_parse_error(2));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_chwc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:41:40 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 16:07:28 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/05 01:56:09 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ t_list	*ft_wcfile(char *wc, char *path, char mode, char *add)
 	match = ft_readfile(wc, loc, mode, add);
 	if (closedir(loc) == -1)
 		ft_error(6);
+	free(wc);
 	return (match);
 }

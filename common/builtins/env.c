@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:24:56 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/05 19:36:48 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/05 19:39:59 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,17 @@ int	my_setenv(char *var)
 	if (c)
 	{
 		if (var[egal_len(var)] != '=')
+		{
+			free(value);
+			free(name);
 			return (0);
+		}
 		tmp = value;
 		if ((ft_strlen(c) >= ft_strlen(value)))
 		{
 			while ((*c++ = *value++));
+			free(tmp);
+			free(name);
 			return (0);
 		}
 	}

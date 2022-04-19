@@ -6,7 +6,7 @@
 /*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:55:04 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 21:43:10 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/05/04 19:05:05 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ char	*get_path(char *cmd)
 	if (!allpath)
 		return (cmd);
 	s_cmd = ft_split2(cmd, " ");
+	if (access(s_cmd[0], F_OK | X_OK) == 0)
+		return (s_cmd[0]);
 	while (allpath[++i])
 	{
 		exec = access_path(allpath, s_cmd, i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:59:29 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 21:21:11 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/05/04 23:35:03 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_token_free_and_sup(t_token **token)
 
 	tmp = *token;
 	*token = (*token)->sup_token;
+	(*token)->sub_token = 0;
 	free(tmp->cmd);
 	free(tmp);
 }	

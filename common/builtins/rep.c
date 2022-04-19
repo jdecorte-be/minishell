@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:51:11 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 21:29:36 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/04 21:17:55 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	cd(char **cmd)
 		if (pwd_var)
 		{
 			tmp = my_getenv("PWD", NULL);
-			tmp = ft_strjoin2("OLDPWD=", tmp);
+			tmp = ft_strjoin("OLDPWD=", tmp);
 			my_setenv(tmp);
 			free(tmp);
 			tmp = ft_strjoin("PWD=", pwd_buff);

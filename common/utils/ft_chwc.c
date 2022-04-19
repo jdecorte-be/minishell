@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_chwc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:47:02 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/05 00:25:23 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_chwc2_free(char *pref, char *suff, t_tmp *tmp)
 {
 	free(pref);
 	free(suff);
-	free(tmp->tab);
+	ft_free_tab(tmp->tab);
 }
 
 char	*ft_chwc2(char *line)
@@ -58,7 +58,7 @@ char	*ft_chwc2(char *line)
 	tmp.lst = match;
 	while (tmp.lst)
 	{
-		tmp.lst->content = ft_trijoin(pref, tmp.lst->content, suff, 0);
+		tmp.lst->content = ft_trijoin(pref, tmp.lst->content, suff, 2);
 		tmp.lst = tmp.lst->next;
 	}
 	tmp.lst = match;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ope.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:49:05 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 16:25:56 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/05 01:22:26 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	exec_pipe(t_token *tmp)
 	int	ret;
 
 	ret = 1;
-	if (what_im(tmp->cmd) == 0 && \
-		what_im(tmp->next->cmd) == 3 && !tmp->next->next)
+	if (tmp && what_im(tmp->cmd) == 0 && tmp->next
+		&& what_im(tmp->next->cmd) == 3 && !tmp->next->next)
 		printf("prohibited character or input not close\n");
 	else
 	{

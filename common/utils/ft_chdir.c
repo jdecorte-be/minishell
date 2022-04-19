@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_chdir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:45:53 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 16:07:35 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/04 19:36:17 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ char	*ft_getpwd(char c)
 
 	if (ft_strchr("0+", c))
 	{
-		return (getenv("PWD"));
+		return (my_getenv("PWD", 0));
 	}
 	else if (c == '-')
 	{
-		str = getenv("OLDPWD");
+		str = my_getenv("OLDPWD", 0);
 		if (str == 0)
 			str = "~-";
 		return (str);

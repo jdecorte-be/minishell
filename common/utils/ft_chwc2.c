@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_chwc2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 23:04:24 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/05 01:41:19 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_chwc_str2(t_tmp *tmp, t_list **name, t_list **wc, t_list **woq)
 	size_t	i;
 
 	i = 0;
+	free(tmp->str);
 	while (((char *)((*wc)->content))[i++])
 		tmp->end++;
 	if ((*name)->content)
@@ -54,6 +55,7 @@ void	ft_chwc_str2(t_tmp *tmp, t_list **name, t_list **wc, t_list **woq)
 
 void	ft_chwc_str3(t_tmp *tmp, char *line, t_list **wc, int e)
 {
+	free(tmp->str);
 	if (e == 1)
 	{
 		while (line[tmp->end] && ft_exist(line + tmp->end, tmp->len - 1)

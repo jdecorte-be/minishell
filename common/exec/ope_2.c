@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ope_2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:47:39 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 16:28:24 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/04 23:35:21 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,14 @@ void	execute(t_token *token)
 	while (tmp && g_data->hd_stop == 0)
 	{
 		init_2(tmp);
+		if (ft_strlen(tmp->cmd) == 0)
+			return ;
 		if (what_im(tmp->cmd) == 0)
 			execute_2(&is_or, &is_and, tmp, start);
 		else
 			execute_5(&is_and, &is_or, start, tmp);
+		ft_clean_hd(tmp->redirect.open);
+		ft_clean_hd(tmp->redirect.open2);
 		tmp = tmp->next;
 		start = 0;
 	}

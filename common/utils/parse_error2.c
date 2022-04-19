@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:54:36 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/05/03 18:25:21 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/04 21:17:17 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ int	ft_check_p_ok(char *line, size_t i)
 		if (line[i] && line[i] == '(')
 		{
 			str = ft_substr(line, start, i - start - 1);
+			// printf("2%s\n", str);
 			write(2, "minishell: syntax error near unexpected token `", 47);
 			write(2, str, ft_strlen(str));
 			write(2, "\'\n", 2);
+			free(str);
 			return (1);
 		}
 	}
@@ -63,10 +65,11 @@ int	ft_p_unexpected(char *line, size_t end)
 	while (line[end] && !ft_isspace(line[end]))
 		end++;
 	str = ft_substr(line, start, end - start);
-	printf("%s\n", str);
+	// printf("1%s\n", str);
 	write(2, "minishell: syntax error near unexpected token `", 47);
 	write(2, str, ft_strlen(str));
 	write(2, "\'\n", 2);
+	free(str);
 	g_data->lastret = 258;
 	return (1);
 }
