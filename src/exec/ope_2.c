@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ope_2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:47:39 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/07 19:51:34 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/24 00:26:11 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	execute(t_token *token)
 
 	tmp = token;
 	init(&start, &is_and, &is_or, &is_ope);
-	while (tmp)
+	while (tmp && g_data->hd_stop == 0)
 	{
 		init_2(tmp);
 		if (what_im(tmp->cmd) == 0)
