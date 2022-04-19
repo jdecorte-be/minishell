@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:57:04 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/06 20:59:05 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/22 18:07:58 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ int	ft_isprohibited_2(char *line, size_t *i, int *quote, int *par)
 	if (ft_strchr("\'\"", line[*i]))
 	{
 		(*quote)++;
-		ft_skip_q(line, i);
+		c = line[(*i)++];
+		while (line[*i] && line[*i] != c)
+			(*i)++;
+		if (line[*i] && line[*i] == c)
+			(*quote)++;
 	}
 	else if (ft_strchr("\\;", line[*i]))
 		return (ft_parse_error(1));
