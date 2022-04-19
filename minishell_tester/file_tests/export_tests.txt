@@ -1,0 +1,61 @@
+- Export part : For next tests, you will need : \\\033[0;33munset, env, echo, pipes, execve and semicolons (;).
+env | grep "_="
+export | grep "SHLVL"
+export | grep "OLDPWD"
+export | grep "PWD"
+export $? 
+export TEST
+export TEST=
+export TEST=123
+export ___TEST=123
+export --TEST=123
+export ""=""
+export ''=''
+export "="="="
+export '='='='
+export TE\\\ST=100
+export TE-ST=100
+export -TEST=100
+export TEST-=100
+export _TEST=100
+export | grep "SHLVL"
+export TEST
+export ==========
+export 1TEST=
+export TEST
+export ""=""
+export TES=T=""
+export TE+S=T=""
+export TES\\\\T=123
+export TES.T=123
+export TES\\\$T=123
+export TES\\\\T
+export TES.T=123
+export TES+T=123
+export TES=T=123
+export TES}T=123
+export TES{T=123
+export TES-T=123
+export -TEST=123
+export _TEST=123
+export TES_T=123
+export TEST_=123
+export TE*ST=123
+export TES#T=123
+export TES@T=123
+export TES!T=123
+export TES$?T=123
+export =============123
+export +++++++=123
+export ________=123
+export export
+export echo
+export pwd
+export cd
+export export
+export unset
+export sudo
+export TES^T=123
+export TES!T=123
+export TES\~T=123
+export TEST+=100

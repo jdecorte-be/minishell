@@ -1,0 +1,5 @@
+env | grep "_="
+whoami | grep $USER
+whoami | grep $USER > tmp/file
+whoami | cat -e | cat -e > tmp/file
+whereis ls | cat -e | cat -e > test

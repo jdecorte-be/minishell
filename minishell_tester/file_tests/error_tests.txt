@@ -1,0 +1,47 @@
+- Errors part : For next tests, you will need : \\\033[0;33mall built-in, redirections (normal and stderror) and semicolons (;).
+test
+| test
+echo > <
+echo | |
+<
+|
+| | |
+hello world
+||||||||
+            
+cat wouaf wouaf
+>
+>>>>>>>>
+<<<<<<<<<
+> > > >
+>> >> >> >>
+~
+<<
+/Users
+ 
+.
+..
+/
+\\\
+EechoE
+.echo.
+>echo>
+<echo<
+>>echo>>
+echo
+|echo|
+echo -n
+echo -n
+echo
+echo something
+rm -f something
+cat something
+| echo -n oui
+echo -n oui
+trying to destroy your minishell
+trying something again echo if you see this message thats not a good new
+qewew
+wtf
+hi im thallard
+nice to meet you if these tests are green
+your minishell is perfect

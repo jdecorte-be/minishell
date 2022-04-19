@@ -1,0 +1,28 @@
+- CD part : For next tests, you will need : \\\033[0;33mecho, pwd, unset, redirections (normal and stderror) and semicolons (;).
+cd 
+cd .. 
+cd . 
+cd /Users 
+cd // 
+cd '//' 
+cd ////// 
+cd ./././ 
+cd /
+cd '/////' 2>/dev/null 
+cd '/etc' 
+cd '/var' 
+cd "$PWD/file_tests" 
+cd "doesntexist" 
+cd "doesntexist" 2>/dev/null 
+cd ../../..
+cd "wtf" 2>/dev/null 
+cd .. 
+cd ..
+cd ?
+cd +
+cd _
+cd woof
+cd bark bark
+cd '/' 
+cd $PWD/file_tests 
+cd $OLDPWD/something 
