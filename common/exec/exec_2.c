@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:55:04 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/04 19:05:05 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/05/07 16:47:21 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ char	*get_path(char *cmd)
 	char	**allpath;
 	char	**s_cmd;
 	char	*exec;
+	char	*ret;
 
 	i = -1;
 	allpath = ft_split(my_getenv("PATH", NULL), ":");
@@ -86,7 +87,11 @@ char	*get_path(char *cmd)
 		return (cmd);
 	s_cmd = ft_split2(cmd, " ");
 	if (access(s_cmd[0], F_OK | X_OK) == 0)
-		return (s_cmd[0]);
+	{
+		ret = s_cmd[0];
+		ft_free_tab(s_cmd);
+		return (ret);
+	}
 	while (allpath[++i])
 	{
 		exec = access_path(allpath, s_cmd, i);

@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:55:45 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 16:06:52 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/08 03:28:23 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ int	ft_here_doc(char *line)
 		ft_exit(0);
 	if (!pid)
 		putin_hd(line, fd);
+	else
+		close(fd[1]);
 	waitpid(pid, 0, 0);
 	return (fd[0]);
 }
