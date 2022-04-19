@@ -1,4 +1,5 @@
 #include "../../inc/minishell.h"
+#include "../../wraloc.h"
 
 int what_im(char *input)
 {
@@ -23,7 +24,7 @@ int exec_pipe(t_token *tmp)
 {
 	int ret = 0;
 
-	while(data->is_pipe)
+	while(data->is_pipe && tmp->cmd)
 	{
 		tmp->cmd = ft_add_q_dollar(tmp->cmd);
 		tmp->cmd = ft_chdollar(tmp->cmd);

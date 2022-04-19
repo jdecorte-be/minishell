@@ -56,7 +56,6 @@ int my_setenv(char *var)
 	return (0);
 }
 
-// * Fix and Work
 char *my_getenv(char *name, int *index)
 {
 	int		i;

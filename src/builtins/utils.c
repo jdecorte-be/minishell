@@ -10,6 +10,8 @@ void *ft_realloc(void *ptr, size_t size)
 	if (!size)
 		return (ptr);
 	new_ptr = malloc(size);
+    if(!new_ptr)
+        return (NULL);
 	ft_memcpy(new_ptr, ptr, size);
 	return (new_ptr);
 }

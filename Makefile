@@ -21,7 +21,6 @@ SRCS = 	src/main.c\
         libft/libft.a\
 		src/signaux.c\
 		src/exec/exec.c\
-		src/exec/pipe.c\
 		src/exec/ope.c\
 		src/builtins/exit.c\
 		\

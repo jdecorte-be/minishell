@@ -12,6 +12,7 @@ int syntax_check(t_token *token)
         return 0;
     while(tmp)
     {
+        printf("%s: ", tmp->cmd);
         old_ope = is_ope;
         if(what_im(tmp->cmd) == 0)
             is_ope = 0;
@@ -48,11 +49,14 @@ char *prompt()
 {
     char    *path = NULL;
     char    *line;
+    char *sub;
 
     path = getcwd(path, 1024);
     int i = ft_strlen(path);
     while(path[--i] != '/');
-    line = ft_strjoin(ft_substr(path, i + 1, ft_strlen(path))," ❯ ");
+    sub = ft_substr(path, i + 1, ft_strlen(path));
+    line = ft_strjoin(sub," ❯ ");
+    free(sub);
     return line;
 }
 
@@ -61,33 +65,15 @@ int	main(int ac, char **av, char **env)
     (void)av;
 	char	*line;
 
+
+    if(ac != 1)
+        puterror("\e[0;37mUse", "./minishell without arguments");
     if(!(data = malloc(sizeof(t_data))))
         return 0;
     data->lastret = 0;
     data->env = env;
     data->hd = 0;
-
     shlvlhandler();
-   
-
-
-    // * TESTER ===============================
-    if (ac >= 3 && !ft_strncmp(av[1], "-c", 2))
-    {
-        char *tmp = ft_strdup(av[2]);
-        line = ft_epur_str(ft_chdir(ft_pgross_str((tmp))));
-        t_token *token = ft_parsing(line);
-        if(syntax_check(token) == 0);
-        else
-            execute(token);
-        exit(data->lastret);
-    }
-
-
-
-
-    if(ac != 1)
-        puterror("\e[0;37mUse", "./minishell without arguments");
     while (1)
     {
         line = readline(prompt());
@@ -102,11 +88,14 @@ int	main(int ac, char **av, char **env)
             add_history(line);
         line = ft_epur_str(ft_chdir(ft_pgross_str((line))));
         t_token *token = ft_parsing(line);
-        if(syntax_check(token) == 0);
+        if(syntax_check(token) == 0)
+            return 0;
         else
             execute(token);
 
 
     }
-
+    exit(data->lastret);
+    free(data->env);
+    free(data);
 }

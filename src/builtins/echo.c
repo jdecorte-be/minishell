@@ -12,7 +12,7 @@ int echo(char **cmd)
         ft_putstr_fd("\n", 1);
         return 0;
     }
-    while(cmd[i][0] == '-')
+    while(cmd[i] && cmd[i][0] == '-')
     {
         j = 1;
         while(cmd[i][j] && cmd[i][j] == 'n')
