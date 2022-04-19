@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ope_2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:47:39 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/04 20:22:18 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/05/04 23:35:21 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,4 @@ void	execute(t_token *token)
 		tmp = tmp->next;
 		start = 0;
 	}
-	ft_tokenclean_all(&token);
 }
