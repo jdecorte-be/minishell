@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/05/08 03:29:50 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/08 03:35:38 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	exec(char *cmd)
 	else
 		ret = (cmd_sys(ft_ecrase_p(cmd)));
 	ft_free_tab(s_cmd);
+	ft_free_tab(s_cmd2);
 	free(tmp);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:55:54 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 16:18:15 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/08 04:04:24 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	**array_dup(void)
 	int		i;
 
 	i = 0;
-	res = malloc(sizeof(char *) * splitlen(g_data->env));
+	res = malloc(sizeof(char *) * (splitlen(g_data->env) + 1));
 	if (!res)
 		return (NULL);
 	while (i < splitlen(g_data->env))
@@ -90,5 +90,6 @@ char	**array_dup(void)
 			return (NULL);
 		i++;
 	}
+	res[i] = NULL;
 	return (res);
 }

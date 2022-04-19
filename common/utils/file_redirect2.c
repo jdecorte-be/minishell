@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_redirect2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 18:27:43 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/05/05 02:25:03 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/08 03:39:00 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,5 @@ char	*ft_chrredirect(char *line, t_hd **open, t_hd **open2, size_t *v)
 	while (line[end] && !ft_isspace(line[end]))
 		end++;
 	*v = end;
-
 	return (ft_substr(line, start, end - start));
 }

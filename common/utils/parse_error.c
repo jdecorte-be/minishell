@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:57:04 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/04 21:16:50 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/08 03:44:37 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,22 @@ int	ft_next_p(char *line, size_t i)
 	return (0);
 }
 
-int	ft_isprohibited_2(char *line, size_t *i, int *quote, int *par)
+void	ope_quotes(int *quote, char *line, size_t *i)
 {
 	char	c;
 
-	if (ft_strchr("\'\"", line[*i]))
-	{
+	(*quote)++;
+	c = line[(*i)++];
+	while (line[*i] && line[*i] != c)
+		(*i)++;
+	if (line[*i] && line[*i] == c)
 		(*quote)++;
-		c = line[(*i)++];
-		while (line[*i] && line[*i] != c)
-			(*i)++;
-		if (line[*i] && line[*i] == c)
-			(*quote)++;
-	}
+}
+
+int	ft_isprohibited_2(char *line, size_t *i, int *quote, int *par)
+{
+	if (ft_strchr("\'\"", line[*i]))
+		ope_quotes(quote, line, i);
 	else if (ft_strchr("\\;", line[*i]))
 		return (ft_parse_error(1));
 	else if (ft_strchr("<>", line[*i]))
