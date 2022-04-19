@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/05/08 17:58:27 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/10 00:58:21 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ int	exec(char *cmd)
 	char	*tmp;
 
 	ret = 0;
+	signal(SIGINT, c_handler_2);
+	signal(SIGQUIT, q_handler);
+	signal(SIGKILL, d_handler);
 	tmp = ft_ecrase_q(cmd);
 	s_cmd = ft_split2(tmp, " ");
 	ret = lexer(s_cmd, cmd);

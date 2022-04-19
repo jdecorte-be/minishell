@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 18:05:06 by jdecorte42        #+#    #+#             */
-/*   Updated: 2022/05/08 18:05:15 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/10 01:02:45 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,19 @@ void	here_doc_sig2(int sig)
 	write(1, "\n", 1);
 	rl_on_new_line();
 	exit(0);
+}
+
+void	c_handler_2(int sig)
+{
+	(void) sig;
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+}
+
+void	d_handler(int sig)
+{
+	(void)sig;
+	printf("\n");
+	rl_on_new_line();
 }
