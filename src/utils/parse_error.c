@@ -5,6 +5,8 @@ int	ft_parsing_redirect(char *line, size_t i)
 	int a;
 
 	a = 0;
+	if (!line[i + 1] && ++a)
+		write(2, "minishell: syntax error near unexpected token `newline'\n", 56);
 	i = ft_next_word(line, i);
 	if (line[i] == '<' && ++a)
 		write(2, "minishell: syntax error near unexpected token `<'\n", 51);
