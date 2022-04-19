@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:02:10 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/02 18:04:11 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/03 16:18:31 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,7 +325,7 @@ void		c_handler_doc(int sig);
 
 void		ft_exit(int numerror);
 
-char		**array_dup(char **tab);
+char		**array_dup(void);
 
 void		init(int *start, int *is_and, int *is_or, int *is_ope);
 void		init_2(t_token *tmp);
