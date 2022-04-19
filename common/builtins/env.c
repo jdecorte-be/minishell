@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:24:56 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 16:36:56 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/03 18:10:45 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int	my_setenv(char *var)
 			while (*c && *value)
 				*c++ = *value++;
 		free(tmp);
+		free(name);
 		return (0);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:54:36 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/05/02 19:50:29 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/03 18:25:21 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int	ft_token_error(t_token *token)
 	size_t	len;
 	t_token	*tmp;
 
+	if (!token)
+		return (1);
 	len = ft_strlen(token->cmd);
 	tmp = ft_tokenlast(token);
 	if ((len >= 2 && (!ft_strncmp("&&", tmp->cmd, 1)
