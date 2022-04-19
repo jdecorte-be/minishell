@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect_chwc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:50:47 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/05 02:21:01 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/08 19:42:01 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,42 +82,10 @@ char	*ft_transf(char *line)
 	return (ft_lstmerge(match2));
 }
 
-int	ft_transf_int(char *line)
-{
-	t_tmp	tmp;
-	char	*pref;
-	char	*suff;
-	t_list	*match;
-	t_list	*match2;
-
-	tmp.i = 0;
-	tmp.tab = ft_split4(line, "/");
-	ft_transf2(&tmp, &suff, &pref);
-	match = ft_wcfile(tmp.str, getcwd(tmp.path, PATH_MAX), 0, 0);
-	if (ft_lstsize(match) > 1 || ft_lstsize(match) < 1)
-	{
-		ft_lstclear(&match, free);
-		return (0);
-	}
-	tmp.lst = match;
-	tmp.lst->content = ft_trijoin(pref, tmp.lst->content, suff, 2);
-	match2 = 0;
-	if (!access(tmp.lst->content, F_OK))
-		ft_lstadd_back(&match2, ft_lstnew(ft_strdup(tmp.lst->content)));
-	else if (!access(ft_trijoin(tmp.path, "/", tmp.lst->content, 2), F_OK))
-		ft_lstadd_back(&match2, ft_lstnew(ft_strdup(tmp.lst->content)));
-	ft_lstclear(&match, free);
-	if (match2)
-	{
-		ft_lstclear(&match2, free);
-		return (1);
-	}
-	return (0);
-}
-
 void	ft_redirect_chwc2(t_list **tmp, t_list **name, t_list **woq, int e)
 {
 	char	*to_free;
+
 	if (e == 1)
 	{
 		while (*tmp)
@@ -160,6 +128,5 @@ char	*ft_redirect_chwc(char *line)
 	if (!name)
 		return (line);
 	str = ft_chwc_str(line, name, wc, woq);
-	// free(line);
 	return (str);
 }

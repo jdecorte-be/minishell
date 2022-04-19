@@ -6,20 +6,11 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:33:24 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/08 03:47:18 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/08 19:30:32 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int			ft_redirect_check_2(t_list *tmp, char *c);
-int			ft_redirect_check(t_redirect file);
-void		ft_chrredirect_2(t_hd **open, t_hd **open2, int i, int i2);
-char		*ft_chrredirect(char *line, t_hd **open, t_hd **open2, size_t *v);
-
-void		ft_file_2(size_t *v, char *line, size_t *i);
-t_list		*ft_file(char *line, char c, t_hd **open, t_hd **open2);
-t_redirect	ft_init_redirect(void);
 
 void	ft_redirect_2_2(t_redirect *file)
 {
@@ -30,35 +21,22 @@ void	ft_redirect_2_2(t_redirect *file)
 	}
 }
 
-void	ft_redirect_2(t_redirect *file, t_redirect *tmp, char *line, char *str)
+void	open_infd(t_redirect *file, t_redirect *tmp, char *line, char *str)
 {
-	if (ft_chwc_ok2(file->infile->content)
-		|| ft_transf_int(file->infile->content))
+	if (file->infd != tmp->infd)
+		close(file->infd);
+	if (file->open->fd == 0)
 	{
-		if (file->infd != tmp->infd)
-			close(file->infd);
-		if (file->open->fd == 0)
-		{
-			str = ft_redirect_chwc(ft_cut_chevron(file->infile->content));
-			line = ft_ecrase_q(str);
-			file->infd = open(line, O_RDONLY);
-			free(str);
-			free(line);
-		}
-		else if (file->open->fd == 1)
-			ft_redirect_2_2(file);
-		if (file->infd == -1)
-			perror("open rd");
+		str = ft_redirect_chwc(ft_cut_chevron(file->infile->content));
+		line = ft_ecrase_q(str);
+		file->infd = open(line, O_RDONLY);
+		free(str);
+		free(line);
 	}
-	else
-	{
-		file->infd = -1;
-		write(2, "minishell: *: ambiguous redirect\n", 33);
-		g_data->lastret = 1;
-	}
-	file->infile = ft_next(file->infile);
-	if (file->open2->next)
-		file->open2 = file->open2->next;
+	else if (file->open->fd == 1)
+		ft_redirect_2_2(file);
+	if (file->infd == -1)
+		perror("open rd");
 }
 
 char	*ft_redirect_3_free(char *str, t_redirect *file)
@@ -101,8 +79,6 @@ void	ft_redirect_3_1(t_redirect *file, t_redirect *tmp, char *to_free)
 
 void	ft_redirect_3(t_redirect *file, t_redirect *tmp, char *to_free)
 {
-	char	*str;
-
 	if (ft_chwc_ok2(file->outfile->content)
 		|| ft_transf_int(file->outfile->content))
 		ft_redirect_3_1(file, tmp, to_free);
@@ -115,32 +91,4 @@ void	ft_redirect_3(t_redirect *file, t_redirect *tmp, char *to_free)
 	file->outfile = ft_next(file->outfile);
 	if (file->open->next)
 		file->open = file->open->next;
-}
-
-t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
-{
-	t_redirect	tmp;
-	char		*to_free;
-	char		*to_free2;
-
-	if (!line)
-		return (file);
-	tmp = file;
-	file.infile = ft_file(line, '<', &file.open, &file.open2);
-	file.outfile = ft_file(line, '>', &file.open, &file.open2);
-	if (e)
-	{
-		if (e == 1)
-			file.outfd = fd;
-		else if (e == 2)
-			file.infd = fd;
-	}
-	if (ft_redirect_check(file))
-	{
-		while (file.infile)
-			ft_redirect_2(&file, &tmp, to_free, to_free2);
-		while (file.outfile)
-			ft_redirect_3(&file, &tmp, to_free);
-	}
-	return (file);
 }

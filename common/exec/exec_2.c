@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:55:04 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/07 16:47:21 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/08 15:28:23 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,32 +56,32 @@ int	subshell(char *line)
 	return (g_data->lastret);
 }
 
-char	*access_path(char **allpath, char **s_cmd, int i)
+char	*access_path(char **allpath, char **s_cmd, char *cmd)
 {
 	char	*path_part;
 	char	*exec;
+	int		i;
 
-	path_part = ft_strjoin(allpath[i], "/");
-	exec = ft_strjoin(path_part, s_cmd[0]);
-	free(path_part);
-	if (access(exec, F_OK | X_OK) == 0)
+	i = -1;
+	while (allpath[++i])
 	{
-		ft_free_tab(s_cmd);
-		return (exec);
+		path_part = ft_strjoin(allpath[i], "/");
+		exec = ft_strjoin(path_part, s_cmd[0]);
+		free(path_part);
+		if (access(exec, F_OK | X_OK) == 0)
+			return (exec);
+		free(exec);
 	}
-	free(exec);
-	return (NULL);
+	return (cmd);
 }
 
 char	*get_path(char *cmd)
 {
-	int		i;
 	char	**allpath;
 	char	**s_cmd;
 	char	*exec;
 	char	*ret;
 
-	i = -1;
 	allpath = ft_split(my_getenv("PATH", NULL), ":");
 	if (!allpath)
 		return (cmd);
@@ -92,13 +92,8 @@ char	*get_path(char *cmd)
 		ft_free_tab(s_cmd);
 		return (ret);
 	}
-	while (allpath[++i])
-	{
-		exec = access_path(allpath, s_cmd, i);
-		if (access(exec, F_OK | X_OK) == 0)
-			return (exec);
-	}
+	exec = access_path(allpath, s_cmd, cmd);
 	ft_free_tab(allpath);
 	ft_free_tab(s_cmd);
-	return (cmd);
+	return (exec);
 }

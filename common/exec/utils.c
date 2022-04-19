@@ -1,41 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 18:15:03 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/08 18:05:20 by jdecorte42       ###   ########.fr       */
+/*   Created: 2022/05/08 17:56:34 by jdecorte42        #+#    #+#             */
+/*   Updated: 2022/05/08 18:04:10 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	newprompt(int sig)
+char	**ecraseq_tab(char *cmd)
 {
-	(void) sig;
-	printf("\n");
-	rl_on_new_line();
-	// rl_replace_line("", 0);
-	rl_redisplay();
-}
+	int		i;
+	char	**tab;
+	char	*tmp;
 
-void	c_handler(int sig)
-{
-	(void) sig;
-	newprompt(sig);
-}
-
-void	c_handler_fork(int sig)
-{
-	(void) sig;
-	rl_on_new_line();
-}
-
-void	q_handler_fork(int sig)
-{
-	(void) sig;
-	printf("^\\\n");
-	rl_on_new_line();
+	tab = ft_split2(cmd, " ");
+	i = -1;
+	while (tab[++i])
+	{
+		tmp = tab[i];
+		tab[i] = ft_ecrase_q(tab[i]);
+		free(tmp);
+	}
+	return (tab);
 }

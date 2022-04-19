@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:49:05 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/08 03:31:36 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/08 15:52:54 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,37 +29,6 @@ int	what_im(char *input)
 	else if (ft_strcmp(input, ")") == 0)
 		return (5);
 	return (0);
-}
-
-int	exec_pipe(t_token *tmp)
-{
-	int	ret;
-
-	ret = 1;
-	if (tmp && what_im(tmp->cmd) == 0 && tmp->next
-		&& what_im(tmp->next->cmd) == 3 && !tmp->next->next)
-		printf("prohibited character or input not close\n");
-	else
-	{
-		while (g_data->is_pipe && tmp->cmd)
-		{
-			init_2(tmp);
-			if (g_data->is_pipe == 1 && tmp->next \
-					&& what_im(tmp->next->cmd) == 3)
-				ret = pipex(tmp->cmd);
-			else if (g_data->is_pipe == 1 && what_im(tmp->cmd) == 0)
-			{
-				g_data->is_pipe = 0;
-				if (tmp->redirect.outfd == -1 || tmp->redirect.infd == -1)
-					return (1);
-				dup2(tmp->redirect.infd, 0);
-				dup2(tmp->redirect.outfd, 1);
-				ret = exec(tmp->cmd);
-			}
-			tmp = tmp->next;
-		}
-	}
-	return (ret);
 }
 
 void	redirect_exec(t_token *token, int mode)
