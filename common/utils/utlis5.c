@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utlis5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 21:02:12 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/10 16:41:48 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,11 @@ int	ft_next_cmd(char *line, size_t i)
 		i++;
 	while (line[i] && (ft_strchr("|&", line[i]) || ft_isspace(line[i])))
 		i++;
+	return (i);
+}
+
+int	ft_after_p(char *line, size_t i)
+{
+	ft_skip_p(line, &i);
 	return (i);
 }

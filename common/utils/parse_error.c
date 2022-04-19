@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:57:04 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/10 00:58:40 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/10 16:45:26 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@ int	ft_check_p_ok(char *line, size_t i);
 int	ft_p_unexpected(char *line, size_t end);
 int	ft_parse_error(int e);
 
-int	ft_isprohibited_2_1(char *line, size_t *i, int *par)
+int	ft_isprohibited_2_1(char *line, size_t *i)
 {
-	(*par)++;
-	if (line[(*i) + 1] == ')' && (!line[ft_next_word(line, *i)]
+	if (line[(*i) + 2] == ')'
+		&& (!line[ft_next_word(line, ft_after_p(line, *i))]
 			|| ft_strchr("&|", line[ft_next_word(line, *i)])))
 		return (ft_parse_error(2));
-	else if (line[ft_next_word(line, *i)] && !ft_strchr("&|",
-			line[ft_next_word(line, *i)]))
+	else if (line[ft_next_word(line, ft_after_p(line, *i))] && !ft_strchr("&|",
+			line[ft_next_word(line, ft_after_p(line, *i))]))
 		return (ft_p_unexpected(line, ft_next_word(line, *i)));
 	return (0);
 }
 
 int	ft_next_p(char *line, size_t i)
 {
-	while (line[i] != ')')
+	while (line[i] && line[i] != ')')
 		i++;
 	if (line[i] == ')')
 		return (1);
@@ -65,7 +65,7 @@ int	ft_isprohibited_2(char *line, size_t *i, int *quote, int *par)
 		return (1);
 	else if (line[*i] == '(' && ++(*par)
 		&& line[(*i) + 1] && ft_next_p(line, *i))
-		return (ft_isprohibited_2_1(line, i, par));
+		return (ft_isprohibited_2_1(line, i));
 	else if (line[*i] == ')' && (--(*par) < 0))
 		return (ft_parse_error(2));
 	return (0);
