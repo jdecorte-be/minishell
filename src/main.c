@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:16:34 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/20 22:17:08 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/04/23 14:15:51 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	shlvlhandler(void)
 
 	var = my_getenv("SHLVL", NULL);
 	shlvl = ft_atoi(var) + 1;
-	join = ft_strjoin("_=", "/usr/bin/env");
+	join = ft_strdup("_=/usr/bin/env");
 	my_setenv(join);
 	my_setenv("OLDPWD");
 	if (shlvl > 1000)

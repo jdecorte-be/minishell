@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:14:20 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/23 12:54:35 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/23 14:10:01 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,30 +67,25 @@ void	export_print(void)
 			format_env(env[i]);
 		i++;
 	}
-	i = -1;
-	while (++i < len)
-		free(env[i]);
-	free(env);
 }
 
-int	export(char **cmd)
+int export(char **cmd)
 {
-	int	i;
-
-	if (!cmd[1])
-	{
-		export_print();
-		return (0);
-	}
-	i = -1;
-	while (cmd[++i])
-	{
-		if (cmd[i][0] == '_' && cmd[i][1] == '=')
-			return (0);
-		if (!checkvalid(ft_ecrase_q(cmd[i])))
-			return (0);
-		my_setenv(ft_ecrase_q(cmd[i]));
-	}
-	g_data->lastret = 0;
-	return (0);
+    if(!cmd[1])
+    {
+        export_print();
+        return 0;
+    }
+    int i = 1;
+    while(cmd[i])
+    {
+        if(cmd[i][0] == '_' && cmd[i][1] == '=')
+            return 0;
+        if(!checkvalid(ft_ecrase_q(cmd[i])))
+            return 0;
+        my_setenv(ft_ecrase_q(cmd[i]));
+        i++;
+    }
+    g_data->lastret = 0;
+    return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:55:54 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/15 12:49:32 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/23 14:24:54 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	format_env(char *var)
 	char	*sub2;
 
 	sub = ft_substr(var, 0, egal_len(var));
+	if (!ft_strcmp(sub, "_"))
+		return ;
 	printf("declare -x %s", sub);
 	if (var[egal_len(var)] == '=')
 	{
