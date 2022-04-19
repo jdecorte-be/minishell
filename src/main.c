@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:16:34 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/08 04:02:43 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/08 17:19:24 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	shlvlhandler(void)
 	char	*join2;
 	char	*lvl;
 
+	lvl = NULL;
+	join2 = NULL;
 	var = my_getenv("SHLVL", NULL);
 	shlvl = ft_atoi(var) + 1;
 	join = ft_strdup("_=/usr/bin/env");
