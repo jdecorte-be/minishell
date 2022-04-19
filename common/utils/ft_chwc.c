@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:47:02 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/05 00:25:23 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/09 22:58:28 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*ft_chwc2(char *line)
 	while (tmp.tab[tmp.i2])
 		suff = ft_strjoin1(suff, tmp.tab[tmp.i2++]);
 	match = ft_wcfile(tmp.str, getcwd(tmp.path, PATH_MAX), 0, 0);
-	free(tmp.str);
+	// free(tmp.str);
 	tmp.lst = match;
 	while (tmp.lst)
 	{

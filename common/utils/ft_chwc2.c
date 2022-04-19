@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 23:04:24 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/05/05 01:41:19 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/09 23:18:07 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	ft_chwc_str2(t_tmp *tmp, t_list **name, t_list **wc, t_list **woq)
 	size_t	i;
 
 	i = 0;
-	free(tmp->str);
 	while (((char *)((*wc)->content))[i++])
 		tmp->end++;
 	if ((*name)->content)
@@ -55,7 +54,6 @@ void	ft_chwc_str2(t_tmp *tmp, t_list **name, t_list **wc, t_list **woq)
 
 void	ft_chwc_str3(t_tmp *tmp, char *line, t_list **wc, int e)
 {
-	free(tmp->str);
 	if (e == 1)
 	{
 		while (line[tmp->end] && ft_exist(line + tmp->end, tmp->len - 1)
@@ -71,6 +69,7 @@ void	ft_chwc_str3(t_tmp *tmp, char *line, t_list **wc, int e)
 		tmp->str = ft_strjoin3(tmp->str,
 				ft_substr(line, tmp->start, tmp->end - tmp->start));
 	}
+	printf("%s\n", tmp->str);
 }
 
 char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq)
@@ -79,20 +78,37 @@ char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq)
 
 	tmp.end = 0;
 	tmp.str = 0;
+	tmp.lst = wc;
+	while (tmp.lst)
+	{
+		printf("%s\n", tmp.lst->content);
+		tmp.lst = tmp.lst->next;
+	}
+	printf("%s\n", line);
 	while (line[tmp.end])
 	{
 		tmp.start = tmp.end;
 		if (wc)
 		{
+			printf("1\n");
 			tmp.len = ft_strlen(wc->content);
 			if (line[tmp.end] && ft_exist(line + tmp.end, tmp.len - 1)
 				&& !ft_strncmp(line + tmp.end, wc->content, tmp.len -1))
+			{
+				printf("5\n");
 				ft_chwc_str2(&tmp, &name, &wc, &woq);
+			}
 			else
+			{
+				printf("6\n");
 				ft_chwc_str3(&tmp, line, &wc, 1);
+			}
 		}
 		else
+		{
+			printf("2\n");
 			ft_chwc_str3(&tmp, line, &wc, 2);
+		}
 	}
 	return (tmp.str);
 }

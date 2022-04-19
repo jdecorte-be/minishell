@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_redirect.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:33:24 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/08 19:30:32 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/09 22:36:21 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,22 @@ void	ft_redirect_2_2(t_redirect *file)
 	}
 }
 
-void	open_infd(t_redirect *file, t_redirect *tmp, char *line, char *str)
+void	open_infd(t_redirect **file, t_redirect *tmp, char *line, char *str)
 {
-	if (file->infd != tmp->infd)
-		close(file->infd);
-	if (file->open->fd == 0)
+	if ((*file)->infd != tmp->infd)
+		close((*file)->infd);
+	if ((*file)->open->fd == 0)
 	{
-		str = ft_redirect_chwc(ft_cut_chevron(file->infile->content));
+		str = ft_redirect_chwc(ft_cut_chevron((*file)->infile->content));
 		line = ft_ecrase_q(str);
-		file->infd = open(line, O_RDONLY);
-		free(str);
+		(*file)->infd = open(line, O_RDONLY);
+		if (!ft_chwc_ok2((*file)->infile->content))
+			free(str);
 		free(line);
 	}
-	else if (file->open->fd == 1)
-		ft_redirect_2_2(file);
-	if (file->infd == -1)
+	else if ((*file)->open->fd == 1)
+		ft_redirect_2_2((*file));
+	if ((*file)->infd == -1)
 		perror("open rd");
 }
 

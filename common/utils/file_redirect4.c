@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_redirect4.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/08 19:27:22 by jdecorte42        #+#    #+#             */
-/*   Updated: 2022/05/08 19:28:40 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/09 22:31:19 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_redirect_2(t_redirect *file, t_redirect *tmp, char *line, char *str)
 {
 	if (ft_chwc_ok2(file->infile->content)
 		|| ft_transf_int(file->infile->content))
-		open_infd(file, tmp, line, str);
+		open_infd(&file, tmp, line, str);
 	else
 	{
 		file->infd = -1;

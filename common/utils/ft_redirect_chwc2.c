@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect_chwc2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 16:26:38 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/05/08 19:41:53 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/09 20:37:46 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ t_list	*ft_wcsearch2(char *line)
 	return (wc);
 }
 
-void	ft_transf_int_2(t_tmp *tmp, t_list *match, t_list *match2)
+void	ft_transf_int_2(t_tmp *tmp, t_list **match, t_list **match2)
 {
-	tmp->lst = match;
 	if (!access(tmp->lst->content, F_OK))
-		ft_lstadd_back(&match2, ft_lstnew(ft_strdup(tmp->lst->content)));
+		ft_lstadd_back(match2, ft_lstnew(ft_strdup(tmp->lst->content)));
 	else if (!access(ft_trijoin(tmp->path, "/", tmp->lst->content, 2), F_OK))
-		ft_lstadd_back(&match2, ft_lstnew(ft_strdup(tmp->lst->content)));
+		ft_lstadd_back(match2, ft_lstnew(ft_strdup(tmp->lst->content)));
+	ft_lstclear(match, free);
 }
 
 int	ft_transf_int(char *line)
@@ -78,9 +78,9 @@ int	ft_transf_int(char *line)
 		ft_lstclear(&match, free);
 		return (0);
 	}
+	tmp.lst = match;
 	tmp.lst->content = ft_trijoin(pref, tmp.lst->content, suff, 2);
-	ft_transf_int_2(&tmp, match, match2);
-	ft_lstclear(&match, free);
+	ft_transf_int_2(&tmp, &match, &match2);
 	if (match2)
 	{
 		ft_lstclear(&match2, free);
