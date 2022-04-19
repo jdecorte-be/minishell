@@ -1,16 +1,7 @@
--n
-echo "-n -n -n"-n bonjour
-echo "-n '-n'" bonjour
-echo " '$USER' "
-echo text"'$USER'" ' $USER '
-echo ' $USER '
-echo $USER'$USER'text oui oui oui oui $USER oui $USER ''
-echo $USER '' $USER $USER '' $USER '' $USER -n $USER
-echo ' ' ' '
-echo \" \" \" \"\"\" \'\'\'
-echo $USER " "
-echo " $USER "'$PWD'
-echo " $USER $ "'$PWD'
+whoami | grep $USER
+whoami | grep $USER > tmp/file
+whoami | cat -e | cat -e > tmp/file
+whereis ls | cat -e | cat -e > test
 echo > <
 >>>>>>>>
 <<<<<<<<<

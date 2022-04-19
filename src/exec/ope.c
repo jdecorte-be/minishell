@@ -1,17 +1,17 @@
 #include "../../inc/minishell.h"
 
-void redirect(t_token *token, int savein, int saveout)
+void redirect(t_token *token, int *savein, int *saveout)
 {
 	if(token->redirect.outfd != 0)
 	{
-		savein = dup(0);
+		*savein = dup(0);
 		dup2(token->redirect.infd, 0);
 		// data->stdin_reset = dup(0);
 
 	}
 	if(token->redirect.outfd != 1)
 	{
-		saveout = dup(1);
+		*saveout = dup(1);
 		dup2(token->redirect.outfd, 1);
 		// data->stdout_reset = dup(1);
 	}
@@ -62,8 +62,6 @@ int execute(t_token *token)
 	data->is_pipe = 0;
 	int start = 1;
 	t_token *tmp = token;
-	int		savein;
-	int		saveout;
 	int is_and = 0;
 	int is_or = 0;
 	int is_ope = 1;
@@ -71,13 +69,19 @@ int execute(t_token *token)
 
 	while(tmp)
 	{
+		// * touche pas
 		tmp->cmd = ft_add_q_dollar(tmp->cmd);
 		tmp->cmd = ft_chdollar(tmp->cmd);
-
 		ft_redirect_for_john(tmp);
 		tmp->cmd = ft_cut_chevron(tmp->cmd);
 		tmp->cmd = ft_chwc(tmp->cmd);
 
+		// * test
+		printf("%d\n",token->redirect.infd);
+		printf("%d\n",token->redirect.outfd);
+
+
+		// * if is a cmd
 		if(what_im(tmp->cmd) == 0)
 		{
 			if(is_and == 1 && ret == 0)
@@ -92,10 +96,11 @@ int execute(t_token *token)
 				}
 				else
 				{
-					redirect(tmp, savein, saveout);
+					redirect(tmp, &data->stdin_reset, &data->stdout_reset);
 					ret = exec(tmp->cmd);
 				}
 			}
+
 			else if(is_or == 1 && ret != 0)
 			{
 				is_or = 0;
@@ -108,7 +113,7 @@ int execute(t_token *token)
 				}
 				else
 				{
-					redirect(tmp, savein, saveout);
+					redirect(tmp, &data->stdin_reset, &data->stdout_reset);
 					ret = exec(tmp->cmd);
 				}
 			}
@@ -121,16 +126,16 @@ int execute(t_token *token)
 			}
 			else if(start == 1)
 			{
-				redirect(tmp, savein, saveout);
+				redirect(tmp, &data->stdin_reset, &data->stdout_reset);
 				ret = exec(tmp->cmd);
 			}
 
 
-
+			// * reset redir
 			if(tmp->redirect.infd != 0 && data->is_pipe == 0)
-				dup2(savein, 0);
+				dup2(data->stdin_reset, 0);
 			if(tmp->redirect.outfd != 1 && data->is_pipe == 0)
-				dup2(saveout, 1);
+				dup2(data->stdout_reset, 1);
 		}
 		else
 		{

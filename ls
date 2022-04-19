@@ -1,3 +1,5 @@
+0
+3
 Makefile
 a
 a\
@@ -10,6 +12,6 @@ ls
 minishell
 minishell.dSYM
 minishell_tester
-sa
 src
 test
+42-minishell ❯ sds
