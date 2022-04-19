@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:55:04 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/07 18:56:20 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/16 17:19:45 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	subshell(char *line)
 
 	line = ft_epur_str(((ft_chdir((ft_pgross_str((line)))))));
 	token = ft_parsing(line);
+	free(line);
 	execute(token);
 	return (g_data->lastret);
 }

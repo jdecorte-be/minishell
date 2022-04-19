@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:24:56 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/16 14:11:14 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/16 14:37:56 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	end_setenv(char *c, char *name, char *value, int *offset)
 	*c++ = '=';
 	while (*c && *value)
 		*c++ = *value++;
+	free((g_data->env)[*offset]);
 }
 
 void	dont_exist(int *offset)

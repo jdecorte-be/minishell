@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/04/15 13:16:40 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/16 14:57:12 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	not_pid(char *cmd, char **args)
 	if (execve(get_path(cmd), &args[0], g_data->env) == -1)
 	{
 		puterror(ft_ecrase_q(args[0]), "command not found");
+		ft_free_tab(args);
 		ft_exit(127);
 	}
 }
@@ -107,6 +108,9 @@ int	cmd_sys(char *cmd)
 	if (!pid)
 		not_pid(cmd, args);
 	else
+	{
+		ft_free_tab(args);
 		sig(pid, ret);
+	}
 	return (ret % 255);
 }
