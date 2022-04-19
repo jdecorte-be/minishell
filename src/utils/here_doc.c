@@ -68,15 +68,19 @@ int	ft_here_doc(char *line)
 	char	*str;
 	int		fd[2];
 
+	data->hd_stop = 1;
 	// printf("line == %s\n", line);
 	str = 0;
 	if (pipe(fd) == -1)
 		ft_error(3);
 	// limiters = ft_search_limiters(line);
-	while (19)//ft_strcmp(str, line))
+	while (data->hd_stop)//ft_strcmp(str, line))
 	{
 		// printf("salsal\n");
+		signal(SIGINT, c_handler_doc);
 		// printf("lssss\n");
+		if (!data->hd_stop)
+			break ;
 		str = readline("> ");
 		if (!str || !ft_strcmp(str, line))
 			break ;
@@ -85,6 +89,7 @@ int	ft_here_doc(char *line)
 		ft_putstr_fd(str, fd[1]);
 		ft_putchar_fd('\n', fd[1]);
 	}
+	signal(SIGINT, c_handler);
 	free(line);
 	close(fd[1]);
 	return (fd[0]);
@@ -139,6 +144,7 @@ t_hd	*ft_hd_finder(char *line)
 	size_t	end;
 	size_t	start;
 	t_hd	*hd;
+	int		hd_fd;
 	
 	end = 0;
 	hd = 0;
@@ -154,7 +160,9 @@ t_hd	*ft_hd_finder(char *line)
 			start = end;
 			while (line[end] && !ft_isspace(line[end]))
 				end++;
-			ft_hdadd_back(&hd, ft_hdnew((ft_here_doc(ft_substr(line, start, end - start)))));
+			hd_fd = (ft_here_doc(ft_substr(line, start, end - start)));
+			if (hd_fd > -1)
+				ft_hdadd_back(&hd, ft_hdnew(hd_fd));
 		}
 		else
 			end++;

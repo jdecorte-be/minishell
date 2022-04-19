@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/04/01 21:54:35 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/05 18:43:32 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int cmd_sys(char *cmd)
 		i++;
 	}
 	pid = fork();
+	signal(SIGINT, c_handler_fork);
+	signal(SIGQUIT, q_handler_fork);
 	if (pid < 0)
 		perror("fork: ");
 	if (!pid)
@@ -93,6 +95,8 @@ int cmd_sys(char *cmd)
 	{
 		waitpid(pid, &ret, 0);
 		kill(pid, SIGTERM);
+		signal(SIGINT, c_handler);
+		signal(SIGQUIT, SIG_IGN);
 	}
 	return ret % 255;
 }
