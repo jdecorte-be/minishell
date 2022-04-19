@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:02:10 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 16:34:31 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/02 18:04:11 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,5 +331,6 @@ void		init(int *start, int *is_and, int *is_or, int *is_ope);
 void		init_2(t_token *tmp);
 
 void		redirect_exec(t_token *token, int mode);
+int			ft_token_error(t_token *token);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_chwc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:41:40 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/02 18:03:08 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_wcmatch_2(t_tmp *tmp, char **wc_tab, char **file)
 	tmp->str = ft_woquote(wc_tab[tmp->i]);
 	tmp->len = ft_strlen(tmp->str);
 	if (wc_tab[tmp->i] && *wc_tab[tmp->i] == '*' && ++tmp->i)
-		ft_wcmatch_2(tmp, wc_tab, file);
+		ft_wcmatch_2_1(tmp, wc_tab, file);
 	else if (**file && wc_tab[tmp->i] && wc_tab[tmp->i + 1]
 		&& ft_exist(*file, tmp->len - 1)
 		&& !ft_strncmp(*file, tmp->str, tmp->len - 1) && ++tmp->i)

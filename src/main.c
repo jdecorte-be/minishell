@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:16:34 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/02 17:16:17 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/02 18:04:38 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ void	main_2(void)
 		line = readline(pt);
 		free(pt);
 		if (ft_isprohibited(line) == 1)
+		{
+			free(line);
 			continue ;
+		}
 		if (!line)
 		{
 			ft_putstr_fd("\b\bexit\n", 2);
@@ -96,6 +99,8 @@ void	main_2(void)
 			add_history(line);
 		line = ft_epur_str(ft_chdir(ft_pgross_str((line))));
 		token = ft_parsing(line);
+		if (ft_token_error(token))
+			continue ;
 		free(line);
 		execute(token);
 		ft_tokenclean_all(&token);
