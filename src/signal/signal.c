@@ -27,8 +27,8 @@ void q_handler_fork(int sig)
 
 void c_handler_doc(int sig)
 {
-    data->hd_stop = 0;
-	newprompt(sig);
+    kill(data->pid, SIGINT);
+    newprompt(0);
 }
 
 

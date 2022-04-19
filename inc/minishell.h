@@ -69,6 +69,7 @@ typedef struct s_cmd
 
 typedef struct s_data//  block de cmd  
 {
+	pid_t	pid;
 	int		stophere;
 	char	**env;
 	int		lastret;

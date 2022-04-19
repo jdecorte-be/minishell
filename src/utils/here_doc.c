@@ -62,39 +62,46 @@ t_list	*ft_search_limiters(char *line)
 	return (lst);
 }
 
+void	putin_hd(char *line, int *fd)
+{
+	char *str;
+
+	close(fd[0]);
+	while (1)//ft_strcmp(str, line))
+	{
+		str = readline("> ");
+		if (!str || !ft_strcmp(str, line))
+			break ;
+		ft_putstr_fd(str, fd[1]);
+		ft_putchar_fd('\n', fd[1]);
+	}
+}
+
 int	ft_here_doc(char *line)
 {
 	t_list	*limiters;
 	char	*str;
 	int		fd[2];
-	pid_t	pid;
-
-	if(!(pid = fork()))
-		return -1;
+	signal(SIGINT, c_handler_doc);
 	data->hd_stop = 1;
-	// printf("line == %s\n", line);
 	str = 0;
 	if (pipe(fd) == -1)
 		ft_error(3);
-	// limiters = ft_search_limiters(line);
-	while (data->hd_stop)//ft_strcmp(str, line))
+	data->pid = fork();
+	if(data->pid  == -1)
+		exit(0);
+	if(data->pid)
 	{
-		// printf("salsal\n");
-		signal(SIGINT, c_handler_doc);
-		// printf("lssss\n");
-		if (!data->hd_stop)
-			break ;
-		str = readline("> ");
-		if (!str || !ft_strcmp(str, line))
-			break ;
-		// printf("hd->s %s\n", str);
-		// printf("hd->l %s\n", line);
-		ft_putstr_fd(str, fd[1]);
-		ft_putchar_fd('\n', fd[1]);
+		putin_hd(line, fd);
+		signal(SIGINT, c_handler);
 	}
-	signal(SIGINT, c_handler);
-	free(line);
-	close(fd[1]);
+	else
+	{
+		close(fd[1]);
+		dup2(fd[0], 0);
+		wait(NULL);
+	}
+	// free(line);
 	return (fd[0]);
 }
 
