@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_hd_finder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 15:28:35 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/17 20:46:43 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/21 16:28:45 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_hd_finder_2(char *line, size_t *start, size_t *end, t_hd *hd)
 {
-	int	hd_fd;
-	char *sub;
+	int		hd_fd;
+	char	*sub;
 
 	*end = ft_next_word(line, *end);
 	*start = *end;

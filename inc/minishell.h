@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:02:10 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/20 23:28:30 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/04/21 16:47:29 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct s_data
 
 typedef struct s_tmp
 {
-	int		i;
+	size_t	i;
 	int		i2;
 	char	c;
 	t_list	*lst;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pgross_str.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:50:42 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/06 20:50:43 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/21 16:28:23 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,13 @@ size_t	ft_pgross_len(char *line)
 {
 	size_t	i;
 	size_t	count;
-	char	c;
 
 	i = 0;
 	count = 0;
 	while (line[i])
 	{
 		if (ft_strchr("\'\"", line[i]))
-		{
-			c = line[i++];
-			while (line[i] && line[i] != c)
-				i++;
-			i++;
-		}
+			ft_skip_q(line, &i);
 		else if ((!ft_strncmp(&line[i], "&&", 1)
 				|| !ft_strncmp(&line[i], "||", 1)
 				|| !ft_strncmp(&line[i], ">>", 1)

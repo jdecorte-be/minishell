@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:47:02 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/20 23:28:38 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/04/21 17:02:47 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_chwc2(char *line)
 	tmp.lst = match;
 	while (tmp.lst)
 	{
-		tmp.lst->content = ft_trijoin(pref, tmp.lst->content, suff, 2);
+		tmp.lst->content = ft_trijoin(pref, tmp.lst->content, suff, 0);
 		tmp.lst = tmp.lst->next;
 	}
 	tmp.lst = match;

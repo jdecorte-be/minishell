@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_chdollar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:55:03 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/11 15:24:52 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/21 17:17:56 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ size_t	ft_chdollar_len(char *line, t_list **dollar)
 					while (line[i] && line[i] != '\"' && line[i] != '$')
 						i++;
 					if (line[i] && line[i] != '\"' && line[i + 1] && line[i]
-						== '$' && (ft_isalnum(line[i + 1]) 
+						== '$' && (ft_isalnum(line[i + 1])
 							|| ft_strchr("?", line[i + 1])))
 					{
 						start = i++;
