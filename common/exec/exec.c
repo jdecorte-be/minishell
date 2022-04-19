@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/05/03 18:23:24 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/03 21:38:26 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	not_pid(char *cmd, char **args)
 		puterror(tmp, "command not found");
 		ft_free_tab(args);
 		free(tmp);
+		free(cmd);
 		ft_exit(127);
 	}
 }
@@ -89,8 +90,8 @@ int	cmd_sys(char *cmd)
 	signal(SIGQUIT, q_handler_fork);
 	if (!pid)
 		not_pid(cmd, args);
+	free(cmd);
 	ft_free_tab(args);
 	sig(&pid, &ret);
-	free(cmd);
 	return (ret % 255);
 }

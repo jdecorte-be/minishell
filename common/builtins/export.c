@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:14:20 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 16:20:23 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/03 21:29:26 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void	export_print(void)
 
 int	export(char **cmd)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	i = 1;
 	if (!cmd[1])
@@ -84,7 +85,9 @@ int	export(char **cmd)
 			return (0);
 		if (!checkvalid(ft_ecrase_q(cmd[i])))
 			return (1);
-		my_setenv(ft_ecrase_q(cmd[i]));
+		tmp = ft_ecrase_q(cmd[i]);
+		my_setenv(tmp);
+		free(tmp);
 		i++;
 	}
 	return (0);
