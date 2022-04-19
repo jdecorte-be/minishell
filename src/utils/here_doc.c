@@ -67,7 +67,10 @@ int	ft_here_doc(char *line)
 	t_list	*limiters;
 	char	*str;
 	int		fd[2];
+	pid_t	pid;
 
+	if(!(pid = fork()))
+		return -1;
 	data->hd_stop = 1;
 	// printf("line == %s\n", line);
 	str = 0;

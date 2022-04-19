@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = gcc
 
-CFLAGS = -lreadline -g  -L .brew/opt/readline/lib -I .brew/opt/readline/include
+CFLAGS = -lreadline -g -fsanitize=address -L/Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew//opt/readline/include
 
 RM = rm -rf
 
@@ -19,7 +19,7 @@ SRCS = 	src/main.c\
 		src/builtins/utils.c\
 		\
         libft/libft.a\
-		src/signaux.c\
+		src/signal/signal.c\
 		src/exec/exec.c\
 		src/exec/ope.c\
 		src/builtins/exit.c\
