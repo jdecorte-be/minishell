@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rep.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:51:11 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 16:10:22 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/03 21:29:36 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,12 @@ int	cd(char **cmd)
 		if (pwd_var)
 		{
 			tmp = my_getenv("PWD", NULL);
-			my_setenv(ft_strjoin("OLDPWD=", tmp));
-			my_setenv(ft_strjoin("PWD=", pwd_buff));
+			tmp = ft_strjoin2("OLDPWD=", tmp);
+			my_setenv(tmp);
+			free(tmp);
+			tmp = ft_strjoin("PWD=", pwd_buff);
+			my_setenv(tmp);
+			free(tmp);
 		}
 	}
 	return (0);

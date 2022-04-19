@@ -6,7 +6,7 @@
 /*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/05/03 22:09:41 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/05/03 22:10:30 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	not_pid(char *cmd, char **args)
 			puterror(tmp, "command not found");
 		ft_free_tab(args);
 		free(tmp);
+		free(cmd);
 		exit(127);
 	}
 }
@@ -75,13 +76,18 @@ int	cmd_sys(char *cmd)
 	pid_t	pid;
 	int		ret;
 	size_t	i;
+	char	*tmp;
 
 	ret = 0;
 	pid = 0;
 	i = -1;
 	args = ft_split2(cmd, " ");
 	while (args[++i])
+	{
+		tmp = args[i];
 		args[i] = ft_ecrase_q(args[i]);
+		free(tmp);
+	}
 	pid = fork();
 	if (pid < 0)
 	{
@@ -92,8 +98,8 @@ int	cmd_sys(char *cmd)
 	signal(SIGQUIT, q_handler_fork);
 	if (!pid)
 		not_pid(cmd, args);
+	free(cmd);
 	ft_free_tab(args);
 	sig(&pid, &ret);
-	free(cmd);
 	return (ret % 255);
 }

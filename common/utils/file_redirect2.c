@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_redirect2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 18:27:43 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/05/03 16:07:39 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/03 21:55:51 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	ft_redirect_check(t_redirect file)
 	tmp = file.outfile;
 	while (tmp)
 	{
+		printf("1\n");
 		c = ft_strstrchr(tmp->content, "|&()");
 		if (c != 0)
 		{
