@@ -145,6 +145,7 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 	// t_redirect	file;
 	t_redirect	tmp;
 	t_hd		*tmp2;
+	char		*to_free;
 
 	// tmp2 = data->hd;
 
@@ -206,9 +207,17 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 				if (file.outfd != tmp.outfd)
 					close(file.outfd);
 				if (file.open2->fd == 0)
-					file.outfd = open(ft_ecrase_q(ft_redirect_chwc(ft_cut_chevron(file.outfile->content))), O_WRONLY | O_TRUNC | O_CREAT, 0644);
+				{
+					to_free = ft_ecrase_q(ft_redirect_chwc(ft_cut_chevron(file.outfile->content)));
+					file.outfd = open(to_free, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+					free(to_free);
+				}
 				else if (file.open2->fd == 1)
-					file.outfd = open(ft_ecrase_q(ft_redirect_chwc(ft_cut_chevron(file.outfile->content))), O_WRONLY | O_APPEND | O_CREAT, 0644);
+				{
+					to_free = ft_ecrase_q(ft_redirect_chwc(ft_cut_chevron(file.outfile->content)));
+					file.outfd = open(to_free, O_WRONLY | O_APPEND | O_CREAT, 0644);
+					free(to_free);
+				}
 				if (file.outfd == -1)
 					perror("open wr");
 			}
@@ -221,7 +230,7 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 			// printf("1\n");
 			file.outfile = ft_next(file.outfile);
 			if (file.open->next)
-				file.open = file.open = file.open->next;
+				file.open = file.open->next;
 		}
 	}
 	return (file);
