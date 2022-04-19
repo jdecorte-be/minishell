@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:02:10 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/08 02:46:30 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/08 19:42:35 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,19 +143,38 @@ void		format_env(char *var);
 char		*findenv(char *name, int *offset);
 char		*get_path(char *cmd);
 int			pipex(char *cmd);
+char	*ft_transf(char *line);
+void	ft_transf2(t_tmp *tmp, char **suff, char **pref);
 char		*prompt(void);
 char		*my_getenv(char *name, int *index);
 int			my_setenv(char *name);
 void		refresh_env(char **env, t_data *data);
 int			checkvalid(char *cmd);
 int			echo(char **args);
+char		**ecraseq_tab(char *cmd);
+t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd);
+void	open_infd(t_redirect *file, t_redirect *tmp, char *line, char *str);
+char	*ft_redirect_3_free(char *str, t_redirect *file);
+void	ft_redirect_2_2(t_redirect *file);
+int			ft_redirect_check(t_redirect file);
+void		ft_chrredirect_2(t_hd **open, t_hd **open2, int i, int i2);
+char		*ft_chrredirect(char *line, t_hd **open, t_hd **open2, size_t *v);
+
+void		ft_file_2(size_t *v, char *line, size_t *i);
+t_list		*ft_file(char *line, char c, t_hd **open, t_hd **open2);
+t_redirect	ft_init_redirect(void);
+
+void	ft_redirect_2(t_redirect *file, t_redirect *tmp, char *line, char *str);
+void	ft_redirect_3_1(t_redirect *file, t_redirect *tmp, char *to_free);
 int			pwd(void);
-int			cd(char **cmd);
+int			cd(char *cmd);
+void	ft_redirect_3(t_redirect *file, t_redirect *tmp, char *to_free);
 int			export(char **cmd);
 int			egal_len(char *cmd);
 int			unset(char **cmd);
 void		printlist(t_token *head);
-
+int			exec_pipe(t_token *tmp);
+void		redirect_exec(t_token *token, int mode);
 t_list		*list_env(char **env);
 char		**listtotab(t_list *lst);
 void		env_cmd(t_data *data);
