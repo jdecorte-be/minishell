@@ -79,6 +79,8 @@ int cmd_sys(char *cmd)
 		i++;
 	}
 	pid = fork();
+	signal(SIGINT, c_handler_fork);
+	signal(SIGQUIT, q_handler_fork);
 	if (pid < 0)
 		perror("fork: ");
 	if (!pid)
@@ -94,6 +96,8 @@ int cmd_sys(char *cmd)
 	{
 		waitpid(pid, &ret, 0);
 		kill(pid, SIGTERM);
+		signal(SIGINT, c_handler);
+		signal(SIGQUIT, SIG_IGN);
 	}
 	return ret % 255;
 }

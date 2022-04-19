@@ -42,6 +42,15 @@ char *prompt()
     return line;
 }
 
+
+void	test(t_data *data)
+{
+	tcgetattr(0, &data->old);
+	tcgetattr(0, &data->new);
+	data->new.c_lflag &= ~(ECHOCTL);
+	tcsetattr(0, TCSANOW, &data->new);
+}
+
 int	main(int ac, char **av, char **env)
 {
     (void)av;
@@ -50,12 +59,16 @@ int	main(int ac, char **av, char **env)
 
     if(ac != 1)
         puterror("\e[0;37mUse", "./minishell without arguments");
-    if(!(data = malloc(sizeof(t_data))))
+    data = malloc(sizeof(t_data));
+	if(!(data))
         return 0;
+	test(data);
     data->lastret = 0;
     data->env = env;
     data->hd = 0;
     shlvlhandler();
+	signal(SIGINT, c_handler);
+	signal(SIGQUIT, SIG_IGN);
     while (1)
     {
         pt = prompt();
@@ -72,8 +85,12 @@ int	main(int ac, char **av, char **env)
             add_history(line);
         line = ft_epur_str(ft_chdir(ft_pgross_str((line))));
         t_token *token = ft_parsing(line);
-        execute(token);
+      	execute(token);
+
+
     }
+	tcsetattr(0, TCSANOW, &data->new);
+    exit(data->lastret);
     free(data->env);
     free(data);
     my_setenv(NULL, 2);
