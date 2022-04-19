@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:55:54 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/02 12:19:56 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	print_env(char **env)
 	i = 0;
 	while (env[i])
 	{
-		if (env[i][egal_len(env[i])] == '=')
+		if (env[i][egal_len(env[i]) + 1])
 		{
 			ft_putstr_fd(env[i], 1);
 			ft_putstr_fd("\n", 1);
@@ -56,7 +56,8 @@ void	format_env(char *var)
 	if (var[egal_len(var)] == '=')
 	{
 		sub2 = ft_substr(var, egal_len(var) + 1, ft_strlen(var));
-		printf("=\"%s\"", sub2);
+		if (ft_strlen(sub2) != 0)
+			printf("=\"%s\"", sub2);
 		free(sub2);
 	}
 	printf("\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:24:56 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/02 12:21:38 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	end_setenv(char *c, char *name, char *value, int *offset)
 		++c;
 	}
 	*c++ = '=';
-	while (*c && *value)
-		*c++ = *value++;
+	ft_strlcpy(c, value, ft_strlen(value) + 1);
 	g_data->offset = *offset;
 }
 
@@ -40,7 +39,6 @@ void	dont_exist(int *offset)
 	char		**p;
 
 	p = g_data->env;
-	cnt = 0;
 	cnt = splitlen(p);
 	if (alloced)
 	{
