@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:16:34 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/02 19:49:26 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/04 19:16:30 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,20 +85,20 @@ void	main_2(void)
 		pt = prompt();
 		line = readline(pt);
 		free(pt);
-		if (ft_isprohibited(line) == 1)
-		{
-			free(line);
-			continue ;
-		}
+		if (*line)
+			add_history(line);
 		if (!line)
 		{
 			ft_putstr_fd("\b\bexit\n", 2);
 			ft_exit(0);
 		}
+		if (ft_isprohibited(line) == 1)
+		{
+			free(line);
+			continue ;
+		}
 		if (!*line)
 			continue ;
-		if (*line)
-			add_history(line);
 		line = ft_epur_str(ft_chdir(ft_pgross_str((line))));
 		token = ft_parsing(line);
 		if (ft_token_error(token))
