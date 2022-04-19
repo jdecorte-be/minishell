@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/04/16 14:57:12 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/16 17:33:51 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ char	*get_path(char *cmd)
 	return (cmd);
 }
 
-void	sig(pid_t pid, int ret)
+void	sig(pid_t *pid, int *ret)
 {
-	waitpid(pid, &ret, 0);
-	kill(pid, SIGTERM);
+	waitpid(*pid, ret, 0);
+	kill(*pid, SIGTERM);
 	signal(SIGINT, c_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
@@ -110,7 +110,7 @@ int	cmd_sys(char *cmd)
 	else
 	{
 		ft_free_tab(args);
-		sig(pid, ret);
+		sig(&pid, &ret);
 	}
 	return (ret % 255);
 }
