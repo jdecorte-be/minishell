@@ -22,7 +22,7 @@ void	ft_ecrase_q_2(char *word, size_t *start, size_t *end, char *new_word)
 	*start = *end;
 	if (word[*end] && ft_strchr("\'\"", word[*end]))
 	{
-		c = word[*end++];
+		c = word[(*end)++];
 		*start = *end;
 		while (word[*end] && word[*end] != c)
 			end++;
