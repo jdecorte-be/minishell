@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/05/04 20:03:32 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/05/05 20:59:45 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,18 @@ int	exec(char *cmd)
 	char	**s_cmd;
 	int		ret;
 	char	*tmp;
+	char	**s_cmd2;
 
 	ret = 0;
 	tmp = ft_ecrase_q(cmd);
 	s_cmd = ft_split2(tmp, " ");
+	s_cmd2 = ft_split2(cmd, " ");
 	if (cmd[0] == '(')
 		ret = (subshell(cmd));
 	else if (ft_strcmp(s_cmd[0], "echo") == 0)
 		ret = (echo(s_cmd));
 	else if (ft_strcmp(s_cmd[0], "cd") == 0)
-		ret = (cd(s_cmd));
+		ret = (cd(s_cmd2));
 	else if (ft_strcmp(s_cmd[0], "pwd") == 0)
 		ret = (pwd());
 	else if (ft_strcmp(s_cmd[0], "env") == 0)
