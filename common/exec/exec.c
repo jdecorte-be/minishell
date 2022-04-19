@@ -6,7 +6,7 @@
 /*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/05/03 21:47:35 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/05/03 22:09:41 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ void	not_pid(char *cmd, char **args)
 	if (execve(get_path(cmd), &args[0], g_data->env) == -1)
 	{
 		tmp = ft_ecrase_q(args[0]);
-		puterror(tmp, "command not found");
+		if (access(cmd, F_OK) == 0)
+			puterror(tmp, "No such file or directory");
+		else
+			puterror(tmp, "command not found");
 		ft_free_tab(args);
 		free(tmp);
 		exit(127);
