@@ -58,7 +58,7 @@ char	*ft_strjoin3(char const *s1, char const *s2)
 	size_t	len_dst;
 
 	if (!s1)
-		return (ft_strdup((char *)s2));
+		return ((char *)s2);
 	len_s1 = ft_strlen(s1);
 	len_dst = len_s1 + ft_strlen(s2);
 	dst = malloc(sizeof(*dst) * len_dst + 1);

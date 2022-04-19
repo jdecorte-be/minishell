@@ -99,7 +99,7 @@ char	*ft_chwc2(char *line)
 	while (tmp.tab[tmp.i] && !ft_strchr(tmp.tab[tmp.i], '*'))
 		tmp.i++;
 	if (tmp.tab[tmp.i])
-		tmp.str = tmp.tab[tmp.i];
+		tmp.str = ft_strdup(tmp.tab[tmp.i]);
 	// printf("2\n");
 	tmp.i2 = 0;
 	tmp.tmp = 0;
@@ -117,10 +117,11 @@ char	*ft_chwc2(char *line)
 		suff = ft_strjoin1(suff, tmp.tab[tmp.i2++]);
 	// printf("suff %s\n", suff);
 	match = ft_wcfile(tmp.str, getcwd(tmp.path, PATH_MAX), 0, 0);
+	free(tmp.str);
 	tmp.lst = match;
 	while (tmp.lst)
 	{
-		tmp.lst->content = ft_trijoin(pref, tmp.lst->content, suff);
+		tmp.lst->content = ft_trijoin2(pref, tmp.lst->content, suff);
 		tmp.lst = tmp.lst->next;
 	}
 	tmp.lst = match;
@@ -130,15 +131,17 @@ char	*ft_chwc2(char *line)
 	{
 		// printf("tri == %s\n", ft_trijoin(home, "/", tmp.lst->content));
 		if (!access(tmp.lst->content, F_OK))
-			ft_lstadd_back(&match2, ft_lstnew(tmp.lst->content));
+			ft_lstadd_back(&match2, ft_lstnew(ft_strdup(tmp.lst->content)));
 
-		else if (!access(ft_trijoin(home, "/", tmp.lst->content), F_OK))
-			ft_lstadd_back(&match2, ft_lstnew(tmp.lst->content));
+		else if (!access(ft_trijoin(home, "/", ft_strdup(tmp.lst->content)), F_OK))
+			ft_lstadd_back(&match2, ft_lstnew(ft_strdup(tmp.lst->content)));
 		tmp.lst = tmp.lst->next;
 		// printf("120\n");
 	}
-
-
+	free(pref);
+	free(suff);
+	ft_lstclear(&match, free);
+	ft_free_tab(tmp.tab);
 
 	// while ()
 	// if (ft_strchr(line, '/'))
@@ -189,6 +192,7 @@ char	*ft_chwc(char *line)
 		return (line);
 	// printf("ga\n");
 	wc = ft_wcsearch(line);
+	// system("leaks a.out");
 	// printf("line == %s\n", wc->content);
 	// tmp.lst = wc;
 	// while (tmp.lst)

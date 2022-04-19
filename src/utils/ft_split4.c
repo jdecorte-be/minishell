@@ -66,5 +66,6 @@ char	**ft_split4(char *str, char *set)
 	tab = ft_calloc(sizeof(char *), word + 1);
 	if (!tab)
 		ft_error(2);
-	return (ft_creat_tab(tab, str, set, word));
+	tab = ft_creat_tab(tab, str, set, word);
+	return (tab);
 }
