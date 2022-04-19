@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:16:34 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/02 18:04:38 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/02 19:49:26 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void	main_2(void)
 			ft_putstr_fd("\b\bexit\n", 2);
 			ft_exit(0);
 		}
+		if (!*line)
+			continue ;
 		if (*line)
 			add_history(line);
 		line = ft_epur_str(ft_chdir(ft_pgross_str((line))));
