@@ -3,14 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:53:46 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/02 16:36:30 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	checkvalid_unset(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[0] == '-')
+			return (2);
+		if ((ft_isalnum(cmd[i]) == 0 && cmd[i] != '\''
+				&& cmd[i] != '"' && cmd[i] != '_' && cmd)
+			|| ft_isdigit(cmd[0]) == 1)
+		{
+			puterror(cmd, "not a valid identifier");
+			return (1);
+		}
+		i++;
+		if (cmd[i] == '=')
+			break ;
+	}
+	return (0);
+}
+
 
 int	del_element(char *name)
 {
@@ -38,14 +62,16 @@ int	unset(char **cmd)
 {
 	int	offset;
 	int	i;
+	int	err;
 
 	i = 1;
 	if (!cmd[1])
 		return (0);
 	while (cmd[i])
 	{
-		if (!checkvalid(cmd[i]))
-			return (1);
+		err = checkvalid_unset(cmd[i]);
+		if (err != 0)
+			return (err);
 		del_element(ft_ecrase_q(cmd[i]));
 		i++;
 	}

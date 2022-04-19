@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_error2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:54:36 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/02 15:01:45 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,11 @@ int	ft_parse_error(int e)
 	else if (e == 4)
 		write(2, "minishell: syntax error near unexpected token `||'\n", 51);
 	else if (e == 5)
+	{
 		write(2, "minishell: syntax error near unexpected token `|'\n", 50);
+		g_data->lastret = 2;
+		return (1);
+	}
 	g_data->lastret = 258;
 	return (1);
 }

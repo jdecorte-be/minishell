@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:14:20 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/02 12:06:20 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/02 16:33:49 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ int	checkvalid(char *cmd)
 	i = 0;
 	while (cmd[i])
 	{
+
 		if ((ft_isalnum(cmd[i]) == 0 && cmd[i] != '\''
-				&& cmd[i] != '"' && cmd[i] != '_')
+				&& cmd[i] != '"' && cmd[i] != '_' && cmd)
 			|| ft_isdigit(cmd[0]) == 1 || cmd[0] == '=')
 		{
 			puterror(cmd, "not a valid identifier");
@@ -83,10 +84,9 @@ int	export(char **cmd)
 		if (cmd[i][0] == '_' && cmd[i][1] == '=')
 			return (0);
 		if (!checkvalid(ft_ecrase_q(cmd[i])))
-			return (0);
+			return (1);
 		my_setenv(ft_ecrase_q(cmd[i]));
 		i++;
 	}
-	g_data->lastret = 0;
 	return (0);
 }
