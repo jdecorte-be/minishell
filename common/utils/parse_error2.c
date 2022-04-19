@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:54:36 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/05/02 15:01:45 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/02 16:48:51 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,21 @@ int	ft_parse_error(int e)
 	}
 	g_data->lastret = 258;
 	return (1);
+}
+
+int	ft_token_error(t_token *token)
+{
+	size_t	len;
+	t_token	*tmp;
+
+	len = ft_strlen(token->cmd);
+	tmp = ft_tokenlast(token);
+	if ((len >= 2 && (!ft_strncmp("&&", tmp->cmd, 1)
+				|| !ft_strncmp("||", tmp->cmd, 1)))
+		|| (len >= 1 && *tmp->cmd == '|'))
+	{
+		free(token);
+		return (ft_parse_error(1));
+	}
+	return (0);
 }

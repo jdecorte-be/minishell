@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pgross_str.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:50:42 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/02 13:18:24 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ char	*ft_pgross_str(char *line)
 		return (0);
 	len = ft_pgross_len(line);
 	newline = malloc(sizeof(char) * (len + 1));
+	if (!newline)
+		ft_error(2);
 	newline = ft_pgross_creat(newline, line);
 	free(line);
 	return (newline);

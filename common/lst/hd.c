@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:13:01 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/02 13:17:56 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_hd	*ft_hdnew(int fd)
 
 	hd = malloc(sizeof(t_hd));
 	if (!hd)
-		return (0);
+		ft_error(2);
 	hd->fd = fd;
 	hd->next = NULL;
 	return (hd);
