@@ -8,6 +8,8 @@ int syntax_check(t_token *token)
     int start = 1;
     int old_ope;
 
+    if(tmp == NULL)
+        return 0;
     while(tmp)
     {
         old_ope = is_ope;
@@ -89,6 +91,8 @@ int	main(int ac, char **av, char **env)
     while (1)
     {
         line = readline(prompt());
+        if (ft_isprohibited(line) == 1)
+            continue ;
         if (!line)
         {
             ft_putstr_fd("\b\bexit\n", 2);

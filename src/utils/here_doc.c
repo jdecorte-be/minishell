@@ -11,7 +11,7 @@ int	ft_hd_exist(char *line)
 	{
 		if (ft_strchr("\'\"", line[i]))
 			ft_skip_q(line, &i);
-		else if (!ft_strncmp(line + i, "<< ", 2))
+		else if (!ft_strncmp(line + i, "<< ", 2) && ++i)
 			n++;
 		else
 			i++;
@@ -159,4 +159,14 @@ t_hd	*ft_hd_finder(char *line)
 	}
 	// hd = ft_sort_hd(hd, line);
 	return (hd);
+}
+
+void	ft_skip_hd(char *line)
+{
+	size_t	i;
+
+	i = ft_hd_exist(line);
+	// printf("%zu\n", i);
+	while (i--)
+		data->hd = data->hd->next;
 }
