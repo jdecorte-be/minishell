@@ -139,7 +139,7 @@ void *ft_realloc(void *str, size_t len);
 int	first_pipe(t_data *d_env, char *cmd);
 int last_pipe(char *cmd);
 int	mid_pipe(char *cmd);
-
+void	ft_clean_hd(t_hd *hd);
 
 
 

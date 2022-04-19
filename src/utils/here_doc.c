@@ -82,7 +82,6 @@ int	ft_here_doc(char *line)
 	t_list	*limiters;
 	char	*str;
 	int		fd[2];
-	signal(SIGINT, c_handler_doc);
 	data->hd_stop = 1;
 	str = 0;
 	if (pipe(fd) == -1)
@@ -90,17 +89,20 @@ int	ft_here_doc(char *line)
 	data->pid = fork();
 	if(data->pid  == -1)
 		exit(0);
-	if(data->pid)
+	if(!data->pid)
 	{
+		// signal(SIGINT, c_handler_doc);
 		putin_hd(line, fd);
-		signal(SIGINT, c_handler);
 	}
 	else
 	{
 		close(fd[1]);
 		dup2(fd[0], 0);
+		printf("pepepeppepepe");
 		wait(NULL);
+		signal(SIGINT, c_handler);
 	}
+	signal(SIGINT, c_handler);
 	// free(line);
 	return (fd[0]);
 }
