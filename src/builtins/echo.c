@@ -8,8 +8,10 @@ int echo(char **cmd)
 
 	i = 1;
     if(!cmd[1])
+    {
+        ft_putstr_fd("\n", 1);
         return 0;
-    cmd[i] = ft_ecrase_q(cmd[i]);
+    }
     while(cmd[i][0] == '-')
     {
         j = 1;

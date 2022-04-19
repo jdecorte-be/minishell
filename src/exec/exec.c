@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
+/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/01/31 19:20:31 by decortejohn      ###   ########.fr       */
+/*   Updated: 2022/03/24 15:39:55 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ while (tab[i])
 
 int exec(char *cmd)
 {
-    char **s_cmd = ft_split2(cmd," ");
-	// ft_print_n_tab(s_cmd);
+    char **s_cmd = ft_split2(ft_ecrase_q(cmd)," ");
+
     if(cmd[0] == '(')
        return subshell(ft_ecrase_p(cmd), data);
 	else if(ft_strcmp(s_cmd[0], "echo") == 0)
@@ -47,37 +47,42 @@ int exec(char *cmd)
 	return -1;
 }
 
+// * Fix and Work
 char *get_path(char *cmd)
 {
-	int i;
-	char **args = ft_split2(cmd, " ");
-	char *exec = NULL;
-	char **allpath = ft_split(my_getenv("PATH", NULL), ":");
+	int		i;
+	char	*exec;
+	char	**allpath;
+	char	*path_part;
+	char	**s_cmd;
+
 	i = -1;
-	int ret = access(args[0], X_OK) ;
-	if (ret== 0)
-		return args[0];
-	else
+	allpath = ft_split(my_getenv("PATH", NULL), ":");
+	s_cmd = ft_split2(cmd, " ");
+	while (allpath[++i])
 	{
-		while (allpath[++i])
+		path_part = ft_strjoin(allpath[i], "/");
+		exec = ft_strjoin(path_part, s_cmd[0]);
+		free(path_part);
+		if (access(exec, F_OK | X_OK) == 0)
 		{
-			allpath[i] = ft_strjoin(allpath[i], "/");
-			exec = ft_strjoin(allpath[i], args[0]);
-			free(allpath[i]);
-			if (access(exec, F_OK | X_OK) == 0)
-				break ;
-			free(exec);
+			ft_free_tab(s_cmd);
+			return (exec);
 		}
+		free(exec);
 	}
-	return exec;
+	ft_free_tab(allpath);
+	ft_free_tab(s_cmd);
+	return (cmd);
 }
 
+
+// ! A fix
 int cmd_sys(char *cmd)
 {
 	char **args = ft_split2(cmd, " ");
 	pid_t	pid;
 	int		ret;
-	
 	size_t	i;
 	
 	i = 0 ;
@@ -88,7 +93,7 @@ int cmd_sys(char *cmd)
 	}
 	pid = fork();
 	if (pid < 0)
-		return errno;
+		perror("fork: ");
 	if (!pid)
 	{
 		if(execve(get_path(cmd), &args[0], data->env) == -1)
@@ -105,8 +110,8 @@ int cmd_sys(char *cmd)
 	return ret % 255;
 }
 
-// (ret == 32256 || ret == 32512) ? ret / 256 : !!ret
 
+// ? A test
 int subshell(char *line, t_data *data)
 {
     int ret;
@@ -114,33 +119,35 @@ int subshell(char *line, t_data *data)
     line = ft_epur_str(((ft_chdir((ft_pgross_str((line)))))));
 	t_token *token = ft_parsing(line);
     ret = execute(token);
-
 	return ret;
 }
 
+// ! A fix
 int	pipex(char *cmd)
 {
-	pid_t	pid;
-	int ret = 0;
-	char **args = ft_split2(cmd, " ");
-	int p_fd[2];
+	pid_t		pid;
+	int			ret = 0;
+	char		**args;
+	int			p_fd[2];
 
+	args = ft_split2(cmd, " ");
 	pipe(p_fd);
 	pid = fork();
 	if (pid < 0)
 		return -1;
-	if (pid)
+	if (!pid)
 	{
-		// waitpid(-1,&ret, 0);
-		dup2(p_fd[0], 0);
-		close(p_fd[1]);
-	}
-	else
-	{
-		dup2(p_fd[1], 1);
 		close(p_fd[0]);
+		dup2(p_fd[1], 1);
 		ret = exec(cmd);
 		exit(ret);
 	}
+	else
+	{
+		close(p_fd[1]);
+		dup2(p_fd[0], 0);
+	}
 	return ret;
 }
+
+// ? echo test | echo $USER

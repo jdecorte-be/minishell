@@ -27,32 +27,12 @@ int syntax_check(t_token *token)
     return 1;
 }
 
-
-void printlist(t_token *token)
-{
-    int i = 0;
-    while(token)
-    {
-        printf("%s\n", token->cmd);
-        printf("%d\n", token->redirect.infd);
-        printf("%d\n", token->redirect.outfd);
-        printf("================================================================\n");
-    // if (token->sub_token)
-    //     token = token->sub_token;
-    // else if (token->next)
-    //     token = token->next;
-    // else if (!token->next && token->sup_token)
-    //     token = token->sup_token->next;
-    // else
-        token = token->next;
-    }
-}
-
 void shlvlhandler()
 {
     char *var = my_getenv("SHLVL", NULL);
     int shlvl = ft_atoi(var) + 1;
 
+    my_setenv(ft_strjoin("_=", "/usr/bin/env"));
     my_setenv("OLDPWD");
     if (shlvl > 1000)
         shlvl = 1;
@@ -67,11 +47,10 @@ char *prompt()
     char    *path = NULL;
     char    *line;
 
-    ft_putstr_fd("\e[0;36m", 1);
     path = getcwd(path, 1024);
     int i = ft_strlen(path);
     while(path[--i] != '/');
-    line = ft_strjoin(ft_substr(path, i + 1, ft_strlen(path)),"\e[0;37m ❯ ");
+    line = ft_strjoin(ft_substr(path, i + 1, ft_strlen(path))," ❯ ");
     return line;
 }
 
@@ -86,12 +65,11 @@ int	main(int ac, char **av, char **env)
     data->env = env;
     data->hd = 0;
 
-    
     shlvlhandler();
    
 
 
-
+    // * TESTER ===============================
     if (ac >= 3 && !ft_strncmp(av[1], "-c", 2))
     {
         char *tmp = ft_strdup(av[2]);
@@ -110,7 +88,6 @@ int	main(int ac, char **av, char **env)
         puterror("\e[0;37mUse", "./minishell without arguments");
     while (1)
     {
-        // signal(SIGINT, newprompt);
         line = readline(prompt());
         if (!line)
         {
@@ -119,17 +96,12 @@ int	main(int ac, char **av, char **env)
         }
         if(*line)
             add_history(line);
-    
         line = ft_epur_str(ft_chdir(ft_pgross_str((line))));
         t_token *token = ft_parsing(line);
         if(syntax_check(token) == 0);
         else
             data->lastret = execute(token);
 
-        // to delete
     }
-        // exit(ret);
-
-
 
 }

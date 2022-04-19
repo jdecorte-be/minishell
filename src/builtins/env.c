@@ -18,6 +18,7 @@ char **dont_exist(char **lastenv, int *index)
 	return P;
 }
 
+
 int my_setenv(char *var)
 {
 	int offset;
@@ -55,23 +56,30 @@ int my_setenv(char *var)
 	return (0);
 }
 
+// * Fix and Work
 char *my_getenv(char *name, int *index)
 {
-	int i = 0;
+	int		i;
+	int		j;
+	char	*sub;
 
+	i = 0;
 	while(data->env[i])
 	{
-		int j = 0;
+		j = 0;
 		while(data->env[i][j] && data->env[i][j] != '=')
 			j++;
-		if(ft_strcmp(ft_substr(data->env[i], 0, j), name) == 0)
+		sub = ft_substr(data->env[i], 0, j);
+		if(ft_strcmp(sub, name) == 0)
 		{
+			free(sub);
 			if(index != NULL)
 				*index = i;
 			return data->env[i] + j + 1;
 		}
+		free(sub);
 		i++;
 	}
-	return NULL;
+	return (NULL);
 }
 
