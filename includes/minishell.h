@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:02:10 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/10 00:59:04 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/10 16:42:09 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,7 +313,7 @@ int			ft_strstrchr(char *str, char *set);
 
 void		ft_skip_p(char *str, size_t *i);
 void		ft_skip_q(char *str, size_t *i);
-
+int			ft_after_p(char *line, size_t i);
 t_token		*ft_parsing(char *line);
 
 char		*ft_redirect_chwc(char *line);
