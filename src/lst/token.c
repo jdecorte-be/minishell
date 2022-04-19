@@ -79,6 +79,7 @@ void	ft_token_free_and_next(t_token **token)
 
 	tmp = *token;
 	*token = (*token)->next;
+	free(tmp->cmd);
 	free(tmp);
 }	
 
@@ -88,6 +89,7 @@ void	ft_token_free_and_sup(t_token **token)
 
 	tmp = *token;
 	*token = (*token)->sup_token;
+	free(tmp->cmd);
 	free(tmp);
 }	
 

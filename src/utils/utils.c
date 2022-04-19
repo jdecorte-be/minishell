@@ -33,6 +33,7 @@ int	ft_exist(char *str, size_t len)
 char	*ft_lstmerge(t_list *lst)
 {
 	char	*str;
+	t_list	*tmp;
 
 	if (!lst)
 		return (0);
@@ -43,8 +44,12 @@ char	*ft_lstmerge(t_list *lst)
 			str = ft_trijoin1(str, lst->content, " ");
 		else
 			str = ft_strjoin1(str, lst->content);
+		tmp = lst;
 		lst = lst->next;
+		free(tmp->content);
+		free(tmp);
 	}
+
 	return (str);
 }
 
