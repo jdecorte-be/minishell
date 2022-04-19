@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:57:04 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/10 16:45:26 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/10 17:04:34 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ int	ft_isprohibited(char *line)
 	{
 		if (ft_isprohibited_2(line, &i, &quote, &par))
 			return (1);
-		i++;
+		if (line[i])
+			i++;
 	}
 	if (quote % 2 != 0 || par)
 		return (ft_parse_error(1));
