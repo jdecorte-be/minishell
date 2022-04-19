@@ -80,8 +80,8 @@ int	ft_here_doc(char *line)
 		str = readline("> ");
 		if (!str || !ft_strcmp(str, line))
 			break ;
-		printf("hd->s %s\n", str);
-		printf("hd->l %s\n", line);
+		// printf("hd->s %s\n", str);
+		// printf("hd->l %s\n", line);
 		ft_putstr_fd(str, fd[1]);
 		ft_putchar_fd('\n', fd[1]);
 	}

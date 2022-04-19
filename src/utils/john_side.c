@@ -39,6 +39,8 @@ void	ft_redirect_for_john(t_token *token)
 	if (token->redirect.open && token->redirect.open->fd == 1)
 		data->hd->fd = ft_hd_replace(data->hd->fd);
 	token->redirect = ft_redirect(token->cmd, token->redirect, 0, 0);
+	ft_clean_hd(token->redirect.open);
+	ft_clean_hd(token->redirect.open2);
 	if (tmp->sub_token)
 	{
 		tmp = tmp->sub_token;

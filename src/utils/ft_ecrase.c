@@ -23,7 +23,7 @@ char    *ft_ecrase_q(char *word)
 			start = end;
 			while (word[end] && word[end] != c)
 				end++;
-			new_word = ft_strjoin1(new_word, ft_substr(word, start, end - start));
+			new_word = ft_strjoin3(new_word, ft_substr(word, start, end - start));
 			if (word[end])
 				end++;
 		}
@@ -31,7 +31,7 @@ char    *ft_ecrase_q(char *word)
 		{
 			while (word[end] && !ft_strchr("\'\"", word[end]))
 				end++;
- 			new_word = ft_strjoin1(new_word, ft_substr(word, start, end - start));
+ 			new_word = ft_strjoin3(new_word, ft_substr(word, start, end - start));
 		}
 	}
 	return (new_word);
@@ -53,19 +53,19 @@ char	*ft_ecrase_p(char *line)
 		if (line[end] && ft_strchr("\"\'", line[end]))
 		{
 			ft_skip_q(line, &end);
-			str = ft_strjoin1(str, ft_substr(line, start, end - start));
+			str = ft_strjoin3(str, ft_substr(line, start, end - start));
 		}
 		else if (line[end] && line[end] == '(')
 		{
 			ft_skip_p(line, &end);
 			start += 2;
-			str = ft_strjoin1(str, ft_substr(line, start, end - start - 2));
+			str = ft_strjoin3(str, ft_substr(line, start, end - start - 2));
 		}
 		else
 		{
 			while (line[end] && line[end] != '(' && !ft_strchr("\"\'", line[end]))
 				end++;
-			str = ft_strjoin1(str, ft_substr(line, start, end - start));
+			str = ft_strjoin3(str, ft_substr(line, start, end - start));
 		}
 	}
 	return (str);
