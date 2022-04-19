@@ -6,7 +6,7 @@
 /*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:59:29 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 21:21:11 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/05/04 20:26:25 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_token_free_and_sup(t_token **token)
 
 void	ft_tokenclean_all(t_token **token)
 {
-	while (*token)
+	while (*token && (*token)->sub_token)
 	{
 		if ((*token)->sub_token)
 			*token = (*token)->sub_token;

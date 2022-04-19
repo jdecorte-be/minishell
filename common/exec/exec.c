@@ -6,7 +6,7 @@
 /*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/05/04 19:07:30 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/05/04 20:03:32 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	not_pid(char *cmd, char **args)
 		}
 		else if (access(cmd, F_OK) == 0 && !(cmd[0] == '.' && cmd[1] == '.'))
 			puterror(tmp, "is a directory");
-		else if (cmd[0] == '/' || (cmd[0] == '.' && cmd[1] == '/'))
+		else if (cmd[0] == '/' || (cmd[0] == '.' && cmd[1] == '/') || my_getenv("PATH", 0) == 0)
 			puterror(tmp, "No such file or directory");
 		else
 			puterror(tmp, "command not found");
