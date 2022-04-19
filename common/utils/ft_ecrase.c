@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ecrase.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:49:33 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/10 00:40:23 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void	ft_ecrase_p2(t_tmp *tmp, char *line)
 	else if (line[tmp->end] && line[tmp->end] == '(')
 	{
 		ft_skip_p(line, &tmp->end);
-		tmp->start += 2;
+		tmp->start += 1;
 		tmp->str = ft_strjoin3(tmp->str, ft_substr(line,
-					tmp->start, tmp->end - tmp->start - 2));
+					tmp->start, tmp->end - tmp->start - 1));
 	}
 	else
 	{
