@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:16:34 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/23 14:15:51 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/24 00:32:23 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	main_2(void)
 
 	while (1)
 	{
+		g_data->hd_stop = 0;
 		pt = prompt();
 		line = readline(pt);
 		free(pt);
