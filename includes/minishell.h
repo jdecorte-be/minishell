@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:02:10 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/08 19:42:35 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/09 20:52:41 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ int			checkvalid(char *cmd);
 int			echo(char **args);
 char		**ecraseq_tab(char *cmd);
 t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd);
-void	open_infd(t_redirect *file, t_redirect *tmp, char *line, char *str);
+void	open_infd(t_redirect **file, t_redirect *tmp, char *line, char *str);
 char	*ft_redirect_3_free(char *str, t_redirect *file);
 void	ft_redirect_2_2(t_redirect *file);
 int			ft_redirect_check(t_redirect file);
