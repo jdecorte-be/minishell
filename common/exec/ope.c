@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ope.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:49:05 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/02 21:12:32 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	exec_pipe(t_token *tmp)
 		else if (g_data->is_pipe == 1 && what_im(tmp->cmd) == 0)
 		{
 			g_data->is_pipe = 0;
+			if (tmp->redirect.outfd == -1 || tmp->redirect.infd == -1)
+				return (1);
 			dup2(tmp->redirect.infd, 0);
 			dup2(tmp->redirect.outfd, 1);
 			ret = exec(tmp->cmd);
@@ -63,9 +65,14 @@ void	redirect_exec(t_token *token, int mode)
 {
 	g_data->stdin_reset = dup(0);
 	g_data->stdout_reset = dup(1);
-	dup2(token->redirect.infd, 0);
-	dup2(token->redirect.outfd, 1);
-	if (mode == 0)
+	if (token->redirect.outfd != -1 || token->redirect.infd != -1)
+	{
+		dup2(token->redirect.infd, 0);
+		dup2(token->redirect.outfd, 1);
+	}
+	else
+		g_data->lastret = 1;
+	if (mode == 0 && token->redirect.outfd != -1 && token->redirect.infd != -1)
 		g_data->lastret = exec(token->cmd);
 	else
 	{

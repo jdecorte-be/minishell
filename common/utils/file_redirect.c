@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_redirect.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:33:24 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/02 20:49:43 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	ft_redirect_2(t_redirect *file, t_redirect *tmp, char *line)
 		else if (file->open->fd == 1)
 			ft_redirect_2_2(file);
 		if (file->infd == -1)
+		{
+			g_data->red_stop = 1;
 			perror("open rd");
+		}
 	}
 	else
 	{
