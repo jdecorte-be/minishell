@@ -7,7 +7,7 @@ int pwd()
 
 	if(!getcwd(buffer, sizeof(buffer)))
 		return -1;
-	ft_putstr_fd(buffer, 1);
+	printf("%s\n", buffer);
 	return 0;
 }
 

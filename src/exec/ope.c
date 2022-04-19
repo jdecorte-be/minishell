@@ -1,22 +1,5 @@
 #include "../../inc/minishell.h"
 
-void redirect(t_token *token, int *savein, int *saveout)
-{
-	if(token->redirect.outfd != 0)
-	{
-		*savein = dup(0);
-		dup2(token->redirect.infd, 0);
-		// data->stdin_reset = dup(0);
-
-	}
-	if(token->redirect.outfd != 1)
-	{
-		*saveout = dup(1);
-		dup2(token->redirect.outfd, 1);
-		// data->stdout_reset = dup(1);
-	}
-}
-
 int what_im(char *input)
 {
 	if(ft_strcmp(input, "&&") == 0)
@@ -42,11 +25,18 @@ int exec_pipe(t_token *tmp)
 
 	while(data->is_pipe)
 	{
+		tmp->cmd = ft_add_q_dollar(tmp->cmd);
+		tmp->cmd = ft_chdollar(tmp->cmd);
+		tmp->cmd = ft_cut_chevron(tmp->cmd);
+		tmp->cmd = ft_chwc(tmp->cmd);
+
 		if(data->is_pipe == 1 && tmp->next && what_im(tmp->next->cmd) == 3)
 			ret = pipex(tmp->cmd);
 		else if (data->is_pipe == 1 && what_im(tmp->cmd) == 0)
 		{
 			data->is_pipe = 0;
+			dup2(tmp->redirect.infd, 0);
+			dup2(tmp->redirect.outfd, 1);
 			ret = exec(tmp->cmd);
 			dup2(data->stdin_reset, 0);
 			dup2(data->stdin_reset, 1);
@@ -77,8 +67,8 @@ int execute(t_token *token)
 		tmp->cmd = ft_chwc(tmp->cmd);
 
 		// * test
-		printf("%d\n",token->redirect.infd);
-		printf("%d\n",token->redirect.outfd);
+		printf("%d\n",tmp->redirect.infd);
+		printf("%d\n",tmp->redirect.outfd);
 
 
 		// * if is a cmd
@@ -87,7 +77,7 @@ int execute(t_token *token)
 			if(is_and == 1 && ret == 0)
 			{
 				is_and = 0;
-				if(data->is_pipe == 0 && tmp->next && what_im(tmp->next->cmd) == 3 && token->redirect.outfd == 1)
+				if(data->is_pipe == 0 && tmp->next && what_im(tmp->next->cmd) == 3 && tmp->redirect.outfd == 1)
 				{
 					data->stdin_reset = dup(0);
 					data->stdout_reset = dup(1);
@@ -96,7 +86,10 @@ int execute(t_token *token)
 				}
 				else
 				{
-					redirect(tmp, &data->stdin_reset, &data->stdout_reset);
+					data->stdin_reset = dup(0);
+					data->stdout_reset = dup(1);
+					dup2(tmp->redirect.infd, 0);
+					dup2(tmp->redirect.outfd, 1);
 					ret = exec(tmp->cmd);
 				}
 			}
@@ -104,29 +97,39 @@ int execute(t_token *token)
 			else if(is_or == 1 && ret != 0)
 			{
 				is_or = 0;
-				if(data->is_pipe == 0 && tmp->next && what_im(tmp->next->cmd) == 3 && token->redirect.outfd == 1)
+				if(data->is_pipe == 0 && tmp->next && what_im(tmp->next->cmd) == 3 && tmp->redirect.outfd == 1)
 				{
 					data->stdin_reset = dup(0);
 					data->stdout_reset = dup(1);
+					dup2(tmp->redirect.infd, 0);
+					dup2(tmp->redirect.outfd, 1);
 					data->is_pipe = 1;
 					ret = exec_pipe(tmp);
 				}
 				else
 				{
-					redirect(tmp, &data->stdin_reset, &data->stdout_reset);
+					data->stdin_reset = dup(0);
+					data->stdout_reset = dup(1);
+					dup2(tmp->redirect.infd, 0);
+					dup2(tmp->redirect.outfd, 1);
 					ret = exec(tmp->cmd);
 				}
 			}
-			else if(start == 1 && data->is_pipe == 0 && tmp->next && what_im(tmp->next->cmd) == 3 && token->redirect.outfd == 1)
+			else if(start == 1 && data->is_pipe == 0 && tmp->next && what_im(tmp->next->cmd) == 3 && tmp->redirect.outfd == 1)
 			{
-				data->stdin_reset = dup(0);
-				data->stdout_reset = dup(1);
+					data->stdin_reset = dup(0);
+					data->stdout_reset = dup(1);
+					dup2(tmp->redirect.infd, 0);
+					dup2(tmp->redirect.outfd, 1);
 				data->is_pipe = 1;
 				ret = exec_pipe(tmp);
 			}
 			else if(start == 1)
 			{
-				redirect(tmp, &data->stdin_reset, &data->stdout_reset);
+					data->stdin_reset = dup(0);
+					data->stdout_reset = dup(1);
+					dup2(tmp->redirect.infd, 0);
+					dup2(tmp->redirect.outfd, 1);
 				ret = exec(tmp->cmd);
 			}
 
