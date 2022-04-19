@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:16:34 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 16:34:07 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/02 17:15:51 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,14 @@ int	main(int ac, char **av, char **env)
 {
 	(void) av;
 	if (ac != 1)
+	{
 		puterror("\e[0;37mUse", "./minishell without arguments");
+		return (0);
+	}
 	g_data = malloc(sizeof(t_data));
 	if (!(g_data))
 		return (0);
 	initiate_values(g_data, env);
 	main_2();
-	ft_exit(0);
+	ft_exit(g_data->lastret);
 }
