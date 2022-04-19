@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:53:46 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/17 13:02:09 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/23 12:51:28 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,11 @@ int	unset(char **cmd)
 
 	i = 1;
 	if (!cmd[1])
-	{
-		ft_free_tab(cmd);
 		return (0);
-	}
 	while (cmd[i])
 	{
 		if (!checkvalid(cmd[i]))
-		{
-			ft_free_tab(cmd);
 			return (1);
-		}
 		del_element(ft_ecrase_q(cmd[i]));
 		i++;
 	}

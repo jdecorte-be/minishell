@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:22:28 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/17 13:01:36 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/23 12:51:53 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	echo(char **cmd)
 	if (!cmd[1])
 	{
 		ft_putstr_fd("\n", 1);
-		ft_free_tab(cmd);
 		return (0);
 	}
 	echo_2(cmd, &i, &option);
