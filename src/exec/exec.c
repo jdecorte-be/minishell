@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/04/17 13:30:20 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/23 19:18:59 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,36 +38,6 @@ int	exec(char *cmd)
 		ret = (cmd_sys(ft_ecrase_p(cmd)));
 	ft_free_tab(s_cmd);
 	return (ret);
-}
-
-char	*get_path(char *cmd)
-{
-	int		i;
-	char	*exec;
-	char	**allpath;
-	char	*path_part;
-	char	**s_cmd;
-
-	i = -1;
-	allpath = ft_split(my_getenv("PATH", NULL), ":");
-	if (!allpath)
-		return (cmd);
-	s_cmd = ft_split2(cmd, " ");
-	while (allpath[++i])
-	{
-		path_part = ft_strjoin(allpath[i], "/");
-		exec = ft_strjoin(path_part, s_cmd[0]);
-		free(path_part);
-		if (access(exec, F_OK | X_OK) == 0)
-		{
-			ft_free_tab(s_cmd);
-			return (exec);
-		}
-		free(exec);
-	}
-	ft_free_tab(allpath);
-	ft_free_tab(s_cmd);
-	return (cmd);
 }
 
 void	sig(pid_t *pid, int *ret)

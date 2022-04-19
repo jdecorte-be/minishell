@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:49:05 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/17 20:15:50 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/23 19:15:15 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,7 @@ int	exec_pipe(t_token *tmp)
 	}
 	while (g_data->is_pipe && tmp->cmd)
 	{
-		tmp->cmd = ft_add_q_dollar(tmp->cmd);
-		tmp->cmd = ft_chdollar(tmp->cmd);
-		ft_redirect_for_john(tmp);
-		tmp->cmd = ft_cut_chevron(tmp->cmd);
-		tmp->cmd = ft_chwc(tmp->cmd);
+		init_2(tmp);
 		if (g_data->is_pipe == 1 && tmp->next && what_im(tmp->next->cmd) == 3)
 			ret = pipex(tmp->cmd);
 		else if (g_data->is_pipe == 1 && what_im(tmp->cmd) == 0)
