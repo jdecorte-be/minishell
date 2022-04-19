@@ -6,11 +6,23 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:33:24 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/06 18:42:07 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/12 19:31:29 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+int	ft_redirect_check_2(t_list *tmp, char *c)
+{
+	*c = ft_strstrchr(tmp->content, "|&()");
+	if (c != 0)
+	{
+		printf("bash: syntax error near unexpected token `%s'\n", c);
+		return (0);
+	}
+	tmp = tmp->next;
+	return (1);
+}
 
 int	ft_redirect_check(t_redirect file)
 {
@@ -21,13 +33,8 @@ int	ft_redirect_check(t_redirect file)
 	tmp = file.infile;
 	while (tmp)
 	{
-		c = ft_strstrchr(tmp->content, "|&()");
-		if (c != 0)
-		{
-			printf("bash: syntax error near unexpected token `%c'\n", c);
+		if (!ft_redirect_check_2(tmp, &c))
 			return (0);
-		}
-		tmp = tmp->next;
 	}
 	tmp = file.outfile;
 	while (tmp)
@@ -41,6 +48,22 @@ int	ft_redirect_check(t_redirect file)
 		tmp = tmp->next;
 	}
 	return (1);
+}
+
+void	ft_chrredirect_2(t_hd **open, t_hd **open2, int i)
+{
+	if (i == 0)
+		ft_hdadd_back(open2, ft_hdnew(1));
+	else if (i != 0)
+		ft_hdadd_back(open2, ft_hdnew(0));
+}
+
+void	ft_chrredirect_3(t_hd **open, int i2)
+{
+	if (i2 == 0)
+		ft_hdadd_back(open, ft_hdnew(1));
+	else if (i2 != 0)
+		ft_hdadd_back(open, ft_hdnew(0));
 }
 
 char	*ft_chrredirect(char *line, t_hd **open, t_hd **open2, size_t *v)
@@ -59,14 +82,8 @@ char	*ft_chrredirect(char *line, t_hd **open, t_hd **open2, size_t *v)
 	else
 		while (line[end] == '>' && i--)
 			end++;
-	if (i == 0)
-		ft_hdadd_back(open2, ft_hdnew(1));
-	else if (i != 0)
-		ft_hdadd_back(open2, ft_hdnew(0));
-	if (i2 == 0)
-		ft_hdadd_back(open, ft_hdnew(1));
-	else if (i2 != 0)
-		ft_hdadd_back(open, ft_hdnew(0));
+	ft_chrredirect_2(open, open2, i);
+	ft_chrredirect_3(open, i2);
 	while (ft_isspace(line[end]))
 		end++;
 	start = end;

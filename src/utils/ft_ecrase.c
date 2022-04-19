@@ -6,47 +6,51 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:49:33 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/06 20:50:26 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/12 19:28:25 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char    *ft_ecrase_q(char *word)
+void	ft_ecrase_q_2(char *word, size_t *start, size_t *end, char *new_word)
 {
-	char	*new_word;
-	size_t	i;
+	char	c;
+
+	c = 0;
+	new_word = 0;
+	*end = 0;
+	*start = *end;
+	if (word[*end] && ft_strchr("\'\"", word[*end]))
+	{
+		c = word[*end++];
+		*start = *end;
+		while (word[*end] && word[*end] != c)
+			end++;
+		new_word = ft_strjoin3(new_word,
+				ft_substr(word, *start, end - start));
+		if (word[*end])
+			end += 1;
+	}
+	else
+	{
+		while (word[*end] && !ft_strchr("\'\"", word[*end]))
+			*end += 1;
+		new_word = ft_strjoin3(new_word,
+				ft_substr(word, *start, *end - *start));
+	}
+}
+
+char	*ft_ecrase_q(char *word)
+{
 	size_t	start;
 	size_t	end;
-	char	c;
+	char	*new_word;
 
 	if (!word)
 		return (0);
-	i = 0;
-	end = 0;
-	new_word = 0;
 	while (word[end])
 	{
-		c = 0;
-		start = end;
-		if (word[end] && ft_strchr("\'\"", word[end]))
-		{
-			c = word[end++];
-			start = end;
-			while (word[end] && word[end] != c)
-				end++;
-			new_word = ft_strjoin3(new_word,
-					ft_substr(word, start, end - start));
-			if (word[end])
-				end++;
-		}
-		else
-		{
-			while (word[end] && !ft_strchr("\'\"", word[end]))
-				end++;
-			new_word = ft_strjoin3(new_word,
-					ft_substr(word, start, end - start));
-		}
+		ft_ecrase_q_2(word, &start, &end, new_word);
 	}
 	return (new_word);
 }

@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:45:53 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/06 18:45:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/12 19:04:06 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ char	*ft_gethome(void)
 			trig++;
 		}
 		if (str[i])
-		{
 			i++;
-		}
 	}
 	home = ft_substr(str, 0, i - 1);
 	return (home);

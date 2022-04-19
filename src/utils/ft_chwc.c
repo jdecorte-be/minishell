@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:47:02 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/06 20:49:09 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/12 19:10:50 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,21 @@ char	*ft_chwc2(char *line)
 	return (ft_lstmerge(match2));
 }
 
+void	ft_chwc_2(t_tmp *tmp, t_list *woq, t_list *wc, t_list *name)
+{
+	while (tmp->lst)
+	{
+		ft_lstadd_back(&name, ft_lstnew(ft_chwc2((tmp->lst)->content)));
+		tmp->lst = (tmp->lst)->next;
+	}
+	tmp->lst = wc;
+	while (tmp->lst)
+	{
+		ft_lstadd_back(&woq, ft_lstnew(ft_woquote((tmp->lst)->content)));
+		tmp->lst = (tmp->lst)->next;
+	}
+}
+
 char	*ft_chwc(char *line)
 {
 	char	*str;
@@ -152,17 +167,7 @@ char	*ft_chwc(char *line)
 		return (line);
 	wc = ft_wcsearch(line);
 	tmp.lst = wc;
-	while (tmp.lst)
-	{
-		ft_lstadd_back(&name, ft_lstnew(ft_chwc2((tmp.lst)->content)));
-		tmp.lst = (tmp.lst)->next;
-	}
-	tmp.lst = wc;
-	while (tmp.lst)
-	{
-		ft_lstadd_back(&woq, ft_lstnew(ft_woquote((tmp.lst)->content)));
-		tmp.lst = (tmp.lst)->next;
-	}
+	ft_chwc_2(&tmp, woq, wc, name);
 	if (!name)
 		return (line);
 	str = ft_chwc_str(line, name, wc, woq);

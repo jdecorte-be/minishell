@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:02:10 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/06 17:57:42 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/07 20:40:15 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,10 @@ typedef struct s_tmp
 	char	*str;
 	void	*ptr;
 	char	home[PATH_MAX];
+	int		par;
+	char	*temp;
+	int		off;
+	int		e_len;
 }	t_tmp;
 
 t_data	*g_data;
@@ -235,7 +239,7 @@ void		print_exp(t_data *data);
 int			splitlen(char **split);
 char		*ft_chdir(char *line);
 int			what_im(char *input);
-int			exit_cmd(char **s_cmd);
+void		exit_cmd(char **s_cmd);
 int			cmd_sys(char *cmd);
 void		ft_redirect_for_john(t_token *token);
 char		*ft_ecrase_q(char *word);
@@ -309,5 +313,14 @@ void		c_handler(int sig);
 void		c_handler_fork(int sig);
 void		q_handler_fork(int sig);
 void		c_handler_doc(int sig);
+
+void		ft_exit(int numerror);
+
+char		**array_dup(char **tab);
+
+void		init(int *start, int *is_and, int *is_or, int *is_ope);
+void		init_2(t_token *tmp);
+
+void		redirect_exec(t_token *token, int mode);
 
 #endif
