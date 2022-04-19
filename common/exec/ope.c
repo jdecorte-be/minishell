@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:49:05 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/02 21:12:32 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/03 16:25:56 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,29 @@ int	exec_pipe(t_token *tmp)
 {
 	int	ret;
 
-	ret = 0;
+	ret = 1;
 	if (what_im(tmp->cmd) == 0 && \
 		what_im(tmp->next->cmd) == 3 && !tmp->next->next)
-	{
 		printf("prohibited character or input not close\n");
-		return (1);
-	}
-	while (g_data->is_pipe && tmp->cmd)
+	else
 	{
-		init_2(tmp);
-		if (g_data->is_pipe == 1 && tmp->next && what_im(tmp->next->cmd) == 3)
-			ret = pipex(tmp->cmd);
-		else if (g_data->is_pipe == 1 && what_im(tmp->cmd) == 0)
+		while (g_data->is_pipe && tmp->cmd)
 		{
-			g_data->is_pipe = 0;
-			if (tmp->redirect.outfd == -1 || tmp->redirect.infd == -1)
-				return (1);
-			dup2(tmp->redirect.infd, 0);
-			dup2(tmp->redirect.outfd, 1);
-			ret = exec(tmp->cmd);
+			init_2(tmp);
+			if (g_data->is_pipe == 1 && tmp->next \
+					&& what_im(tmp->next->cmd) == 3)
+				ret = pipex(tmp->cmd);
+			else if (g_data->is_pipe == 1 && what_im(tmp->cmd) == 0)
+			{
+				g_data->is_pipe = 0;
+				if (tmp->redirect.outfd == -1 || tmp->redirect.infd == -1)
+					return (1);
+				dup2(tmp->redirect.infd, 0);
+				dup2(tmp->redirect.outfd, 1);
+				ret = exec(tmp->cmd);
+			}
+			tmp = tmp->next;
 		}
-		tmp = tmp->next;
 	}
 	return (ret);
 }

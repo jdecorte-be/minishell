@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/03 16:21:40 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	exec(char *cmd)
 	char	**s_cmd;
 	int		ret;
 
+	ret = 0;
 	s_cmd = ft_split2(ft_ecrase_q(cmd), " ");
 	if (cmd[0] == '(')
 		ret = (subshell(ft_ecrase_p(cmd)));
@@ -65,18 +66,17 @@ int	cmd_sys(char *cmd)
 	int		ret;
 	size_t	i;
 
-	i = 0 ;
+	ret = 0;
+	pid = 0;
+	i = -1;
 	args = ft_split2(cmd, " ");
-	while (args[i])
-	{
+	while (args[++i])
 		args[i] = ft_ecrase_q(args[i]);
-		i++;
-	}
 	pid = fork();
-	signal(SIGINT, c_handler_fork);
-	signal(SIGQUIT, q_handler_fork);
 	if (pid < 0)
 		perror("fork: ");
+	signal(SIGINT, c_handler_fork);
+	signal(SIGQUIT, q_handler_fork);
 	if (!pid)
 		not_pid(cmd, args);
 	else

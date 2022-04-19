@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:57:04 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/02 13:50:25 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/03 16:03:59 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	ft_isprohibited(char *line)
 {
 	size_t	i;
 	int		quote;
-	char	c;
 	int		par;
 
 	if (!line)

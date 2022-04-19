@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:53:46 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/02 16:36:30 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/03 16:20:14 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	checkvalid_unset(char *cmd)
 	return (0);
 }
 
-
 int	del_element(char *name)
 {
 	char	**p_env;
@@ -60,7 +59,6 @@ int	del_element(char *name)
 
 int	unset(char **cmd)
 {
-	int	offset;
 	int	i;
 	int	err;
 

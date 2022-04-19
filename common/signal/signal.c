@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:15:03 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 16:35:24 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/03 16:09:22 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	newprompt(int sig)
 {
+	(void) sig;
 	printf("\n");
 	rl_on_new_line();
 	rl_redisplay();
@@ -21,17 +22,20 @@ void	newprompt(int sig)
 
 void	c_handler(int sig)
 {
+	(void) sig;
 	newprompt(sig);
 }
 
 void	c_handler_fork(int sig)
 {
+	(void) sig;
 	printf("^C\n");
 	rl_on_new_line();
 }
 
 void	q_handler_fork(int sig)
 {
+	(void) sig;
 	printf("^\\\n");
 	rl_on_new_line();
 }

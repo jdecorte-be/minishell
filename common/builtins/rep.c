@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rep.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:51:11 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/03 16:10:22 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	pwd(void)
 	return (0);
 }
 
-int	cd_2(char **cmd)
+int	cd_2(void)
 {
 	char	*home;
 
@@ -36,7 +36,7 @@ int	cd_2(char **cmd)
 	return (0);
 }
 
-int	cd_3(char **cmd)
+int	cd_3(void)
 {
 	perror("cd");
 	return (1);
@@ -49,9 +49,9 @@ int	cd(char **cmd)
 	char	*tmp;
 
 	if (!cmd[1])
-		return (cd_2(cmd));
+		return (cd_2());
 	if (chdir(ft_ecrase_q(cmd[1])) == -1)
-		return (cd_3(cmd));
+		return (cd_3());
 	else
 	{
 		if (!getcwd(pwd_buff, sizeof(pwd_buff)))

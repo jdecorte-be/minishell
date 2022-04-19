@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:47:39 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/02 21:05:00 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/03 16:28:24 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	execute_2(int *is_or, int *is_and, t_token *tmp, int start)
 	else if (start == 1)
 		redirect_exec(tmp, 0);
 }
-
 
 void	execute(t_token *token)
 {

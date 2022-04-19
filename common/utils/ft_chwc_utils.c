@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_chwc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:41:40 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/02 18:03:08 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/03 16:07:28 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,11 @@ t_list	*ft_readfile(char *wc, DIR *loc, char mode, char *add)
 	struct dirent	*file;
 	char			**wc_tab;
 	t_list			*match;
-	size_t			i;
 
 	(void)mode;
 	(void)add;
 	match = 0;
 	wc_tab = ft_split4(wc, "*");
-	i = 0;
 	file = readdir(loc);
 	while (file)
 	{

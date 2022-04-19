@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:27:52 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/05/02 14:26:32 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/03 16:20:07 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ long long	ft_atoi_exit(const char *str)
 	int			i;
 	long		neg;
 	long long	num;
-	long long	res;
 
 	i = 0;
 	neg = 1;
@@ -89,7 +88,7 @@ void	exit_cmd(char **s_cmd)
 	if (s_cmd[2])
 	{
 		ft_putstr_fd("bash: exit: too many arguments\n", 2);
-		return;
+		return ;
 	}
 	else
 		exit_cmd_2(err, c_err, s_cmd);

@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:13:01 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/02 20:35:16 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/03 16:08:20 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,6 @@ void	ft_clean_hd(t_hd *hd)
 	{
 		tmp = hd;
 		hd = hd->next;
-		// free(tmp);
+		free(tmp);
 	}
 }

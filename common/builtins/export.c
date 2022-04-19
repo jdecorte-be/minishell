@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:14:20 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/02 16:33:49 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/03 16:20:23 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	checkvalid(char *cmd)
 	i = 0;
 	while (cmd[i])
 	{
-
 		if ((ft_isalnum(cmd[i]) == 0 && cmd[i] != '\''
 				&& cmd[i] != '"' && cmd[i] != '_' && cmd)
 			|| ft_isdigit(cmd[0]) == 1 || cmd[0] == '=')
@@ -55,7 +54,7 @@ void	export_print(void)
 
 	i = 0;
 	len = splitlen(g_data->env);
-	env = array_dup(g_data->env);
+	env = array_dup();
 	if (env == NULL)
 		return ;
 	while (i < len)

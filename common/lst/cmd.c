@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:12:48 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/02 13:18:08 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/03 16:08:49 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ft_cmdadd_and(t_cmd **cmd, t_cmd *new)
 {
 	t_cmd	*last_elem;
 
+	last_elem = NULL;
 	if (cmd && new)
 	{
 		if (!*cmd)
@@ -58,6 +59,7 @@ void	ft_cmdadd_or(t_cmd **cmd, t_cmd *new)
 {
 	t_cmd	*last_elem;
 
+	last_elem = NULL;
 	if (cmd && new)
 	{
 		if (!*cmd)

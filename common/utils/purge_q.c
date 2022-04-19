@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   purge_q.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:59:27 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/03 16:06:36 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	ft_purge_q_2(char *line, size_t *start, size_t *end, char *str)
 {
-	size_t	temp;
-
 	*start = *end;
 	if (ft_strchr("\'\"", line[*end]) && line[*end + 1]
 		&& line[*end + 1] == line[*end])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:59:14 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/03 16:06:42 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_token	*ft_parsing2(t_token *sup_token)
 	t_token	*token;
 	t_token	*tmp;
 	char	*line;
-	int		fd[2];
 
 	line = tokenize(ft_ecrase_p(sup_token->cmd));
 	tab = ft_split(line, "\1");
@@ -40,7 +39,6 @@ t_token	*ft_parsing(char *line)
 	char	**tab;
 	t_token	*token;
 	t_token	*tmp;
-	int		fd[2];
 
 	line = tokenize(line);
 	tab = ft_split(line, "\1");

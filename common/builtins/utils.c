@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:55:54 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/02 12:19:56 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/03 16:18:15 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	egal_len(char *cmd)
 	return (i);
 }
 
-char	**array_dup(char **tab)
+char	**array_dup(void)
 {
 	char	**res;
 	int		i;

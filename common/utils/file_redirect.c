@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:33:24 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 15:52:05 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/03 16:07:53 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ft_redirect_2_2(t_redirect *file)
 
 void	ft_redirect_2(t_redirect *file, t_redirect *tmp, char *line)
 {
+	(void) line;
 	if (ft_chwc_ok2(file->infile->content) || ft_transf(file->infile->content))
 	{
 		if (file->infd != tmp->infd)

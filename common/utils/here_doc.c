@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:55:45 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/03 16:06:52 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	*ft_chlimiter(char *line, size_t *v)
 {
 	size_t	end;
 	size_t	start;
-	int		i;
 
 	end = 0;
 	end = ft_next_word(line, end);
@@ -50,7 +49,6 @@ t_list	*ft_search_limiters(char *line)
 {
 	t_list	*lst;
 	size_t	i;
-	char	*str;
 	size_t	v;
 
 	v = 0;

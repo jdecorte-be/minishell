@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:52:13 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/03 16:07:00 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static size_t	ft_count_words(char *str, char *set)
 {
 	size_t	i;
 	size_t	count;
-	char	c;
 
 	i = 0;
 	count = 0;
@@ -44,7 +43,6 @@ static char	**ft_creat_tab(char **tab, char *str, char *set, size_t word)
 	size_t	i;
 	size_t	start;
 	size_t	end;
-	char	c;
 
 	i = 0;
 	end = 0;
