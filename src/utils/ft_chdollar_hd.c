@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:46:04 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/22 02:40:59 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/04/22 18:00:02 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ char	*ft_chdollar_hd(char *line)
 	char	*str;
 	t_list	*dollar;
 
-	// ne pas delete ce comment
 	if (!line)
 		return (0);
 	if (ft_chdollar_ok_hd(line))
