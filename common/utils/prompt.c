@@ -1,41 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 18:15:03 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/09 19:40:15 by lyaiche          ###   ########.fr       */
+/*   Created: 2022/05/09 19:33:36 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/05/09 19:35:16 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	newprompt(int sig)
+char	*prompt(void)
 {
-	(void) sig;
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
+	char	*path;
+	char	*line;
+	char	*sub;
+	int		i;
 
-void	c_handler(int sig)
-{
-	(void) sig;
-	newprompt(sig);
-}
-
-void	c_handler_fork(int sig)
-{
-	(void) sig;
-	rl_on_new_line();
-}
-
-void	q_handler_fork(int sig)
-{
-	(void) sig;
-	printf("^\\\n");
-	rl_on_new_line();
+	path = NULL;
+	path = getcwd(path, 1024);
+	i = ft_strlen(path);
+	while (path[i] != '/')
+		i--;
+	sub = ft_substr(path, i + 1, ft_strlen(path));
+	line = ft_strjoin(sub, " ❯ ");
+	free(path);
+	free(sub);
+	return (line);
 }
