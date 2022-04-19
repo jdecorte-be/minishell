@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_error2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:54:36 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/02 14:07:30 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,21 @@ int	ft_parse_error(int e)
 		write(2, "minishell: syntax error near unexpected token `|'\n", 50);
 	g_data->lastret = 258;
 	return (1);
+}
+
+int	ft_token_error(t_token *token)
+{
+	size_t	len;
+	t_token	*tmp;
+
+	len = ft_strlen(token->cmd);
+	tmp = ft_tokenlast(token);
+	if ((len >= 2 && (!ft_strncmp("&&", tmp->cmd, 1)
+				|| !ft_strncmp("||", tmp->cmd, 1)))
+		|| (len >= 1 && *tmp->cmd == '|'))
+	{
+		free(token);
+		return (ft_parse_error(1));
+	}
+	return (0);
 }

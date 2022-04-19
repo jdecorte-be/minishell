@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_trijoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 07:53:59 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/02 13:18:41 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ char	*ft_trijoin(char *s1, char *s2, char *s3, int e)
 	s[2] = s3;
 	str = malloc(sizeof(char) * (ft_strlen(s1)
 				+ ft_strlen(s2) + ft_strlen(s3) + 1));
+	if (!str)
+		ft_error(2);
 	ret = str;
 	while (s1 && *s1)
 		*str++ = *s1++;
