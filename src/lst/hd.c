@@ -57,11 +57,24 @@ int	ft_hdsize(t_hd *hd)
 	return (i);
 }
 
+void	ft_clean_hd(t_hd *hd)
+{
+	t_hd	*tmp;
+
+	while (hd)
+	{
+		tmp = hd;
+		hd = hd->next;
+		free(tmp);
+	}
+}
+
 int	*ft_hd_to_tab(t_hd *hd)
 {
 	size_t	i;
 	size_t	size;
 	int		*tab;
+	t_hd	*tmp;
 
 	i = 0;
 	size = ft_hdsize(hd);
@@ -69,8 +82,10 @@ int	*ft_hd_to_tab(t_hd *hd)
 	while (i < size)
 	{
 		tab[i++] = hd->fd;
-		hd = hd->next;
+		tmp = hd;
+		hd = hd->next;//aaaaas
+		free(tmp);
 	}
-	free(hd);
+	// free(hd);
 	return (tab);
 }
