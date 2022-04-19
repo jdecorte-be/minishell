@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 21:01:36 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/05 00:02:14 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ t_token	*ft_tab_to_token(char **tab)
 	t_token	*token;
 
 	if (!tab || !*tab)
+	{
+		free(tab);
 		return (0);
+	}
 	token = 0;
 	i = 0;
 	while (tab[i])

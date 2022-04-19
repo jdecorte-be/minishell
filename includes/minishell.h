@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:02:10 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 16:18:31 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/05 02:06:59 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ typedef struct s_tmp
 	size_t		i2;
 	char		c;
 	t_list		*lst;
+	t_list		*lst2;
 	size_t		start;
 	size_t		end;
 	t_redirect	redirect;
@@ -332,5 +333,5 @@ void		init_2(t_token *tmp);
 
 void		redirect_exec(t_token *token, int mode);
 int			ft_token_error(t_token *token);
-
+int			ft_transf_int(char *line);
 #endif

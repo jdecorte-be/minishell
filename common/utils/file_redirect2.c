@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   file_redirect2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 18:27:43 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/05/04 19:09:05 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/05/05 02:25:03 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_redirect_check_2(t_list *tmp, char *c)
+int	ft_redirect_check_2(t_list **tmp, char *c)
 {
-	*c = ft_strstrchr(tmp->content, "|&()");
-	if (c != 0)
+	*c = ft_strstrchr((*tmp)->content, "|&()");
+	if (*c != 0)
 	{
-		printf("boshell: syntax error near unexpected token `%s'\n", c);
+		printf("boshell: syntax error near unexpected token `%c'\n", *c);
 		return (0);
 	}
-	tmp = tmp->next;
+	*tmp = (*tmp)->next;
 	return (1);
 }
 
@@ -32,7 +32,7 @@ int	ft_redirect_check(t_redirect file)
 	tmp = file.infile;
 	while (tmp)
 	{
-		if (!ft_redirect_check_2(tmp, &c))
+		if (!ft_redirect_check_2(&tmp, &c))
 			return (0);
 	}
 	tmp = file.outfile;
@@ -84,5 +84,6 @@ char	*ft_chrredirect(char *line, t_hd **open, t_hd **open2, size_t *v)
 	while (line[end] && !ft_isspace(line[end]))
 		end++;
 	*v = end;
+
 	return (ft_substr(line, start, end - start));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_redirect.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:33:24 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 16:07:53 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/05 02:43:50 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,21 @@ void	ft_redirect_2_2(t_redirect *file)
 	}
 }
 
-void	ft_redirect_2(t_redirect *file, t_redirect *tmp, char *line)
+void	ft_redirect_2(t_redirect *file, t_redirect *tmp, char *line, char *str)
 {
-	(void) line;
-	if (ft_chwc_ok2(file->infile->content) || ft_transf(file->infile->content))
+	if (ft_chwc_ok2(file->infile->content)
+		|| ft_transf_int(file->infile->content))
 	{
 		if (file->infd != tmp->infd)
 			close(file->infd);
 		if (file->open->fd == 0)
-			file->infd = open(ft_ecrase_q(ft_redirect_chwc(
-							ft_cut_chevron(file->infile->content))), O_RDONLY);
+		{
+			str = ft_redirect_chwc(ft_cut_chevron(file->infile->content));
+			line = ft_ecrase_q(str);
+			file->infd = open(line, O_RDONLY);
+			free(str);
+			free(line);
+		}
 		else if (file->open->fd == 1)
 			ft_redirect_2_2(file);
 		if (file->infd == -1)
@@ -56,38 +61,50 @@ void	ft_redirect_2(t_redirect *file, t_redirect *tmp, char *line)
 		file->open2 = file->open2->next;
 }
 
-void	ft_redirect_3_1(t_redirect *file, t_redirect *tmp, char **to_free)
+char	*ft_redirect_3_free(char *str, t_redirect *file)
+{
+	char	*ret;
+	char	*tmp;
+
+	tmp = ft_redirect_chwc(ft_cut_chevron(str));
+	ret = ft_ecrase_q(tmp);
+	if (!ft_chwc_ok2(file->outfile->content))
+		free(tmp);
+	return (ret);
+}
+
+void	ft_redirect_3_1(t_redirect *file, t_redirect *tmp, char *to_free)
 {
 	if (ft_chwc_ok2(file->outfile->content)
-		|| ft_transf(file->outfile->content))
+		|| ft_transf_int(file->outfile->content))
 	{
 		if (file->outfd != tmp->outfd)
 			close(file->outfd);
 		if (file->open2->fd == 0)
 		{
-			(*to_free) = ft_ecrase_q(ft_redirect_chwc
-					(ft_cut_chevron(file->outfile->content)));
-			file->outfd = open((*to_free), O_WRONLY
+			(to_free) = ft_redirect_3_free(file->outfile->content, file);
+			file->outfd = open((to_free), O_WRONLY
 					| O_TRUNC | O_CREAT, 0644);
-			free((*to_free));
+			free((to_free));
 		}
 		else if (file->open2->fd == 1)
 		{
-			(*to_free) = ft_ecrase_q(ft_redirect_chwc
-					(ft_cut_chevron(file->outfile->content)));
-			file->outfd = open((*to_free), O_WRONLY
+			(to_free) = ft_redirect_3_free(file->outfile->content, file);
+			file->outfd = open((to_free), O_WRONLY
 					| O_APPEND | O_CREAT, 0644);
-			free((*to_free));
+			free((to_free));
 		}
 		if (file->outfd == -1)
 			perror("open wr");
 	}
 }
 
-void	ft_redirect_3(t_redirect *file, t_redirect *tmp, char **to_free)
+void	ft_redirect_3(t_redirect *file, t_redirect *tmp, char *to_free)
 {
+	char	*str;
+
 	if (ft_chwc_ok2(file->outfile->content)
-		|| ft_transf(file->outfile->content))
+		|| ft_transf_int(file->outfile->content))
 		ft_redirect_3_1(file, tmp, to_free);
 	else
 	{
@@ -104,6 +121,7 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 {
 	t_redirect	tmp;
 	char		*to_free;
+	char		*to_free2;
 
 	if (!line)
 		return (file);
@@ -120,9 +138,9 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 	if (ft_redirect_check(file))
 	{
 		while (file.infile)
-			ft_redirect_2(&file, &tmp, line);
+			ft_redirect_2(&file, &tmp, to_free, to_free2);
 		while (file.outfile)
-			ft_redirect_3(&file, &tmp, &to_free);
+			ft_redirect_3(&file, &tmp, to_free);
 	}
 	return (file);
 }

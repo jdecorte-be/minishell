@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect_chwc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:50:47 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 16:07:25 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/05 02:21:01 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_transf2(t_tmp *tmp, char **suff, char **pref)
 	while (tmp->tab[tmp->i] && !ft_strchr(tmp->tab[tmp->i], '*'))
 		tmp->i++;
 	if (tmp->tab[tmp->i])
-		tmp->str = tmp->tab[tmp->i];
+		tmp->str = ft_strdup(tmp->tab[tmp->i]);
 	tmp->i2 = 0;
 	tmp->tmp = 0;
 	while (tmp->i2 < tmp->i)
@@ -51,6 +51,7 @@ void	ft_transf2(t_tmp *tmp, char **suff, char **pref)
 	*suff = 0;
 	while (tmp->tab[tmp->i2])
 		*suff = ft_strjoin1(*suff, tmp->tab[tmp->i2++]);
+	ft_free_tab(tmp->tab);
 }
 
 char	*ft_transf(char *line)
@@ -65,30 +66,65 @@ char	*ft_transf(char *line)
 	tmp.tab = ft_split4(line, "/");
 	ft_transf2(&tmp, &suff, &pref);
 	match = ft_wcfile(tmp.str, getcwd(tmp.path, PATH_MAX), 0, 0);
-	if (ft_lstsize(match) > 1)
+	if (ft_lstsize(match) > 1 || ft_lstsize(match) < 1)
 	{
 		ft_lstclear(&match, free);
-		printf("pas bien trop grand\n");
 		return (0);
 	}
 	tmp.lst = match;
 	tmp.lst->content = ft_trijoin(pref, tmp.lst->content, suff, 2);
 	match2 = 0;
 	if (!access(tmp.lst->content, F_OK))
-		ft_lstadd_back(&match2, ft_lstnew(tmp.lst->content));
+		ft_lstadd_back(&match2, ft_lstnew(ft_strdup(tmp.lst->content)));
 	else if (!access(ft_trijoin(tmp.path, "/", tmp.lst->content, 2), F_OK))
-		ft_lstadd_back(&match2, ft_lstnew(tmp.lst->content));
+		ft_lstadd_back(&match2, ft_lstnew(ft_strdup(tmp.lst->content)));
+	ft_lstclear(&match, free);
 	return (ft_lstmerge(match2));
+}
+
+int	ft_transf_int(char *line)
+{
+	t_tmp	tmp;
+	char	*pref;
+	char	*suff;
+	t_list	*match;
+	t_list	*match2;
+
+	tmp.i = 0;
+	tmp.tab = ft_split4(line, "/");
+	ft_transf2(&tmp, &suff, &pref);
+	match = ft_wcfile(tmp.str, getcwd(tmp.path, PATH_MAX), 0, 0);
+	if (ft_lstsize(match) > 1 || ft_lstsize(match) < 1)
+	{
+		ft_lstclear(&match, free);
+		return (0);
+	}
+	tmp.lst = match;
+	tmp.lst->content = ft_trijoin(pref, tmp.lst->content, suff, 2);
+	match2 = 0;
+	if (!access(tmp.lst->content, F_OK))
+		ft_lstadd_back(&match2, ft_lstnew(ft_strdup(tmp.lst->content)));
+	else if (!access(ft_trijoin(tmp.path, "/", tmp.lst->content, 2), F_OK))
+		ft_lstadd_back(&match2, ft_lstnew(ft_strdup(tmp.lst->content)));
+	ft_lstclear(&match, free);
+	if (match2)
+	{
+		ft_lstclear(&match2, free);
+		return (1);
+	}
+	return (0);
 }
 
 void	ft_redirect_chwc2(t_list **tmp, t_list **name, t_list **woq, int e)
 {
+	char	*to_free;
 	if (e == 1)
 	{
 		while (*tmp)
 		{
-			ft_lstadd_back(name, ft_lstnew(
-					ft_transf(ft_ecrase_q((*tmp)->content))));
+			to_free = ft_ecrase_q((*tmp)->content);
+			ft_lstadd_back(name, ft_lstnew(ft_transf(to_free)));
+			free(to_free);
 			*tmp = (*tmp)->next;
 		}
 	}
@@ -124,6 +160,6 @@ char	*ft_redirect_chwc(char *line)
 	if (!name)
 		return (line);
 	str = ft_chwc_str(line, name, wc, woq);
-	free(line);
+	// free(line);
 	return (str);
 }
