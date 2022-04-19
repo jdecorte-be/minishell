@@ -16,7 +16,10 @@ int cd(char **cmd)
 	char pwd_buff[1024];
 
 	if(!cmd[1])
+	{
+		chdir(my_getenv("HOME", NULL));
 		return 0;
+	}
 	if(chdir(ft_ecrase_q(cmd[1])) == -1)
 	{
 		perror("cd");
