@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:24:56 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/02 16:21:40 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/03 15:51:36 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,12 @@ int	my_setenv(char *var)
 	else
 		value = ft_strdup("");
 	c = my_getenv(name, &offset);
-	if (c && (ft_strlen(c) >= ft_strlen(value)))
+	if (c)
 	{
 		tmp = value;
-		while (*c && *value)
-			*c++ = *value++;
+		if ((ft_strlen(c) >= ft_strlen(value)))
+			while (*c && *value)
+				*c++ = *value++;
 		free(tmp);
 		return (0);
 	}
