@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 21:58:40 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/05/03 21:58:41 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/03 22:07:35 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,18 @@ int	cmd_sys(char *cmd)
 	pid_t	pid;
 	int		ret;
 	size_t	i;
+	char	*tmp;
 
 	ret = 0;
 	pid = 0;
 	i = -1;
 	args = ft_split2(cmd, " ");
 	while (args[++i])
+	{
+		tmp = args[i];
 		args[i] = ft_ecrase_q(args[i]);
+		free(tmp);
+	}
 	pid = fork();
 	if (pid < 0)
 	{
