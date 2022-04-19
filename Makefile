@@ -29,7 +29,7 @@ SRCS = 	src/main.c\
 
 NAME = minishell
 CC = gcc
-CFLAGS = -lreadline -g -fsanitize=address # -L/Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew//opt/readline/include
+CFLAGS = -lreadline -g -L/Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew//opt/readline/include
 OBJDIR = ./objs/
 SRCDIR = ./src/
 COMMONDIR = ./common/
