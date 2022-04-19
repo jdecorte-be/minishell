@@ -27,6 +27,8 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 #include <signal.h>
+# include <termios.h>
+
 
 typedef struct s_hd
 {
@@ -67,6 +69,7 @@ typedef struct s_cmd
 
 typedef struct s_data//  block de cmd  
 {
+	int		stophere;
 	char	**env;
 	int		lastret;
 	int		stdin_reset;
@@ -82,6 +85,9 @@ typedef struct s_data//  block de cmd
 	int		pipe[2];
 	t_token	*token;
 	t_hd	*hd;
+	struct termios	old;
+	struct termios	new;
+	int		hd_stop;
 }	t_data;
 
 typedef struct s_tmp
@@ -298,6 +304,12 @@ void	ft_skip_hd(char *line);
 char *tokenize(char *line);
 char **parsing(char *input);
 char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq);
+
+void	c_handler(int sig);
+void	c_handler_fork(int sig);
+void	q_handler_fork(int sig);
+void	c_handler_doc(int sig);
+
 
 
 #endif
