@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:16:34 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/04 21:19:43 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/07 12:48:19 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	initiate_values(t_data *g_data, char **env)
 {
 	g_data->lastret = 0;
 	g_data->env = env;
+	g_data->env = array_dup();
 	g_data->hd = 0;
 	shlvlhandler();
 	tcgetattr(0, &g_data->old);
