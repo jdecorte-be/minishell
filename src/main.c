@@ -12,7 +12,6 @@ int syntax_check(t_token *token)
         return 0;
     while(tmp)
     {
-        printf("%s: ", tmp->cmd);
         old_ope = is_ope;
         if(what_im(tmp->cmd) == 0)
             is_ope = 0;
