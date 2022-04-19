@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/04/05 13:47:47 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/05 16:57:02 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int cmd_sys(char *cmd)
 		perror("fork: ");
 	if (!pid)
 	{
+		
 		if(execve(get_path(cmd), &args[0], data->env) == -1)
 		{
 			puterror(ft_ecrase_q(args[0]), "command not found");

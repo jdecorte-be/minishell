@@ -1,47 +1,26 @@
 #include "../inc/minishell.h"
 #include <errno.h>
 
-int syntax_check(t_token *token)
-{
-    t_token *tmp = token;
-    int is_ope = 1;
-    int start = 1;
-    int old_ope;
-
-    if(tmp == NULL)
-        return 0;
-    while(tmp)
-    {
-        old_ope = is_ope;
-        if(what_im(tmp->cmd) == 0)
-            is_ope = 0;
-        else
-            is_ope = 1;
-        if((is_ope == old_ope )|| (start == 1 && is_ope == 1))
-        {
-            data->lastret = 2;
-            puterror("syntax error near unexpected token", tmp->cmd);
-            return 0;
-        }
-        start = 0;
-        tmp = tmp->next;
-    }
-    return 1;
-}
-
 void shlvlhandler()
 {
     char *var = my_getenv("SHLVL", NULL);
     int shlvl = ft_atoi(var) + 1;
+    char *join = ft_strjoin("_=", "/usr/bin/env");
+    char *join2;
 
-    my_setenv(ft_strjoin("_=", "/usr/bin/env"));
-    my_setenv("OLDPWD");
+    my_setenv(join, 1);
+    my_setenv("OLDPWD", 1);
     if (shlvl > 1000)
         shlvl = 1;
     if (shlvl == 1000)
-            my_setenv("SHLV");
+            my_setenv("SHLV", 1);
     else
-        my_setenv(ft_strjoin("SHLVL=", ft_itoa(shlvl)));
+    {
+        join2 = ft_strjoin("SHLVL=", ft_itoa(shlvl));
+        my_setenv(join2, 1);
+    }
+    free(join);
+    free(join2);
 }
 
 char *prompt()
@@ -55,6 +34,7 @@ char *prompt()
     while(path[--i] != '/');
     sub = ft_substr(path, i + 1, ft_strlen(path));
     line = ft_strjoin(sub," ❯ ");
+    free(path);
     free(sub);
     return line;
 }
@@ -87,14 +67,10 @@ int	main(int ac, char **av, char **env)
             add_history(line);
         line = ft_epur_str(ft_chdir(ft_pgross_str((line))));
         t_token *token = ft_parsing(line);
-        if(syntax_check(token) == 0)
-            return 0;
-        else
-            execute(token);
-
-
+        execute(token);
+        system("leaks minishell");
     }
-    exit(data->lastret);
     free(data->env);
     free(data);
+    my_setenv(NULL, 2);
 }

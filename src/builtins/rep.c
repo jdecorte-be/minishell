@@ -33,8 +33,8 @@ int cd(char **cmd)
 		if(PWD_var)
 		{
 			char *tmp =  my_getenv("PWD",NULL);
-			my_setenv(ft_strjoin("OLDPWD=", tmp));
-			my_setenv(ft_strjoin("PWD=", pwd_buff));
+			my_setenv(ft_strjoin("OLDPWD=", tmp), 1);
+			my_setenv(ft_strjoin("PWD=", pwd_buff), 1);
 		}
 	}
 	return 0;

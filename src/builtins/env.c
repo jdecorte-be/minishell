@@ -18,8 +18,8 @@ char **dont_exist(char **lastenv, int *index)
 	return P;
 }
 
-
-int my_setenv(char *var)
+// ! name need to be fix
+int my_setenv(char *var, int e)
 {
 	int offset;
 	char *C;
@@ -28,34 +28,45 @@ int my_setenv(char *var)
 	char *value;
 	int		e_len;
 
-	e_len = egal_len(var);
-	name = ft_substr(var, 0, e_len);
-	if(var[e_len] == '=')
-		value = ft_substr(var, e_len + 1, ft_strlen(var));
-	else
-		value = ft_strdup("\0");
-	C = my_getenv(name, &offset);
-	if (C)
+	if (e == 1)
 	{
-		if ((int)ft_strlen(C) >= ft_strlen(value))
+		e_len = egal_len(var);
+		name = ft_substr(var, 0, e_len);
+		if(var[e_len] == '=')
+			value = ft_substr(var, e_len + 1, ft_strlen(var));
+		else
+			value = ft_strdup("\0");
+		C = my_getenv(name, &offset);
+		if (C)
 		{
-			while ((*C++ = *value++));
-			return (0);
+			if ((int)ft_strlen(C) >= ft_strlen(value))
+			{
+				while ((*C++ = *value++));
+				free(name);
+				return (0);
+			}
 		}
+		else
+			lastenv = dont_exist(lastenv, &offset);
+		if (!(data->env[offset] = ft_calloc(1, (size_t)((e_len + ft_strlen(value) + 2)))))
+			return (-1);
+		C = data->env[offset];
+		while((*C = *name++) && *C != '=')
+			++C;
+		if(var[e_len] == '=')
+			*C++ = '=';
+		while((*C++ = *value++));
+		free(name);
 	}
-	else
-		lastenv = dont_exist(lastenv, &offset);
-	if (!(data->env[offset] = ft_calloc(1, (size_t)((e_len + ft_strlen(value) + 2)))))
-		return (-1);
-	C = data->env[offset];
-	while((*C = *name++) && *C != '=')
-		++C;
-	if(var[e_len] == '=')
-		*C++ = '=';
-	while((*C++ = *value++));
+	else if (e == 2)
+	{
+		ft_free_tab(lastenv);
+		lastenv = 0;
+	}
 	return (0);
 }
 
+// * fix
 char *my_getenv(char *name, int *index)
 {
 	int		i;

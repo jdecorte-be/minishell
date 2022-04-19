@@ -98,7 +98,6 @@ typedef struct s_tmp
 	char	home[PATH_MAX];
 }	t_tmp;
 
-
 t_data	*data;
 
 void	sig_handler();
@@ -110,7 +109,7 @@ char *get_path(char *cmd);
 int	pipex(char *cmd);
 char *prompt();
 char *my_getenv(char *name, int *index);
-int	my_setenv(char *name);
+int	my_setenv(char *name, int e);
 void refresh_env(char **env, t_data *data);
 int checkvalid(char *cmd);
 int     echo(char **args);
