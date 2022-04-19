@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:24:56 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 18:10:45 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/05 19:36:48 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,8 @@ void	end_setenv(char *c, char *name, char *value, int *offset)
 	if (!((g_data->env)[*offset]))
 		ft_exit(-1);
 	c = (g_data->env)[*offset];
-	while (*name && *c && *c != '=')
-	{
-		*c = *name++;
+	while((*c = *name++) && *c != '=')
 		++c;
-	}
 	*c++ = '=';
 	ft_strlcpy(c, value, ft_strlen(value) + 1);
 	g_data->offset = *offset;
@@ -80,13 +77,14 @@ int	my_setenv(char *var)
 	c = my_getenv(name, &offset);
 	if (c)
 	{
+		if (var[egal_len(var)] != '=')
+			return (0);
 		tmp = value;
 		if ((ft_strlen(c) >= ft_strlen(value)))
-			while (*c && *value)
-				*c++ = *value++;
-		free(tmp);
-		free(name);
-		return (0);
+		{
+			while ((*c++ = *value++));
+			return (0);
+		}
 	}
 	else
 		dont_exist(&offset);
