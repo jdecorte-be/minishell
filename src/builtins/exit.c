@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
+/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:27:52 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/01/31 11:52:38 by decortejohn      ###   ########.fr       */
+/*   Updated: 2022/03/24 09:54:28 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ long long		ft_atoi_exit(const char *str)
 	i = 0;
 	neg = 1;
 	num = 0;
-    if(str[i] && (str[i] == '-') || (str[i] == '+'))
+    if((str[i] && (str[i] == '-') )|| (str[i] == '+'))
         if(str[i++] == '-')
             neg *= -1;
 	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || str[i] == '\v'
