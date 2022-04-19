@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:55:45 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/06 20:56:46 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/07 20:46:59 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	ft_here_doc(char *line)
 		ft_error(3);
 	g_data->pid = fork();
 	if (g_data->pid == -1)
-		exit(0);
+		ft_exit(0);
 	if (!g_data->pid)
 	{
 		putin_hd(line, fd);
@@ -146,13 +146,4 @@ t_hd	*ft_hd_finder(char *line)
 			end++;
 	}
 	return (hd);
-}
-
-void	ft_skip_hd(char *line)
-{
-	size_t	i;
-
-	i = ft_hd_exist(line);
-	while (i--)
-		g_data->hd = g_data->hd->next;
 }

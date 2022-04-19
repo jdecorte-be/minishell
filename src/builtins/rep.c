@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:51:11 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/06 17:53:42 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/07 18:38:31 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,20 @@ int	pwd(void)
 	return (0);
 }
 
+int	cd_2(char **cmd)
+{
+	chdir(my_getenv("HOME", NULL));
+	ft_free_tab(cmd);
+	return (0);
+}
+
+int	cd_3(char **cmd)
+{
+	perror("cd");
+	ft_free_tab(cmd);
+	return (1);
+}
+
 int	cd(char **cmd)
 {
 	char	pwd_buff[1024];
@@ -29,17 +43,9 @@ int	cd(char **cmd)
 	char	*tmp;
 
 	if (!cmd[1])
-	{
-		chdir(my_getenv("HOME", NULL));
-		ft_free_tab(cmd);
-		return (0);
-	}
+		return (cd_2(cmd));
 	if (chdir(ft_ecrase_q(cmd[1])) == -1)
-	{
-		perror("cd");
-		ft_free_tab(cmd);
-		return (1);
-	}
+		return (cd_3(cmd));
 	else
 	{
 		if (!getcwd(pwd_buff, sizeof(pwd_buff)))

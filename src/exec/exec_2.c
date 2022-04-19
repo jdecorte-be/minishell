@@ -1,0 +1,50 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/07 18:55:04 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/04/07 18:56:20 by lyaiche          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../inc/minishell.h"
+
+int	pipex(char *cmd)
+{
+	pid_t		pid;
+	int			ret;
+	int			p_fd[2];
+
+	ret = 0;
+	pipe(p_fd);
+	pid = fork();
+	if (pid < 0)
+		return (-1);
+	if (!pid)
+	{
+		close(p_fd[0]);
+		dup2(p_fd[1], 1);
+		ret = exec(cmd);
+		ft_exit(ret);
+	}
+	else
+	{
+		close(p_fd[1]);
+		dup2(p_fd[0], 0);
+	}
+	return (ret);
+}
+
+int	subshell(char *line)
+{
+	int		ret;
+	t_token	*token;
+
+	line = ft_epur_str(((ft_chdir((ft_pgross_str((line)))))));
+	token = ft_parsing(line);
+	execute(token);
+	return (g_data->lastret);
+}

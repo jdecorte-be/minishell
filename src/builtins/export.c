@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:14:20 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/06 18:20:09 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/07 18:35:01 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,16 @@ int	checkvalid(char *cmd)
 	return (1);
 }
 
-char	**array_dup(char **tab)
+void	export_print_2(char **env, int i, int j)
 {
-	char	**res;
-	int		i;
+	char	*temp;
 
-	i = 0;
-	res = malloc(sizeof(char *) * splitlen(g_data->env));
-	if (!res)
-		return (NULL);
-	while (i < splitlen(g_data->env))
+	if (ft_strcmp(env[i], env[j]) > 0 && env[i] && env[j])
 	{
-		res[i] = ft_strdup(g_data->env[i]);
-		if (!res[i])
-			return (NULL);
-		i++;
+		temp = env[i];
+		env[i] = env[j];
+		env[j] = temp;
 	}
-	return (res);
 }
 
 void	export_print(void)
@@ -69,16 +62,9 @@ void	export_print(void)
 	{
 		j = i + 1;
 		while (++j < len)
-		{
-			if (ft_strcmp(env[i], env[j]) > 0 && env[i] && env[j])
-			{
-				temp = env[i];
-				env[i] = env[j];
-				env[j] = temp;
-			}
-			if (env[i])
-				format_env(env[i]);
-		}
+			export_print_2(env, i, j);
+		if (env[i])
+			format_env(env[i]);
 		i++;
 	}
 	i = -1;
@@ -87,16 +73,19 @@ void	export_print(void)
 	free(env);
 }
 
+int	export_2(char **cmd)
+{
+	export_print();
+	ft_free_tab(cmd);
+	return (0);
+}
+
 int	export(char **cmd)
 {
 	int	i;
 
 	if (!cmd[1])
-	{
-		export_print();
-		ft_free_tab(cmd);
-		return (0);
-	}
+		return (export_2(cmd));
 	i = -1;
 	while (cmd[++i])
 	{

@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:16:34 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/06 18:28:34 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/07 15:34:22 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,33 +59,26 @@ char	*prompt(void)
 	return (line);
 }
 
-void	test(t_data *data)
+void	initiate_values(t_data *g_data, char **env)
 {
+	g_data->lastret = 0;
+	g_data->env = env;
+	g_data->hd = 0;
+	shlvlhandler();
 	tcgetattr(0, &g_data->old);
 	tcgetattr(0, &g_data->new);
 	g_data->new.c_lflag &= ~(ECHOCTL);
 	tcsetattr(0, TCSANOW, &g_data->new);
+	signal(SIGINT, c_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
 
-int	main(int ac, char **av, char **env)
+void	main_2(void)
 {
 	char	*line;
 	char	*pt;
 	t_token	*token;
 
-	(void) av;
-	if (ac != 1)
-		puterror("\e[0;37mUse", "./minishell without arguments");
-	g_data = malloc(sizeof(t_data));
-	if (!(g_data))
-		return (0);
-	test(g_data);
-	g_data->lastret = 0;
-	g_data->env = env;
-	g_data->hd = 0;
-	shlvlhandler();
-	signal(SIGINT, c_handler);
-	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		pt = prompt();
@@ -96,7 +89,7 @@ int	main(int ac, char **av, char **env)
 		if (!line)
 		{
 			ft_putstr_fd("\b\bexit\n", 2);
-			exit (0);
+			ft_exit(0);
 		}
 		if (*line)
 			add_history(line);
@@ -104,8 +97,19 @@ int	main(int ac, char **av, char **env)
 		token = ft_parsing(line);
 		execute(token);
 	}
-	tcsetattr(0, TCSANOW, &g_data->new);
-	exit(g_data->lastret);
+}
+
+int	main(int ac, char **av, char **env)
+{
+	(void) av;
+	if (ac != 1)
+		puterror("\e[0;37mUse", "./minishell without arguments");
+	g_data = malloc(sizeof(t_data));
+	if (!(g_data))
+		return (0);
+	initiate_values(g_data, env);
+	main_2();
+	ft_exit(0);
 	free(g_data->env);
 	free(g_data);
 	my_setenv(NULL, 2);

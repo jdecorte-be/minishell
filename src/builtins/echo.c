@@ -6,20 +6,37 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:22:28 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/06 16:23:56 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/07 15:49:16 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+void	echo_2(char **cmd, int *i, int *option)
+{
+	int	j;
+
+	while (cmd[*i] && cmd[*i][0] == '-')
+	{
+		j = 1;
+		while (cmd[*i][j] && cmd[*i][j] == 'n')
+			j++;
+		if (cmd[*i][j] == '\0')
+		{
+			*i += 1;
+			*option = 1;
+		}
+		else
+			break ;
+	}
+}
+
 int	echo(char **cmd)
 {
 	int	i;
-	int	j;
 	int	option;
 
 	i = 1;
-	j = 1;
 	option = 0;
 	if (!cmd[1])
 	{
@@ -27,19 +44,7 @@ int	echo(char **cmd)
 		ft_free_tab(cmd);
 		return (0);
 	}
-	while (cmd[i] && cmd[i][0] == '-')
-	{
-		j = 1;
-		while (cmd[i][j] && cmd[i][j] == 'n')
-			j++;
-		if (cmd[i][j] == '\0')
-		{
-			i++;
-			option = 1;
-		}
-		else
-			break ;
-	}
+	echo_2(cmd, &i, &option);
 	while (cmd[i])
 	{
 		ft_putstr_fd(cmd[i], 1);

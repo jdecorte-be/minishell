@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 21:00:44 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/06 21:00:45 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/07 20:24:38 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,17 @@ void	ft_count_words2(char *str, size_t *i, char *set)
 			(*i)++;
 }
 
+void	ft_creat_tab2_2(char *str, size_t *end, char *set)
+{
+	if (str[*end] && ft_strchr("\'\"", str[*end]))
+		ft_creat_tab2(str, end, set, 1);
+	if (str[*end] && !ft_strchr(set, str[*end])
+		&& !ft_strchr("\'\"", str[*end]))
+		while (str[*end] && !ft_strchr(set, str[*end])
+			&& !ft_strchr("\'\"", str[*end]))
+			(*end)++;
+}
+
 void	ft_creat_tab2(char *str, size_t *end, char *set, int e)
 {
 	char	c;
@@ -48,13 +59,5 @@ void	ft_creat_tab2(char *str, size_t *end, char *set, int e)
 		(*end)++;
 	}
 	if (e == 3)
-	{
-		if (str[*end] && ft_strchr("\'\"", str[*end]))
-			ft_creat_tab2(str, end, set, 1);
-		if (str[*end] && !ft_strchr(set, str[*end])
-			&& !ft_strchr("\'\"", str[*end]))
-			while (str[*end] && !ft_strchr(set, str[*end])
-				&& !ft_strchr("\'\"", str[*end]))
-				(*end)++;
-	}
+		ft_creat_tab2_2(str, end, set);
 }

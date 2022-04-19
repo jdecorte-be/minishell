@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:13:01 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/06 18:13:16 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/07 19:54:40 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,24 +79,4 @@ void	ft_clean_hd(t_hd *hd)
 		hd = hd->next;
 		free(tmp);
 	}
-}
-
-int	*ft_hd_to_tab(t_hd *hd)
-{
-	size_t	i;
-	size_t	size;
-	int		*tab;
-	t_hd	*tmp;
-
-	i = 0;
-	size = ft_hdsize(hd);
-	tab = malloc(sizeof(tab) * size);
-	while (i < size)
-	{
-		tab[i++] = hd->fd;
-		tmp = hd;
-		hd = hd->next;
-		free(tmp);
-	}
-	return (tab);
 }

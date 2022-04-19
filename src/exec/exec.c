@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/04/06 18:07:01 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/07 19:03:50 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	exec(char *cmd)
 	else if (ft_strcmp(s_cmd[0], "unset") == 0)
 		return (unset(s_cmd));
 	else if (ft_strcmp(s_cmd[0], "exit") == 0)
-		return (exit_cmd(s_cmd));
+		exit_cmd(s_cmd);
 	else
 		return (cmd_sys(ft_ecrase_p(cmd)));
 	return (-1);
@@ -66,6 +66,23 @@ char	*get_path(char *cmd)
 	return (cmd);
 }
 
+void	sig(pid_t pid, int ret)
+{
+	waitpid(pid, &ret, 0);
+	kill(pid, SIGTERM);
+	signal(SIGINT, c_handler);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	not_pid(char *cmd, char **args)
+{
+	if (execve(get_path(cmd), &args[0], g_data->env) == -1)
+	{
+		puterror(ft_ecrase_q(args[0]), "command not found");
+		ft_exit(127);
+	}
+}
+
 int	cmd_sys(char *cmd)
 {
 	char	**args;
@@ -86,56 +103,8 @@ int	cmd_sys(char *cmd)
 	if (pid < 0)
 		perror("fork: ");
 	if (!pid)
-	{
-		if (execve(get_path(cmd), &args[0], g_data->env) == -1)
-		{
-			puterror(ft_ecrase_q(args[0]), "command not found");
-			exit (127);
-		}
-	}
+		not_pid(cmd, args);
 	else
-	{
-		waitpid(pid, &ret, 0);
-		kill(pid, SIGTERM);
-		signal(SIGINT, c_handler);
-		signal(SIGQUIT, SIG_IGN);
-	}
+		sig(pid, ret);
 	return (ret % 255);
-}
-
-int	subshell(char *line)
-{
-	int		ret;
-	t_token	*token;
-
-	line = ft_epur_str(((ft_chdir((ft_pgross_str((line)))))));
-	token = ft_parsing(line);
-	execute(token);
-	return (g_data->lastret);
-}
-
-int	pipex(char *cmd)
-{
-	pid_t		pid;
-	int			ret;
-	int			p_fd[2];
-
-	ret = 0;
-	pipe(p_fd);
-	pid = fork();
-	if (pid < 0)
-		return (-1);
-	if (!pid)
-	{
-		close(p_fd[0]);
-		dup2(p_fd[1], 1);
-		ret = exec(cmd);
-		exit(ret);
-	}
-	else
-	{
-		close(p_fd[1]);
-		dup2(p_fd[0], 0);
-	}
-	return (ret);
 }

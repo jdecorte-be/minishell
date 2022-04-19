@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:13:34 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/06 18:14:03 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/07 20:00:09 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,41 +80,4 @@ t_token	*ft_token_next(t_token *token)
 	else
 		tmp = tmp->next;
 	return (tmp);
-}
-
-void	ft_token_free_and_next(t_token **token)
-{
-	t_token	*tmp;
-
-	tmp = *token;
-	*token = (*token)->next;
-	free(tmp->cmd);
-	free(tmp);
-}	
-
-void	ft_token_free_and_sup(t_token **token)
-{
-	t_token	*tmp;
-
-	tmp = *token;
-	*token = (*token)->sup_token;
-	free(tmp->cmd);
-	free(tmp);
-}	
-
-void	ft_tokenclean_all(t_token **token)
-{
-	t_token	*tmp;
-
-	while (*token)
-	{
-		if ((*token)->sub_token)
-			*token = (*token)->sub_token;
-		else if ((*token)->next)
-			ft_token_free_and_next(token);
-		else if ((*token)->sup_token)
-			ft_token_free_and_sup(token);
-		else
-			ft_token_free_and_next(token);
-	}
 }
