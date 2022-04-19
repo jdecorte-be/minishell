@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:15:03 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/15 12:48:48 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/17 20:29:02 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,16 @@ void	q_handler_fork(int sig)
 	rl_on_new_line();
 }
 
-void	c_handler_doc(int sig)
+void	here_doc_sig1(int sig)
 {
-	kill(g_data->pid, SIGINT);
-	newprompt(0);
+	(void)sig;
+	g_data->hd_stop = 1;
+}
+
+void	here_doc_sig2(int sig)
+{
+	(void)sig;
+	write(1, "\n", 1);
+	rl_on_new_line();
+	exit(0);
 }

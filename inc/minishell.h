@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:02:10 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/17 20:06:50 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/17 20:33:30 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # include <signal.h>
 # include <termios.h>
 # include <malloc/malloc.h>
-// #include "wraloc.h"
+#include "wraloc.h"
 
 typedef struct s_hd
 {
@@ -83,7 +83,6 @@ typedef struct s_cmd
 typedef struct s_data
 {
 	int				offset;
-	pid_t			pid;
 	int				stophere;
 	char			**env;
 	int				lastret;
@@ -124,6 +123,10 @@ typedef struct s_tmp
 }	t_tmp;
 
 t_data	*g_data;
+
+void	here_doc_sig1(int sig);
+void	here_doc_sig2(int sig);
+
 
 void		puterror(char *cmd, char *msg);
 int			my_setenv2(char *var);
