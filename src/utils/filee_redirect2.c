@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 18:27:43 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/04/19 18:41:13 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/04/22 02:40:01 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_redirect_check_2(t_list *tmp, char *c)
 	*c = ft_strstrchr(tmp->content, "|&()");
 	if (c != 0)
 	{
-		printf("bash: syntax error near unexpected token `%s'\n", c);
+		printf("boshell: syntax error near unexpected token `%s'\n", c);
 		return (0);
 	}
 	tmp = tmp->next;
@@ -42,7 +42,7 @@ int	ft_redirect_check(t_redirect file)
 		c = ft_strstrchr(tmp->content, "|&()");
 		if (c != 0)
 		{
-			printf("bash: syntax error near unexpected token `%c'\n", c);
+			printf("boshell: syntax error near unexpected token `%c'\n", c);
 			return (0);
 		}
 		tmp = tmp->next;

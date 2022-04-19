@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:33:24 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/21 17:18:00 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/04/22 03:02:32 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,19 @@ int		ft_redirect_check_2(t_list *tmp, char *c);
 int		ft_redirect_check(t_redirect file);
 void	ft_chrredirect_2(t_hd **open, t_hd **open2, int i, int i2);
 char	*ft_chrredirect(char *line, t_hd **open, t_hd **open2, size_t *v);
+
+void	ft_file_2(size_t *v, char *line, size_t *i)
+{
+	*v = 1;
+	while (line[*i] && *v != 0)
+	{
+		if (line[*i] == '(')
+			(*v)++;
+		else if (line[*i] == ')')
+			(*v)--;
+		(*i)++;
+	}
+}
 
 t_list	*ft_file(char *line, char c, t_hd **open, t_hd **open2)
 {
@@ -30,25 +43,9 @@ t_list	*ft_file(char *line, char c, t_hd **open, t_hd **open2)
 	while (line[i])
 	{
 		if (line[i] && ft_strchr("\'\"", line[i]))
-		{
-			c = line[i++];
-			while (line[i] && line[i] != c)
-				i++;
-			if (line[i])
-				i++;
-		}
+			ft_skip_q(line, &i);
 		else if (line[i] && ft_strchr("(", line[i]) && ++i)
-		{
-			v = 1;
-			while (line[i] && v != 0)
-			{
-				if (line[i] == '(')
-					v++;
-				else if (line[i] == ')')
-					v--;
-				i++;
-			}
-		}
+			ft_file_2(&v, line, &i);
 		else if (line[i] && line[i] == c && line[i + 1])
 		{
 			v = 0;
@@ -78,7 +75,6 @@ t_redirect	ft_init_redirect(void)
 t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 {
 	t_redirect	tmp;
-	t_hd		*tmp2;
 	char		*to_free;
 
 	if (!line)
@@ -97,14 +93,12 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 	{
 		while (file.infile)
 		{
-			if (ft_chwc_ok2(file.infile->content)
-				|| ft_transf(file.infile->content))
+			if (ft_chwc_ok2(file.infile->content) || ft_transf(file.infile->content))
 			{
 				if (file.infd != tmp.infd)
 					close(file.infd);
 				if (file.open->fd == 0)
-					file.infd = open(ft_ecrase_q(ft_redirect_chwc(ft_cut_chevron
-									(file.infile->content))), O_RDONLY);
+					file.infd = open(ft_ecrase_q(ft_redirect_chwc(ft_cut_chevron(file.infile->content))), O_RDONLY);
 				else if (file.open->fd == 1)
 				{
 					if (g_data->hd)

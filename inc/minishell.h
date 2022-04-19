@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:02:10 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/21 16:47:29 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/04/22 03:00:02 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,31 +106,35 @@ typedef struct s_data
 
 typedef struct s_tmp
 {
-	size_t	i;
-	int		i2;
-	char	c;
-	t_list	*lst;
-	size_t	start;
-	size_t	end;
-	void	*home2;
-	void	*tmp;
-	char	path[PATH_MAX];
-	char	**tab;
-	char	*str;
-	void	*ptr;
-	char	home[PATH_MAX];
-	int		par;
-	char	*temp;
-	int		off;
-	size_t	len;
-	int		e_len;
+	size_t		i;
+	size_t		i2;
+	char		c;
+	t_list		*lst;
+	size_t		start;
+	size_t		end;
+	t_redirect	redirect;
+	t_hd		hd;
+	long		lend;
+	long		lstart;
+	long		lcount;
+	void		*home2;
+	void		*tmp;
+	char		path[PATH_MAX];
+	char		**tab;
+	char		*str;
+	void		*ptr;
+	char		home[PATH_MAX];
+	int			par;
+	char		*temp;
+	int			off;
+	size_t		len;
+	int			e_len;
 }	t_tmp;
 
 t_data	*g_data;
 
-void	here_doc_sig1(int sig);
-void	here_doc_sig2(int sig);
-
+void		here_doc_sig1(int sig);
+void		here_doc_sig2(int sig);
 
 void		puterror(char *cmd, char *msg);
 int			my_setenv2(char *var);
