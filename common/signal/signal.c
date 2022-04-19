@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:15:03 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/10 00:09:55 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/10 01:21:58 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	newprompt(int sig)
 void	c_handler(int sig)
 {
 	(void) sig;
-	newprompt(sig);
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 void	c_handler_fork(int sig)
@@ -38,4 +41,13 @@ void	q_handler_fork(int sig)
 	(void) sig;
 	printf("^\\\n");
 	rl_on_new_line();
+}
+
+void	q_handler(int sig)
+{
+	(void)sig;
+	printf("^\\Quit");
+	printf("\n");
+	rl_on_new_line();
+	exit(131);
 }

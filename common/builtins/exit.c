@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:27:52 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/05/03 19:14:30 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/05/09 23:49:05 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	exit_cmd(char **s_cmd)
 	}
 	if (s_cmd[2])
 	{
-		ft_putstr_fd("bash: exit: too many arguments\n", 2);
+		ft_putstr_fd("exit\nbash: exit: too many arguments\n", 2);
 		return ;
 	}
 	else

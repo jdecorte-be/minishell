@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/05/08 17:58:27 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/10 01:23:04 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,9 @@ void	not_pid(char *cmd, char **args)
 {
 	char	*tmp;
 
-	signal(SIGINT, c_handler_fork);
-	signal(SIGQUIT, q_handler_fork);
+	signal(SIGINT, c_handler_2);
+	signal(SIGQUIT, q_handler);
+	signal(SIGKILL, d_handler);
 	if (execve(get_path(cmd), &args[0], g_data->env) == -1)
 	{
 		tmp = ft_ecrase_q(args[0]);

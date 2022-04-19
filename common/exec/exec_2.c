@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:55:04 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/08 15:28:23 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/09 23:48:36 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ char	*get_path(char *cmd)
 	if (access(s_cmd[0], F_OK | X_OK) == 0)
 	{
 		ret = s_cmd[0];
-		ft_free_tab(s_cmd);
 		return (ret);
 	}
 	exec = access_path(allpath, s_cmd, cmd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:02:10 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/09 23:25:44 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/10 00:59:04 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,6 +344,9 @@ void		c_handler(int sig);
 void		c_handler_fork(int sig);
 void		q_handler_fork(int sig);
 void		c_handler_doc(int sig);
+void		q_handler(int sig);
+void		c_handler_2(int sig);
+void		d_handler(int sig);
 
 void		ft_exit(int numerror);
 
