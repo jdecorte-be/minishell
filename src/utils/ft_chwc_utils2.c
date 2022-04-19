@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_chwc_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:46:51 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/06 20:46:56 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/22 17:05:25 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,43 @@ int	ft_wc_in_fw(char *line)
 			i++;
 	}
 	return (1);
+}
+
+void	ft_wcsearch_2(char *line, t_tmp *tmp)
+{
+	if (line[tmp->end] && ft_strchr("\"\'", line[tmp->end]))
+		ft_skip_q(line, &tmp->end);
+	else if (line[tmp->end] && line[tmp->end] == '*' && ++tmp->end)
+		tmp->c = 1;
+	else if (line[tmp->end])
+		tmp->end++;
+}
+
+// lst == wc
+
+t_list	*ft_wcsearch(char *line)
+{
+	t_tmp	tmp;
+
+	tmp.end = 0;
+	tmp.lst = 0;
+	while (line[tmp.end])
+	{
+		tmp.c = 0;
+		tmp.start = tmp.end;
+		if (line[tmp.end] && ft_strchr("<>", line[tmp.end]))
+			tmp.end = ft_next_word(line, ft_next_word(line, tmp.end));
+		else if (line[tmp.end] && !ft_isspace(line[tmp.end])
+			&& !ft_strchr("&|", line[tmp.end]))
+		{
+			while (line[tmp.end] && !ft_isspace(line[tmp.end]))
+				ft_wcsearch_2(line, &tmp);
+			if (tmp.c == 1)
+				ft_lstadd_back(&tmp.lst, ft_lstnew
+					(ft_substr(line, tmp.start, tmp.end - tmp.start)));
+		}
+		else if (line[tmp.end])
+			tmp.end++;
+	}
+	return (tmp.lst);
 }
