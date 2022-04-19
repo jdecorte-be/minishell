@@ -61,7 +61,10 @@ void export_print()
                 format_env(env[i]);
         i++;
     }
-    ft_free_tab(env);
+    i = -1;
+    while(++i < len)
+        free(env[i]);
+    free(env);
 }
 
 // *ok
@@ -70,18 +73,26 @@ int export(char **cmd)
     if(!cmd[1])
     {
         export_print();
+        ft_free_tab(cmd);
         return 0;
     }
     int i = 1;
     while(cmd[i])
     {
         if(cmd[i][0] == '_' && cmd[i][1] == '=')
+        {
+	        ft_free_tab(cmd);
             return 0;
+        }
         if(!checkvalid(ft_ecrase_q(cmd[i])))
+        {
+	        ft_free_tab(cmd);
             return 0;
+        }
         my_setenv(ft_ecrase_q(cmd[i]), 1);
         i++;
     }
     data->lastret = 0;
+	ft_free_tab(cmd);
     return 0;
 }

@@ -39,7 +39,7 @@ long long		ft_atoi_exit(const char *str)
 	return num * neg;
 }
 
-void exit_error(char *cmd)
+int exit_error(char *cmd)
 {
     int i = 0;
 
@@ -50,30 +50,39 @@ void exit_error(char *cmd)
         if(!ft_isdigit(cmd[i]))
         {
             puterror(cmd, "numeric argument required");
-            exit(-1);
+            return 1;
         }
         i++;
     }
+    return 0;
 }
 
 int exit_cmd(char **s_cmd)
 {
     long long err = 0;
     if(!s_cmd[1])
-        exit(0);
-    char *c_err = ft_ecrase_q(s_cmd[1]);
-    exit_error(c_err);
-    if(s_cmd[2])
     {
-        ft_putstr_fd("bash: exit: too many arguments\n", 2);
-        exit(1);
+	    ft_free_tab(s_cmd);
+        exit(0);
     }
+    char *c_err = ft_ecrase_q(s_cmd[1]);
+    if(exit_error(c_err) == 1)
+    {
+	    ft_free_tab(s_cmd);
+        exit(-1);
+    }
+    if(s_cmd[2])
+        ft_putstr_fd("bash: exit: too many arguments\n", 2);
     else
     {
         err = ft_atoi_exit(c_err);
         if(!(err < LONG_LONG_MAX && err > LONG_LONG_MIN))
+        {
+	        ft_free_tab(s_cmd);
             exit(-1);
+        }
         data->lastret = err % 256;
     }
+	ft_free_tab(s_cmd);
     exit(data->lastret);
 }

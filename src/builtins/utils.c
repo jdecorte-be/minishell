@@ -34,15 +34,17 @@ int print_env(char **env)
 
 void format_env(char *var)
 {
-    ft_putstr_fd("declare -x ", 1);
-    ft_putstr_fd(ft_substr(var, 0, egal_len(var)), 1);
+    char *sub = ft_substr(var, 0, egal_len(var));
+    char *sub2;
+    printf("declare -x %s", sub);
     if(var[egal_len(var)] == '=')
     {
-        ft_putstr_fd("=\"", 1);
-        ft_putstr_fd(ft_substr(var, egal_len(var) + 1, ft_strlen(var)), 1);
-        ft_putstr_fd("\"", 1);
+        sub2 = ft_substr(var, egal_len(var) + 1, ft_strlen(var));
+        printf("=\"%s\"", sub2);
+        free(sub2);
     }
-    ft_putstr_fd("\n", 1);
+    printf("\n");
+    free(sub);
 }
 
 int egal_len(char *cmd)

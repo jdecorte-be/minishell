@@ -27,6 +27,7 @@ int my_setenv(char *var, int e)
 	char *name;
 	char *value;
 	int		e_len;
+	char	*tmp;
 
 	if (e == 1)
 	{
@@ -41,8 +42,9 @@ int my_setenv(char *var, int e)
 		{
 			if ((int)ft_strlen(C) >= ft_strlen(value))
 			{
+				tmp = value;
 				while ((*C++ = *value++));
-				free(name);
+				free(tmp);
 				return (0);
 			}
 		}
@@ -51,12 +53,13 @@ int my_setenv(char *var, int e)
 		if (!(data->env[offset] = ft_calloc(1, (size_t)((e_len + ft_strlen(value) + 2)))))
 			return (-1);
 		C = data->env[offset];
+		tmp = name;
 		while((*C = *name++) && *C != '=')
 			++C;
 		if(var[e_len] == '=')
 			*C++ = '=';
 		while((*C++ = *value++));
-		free(name);
+		free(tmp);
 	}
 	else if (e == 2)
 	{

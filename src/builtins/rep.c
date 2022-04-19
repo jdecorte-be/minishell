@@ -18,17 +18,22 @@ int cd(char **cmd)
 	if(!cmd[1])
 	{
 		chdir(my_getenv("HOME", NULL));
+		ft_free_tab(cmd);
 		return 0;
 	}
 	if(chdir(ft_ecrase_q(cmd[1])) == -1)
 	{
 		perror("cd");
+		ft_free_tab(cmd);
 		return 1;
 	}
 	else
 	{
 		if(!getcwd(pwd_buff , sizeof(pwd_buff)))
+		{
+			ft_free_tab(cmd);
 			return -1;
+		}
 		char *PWD_var = my_getenv("PWD", NULL);
 		if(PWD_var)
 		{
@@ -37,5 +42,6 @@ int cd(char **cmd)
 			my_setenv(ft_strjoin("PWD=", pwd_buff), 1);
 		}
 	}
+	ft_free_tab(cmd);
 	return 0;
 }

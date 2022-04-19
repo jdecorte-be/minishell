@@ -25,14 +25,21 @@ int unset(char **cmd)
 {
     int offset;
     if(!cmd[1])
+    {
+	    ft_free_tab(cmd);
         return 0;
+    }
     int i = 1;
     while(cmd[i])
     {
         if(!checkvalid(cmd[i]))
+        {
+	        ft_free_tab(cmd);
             return 1;
+        }
         del_element(ft_ecrase_q(cmd[i]));
         i++;
     }
+	ft_free_tab(cmd);
     return 0;
 }

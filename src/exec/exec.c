@@ -112,10 +112,8 @@ int	pipex(char *cmd)
 {
 	pid_t		pid;
 	int			ret = 0;
-	char		**args;
 	int			p_fd[2];
 
-	args = ft_split2(cmd, " ");
 	pipe(p_fd);
 	pid = fork();
 	if (pid < 0)

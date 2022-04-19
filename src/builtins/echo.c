@@ -10,6 +10,7 @@ int echo(char **cmd)
     if(!cmd[1])
     {
         ft_putstr_fd("\n", 1);
+        ft_free_tab(cmd);
         return 0;
     }
     while(cmd[i] && cmd[i][0] == '-')
@@ -34,5 +35,6 @@ int echo(char **cmd)
     }
     if(option == 0)
         ft_putstr_fd("\n", 1);
+    ft_free_tab(cmd);
     return 0;
 }

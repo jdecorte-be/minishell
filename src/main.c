@@ -7,6 +7,7 @@ void shlvlhandler()
     int shlvl = ft_atoi(var) + 1;
     char *join = ft_strjoin("_=", "/usr/bin/env");
     char *join2;
+    char *lvl;
 
     my_setenv(join, 1);
     my_setenv("OLDPWD", 1);
@@ -16,9 +17,11 @@ void shlvlhandler()
             my_setenv("SHLV", 1);
     else
     {
-        join2 = ft_strjoin("SHLVL=", ft_itoa(shlvl));
+        lvl = ft_itoa(shlvl);
+        join2 = ft_strjoin("SHLVL=", lvl);
         my_setenv(join2, 1);
     }
+    free(lvl);
     free(join);
     free(join2);
 }
@@ -43,7 +46,7 @@ int	main(int ac, char **av, char **env)
 {
     (void)av;
 	char	*line;
-
+    char    *pt;
 
     if(ac != 1)
         puterror("\e[0;37mUse", "./minishell without arguments");
@@ -55,7 +58,9 @@ int	main(int ac, char **av, char **env)
     shlvlhandler();
     while (1)
     {
-        line = readline(prompt());
+        pt = prompt();
+        line = readline(pt);
+        free(pt);
         if (ft_isprohibited(line) == 1)
             continue ;
         if (!line)
@@ -68,7 +73,6 @@ int	main(int ac, char **av, char **env)
         line = ft_epur_str(ft_chdir(ft_pgross_str((line))));
         t_token *token = ft_parsing(line);
         execute(token);
-        system("leaks minishell");
     }
     free(data->env);
     free(data);
