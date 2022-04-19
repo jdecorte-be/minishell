@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:54:36 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/05/02 18:02:15 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/02 19:50:29 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	ft_token_error(t_token *token)
 				|| !ft_strncmp("||", tmp->cmd, 1)))
 		|| (len >= 1 && *tmp->cmd == '|'))
 	{
-		free(token);
+		ft_tokenclean_all(&token);
 		return (ft_parse_error(1));
 	}
 	return (0);
