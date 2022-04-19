@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:16:34 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/09 19:42:57 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/10 17:12:01 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	initiate_values(t_data *g_data, char **env)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	main_3(char **line, char *pt)
+int	main_3(char **line, char *pt)
 {
 	g_data->hd_stop = 0;
 	pt = prompt();
@@ -68,6 +68,12 @@ void	main_3(char **line, char *pt)
 	}
 	if (**line)
 		add_history(*line);
+	if (!**line || ft_isprohibited(*line) == 1)
+	{
+		free(*line);
+		return (1);
+	}
+	return (0);
 }
 
 void	main_2(void)
@@ -78,8 +84,7 @@ void	main_2(void)
 	line = NULL;
 	while (1)
 	{
-		main_3(&line, NULL);
-		if (!*line)
+		if (main_3(&line, NULL))
 			continue ;
 		line = ft_epur_str(ft_chdir(ft_pgross_str((line))));
 		if (!*line)
