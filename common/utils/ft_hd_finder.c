@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_hd_finder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 15:28:35 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 16:07:11 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/08 02:23:26 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_hd_finder_2(char *line, size_t *start, size_t *end, t_hd *hd)
+void	ft_hd_finder_2(char *line, size_t *start, size_t *end, t_hd **hd)
 {
 	int		hd_fd;
 
@@ -22,7 +22,7 @@ void	ft_hd_finder_2(char *line, size_t *start, size_t *end, t_hd *hd)
 		*end += 1;
 	hd_fd = (ft_here_doc(ft_substr(line, *start, *end - *start)));
 	if (hd_fd > -1)
-		ft_hdadd_back(&hd, ft_hdnew(hd_fd));
+		ft_hdadd_back(hd, ft_hdnew(hd_fd));
 }
 
 t_hd	*ft_hd_finder(char *line)
@@ -41,7 +41,7 @@ t_hd	*ft_hd_finder(char *line)
 			ft_skip_q(line, &end);
 		else if (!ft_strncmp(line + end, "<< ", 2))
 		{
-			ft_hd_finder_2(line, &start, &end, hd);
+			ft_hd_finder_2(line, &start, &end, &hd);
 		}
 		else
 			end++;
