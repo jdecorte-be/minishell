@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_chdollar2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 17:53:21 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/05/02 16:09:06 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/04 19:32:21 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_changedollar(char *line, t_list **dollar)
 	if (ft_isdigit(line[0]))
 		str = 0;
 	else if (ft_strncmp(line, "$?", 1))
-		str = ft_strdup(getenv(line + 1));
+		str = ft_strdup(my_getenv(line + 1, 0));
 	else if (!ft_strncmp(line, "$?", 1))
 		str = ft_itoa(g_data->lastret);
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:24:56 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 18:10:45 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/04 19:52:41 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,14 @@ int	my_setenv(char *var)
 	c = my_getenv(name, &offset);
 	if (c)
 	{
+		if (var[egal_len(var)] != '=')
+			return (0);
 		tmp = value;
 		if ((ft_strlen(c) >= ft_strlen(value)))
-			while (*c && *value)
-				*c++ = *value++;
-		free(tmp);
-		free(name);
-		return (0);
+		{
+			while ((*c++ = *value++));
+			return (0);
+		}
 	}
 	else
 		dont_exist(&offset);
