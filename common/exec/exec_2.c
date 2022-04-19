@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:55:04 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 16:48:33 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/03 17:33:34 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	pipex(char *cmd)
 		close(p_fd[0]);
 		dup2(p_fd[1], 1);
 		ret = exec(cmd);
-		ft_exit(ret);
+		exit(ret);
 	}
 	else
 	{
