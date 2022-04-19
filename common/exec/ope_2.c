@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ope_2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:47:39 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/04 19:08:40 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/05/04 19:38:58 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	execute(t_token *token)
 			execute_2(&is_or, &is_and, tmp, start);
 		else
 			execute_5(&is_and, &is_or, start, tmp);
+		ft_clean_hd(tmp->redirect.open);
+		ft_clean_hd(tmp->redirect.open2);
 		tmp = tmp->next;
 		start = 0;
 	}
