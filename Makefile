@@ -12,15 +12,12 @@ SRCS = 	src/main.c\
 		common/builtins/utils.c\
 		\
         libft/libft.a\
-		common/signal/signal.c\
+		common/signal/*.c\
 		common/builtins/exit.c\
 		\
 		common/lst/*.c\
 		common/utils/*\
-		common/exec/exec_2.c\
-		common/exec/exec.c\
-		common/exec/ope.c\
-		common/exec/ope_2.c\
+		common/exec/*.c
 
 
 #====#
@@ -29,7 +26,7 @@ SRCS = 	src/main.c\
 
 NAME = minishell
 CC = gcc
-CFLAGS = -lreadline -g -L/Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew//opt/readline/include
+CFLAGS = -Wall -Wextra -Werror -lreadline -g -L/Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew//opt/readline/include -fsanitize=address
 OBJDIR = ./objs/
 SRCDIR = ./src/
 COMMONDIR = ./common/
