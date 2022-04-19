@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_chdir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:45:53 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/12 19:04:06 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/19 19:07:25 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,52 +60,70 @@ char	*ft_getpwd(char c)
 	return (0);
 }
 
-char	*ft_chdir(char *line)
+void	ft_chdir_2(char *line, t_tmp *tmp, char *home, int e)
 {
-	size_t	start;
-	size_t	end;
-	char	*home;
-	char	*str;
 	char	*pwd;
 
-	home = ft_gethome();
-	end = 0;
-	str = 0;
-	while (line[end])
+	if (e == 1)
 	{
-		start = end;
-		if (((end && line[end - 1] == ' ') || !end) && line[end] && line[end]
-			== '~' && line[end + 1] && ((line[end + 2] && ft_strchr(" /0",
-						line[end + 2])) || !line[end + 2])
-			&& ft_strchr("+-0", line[end + 1]))
-		{
-			start = end++;
-			if (ft_strchr("+-", line[end]))
-				end++;
-			while (line[end] == '0')
-				end++;
-			if (ft_strchr("/ ", line[end]) || !line[end])
-			{
-				pwd = ft_getpwd(line[start + 1]);
-				str = ft_strjoin1(str, pwd);
-				start = end;
-			}
-		}
-		else if (line[end] && ft_strchr("\'\"", line[end]))
-			ft_creat_tab2(line, &end, 0, 1);
-		else if (((end && line[end - 1] == ' ') || !end) && line[end]
-			&& ((ft_strchr(" /", line[end + 1]) && line[end + 1])
-				|| !line[end + 1]) && line[end] == '~' && ++end)
-		{
-			start = end;
-			str = ft_strjoin1(str, home);
-		}
-		else if (line[end])
-			end++;
-		if (end != start)
-			str = ft_strjoin3(str, ft_substr(line, start, end - start));
+		tmp->start = tmp->end;
+		tmp->str = ft_strjoin1(tmp->str, home);
 	}
+	else if (e == 2)
+	{
+		if (tmp->end != tmp->start)
+			tmp->str = ft_strjoin3(tmp->str,
+					ft_substr(line, tmp->start, tmp->end - tmp->start));
+	}
+	else if (e == 3)
+	{
+		while (line[tmp->end] == '0')
+			tmp->end++;
+		if (ft_strchr("/ ", line[tmp->end]) || !line[tmp->end])
+		{
+			pwd = ft_getpwd(line[tmp->start + 1]);
+			tmp->str = ft_strjoin1(tmp->str, pwd);
+			tmp->start = tmp->end;
+		}
+	}
+}
+
+void	ft_chdir_3(char *line, t_tmp *tmp, char *home)
+{
+	tmp->start = tmp->end;
+	if (((tmp->end && line[tmp->end - 1] == ' ') || !tmp->end) && line[tmp->end]
+		&& line[tmp->end] == '~' && line[tmp->end + 1]
+		&& ((line[tmp->end + 2] && ft_strchr(" /0", line[tmp->end + 2]))
+			|| !line[tmp->end + 2]) && ft_strchr("+-0", line[tmp->end + 1]))
+	{
+		tmp->start = tmp->end++;
+		if (ft_strchr("+-", line[tmp->end]))
+			tmp->end++;
+		ft_chdir_2(line, tmp, home, 3);
+	}
+	else if (line[tmp->end] && ft_strchr("\'\"", line[tmp->end]))
+		ft_creat_tab2(line, &tmp->end, 0, 1);
+	else if (((tmp->end && line[tmp->end - 1] == ' ') || !tmp->end)
+		&& line[tmp->end] && ((ft_strchr(" /", line[tmp->end + 1])
+				&& line[tmp->end + 1]) || !line[tmp->end + 1])
+		&& line[tmp->end] == '~' && ++tmp->end)
+		ft_chdir_2(line, tmp, home, 1);
+	else if (line[tmp->end])
+		tmp->end++;
+	ft_chdir_2(line, tmp, home, 2);
+}
+
+char	*ft_chdir(char *line)
+{
+	t_tmp	tmp;
+	char	*home;
+
+	home = ft_gethome();
+	tmp.end = 0;
+	tmp.str = 0;
+	while (line[tmp.end])
+		ft_chdir_3(line, &tmp, home);
 	free(home);
 	free(line);
-	return (str);
+	return (tmp.str);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ecrase.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:49:33 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/17 19:59:04 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/19 18:24:18 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ void	ft_ecrase_q_2(char *word, size_t *start, size_t *end, char *new_word)
 		c = word[(*end)++];
 		*start = *end;
 		while (word[*end] && word[*end] != c)
-			end++;
+			(*end)++;
 		new_word = ft_strjoin3(new_word,
-				ft_substr(word, *start, end - start));
+				ft_substr(word, *start, (*end) - (*start)));
 		if (word[*end])
-			end += 1;
+			(*end) += 1;
 	}
 	else
 	{
 		while (word[*end] && !ft_strchr("\'\"", word[*end]))
-			*end += 1;
+			(*end) += 1;
 		new_word = ft_strjoin3(new_word,
-				ft_substr(word, *start, *end - *start));
+				ft_substr(word, *start, (*end) - (*start)));
 	}
 }
 

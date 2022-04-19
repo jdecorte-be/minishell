@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   john_side.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:56:54 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/17 20:13:48 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/19 17:54:57 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,4 @@ void	ft_redirect_for_john(t_token *token)
 			tmp = tmp->next;
 		}
 	}
-
 }

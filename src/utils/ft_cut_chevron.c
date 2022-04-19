@@ -3,18 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cut_chevron.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:49:25 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/17 20:23:19 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/19 19:19:21 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	*ft_cut_chevron(char *str)
+char	*ft_cut_chevron2(char *str, size_t *end, size_t *start)
 {
 	char	*tmp;
+
+	*end = ft_next_word(str, ft_next_word(str, *end));
+	tmp = str;
+	str = ft_cutoff(tmp, *start, *end - *start);
+	free(tmp);
+	(*end) -= ((*end) - (*start));
+	return (str);
+}
+
+char	*ft_cut_chevron(char *str)
+{
 	size_t	start;
 	size_t	end;
 
@@ -29,13 +40,7 @@ char	*ft_cut_chevron(char *str)
 		else if (str[end] == '(')
 			ft_skip_p(str, &end);
 		else if (ft_strchr("><", str[end]))
-		{
-			end = ft_next_word(str, ft_next_word(str, end));
-			tmp = str;
-			str = ft_cutoff(tmp, start, end - start);
-			free(tmp);
-			end -= end - start;
-		}
+			str = ft_cut_chevron2(str, &end, &start);
 		else
 			end++;
 	}
