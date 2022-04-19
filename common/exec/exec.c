@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/05/03 22:10:30 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/05/03 22:27:28 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,14 @@ void	not_pid(char *cmd, char **args)
 	if (execve(get_path(cmd), &args[0], g_data->env) == -1)
 	{
 		tmp = ft_ecrase_q(args[0]);
-		if (access(cmd, F_OK) == 0)
+		if (cmd[0] == '.' && !cmd[1])
+		{
+			puterror(tmp, "filename argument required");
+			printf(".: usage: . filename [arguments]\n");
+		}
+		else if (access(cmd, F_OK) == 0 && !(cmd[0] == '.' && cmd[1] == '.'))
+			puterror(tmp, "is a directory");
+		else if (cmd[0] == '/' || (cmd[0] == '.' && cmd[1] == '/'))
 			puterror(tmp, "No such file or directory");
 		else
 			puterror(tmp, "command not found");
