@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:55:45 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/11 15:28:59 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/17 12:57:15 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	putin_hd(char *line, int *fd)
 {
 	char	*str;
 
+	// signal(SIGINT, ft_sigint_heredoc2);
 	close(fd[0]);
 	while (1)
 	{
@@ -94,6 +95,7 @@ int	ft_here_doc(char *line)
 	char	*str;
 	int		fd[2];
 
+	// signal(SIGINT, ft_sigint_heredoc1);
 	g_data->hd_stop = 1;
 	str = 0;
 	if (pipe(fd) == -1)
@@ -102,17 +104,8 @@ int	ft_here_doc(char *line)
 	if (g_data->pid == -1)
 		ft_exit(0);
 	if (!g_data->pid)
-	{
 		putin_hd(line, fd);
-	}
-	else
-	{
-		close(fd[1]);
-		dup2(fd[0], 0);
-		printf("pepepeppepepe");
-		wait(NULL);
-		signal(SIGINT, c_handler);
-	}
-	signal(SIGINT, c_handler);
+	// waitpid(pid, 0, 0);
+	// signal(SIGINT, c_handler);
 	return (fd[0]);
 }

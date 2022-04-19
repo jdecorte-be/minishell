@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:16:34 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/16 14:39:25 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/17 12:50:39 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	main_2(void)
 		token = ft_parsing(line);
 		free(line);
 		execute(token);
+		free(token);
 	}
 }
 

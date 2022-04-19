@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:27:52 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/04/07 18:41:18 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/17 13:00:22 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,5 @@ void	exit_cmd(char **s_cmd)
 		ft_putstr_fd("bash: exit: too many arguments\n", 2);
 	else
 		exit_cmd_2(err, c_err, s_cmd);
-	ft_free_tab(s_cmd);
 	ft_exit(g_data->lastret);
 }

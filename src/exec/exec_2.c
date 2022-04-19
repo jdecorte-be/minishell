@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:55:04 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/16 17:19:45 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/17 12:51:21 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ int	subshell(char *line)
 	token = ft_parsing(line);
 	free(line);
 	execute(token);
+	free(token);
 	return (g_data->lastret);
 }

@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:49:33 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/15 12:58:44 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/17 19:56:26 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ void	ft_ecrase_q_2(char *word, size_t *start, size_t *end, char *new_word)
 
 char	*ft_ecrase_q(char *word)
 {
-	// size_t	start;
-	// size_t	end;
-	// char	*new_word;
+	size_t	start;
+	size_t	end;
+	char	*new_word;
 
-	// if (!word)
-	// 	return (0);
-	// while (word[end])
-	// {
-	// 	ft_ecrase_q_2(word, &start, &end, new_word);
-	// }
+	if (!word)
+		return (0);
+	while (word[end])
+	{
+		ft_ecrase_q_2(word, &start, &end, new_word);
+	}
 	return (word);
 }
 

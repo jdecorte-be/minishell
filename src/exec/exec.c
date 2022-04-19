@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/04/16 17:33:51 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/17 13:30:20 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,29 @@
 int	exec(char *cmd)
 {
 	char	**s_cmd;
+	int		ret;
 
 	s_cmd = ft_split2(ft_ecrase_q(cmd), " ");
 	if (cmd[0] == '(')
-		return (subshell(ft_ecrase_p(cmd)));
+		ret = (subshell(ft_ecrase_p(cmd)));
 	else if (ft_strcmp(s_cmd[0], "echo") == 0)
-		return (echo(s_cmd));
+		ret = (echo(s_cmd));
 	else if (ft_strcmp(s_cmd[0], "cd") == 0)
-		return (cd(s_cmd));
+		ret = (cd(s_cmd));
 	else if (ft_strcmp(s_cmd[0], "pwd") == 0)
-		return (pwd());
+		ret = (pwd());
 	else if (ft_strcmp(s_cmd[0], "env") == 0)
-		return (print_env(g_data->env));
+		ret = (print_env(g_data->env));
 	else if (ft_strcmp(s_cmd[0], "export") == 0)
-		return (export(s_cmd));
+		ret = (export(s_cmd));
 	else if (ft_strcmp(s_cmd[0], "unset") == 0)
-		return (unset(s_cmd));
+		ret = (unset(s_cmd));
 	else if (ft_strcmp(s_cmd[0], "exit") == 0)
 		exit_cmd(s_cmd);
 	else
-		return (cmd_sys(ft_ecrase_p(cmd)));
-	return (-1);
+		ret = (cmd_sys(ft_ecrase_p(cmd)));
+	ft_free_tab(s_cmd);
+	return (ret);
 }
 
 char	*get_path(char *cmd)
@@ -48,9 +50,9 @@ char	*get_path(char *cmd)
 
 	i = -1;
 	allpath = ft_split(my_getenv("PATH", NULL), ":");
-	s_cmd = ft_split2(cmd, " ");
 	if (!allpath)
 		return (cmd);
+	s_cmd = ft_split2(cmd, " ");
 	while (allpath[++i])
 	{
 		path_part = ft_strjoin(allpath[i], "/");

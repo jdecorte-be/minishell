@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:51:11 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/15 13:33:54 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/17 13:06:30 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,12 @@ int	cd_2(char **cmd)
 		return (1);
 	}
 	chdir(home);
-	ft_free_tab(cmd);
 	return (0);
 }
 
 int	cd_3(char **cmd)
 {
 	perror("cd");
-	ft_free_tab(cmd);
 	return (1);
 }
 
@@ -57,10 +55,7 @@ int	cd(char **cmd)
 	else
 	{
 		if (!getcwd(pwd_buff, sizeof(pwd_buff)))
-		{
-			ft_free_tab(cmd);
 			return (-1);
-		}
 		pwd_var = my_getenv("PWD", NULL);
 		if (pwd_var)
 		{
@@ -69,6 +64,5 @@ int	cd(char **cmd)
 			my_setenv(ft_strjoin("PWD=", pwd_buff));
 		}
 	}
-	ft_free_tab(cmd);
 	return (0);
 }

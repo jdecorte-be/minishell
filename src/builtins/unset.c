@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:53:46 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/06 17:55:30 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/17 13:02:09 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,5 @@ int	unset(char **cmd)
 		del_element(ft_ecrase_q(cmd[i]));
 		i++;
 	}
-	ft_free_tab(cmd);
 	return (0);
 }

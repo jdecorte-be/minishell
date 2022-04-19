@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:22:28 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/07 15:49:16 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/17 13:01:36 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,5 @@ int	echo(char **cmd)
 	}
 	if (option == 0)
 		ft_putstr_fd("\n", 1);
-	ft_free_tab(cmd);
 	return (0);
 }
