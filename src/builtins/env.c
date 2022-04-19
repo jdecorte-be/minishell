@@ -3,86 +3,89 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:24:56 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/07 16:27:49 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/16 14:11:14 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	**dont_exist(char **lastenv, int *index)
+void	end_setenv(char *c, char *name, char *value, int *offset)
 {
-	char	**p;
-	int		cnt;
-
-	p = g_data->env;
-	while (*p)
-		p++;
-	cnt = splitlen(g_data->env);
-	p = ft_realloc(lastenv, sizeof(char *) * (cnt + 2));
-	if (!p)
-		return (NULL);
-	if (lastenv != g_data->env)
-		ft_memcpy(p, g_data->env, cnt * sizeof(char *));
-	*index = cnt;
-	g_data->env [cnt + 1] = NULL;
-	return (p);
+	c = (char *)name;
+	while (*c && *c != '=')
+		++c;
+	(g_data->env)[*offset] = malloc((size_t)((int)(c - name) \
+		+ ft_strlen(value) + 2));
+	if (!((g_data->env)[*offset]))
+		ft_exit(-1);
+	c = (g_data->env)[*offset];
+	while (*name++ && *c != '=')
+	{
+		*c = *name;
+		++c;
+	}
+	*c++ = '=';
+	while (*c && *value)
+		*c++ = *value++;
 }
 
-int	my_setenv(char *var, int e)
+void	dont_exist(int *offset)
 {
-	int			offset;
+	static int	alloced;
+	int			cnt;
+	char		**p;
+
+	p = g_data->env;
+	cnt = 0;
+	cnt = splitlen(p);
+	if (alloced)
+	{
+		g_data->env = (char **)ft_realloc((char *)g_data->env, \
+			(size_t)(sizeof(char *) * (cnt + 2)));
+		if (!g_data->env)
+			ft_exit(-1);
+	}
+	else
+	{
+		alloced = 1;
+		p = malloc((size_t)(sizeof(char *) * (cnt + 2)));
+		if (!p)
+			ft_exit(-1);
+		ft_memmove(p, g_data->env, cnt * sizeof(char *));
+		g_data->env = p;
+	}
+	(g_data->env)[cnt + 1] = NULL;
+	*offset = cnt;
+}
+
+int	my_setenv(char *var)
+{
 	char		*c;
-	static char	**lastenv;
-	char		*name;
+	int			offset;
 	char		*value;
-	int			e_len;
+	char		*name;
 	char		*tmp;
 
-	if (e == 1)
+	name = ft_substr(var, 0, egal_len(var));
+	if (var[egal_len(var)] == '=')
+		value = ft_substr(var, egal_len(var) + 1, ft_strlen(var));
+	else
+		value = ft_strdup("\0");
+	c = my_getenv(name, &offset);
+	if (c && (ft_strlen(c) >= ft_strlen(value)))
 	{
-		e_len = egal_len(var);
-		name = ft_substr(var, 0, e_len);
-		if (var[e_len] == '=')
-			value = ft_substr(var, e_len + 1, ft_strlen(var));
-		else
-			value = ft_strdup("\0");
-		c = my_getenv(name, &offset);
-		if (c)
-		{
-			if ((int)ft_strlen(c) >= ft_strlen(value))
-			{
-				tmp = value;
-				while (*c && *value)
-					*c++ = *value++;
-				free(tmp);
-				return (0);
-			}
-		}
-		else
-			lastenv = dont_exist(lastenv, &offset);
-		g_data->env[offset]
-			= ft_calloc(1, (size_t)((e_len + ft_strlen(value) + 2)));
-		if (!(g_data->env[offset]))
-			return (-1);
-		c = g_data->env[offset];
-		tmp = name;
-		while ((*c && *name) && *c != '=')
-		{
-			*c = *name++;
-			++c;
-		}
-		if (var[e_len] == '=')
-			*c++ = '=';
+		tmp = value;
+		while (*c && *value)
+			*c++ = *value++;
 		free(tmp);
+		return (0);
 	}
-	else if (e == 2)
-	{
-		ft_free_tab(lastenv);
-		lastenv = 0;
-	}
+	else
+		dont_exist(&offset);
+	end_setenv(c, name, value, &offset);
 	return (0);
 }
 

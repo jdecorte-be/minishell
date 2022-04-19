@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/04/07 19:03:50 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/15 13:16:40 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ char	*get_path(char *cmd)
 	i = -1;
 	allpath = ft_split(my_getenv("PATH", NULL), ":");
 	s_cmd = ft_split2(cmd, " ");
+	if (!allpath)
+		return (cmd);
 	while (allpath[++i])
 	{
 		path_part = ft_strjoin(allpath[i], "/");

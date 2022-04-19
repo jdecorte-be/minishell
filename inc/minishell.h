@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:02:10 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/07 20:40:15 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/15 14:00:38 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # include <signal.h>
 # include <termios.h>
 # include <malloc/malloc.h>
+// #include "wraloc.h"
 
 typedef struct s_hd
 {
@@ -130,7 +131,7 @@ char		*get_path(char *cmd);
 int			pipex(char *cmd);
 char		*prompt(void);
 char		*my_getenv(char *name, int *index);
-int			my_setenv(char *name, int e);
+int			my_setenv(char *name);
 void		refresh_env(char **env, t_data *data);
 int			checkvalid(char *cmd);
 int			echo(char **args);

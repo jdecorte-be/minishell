@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rep.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:51:11 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/07 18:38:31 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/15 13:33:54 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,15 @@ int	pwd(void)
 
 int	cd_2(char **cmd)
 {
-	chdir(my_getenv("HOME", NULL));
+	char	*home;
+
+	home = my_getenv("HOME", NULL);
+	if (home == NULL)
+	{
+		puterror("cd", "HOME not set");
+		return (1);
+	}
+	chdir(home);
 	ft_free_tab(cmd);
 	return (0);
 }
@@ -57,8 +65,8 @@ int	cd(char **cmd)
 		if (pwd_var)
 		{
 			tmp = my_getenv("PWD", NULL);
-			my_setenv(ft_strjoin("OLDPWD=", tmp), 1);
-			my_setenv(ft_strjoin("PWD=", pwd_buff), 1);
+			my_setenv(ft_strjoin("OLDPWD=", tmp));
+			my_setenv(ft_strjoin("PWD=", pwd_buff));
 		}
 	}
 	ft_free_tab(cmd);

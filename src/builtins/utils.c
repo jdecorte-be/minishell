@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:55:54 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/06 18:00:53 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/15 12:49:32 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,23 @@ int	egal_len(char *cmd)
 	while (cmd[i] && cmd[i] != '=')
 		i++;
 	return (i);
+}
+
+char	**array_dup(char **tab)
+{
+	char	**res;
+	int		i;
+
+	i = 0;
+	res = malloc(sizeof(char *) * splitlen(g_data->env));
+	if (!res)
+		return (NULL);
+	while (i < splitlen(g_data->env))
+	{
+		res[i] = ft_strdup(g_data->env[i]);
+		if (!res[i])
+			return (NULL);
+		i++;
+	}
+	return (res);
 }

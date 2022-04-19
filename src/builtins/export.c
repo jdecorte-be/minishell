@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 17:14:20 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/07 18:35:01 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/15 13:33:38 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	export(char **cmd)
 			ft_free_tab(cmd);
 			return (0);
 		}
-		my_setenv(ft_ecrase_q(cmd[i]), 1);
+		my_setenv(ft_ecrase_q(cmd[i]));
 	}
 	g_data->lastret = 0;
 	ft_free_tab(cmd);

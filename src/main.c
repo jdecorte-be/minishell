@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:16:34 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/07 15:34:22 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/15 13:34:08 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ void	shlvlhandler(void)
 	var = my_getenv("SHLVL", NULL);
 	shlvl = ft_atoi(var) + 1;
 	join = ft_strjoin("_=", "/usr/bin/env");
-	my_setenv(join, 1);
-	my_setenv("OLDPWD", 1);
+	my_setenv(join);
+	my_setenv("OLDPWD");
 	if (shlvl > 1000)
 		shlvl = 1;
 	if (shlvl == 1000)
-		my_setenv("SHLV", 1);
+		my_setenv("SHLV");
 	else
 	{
 		lvl = ft_itoa(shlvl);
 		join2 = ft_strjoin("SHLVL=", lvl);
-		my_setenv(join2, 1);
+		my_setenv(join2);
 	}
 	free(lvl);
 	free(join);
@@ -110,7 +110,4 @@ int	main(int ac, char **av, char **env)
 	initiate_values(g_data, env);
 	main_2();
 	ft_exit(0);
-	free(g_data->env);
-	free(g_data);
-	my_setenv(NULL, 2);
 }
