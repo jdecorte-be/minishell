@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/05/03 21:38:26 by lxu-wu           ###   ########.fr       */
+/*   Created: 2022/05/03 21:58:40 by lxu-wu            #+#    #+#             */
+/*   Updated: 2022/05/03 21:58:41 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	not_pid(char *cmd, char **args)
 		ft_free_tab(args);
 		free(tmp);
 		free(cmd);
-		ft_exit(127);
+		exit(127);
 	}
 }
 

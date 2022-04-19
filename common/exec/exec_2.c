@@ -6,7 +6,7 @@
 /*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 18:55:04 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 17:33:34 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/05/03 21:43:10 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ int	subshell(char *line)
 	t_token	*token;
 
 	line = ft_ecrase_p(line);
+	if (ft_isprohibited(line) == 1)
+	{
+		free(line);
+		exit (1);
+	}
 	line = ft_epur_str(((ft_chdir((ft_pgross_str((line)))))));
 	token = ft_parsing(line);
 	free(line);

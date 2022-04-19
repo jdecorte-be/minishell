@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:27:52 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/05/03 16:20:07 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/03 19:14:30 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	exit_error(char *cmd)
 	{
 		if (!ft_isdigit(cmd[i]))
 		{
+			printf("exit\n");
 			puterror(cmd, "numeric argument required");
 			return (1);
 		}
