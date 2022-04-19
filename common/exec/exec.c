@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/05/03 16:21:40 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/03 16:48:16 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	exec(char *cmd)
 	ret = 0;
 	s_cmd = ft_split2(ft_ecrase_q(cmd), " ");
 	if (cmd[0] == '(')
-		ret = (subshell(ft_ecrase_p(cmd)));
+		ret = (subshell(cmd));
 	else if (ft_strcmp(s_cmd[0], "echo") == 0)
 		ret = (echo(s_cmd));
 	else if (ft_strcmp(s_cmd[0], "cd") == 0)
@@ -51,10 +51,14 @@ void	sig(pid_t *pid, int *ret)
 
 void	not_pid(char *cmd, char **args)
 {
+	char	*tmp;
+
 	if (execve(get_path(cmd), &args[0], g_data->env) == -1)
 	{
-		puterror(ft_ecrase_q(args[0]), "command not found");
+		tmp = ft_ecrase_q(args[0]);
+		puterror(tmp, "command not found");
 		ft_free_tab(args);
+		free(tmp);
 		ft_exit(127);
 	}
 }

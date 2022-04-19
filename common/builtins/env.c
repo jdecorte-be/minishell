@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:24:56 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/03 15:51:36 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/03 16:36:56 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	end_setenv(char *c, char *name, char *value, int *offset)
 {
+	char	*tmp;
+
+	tmp = name;
 	c = (char *)name;
 	while (*c && *c != '=')
 		++c;
@@ -30,6 +33,7 @@ void	end_setenv(char *c, char *name, char *value, int *offset)
 	*c++ = '=';
 	ft_strlcpy(c, value, ft_strlen(value) + 1);
 	g_data->offset = *offset;
+	free(tmp);
 }
 
 void	dont_exist(int *offset)
