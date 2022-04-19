@@ -6,7 +6,7 @@
 /*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/05/10 15:09:42 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/10 18:53:59 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int	cmd_sys(char *cmd)
 	free(cmd);
 	ft_free_tab(args);
 	waitpid(pid, &ret, 0);
+	kill(pid, SIGKILL);
 	signal(SIGINT, c_handler);
 	signal(SIGQUIT, SIG_IGN);
 	return (ret % 255);
