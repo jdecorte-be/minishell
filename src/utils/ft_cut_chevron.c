@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cut_chevron.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 20:49:25 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/04/06 20:49:26 by lyaiche          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 char	*ft_cut_chevron(char *str)
@@ -16,11 +28,6 @@ char	*ft_cut_chevron(char *str)
 			ft_skip_q(str, &end);
 		else if (str[end] == '(')
 			ft_skip_p(str, &end);
-		// else if (ft_strnstr(str + end, "<<", 2))
-		// {
-		// 	// write(1, "caac\n", 5);
-		// 	end = ft_next_word(str, ft_next_word(str, end));
-		// }
 		else if (ft_strchr("><", str[end]))
 		{
 			end = ft_next_word(str, ft_next_word(str, end));
@@ -31,8 +38,6 @@ char	*ft_cut_chevron(char *str)
 		}
 		else
 			end++;
-		// printf("end == %zu   start == %zu", end, start);
 	}
-	// printf("str == %s\n", str);
 	return (str);
 }

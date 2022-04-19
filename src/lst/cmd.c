@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 18:12:48 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/04/06 18:12:56 by lyaiche          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 t_cmd	*ft_cmdnew(char *newline, t_cmd *sup_cmd, t_redirect redirect)
@@ -12,13 +24,12 @@ t_cmd	*ft_cmdnew(char *newline, t_cmd *sup_cmd, t_redirect redirect)
 	cmd->back = 0;
 	cmd->and = 0;
 	cmd->or = 0;
-	// cmd->redirect = ft_init_redirect();
 	return (cmd);
 }
 
 t_cmd	*ft_cmdfist(t_cmd *cmd)
 {
-	t_cmd *tmp;
+	t_cmd	*tmp;
 
 	if (!cmd)
 		return (cmd);

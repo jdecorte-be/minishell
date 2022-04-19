@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_chdir.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 18:45:53 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/04/06 18:45:54 by lyaiche          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 char	*ft_gethome(void)
@@ -15,17 +27,14 @@ char	*ft_gethome(void)
 	{
 		if (trig == 3)
 		{
-			// printf("3\n");
 			break ;
 		}
 		if (str[i] && str[i] == '/')
 		{
-			// printf("1\n");
 			trig++;
 		}
 		if (str[i])
 		{
-			// printf("2\n");
 			i++;
 		}
 	}
@@ -39,7 +48,6 @@ char	*ft_getpwd(char c)
 	size_t	i;
 
 	i = 0;
-	// printf("%c\n", c);
 	if (ft_strchr("0+", c))
 	{
 		return (getenv("PWD"));
@@ -49,7 +57,6 @@ char	*ft_getpwd(char c)
 		str = getenv("OLDPWD");
 		if (str == 0)
 			str = "~-";
-		// printf("%s\n", getenv("OLDPWD"));
 		return (str);
 	}
 	return (0);
@@ -69,9 +76,11 @@ char	*ft_chdir(char *line)
 	while (line[end])
 	{
 		start = end;
-		if (((end && line[end - 1] == ' ') || !end) && line[end] && line[end] == '~' && line[end + 1] && ((line[end + 2] && ft_strchr(" /0", line[end + 2])) || !line[end + 2]) && ft_strchr("+-0", line[end + 1]))
+		if (((end && line[end - 1] == ' ') || !end) && line[end] && line[end]
+			== '~' && line[end + 1] && ((line[end + 2] && ft_strchr(" /0",
+						line[end + 2])) || !line[end + 2])
+			&& ft_strchr("+-0", line[end + 1]))
 		{
-				// printf("2\n");
 			start = end++;
 			if (ft_strchr("+-", line[end]))
 				end++;
@@ -83,11 +92,12 @@ char	*ft_chdir(char *line)
 				str = ft_strjoin1(str, pwd);
 				start = end;
 			}
-			// end++;
 		}
 		else if (line[end] && ft_strchr("\'\"", line[end]))
 			ft_creat_tab2(line, &end, 0, 1);
-		else if (((end && line[end - 1] == ' ') || !end) && line[end] && ((ft_strchr(" /", line[end + 1]) && line[end + 1]) || !line[end + 1]) && line[end] == '~' && ++end)
+		else if (((end && line[end - 1] == ' ') || !end) && line[end]
+			&& ((ft_strchr(" /", line[end + 1]) && line[end + 1])
+				|| !line[end + 1]) && line[end] == '~' && ++end)
 		{
 			start = end;
 			str = ft_strjoin1(str, home);

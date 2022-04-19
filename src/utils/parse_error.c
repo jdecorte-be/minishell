@@ -1,19 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_error.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 20:57:04 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/04/06 20:59:05 by lyaiche          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 int	ft_parsing_redirect(char *line, size_t i)
 {
-	int a;
+	int	a;
 
 	a = 0;
 	i = ft_next_word(line, i);
 	if (!line[i] && ++a)
-		write(2, "minishell: syntax error near unexpected token `newline'\n", 56);
+	{
+		write(2, "minishell: syntax error near ", 29);
+		write(2, "unexpected token `newline'\n", 27);
+	}
 	if (line[i] == '<' && ++a)
 		write(2, "minishell: syntax error near unexpected token `<'\n", 51);
 	else if (line[i] == '>' && ++a)
 		write(2, "minishell: syntax error near unexpected token `>'\n", 51);
 	if (a)
-		data->lastret = 258;
+		g_data->lastret = 258;
 	return (a);
 }
 
@@ -52,7 +67,7 @@ void	ft_p_unexpected(char *line, size_t end)
 	write(2, "minishell: syntax error near unexpected token `", 47);
 	write(2, str, ft_strlen(str));
 	write(2, "\'\n", 2);
-	data->lastret = 258;
+	g_data->lastret = 258;
 }
 
 void	ft_parse_error(int e)
@@ -67,7 +82,7 @@ void	ft_parse_error(int e)
 		write(2, "minishell: syntax error near unexpected token `||'\n", 51);
 	else if (e == 5)
 		write(2, "minishell: syntax error near unexpected token `|'\n", 50);
-	data->lastret = 258;
+	g_data->lastret = 258;
 }
 
 int	ft_isprohibited(char *line)
@@ -117,23 +132,23 @@ int	ft_isprohibited(char *line)
 		}
 		else if ((!i || ft_isspace(line[i - 1])) && ft_check_p_ok(line, i))
 		{
-			// printf("je suis dans \n");
 			return (1);
 		}
 		else if (line[i] == '(')
 		{
 			par++;
-			if (line[i + 1] == ')' && (!line[ft_next_word(line, i)] || ft_strchr("&|", line[ft_next_word(line, i)])))
+			if (line[i + 1] == ')' && (!line[ft_next_word(line, i)]
+					|| ft_strchr("&|", line[ft_next_word(line, i)])))
 			{
 				ft_parse_error(2);
-				return (1);	
+				return (1);
 			}
-			else if (line[ft_next_word(line, i)] && !ft_strchr("&|", line[ft_next_word(line, i)]))
+			else if (line[ft_next_word(line, i)] && !ft_strchr("&|",
+					line[ft_next_word(line, i)]))
 			{
 				ft_p_unexpected(line, ft_next_word(line, i));
 				return (1);
 			}
-
 		}
 		else if (line[i] == ')')
 		{
@@ -145,7 +160,6 @@ int	ft_isprohibited(char *line)
 			}
 		}
 		i++;
-		// printf("%d\n", i);
 	}
 	if (quote % 2 != 0 || par)
 	{

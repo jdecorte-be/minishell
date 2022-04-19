@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split4.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 20:52:33 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/04/06 20:52:46 by lyaiche          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 static size_t	ft_count_words(char *str, char *set)
@@ -18,7 +30,8 @@ static size_t	ft_count_words(char *str, char *set)
 			{
 				while (str[i] && ft_strchr("\'\"", str[i]))
 					ft_creat_tab2(str, &i, 0, 1);
-				while (str[i] && !ft_strchr(set, str[i]) && !ft_strchr("\'\"", str[i]))
+				while (str[i] && !ft_strchr(set, str[i])
+					&& !ft_strchr("\'\"", str[i]))
 					i++;
 			}
 		}
@@ -46,7 +59,8 @@ static char	**ft_creat_tab(char **tab, char *str, char *set, size_t word)
 			{
 				while (str[end] && ft_strchr("\'\"", str[end]))
 					ft_skip_q(str, &end);
-				while (str[end] && !ft_strchr(set, str[end]) && !ft_strchr("\'\"", str[end]))
+				while (str[end] && !ft_strchr(set, str[end])
+					&& !ft_strchr("\'\"", str[end]))
 					end++;
 			}
 		}

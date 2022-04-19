@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 18:29:00 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/04/06 18:29:34 by lyaiche          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
 void	puterror(char *cmd, char *msg)
@@ -19,11 +31,12 @@ void	*ft_memdel(void *ptr)
 	return (NULL);
 }
 
-int splitlen(char **split)
+int	splitlen(char **split)
 {
-	int i = 0;
+	int	i;
 
-	while(split[i] != NULL)
+	i = 0;
+	while (split[i] != NULL)
 		i++;
-	return i;
+	return (i);
 }

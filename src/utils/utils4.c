@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils4.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 21:01:57 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/04/06 21:02:07 by lyaiche          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 int	ft_strstrchr(char *str, char *set)
@@ -15,7 +27,7 @@ int	ft_strstrchr(char *str, char *set)
 
 void	ft_skip_q(char *str, size_t *i)
 {
-	char c;
+	char	c;
 
 	c = str[(*i)++];
 	while (str[*i] && str[*i] != c)
@@ -26,7 +38,7 @@ void	ft_skip_q(char *str, size_t *i)
 
 void	ft_skip_p(char *str, size_t *i)
 {
-	int par;
+	int	par;
 
 	par = 1;
 	(*i)++;
@@ -36,6 +48,6 @@ void	ft_skip_p(char *str, size_t *i)
 			par++;
 		else if (str[*i] == ')')
 			par--;
-		(*i)++;	
+		(*i)++;
 	}
 }

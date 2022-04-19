@@ -78,21 +78,21 @@
 // 	if (!line)
 // 		return NULL;
 // 	char *res = ft_ecrase_q(ft_strjoin(ft_strjoin(" ", line), " "));
-// 	while(res[i])
+// 	while (res[i])
 // 	{
-// 		if(res[i] == '(')
+// 		if (res[i] == '(')
 // 			in_par++;
 // 		if (in_par == 0 && ((res[i] == '&' && res[i + 1] == '&') || (res[i] == '|' && res[i + 1] == '|')))
 // 		{
 // 			res[i + 2] = 1;
 // 			res[i - 1] = 1;
 // 		}
-// 		else if((in_par == 0 && (res[i] == '>' || res[i] == '<' || (res[i] == '|' && res[i + 1] == ' '))) || res[i] == '(' || res[i] == ')')
+// 		else if ((in_par == 0 && (res[i] == '>' || res[i] == '<' || (res[i] == '|' && res[i + 1] == ' '))) || res[i] == '(' || res[i] == ')')
 // 		{
 // 			res[i + 1] = 1;
 // 			res[i - 1] = 1;
 // 		}
-// 		if(res[i] == ')')
+// 		if (res[i] == ')')
 // 			in_par--;
 // 		i++;
 // 	}

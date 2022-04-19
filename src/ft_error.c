@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 07:53:49 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/01/22 10:33:25 by decortejohn      ###   ########.fr       */
+/*   Updated: 2022/04/06 18:16:26 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,5 @@ void	ft_error(int e)
 	else if (e == 12)
 	{
 		perror("execve");
-		// exit (127);
 	}
-	// exit(EXIT_FAILURE);
 }

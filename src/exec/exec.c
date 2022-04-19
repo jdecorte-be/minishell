@@ -3,41 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/04/05 16:57:02 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/04/06 18:07:01 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int exec(char *cmd)
+int	exec(char *cmd)
 {
-    char **s_cmd = ft_split2(ft_ecrase_q(cmd)," ");
+	char	**s_cmd;
 
-    if(cmd[0] == '(')
-       return subshell(ft_ecrase_p(cmd), data);
-	else if(ft_strcmp(s_cmd[0], "echo") == 0)
-        return echo(s_cmd);
-    else if(ft_strcmp(s_cmd[0], "cd") == 0)
-        return cd(s_cmd);
-    else if(ft_strcmp(s_cmd[0], "pwd") == 0)
-        return pwd();
-    else if(ft_strcmp(s_cmd[0], "env") == 0)
-        return print_env(data->env);
-    else if(ft_strcmp(s_cmd[0], "export") == 0)
-        return export(s_cmd);
-    else if(ft_strcmp(s_cmd[0], "unset") == 0)
-        return unset(s_cmd);
-    else if(ft_strcmp(s_cmd[0], "exit") == 0)
-        return exit_cmd(s_cmd);
+	s_cmd = ft_split2(ft_ecrase_q(cmd), " ");
+	if (cmd[0] == '(')
+		return (subshell(ft_ecrase_p(cmd)));
+	else if (ft_strcmp(s_cmd[0], "echo") == 0)
+		return (echo(s_cmd));
+	else if (ft_strcmp(s_cmd[0], "cd") == 0)
+		return (cd(s_cmd));
+	else if (ft_strcmp(s_cmd[0], "pwd") == 0)
+		return (pwd());
+	else if (ft_strcmp(s_cmd[0], "env") == 0)
+		return (print_env(g_data->env));
+	else if (ft_strcmp(s_cmd[0], "export") == 0)
+		return (export(s_cmd));
+	else if (ft_strcmp(s_cmd[0], "unset") == 0)
+		return (unset(s_cmd));
+	else if (ft_strcmp(s_cmd[0], "exit") == 0)
+		return (exit_cmd(s_cmd));
 	else
-		return cmd_sys(ft_ecrase_p(cmd));
-	return -1;
+		return (cmd_sys(ft_ecrase_p(cmd)));
+	return (-1);
 }
 
-char *get_path(char *cmd)
+char	*get_path(char *cmd)
 {
 	int		i;
 	char	*exec;
@@ -65,14 +66,15 @@ char *get_path(char *cmd)
 	return (cmd);
 }
 
-int cmd_sys(char *cmd)
+int	cmd_sys(char *cmd)
 {
-	char **args = ft_split2(cmd, " ");
+	char	**args;
 	pid_t	pid;
 	int		ret;
 	size_t	i;
-	
+
 	i = 0 ;
+	args = ft_split2(cmd, " ");
 	while (args[i])
 	{
 		args[i] = ft_ecrase_q(args[i]);
@@ -85,8 +87,7 @@ int cmd_sys(char *cmd)
 		perror("fork: ");
 	if (!pid)
 	{
-		
-		if(execve(get_path(cmd), &args[0], data->env) == -1)
+		if (execve(get_path(cmd), &args[0], g_data->env) == -1)
 		{
 			puterror(ft_ecrase_q(args[0]), "command not found");
 			exit (127);
@@ -99,29 +100,31 @@ int cmd_sys(char *cmd)
 		signal(SIGINT, c_handler);
 		signal(SIGQUIT, SIG_IGN);
 	}
-	return ret % 255;
+	return (ret % 255);
 }
 
-int subshell(char *line, t_data *data)
+int	subshell(char *line)
 {
-    int ret;
+	int		ret;
+	t_token	*token;
 
-    line = ft_epur_str(((ft_chdir((ft_pgross_str((line)))))));
-	t_token *token = ft_parsing(line);
-    execute(token);
-	return data->lastret;
+	line = ft_epur_str(((ft_chdir((ft_pgross_str((line)))))));
+	token = ft_parsing(line);
+	execute(token);
+	return (g_data->lastret);
 }
 
 int	pipex(char *cmd)
 {
 	pid_t		pid;
-	int			ret = 0;
+	int			ret;
 	int			p_fd[2];
 
+	ret = 0;
 	pipe(p_fd);
 	pid = fork();
 	if (pid < 0)
-		return -1;
+		return (-1);
 	if (!pid)
 	{
 		close(p_fd[0]);
@@ -134,5 +137,5 @@ int	pipex(char *cmd)
 		close(p_fd[1]);
 		dup2(p_fd[0], 0);
 	}
-	return ret;
+	return (ret);
 }

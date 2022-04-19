@@ -1,19 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split3.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 20:52:26 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/04/06 20:52:29 by lyaiche          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
-
-// static size_t	ft_many_space(char *str)
-// {
-// 	size_t	i;
-// 	size_t	space;
-
-// 	i = 0;
-// 	space = 0;
-// 	while (str[i] && ft_isspace(str[i++]))
-// 		space++;
-// 	i = ft_strlen(str) - 1;
-// 	while (i > 0 && ft_isspace(str[i--]))
-// 		space++;
-// 	return (space);
-// }
 
 static size_t	ft_count_words(char *str, char *set)
 {

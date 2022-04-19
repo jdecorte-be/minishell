@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strjoin2.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 20:52:55 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/04/06 20:53:00 by lyaiche          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 char	*ft_strjoin1(char const *s1, char const *s2)
@@ -75,4 +87,3 @@ char	*ft_strjoin3(char const *s1, char const *s2)
 	free((void *)s2);
 	return (dst);
 }
-

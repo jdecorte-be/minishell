@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 20:55:45 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/04/06 20:56:46 by lyaiche          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 int	ft_hd_exist(char *line)
@@ -31,7 +43,7 @@ char	*ft_chlimiter(char *line, size_t *v)
 	while (line[end] && !ft_isspace(line[end]))
 		end++;
 	*v = end;
-	return (ft_substr(line, start, end - start));//remplacer le 0 par start; et end par end - start;
+	return (ft_substr(line, start, end - start));
 }
 
 t_list	*ft_search_limiters(char *line)
@@ -57,17 +69,16 @@ t_list	*ft_search_limiters(char *line)
 		}
 		else
 			i++;
-
 	}
 	return (lst);
 }
 
 void	putin_hd(char *line, int *fd)
 {
-	char *str;
+	char	*str;
 
 	close(fd[0]);
-	while (1)//ft_strcmp(str, line))
+	while (1)
 	{
 		str = readline("> ");
 		if (!str || !ft_strcmp(str, line))
@@ -82,16 +93,16 @@ int	ft_here_doc(char *line)
 	t_list	*limiters;
 	char	*str;
 	int		fd[2];
-	data->hd_stop = 1;
+
+	g_data->hd_stop = 1;
 	str = 0;
 	if (pipe(fd) == -1)
 		ft_error(3);
-	data->pid = fork();
-	if(data->pid  == -1)
+	g_data->pid = fork();
+	if (g_data->pid == -1)
 		exit(0);
-	if(!data->pid)
+	if (!g_data->pid)
 	{
-		// signal(SIGINT, c_handler_doc);
 		putin_hd(line, fd);
 	}
 	else
@@ -103,53 +114,8 @@ int	ft_here_doc(char *line)
 		signal(SIGINT, c_handler);
 	}
 	signal(SIGINT, c_handler);
-	// free(line);
 	return (fd[0]);
 }
-
-// t_hd	*ft_hd_order(char *line, t_token *token)
-// {
-
-// }
-
-// t_hd	*ft_sort_hd(t_hd *hd, char *line, t_token *token)
-// {
-// 	int		*tab;
-// 	size_t	i;
-
-// 	tab = ft_hd_to_tab(hd);
-// 	hd = ft_hd_order(line, token);
-// 	size_t	i;
-// 	t_hd	*hd;
-
-// 	i = 0;
-// 	while (token)
-// 	{
-
-// 	}
-// }
-
-// t_hd	*ft_sort_hd(t_hd *hd, char *line, t_token *token)
-// {
-// 	int		*tab;
-// 	t_hd	*sorted;
-// 	t_token	*tmp;
-// 	size_t	i;
-
-// 	tmp = token;
-// 	tab = ft_hd_to_tab(hd);
-// 	free(hd);
-// 	hd = 0;
-// 	sorted = ft_hd_order(line, tmp);
-// 	i = 0;
-// 	while (sorted)
-// 	{
-// 		i = sorted->fd - 1;
-// 		ft_lstadd_back(&hd, tab[i]);
-// 		sorted = sorted->next;
-// 	}
-// 	return (hd);
-// }
 
 t_hd	*ft_hd_finder(char *line)
 {
@@ -157,7 +123,7 @@ t_hd	*ft_hd_finder(char *line)
 	size_t	start;
 	t_hd	*hd;
 	int		hd_fd;
-	
+
 	end = 0;
 	hd = 0;
 	while (line[end])
@@ -179,7 +145,6 @@ t_hd	*ft_hd_finder(char *line)
 		else
 			end++;
 	}
-	// hd = ft_sort_hd(hd, line);
 	return (hd);
 }
 
@@ -188,7 +153,6 @@ void	ft_skip_hd(char *line)
 	size_t	i;
 
 	i = ft_hd_exist(line);
-	// printf("%zu\n", i);
 	while (i--)
-		data->hd = data->hd->next;
+		g_data->hd = g_data->hd->next;
 }

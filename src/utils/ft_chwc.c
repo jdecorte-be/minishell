@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_chwc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 20:47:02 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/04/06 20:49:09 by lyaiche          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 int	ft_chwc_ok(char *line)
@@ -34,20 +46,15 @@ char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq)
 
 	end = 0;
 	str = 0;
-
-		// printf("%s== wc\n", wc->content);
-
 	while (line[end])
 	{
-		// printf("%zu\n", end);
 		start = end;
 		if (wc)
 		{
-			// printf("1\n");
 			len = ft_strlen(wc->content);
-			if (line[end] && ft_exist(line + end, len - 1) && !ft_strncmp(line + end, wc->content, len -1))
+			if (line[end] && ft_exist(line + end, len - 1)
+				&& !ft_strncmp(line + end, wc->content, len -1))
 			{
-				// printf("2\n");
 				i = 0;
 				while (((char *)(wc->content))[i] && ++i)
 					end++;
@@ -61,8 +68,8 @@ char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq)
 			}
 			else
 			{
-				// printf("cmp %d\n",ft_exist(line + end, len - 1));
-				while (line[end] && ft_exist(line + end, len - 1) && ft_strncmp(line + end, wc->content, len -1))
+				while (line[end] && ft_exist(line + end, len - 1)
+					&& ft_strncmp(line + end, wc->content, len -1))
 					end++;
 				str = ft_strjoin3(str, ft_substr(line, start, end - start));
 			}
@@ -88,34 +95,19 @@ char	*ft_chwc2(char *line)
 
 	tmp.i = 0;
 	tmp.tab = ft_split4(line, "/");
-
-	// size_t	i = 0;
-
-	// printf("line == %s\n", line);
-
-	// while (tmp.tab[i++])
-	// 	printf("tab == %s\n", tmp.tab[0]);
-
 	while (tmp.tab[tmp.i] && !ft_strchr(tmp.tab[tmp.i], '*'))
 		tmp.i++;
 	if (tmp.tab[tmp.i])
 		tmp.str = ft_strdup(tmp.tab[tmp.i]);
-	// printf("2\n");
 	tmp.i2 = 0;
 	tmp.tmp = 0;
 	while (tmp.i2 < tmp.i)
 		tmp.tmp = ft_strjoin1(tmp.tmp, tmp.tab[tmp.i2++]);
-	// printf("tmp.tmp %s\n", tmp.tmp);
 	pref = tmp.tmp;
 	tmp.i2 = tmp.i + 1;
 	suff = 0;
-
-	// printf("str == %s\n", tmp.str);
-
-
 	while (tmp.tab[tmp.i2])
 		suff = ft_strjoin1(suff, tmp.tab[tmp.i2++]);
-	// printf("suff %s\n", suff);
 	match = ft_wcfile(tmp.str, getcwd(tmp.path, PATH_MAX), 0, 0);
 	free(tmp.str);
 	tmp.lst = match;
@@ -129,48 +121,17 @@ char	*ft_chwc2(char *line)
 	home = getcwd(tmp.path, PATH_MAX);
 	while (tmp.lst)
 	{
-		// printf("tri == %s\n", ft_trijoin(home, "/", tmp.lst->content));
 		if (!access(tmp.lst->content, F_OK))
 			ft_lstadd_back(&match2, ft_lstnew(ft_strdup(tmp.lst->content)));
-
-		else if (!access(ft_trijoin(home, "/", ft_strdup(tmp.lst->content)), F_OK))
+		else if (!access(ft_trijoin(home,
+					"/", ft_strdup(tmp.lst->content)), F_OK))
 			ft_lstadd_back(&match2, ft_lstnew(ft_strdup(tmp.lst->content)));
 		tmp.lst = tmp.lst->next;
-		// printf("120\n");
 	}
 	free(pref);
 	free(suff);
 	ft_lstclear(&match, free);
 	ft_free_tab(tmp.tab);
-
-	// while ()
-	// if (ft_strchr(line, '/'))
-	// {
-	// 	tmp.tab = ft_split4(line, "/");
-	// 	if (tmp.tab[0])
-	// 	{
-	// 		if (!tmp.i && ft_strchr(tmp.tab[0], '*'))
-	// 		{
-	// 			if (tmp.tab[1] && tmp.tab[2])
-	// 			{
-	// 				tmp.str = ft_wcfile(tmp.tab[0], getcwd(tmp.path, PATH_MAX), 2, line + ft_strlen(tmp.tab[tmp.i]));
-	// 				// tmp.str = ft_checkexist(tmp, line);
-	// 			}
-	// 			else if (tmp.tab[1] && ft_strchr(tmp.tab[1], '/'))
-	// 			{
-	// 				printf("1\n");
-	// 				tmp.str = ft_wcfile(tmp.tab[0], getcwd(tmp.path, PATH_MAX), 1, line + ft_strlen(tmp.tab[tmp.i]));
-	// 			}
-	// 			else
-	// 			{
-	// 				tmp.str = ft_wcfile(tmp.tab[0], getcwd(tmp.path, PATH_MAX), 0, 0);
-	// 			}
-	// 		}
-	// 	}
-	// 	printf("line = %s\n", tmp.str);
-	// 	return (tmp.str);
-	// }
-	// return (ft_wcfile(tmp.str, ft_strjoin(getcwd(tmp.path, PATH_MAX), "/"), 0, suff));
 	return (ft_lstmerge(match2));
 }
 
@@ -185,51 +146,26 @@ char	*ft_chwc(char *line)
 	woq = 0;
 	wc = 0;
 	name = 0;
-	// printf("%s\n", line);
 	if (!line)
 		return (0);
 	if (ft_chwc_ok(line))
 		return (line);
-	// printf("ga\n");
 	wc = ft_wcsearch(line);
-	// system("leaks a.out");
-	// printf("line == %s\n", wc->content);
-	// tmp.lst = wc;
-	// while (tmp.lst)
-	// {
-	// 	printf("wc == %s\n", tmp.lst->content);
-	// 	tmp.lst = tmp.lst->next;
-	// }
-
 	tmp.lst = wc;
 	while (tmp.lst)
 	{
-		// printf("4\n");
 		ft_lstadd_back(&name, ft_lstnew(ft_chwc2((tmp.lst)->content)));
-		// printf("1\n");
 		tmp.lst = (tmp.lst)->next;
 	}
-
-	// tmp.lst = name;
-	// while (tmp.lst)
-	// {
-	// 	printf("wc == %s\n", tmp.lst->content);
-	// 	tmp.lst = tmp.lst->next;
-	// }
-
 	tmp.lst = wc;
 	while (tmp.lst)
 	{
-		// printf("2\n");
 		ft_lstadd_back(&woq, ft_lstnew(ft_woquote((tmp.lst)->content)));
-		// printf("1\n");
 		tmp.lst = (tmp.lst)->next;
 	}
-	// printf("2\n");
 	if (!name)
 		return (line);
 	str = ft_chwc_str(line, name, wc, woq);
 	free(line);
-	// str = ft_trijoin("\"", str, "\"");
 	return (str);
 }

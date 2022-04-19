@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_redirect_chwc.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 20:50:47 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/04/06 20:51:55 by lyaiche          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 t_list	*ft_wcsearch2(char *line)
@@ -20,7 +32,6 @@ t_list	*ft_wcsearch2(char *line)
 			start = end;
 			while (line[end] && !ft_isspace(line[end]) && line[end] != '(')
 			{
-				// printf("1\n");
 				if (ft_strchr("\'\"", line[end]))
 					ft_skip_q(line, &end);
 				else if (line[end] == '*' && ++end)
@@ -29,11 +40,11 @@ t_list	*ft_wcsearch2(char *line)
 					end++;
 			}
 			if (c1 == 1)
-				ft_lstadd_back(&wc, ft_lstnew(ft_substr(line, start, end - start)));
+				ft_lstadd_back(&wc, ft_lstnew(ft_substr(line,
+							start, end - start)));
 		}
 		else
 			end++;
-		
 	}
 	return (wc);
 }
@@ -79,18 +90,15 @@ char	*ft_transf(char *line)
 		tmp.i++;
 	if (tmp.tab[tmp.i])
 		tmp.str = tmp.tab[tmp.i];
-	// printf("2\n");
 	tmp.i2 = 0;
 	tmp.tmp = 0;
 	while (tmp.i2 < tmp.i)
 		tmp.tmp = ft_strjoin1(tmp.tmp, tmp.tab[tmp.i2++]);
-	// printf("tmp.tmp %s\n", tmp.tmp);
 	pref = tmp.tmp;
 	tmp.i2 = tmp.i + 1;
 	suff = 0;
 	while (tmp.tab[tmp.i2])
 		suff = ft_strjoin1(suff, tmp.tab[tmp.i2++]);
-	// printf("suff %s\n", suff);
 	match = ft_wcfile(tmp.str, getcwd(tmp.path, PATH_MAX), 0, 0);
 	if (ft_lstsize(match) > 1)
 	{
@@ -121,28 +129,23 @@ char	*ft_redirect_chwc(char *line)
 	if (ft_chwc_ok2(line))
 		return (line);
 	wc = ft_wcsearch2(line);
-	// printf("1\n");
 	name = 0;
 	tmp = wc;
 	woq = 0;
 	while (tmp)
 	{
 		ft_lstadd_back(&name, ft_lstnew(ft_transf(ft_ecrase_q(tmp->content))));
-		tmp = tmp->next;	
+		tmp = tmp->next;
 	}
 	tmp = wc;
 	while (tmp)
 	{
-		// printf("2\n");
 		ft_lstadd_back(&woq, ft_lstnew(ft_woquote((tmp)->content)));
-		// printf("1\n");
 		tmp = (tmp)->next;
 	}
-	// printf("2\n");
 	if (!name)
 		return (line);
 	str = ft_chwc_str(line, name, wc, woq);
 	free(line);
 	return (str);
-	
 }

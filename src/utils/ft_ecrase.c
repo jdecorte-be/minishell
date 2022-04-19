@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ecrase.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 20:49:33 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/04/06 20:50:26 by lyaiche          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 char    *ft_ecrase_q(char *word)
@@ -23,7 +35,8 @@ char    *ft_ecrase_q(char *word)
 			start = end;
 			while (word[end] && word[end] != c)
 				end++;
-			new_word = ft_strjoin3(new_word, ft_substr(word, start, end - start));
+			new_word = ft_strjoin3(new_word,
+					ft_substr(word, start, end - start));
 			if (word[end])
 				end++;
 		}
@@ -31,7 +44,8 @@ char    *ft_ecrase_q(char *word)
 		{
 			while (word[end] && !ft_strchr("\'\"", word[end]))
 				end++;
- 			new_word = ft_strjoin3(new_word, ft_substr(word, start, end - start));
+			new_word = ft_strjoin3(new_word,
+					ft_substr(word, start, end - start));
 		}
 	}
 	return (new_word);

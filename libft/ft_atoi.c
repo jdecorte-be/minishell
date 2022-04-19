@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 21:22:23 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/01/31 15:51:15 by decortejohn      ###   ########.fr       */
+/*   Updated: 2022/04/06 16:15:40 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ static int	ft_convert(const char *str, int neg)
 int	ft_atoi(const char *str)
 {
 	int				neg;
-	
-	if(str == NULL)
-		return 0;
+
+	if (str == NULL)
+		return (0);
 	while (*str == 32 || (*str && *str >= 9 && *str <= 13))
 		str++;
 	neg = 1;

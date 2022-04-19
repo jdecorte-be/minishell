@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   file_redirect.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 18:33:24 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/04/06 18:42:07 by lyaiche          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 int	ft_redirect_check(t_redirect file)
@@ -12,9 +24,6 @@ int	ft_redirect_check(t_redirect file)
 		c = ft_strstrchr(tmp->content, "|&()");
 		if (c != 0)
 		{
-
-			// printf("1\n");
-			// dup2(2, 1);
 			printf("bash: syntax error near unexpected token `%c'\n", c);
 			return (0);
 		}
@@ -26,9 +35,6 @@ int	ft_redirect_check(t_redirect file)
 		c = ft_strstrchr(tmp->content, "|&()");
 		if (c != 0)
 		{
-
-			// printf("1\n");
-			// dup2(2, 1);
 			printf("bash: syntax error near unexpected token `%c'\n", c);
 			return (0);
 		}
@@ -36,11 +42,6 @@ int	ft_redirect_check(t_redirect file)
 	}
 	return (1);
 }
-
-void	nothing(void)
-{
-}
-
 
 char	*ft_chrredirect(char *line, t_hd **open, t_hd **open2, size_t *v)
 {
@@ -72,7 +73,7 @@ char	*ft_chrredirect(char *line, t_hd **open, t_hd **open2, size_t *v)
 	while (line[end] && !ft_isspace(line[end]))
 		end++;
 	*v = end;
-	return (ft_substr(line, start, end - start));//remplacer le 0 par start; et end par end - start;
+	return (ft_substr(line, start, end - start));
 }
 
 t_list	*ft_file(char *line, char c, t_hd **open, t_hd **open2)
@@ -87,9 +88,6 @@ t_list	*ft_file(char *line, char c, t_hd **open, t_hd **open2)
 	i = 0;
 	while (line[i])
 	{
-		// if (*line && *(line + 1) && ft_strncmp(*line, ">>", 1))
-		// if (*line && *(line + 1) && ft_strncmp(line + i, "<<", 1))
-		// 	i++;
 		if (line[i] && ft_strchr("\'\"", line[i]))
 		{
 			c = line[i++];
@@ -116,13 +114,9 @@ t_list	*ft_file(char *line, char c, t_hd **open, t_hd **open2)
 			str = ft_chrredirect(line + i, open, open2, &v);
 			ft_lstadd_back(&lst, ft_lstnew(str));
 			i += v;
-			// i += ft_strlen(str);
 		}
-		// else if (line[i] && line[i + 1] && line[i] == '<' && line[i + 1] == '<')
-		// 	i += 2;
 		else if (line[i])
 			i++;
-
 	}
 	return (lst);
 }
@@ -142,15 +136,10 @@ t_redirect	ft_init_redirect(void)
 
 t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 {
-	// t_redirect	file;
 	t_redirect	tmp;
 	t_hd		*tmp2;
 	char		*to_free;
 
-	// tmp2 = data->hd;
-
-	// fd = dup(1);
-	// file = ft_init_redirect();
 	if (!line)
 		return (file);
 	tmp = file;
@@ -163,28 +152,25 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 		else if (e == 2)
 			file.infd = fd;
 	}
-	// printf("1\n");
-	// printf("open == %d\n", file.open);
-	if (ft_redirect_check(file))// && dup2(fd, 1))
+	if (ft_redirect_check(file))
 	{
 		while (file.infile)
 		{
-			// printf("infile %s\n", file.infile->content);
-			if (ft_chwc_ok2(file.infile->content) || ft_transf(file.infile->content))
+			if (ft_chwc_ok2(file.infile->content)
+				|| ft_transf(file.infile->content))
 			{
-				// printf("%s\n", file.infile->content);
 				if (file.infd != tmp.infd)
 					close(file.infd);
 				if (file.open->fd == 0)
-					file.infd = open(ft_ecrase_q(ft_redirect_chwc(ft_cut_chevron(file.infile->content))), O_RDONLY);
+					file.infd = open(ft_ecrase_q(ft_redirect_chwc(ft_cut_chevron
+									(file.infile->content))), O_RDONLY);
 				else if (file.open->fd == 1)
 				{
-					if (data->hd)
+					if (g_data->hd)
 					{
-						file.infd = data->hd->fd;
-						data->hd = data->hd->next;
+						file.infd = g_data->hd->fd;
+						g_data->hd = g_data->hd->next;
 					}
-					// printf("caca\n");
 				}
 				if (file.infd == -1)
 					perror("open rd");
@@ -193,29 +179,33 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 			{
 				file.infd = -1;
 				write(2, "minishell: *: ambiguous redirect\n", 33);
-				data->lastret = 1;
+				g_data->lastret = 1;
 			}
 			file.infile = ft_next(file.infile);
 			if (file.open2->next)
-				file.open2 = file.open2 = file.open2->next;
+				file.open2 = file.open2->next;
 		}
 		while (file.outfile)
 		{
-			// printf("outfile %s\n", (file.outfile->content));
-			if (ft_chwc_ok2(file.outfile->content) || ft_transf(file.outfile->content))
+			if (ft_chwc_ok2(file.outfile->content)
+				|| ft_transf(file.outfile->content))
 			{
 				if (file.outfd != tmp.outfd)
 					close(file.outfd);
 				if (file.open2->fd == 0)
 				{
-					to_free = ft_ecrase_q(ft_redirect_chwc(ft_cut_chevron(file.outfile->content)));
-					file.outfd = open(to_free, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+					to_free = ft_ecrase_q(ft_redirect_chwc
+							(ft_cut_chevron(file.outfile->content)));
+					file.outfd = open(to_free, O_WRONLY
+							| O_TRUNC | O_CREAT, 0644);
 					free(to_free);
 				}
 				else if (file.open2->fd == 1)
 				{
-					to_free = ft_ecrase_q(ft_redirect_chwc(ft_cut_chevron(file.outfile->content)));
-					file.outfd = open(to_free, O_WRONLY | O_APPEND | O_CREAT, 0644);
+					to_free = ft_ecrase_q(ft_redirect_chwc
+							(ft_cut_chevron(file.outfile->content)));
+					file.outfd = open(to_free, O_WRONLY
+							| O_APPEND | O_CREAT, 0644);
 					free(to_free);
 				}
 				if (file.outfd == -1)
@@ -225,9 +215,8 @@ t_redirect	ft_redirect(char *line, t_redirect file, int e, int fd)
 			{
 				file.outfd = -1;
 				write(2, "minishell: *: ambiguous redirect\n", 33);
-				data->lastret = 1;
+				g_data->lastret = 1;
 			}
-			// printf("1\n");
 			file.outfile = ft_next(file.outfile);
 			if (file.open->next)
 				file.open = file.open->next;

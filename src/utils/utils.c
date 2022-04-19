@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 21:00:52 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/04/06 21:01:02 by lyaiche          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 int	ft_free(char *line)
@@ -49,7 +61,6 @@ char	*ft_lstmerge(t_list *lst)
 		free(tmp->content);
 		free(tmp);
 	}
-
 	return (str);
 }
 
@@ -62,7 +73,6 @@ char	*ft_woquote(char *line)
 
 	if (!line)
 		return (0);
-	// printf("9\n");
 	if (ft_strchr(line, '\'') || ft_strchr(line, '\"'))
 	{
 		str = ft_calloc(sizeof(char), (ft_strlen(line) - 2 + 1));
@@ -86,39 +96,3 @@ char	*ft_woquote(char *line)
 		return (ft_strdup(line));
 	return (str);
 }
-
-// char	*ft_woquote(char *line)
-// {
-// 	char	*str;
-// 	size_t	i;
-// 	char	c;
-// 	char	**tab;
-
-// 	if (ft_strchr(line, '\'') || ft_strchr(line, '\"'))
-// 	{
-// 		i = 0;
-// 		str = 0;
-// 		tab = ft_split4(line, "*");
-// 		while (tab[i])
-// 			printf("tab = %s\n", tab[i++]);
-// 		i =
-// 		while (tab[i])
-// 		{
-// 			if (*line == '\'')
-// 				tab[i] = ft_strtrim(tab[i], "\'");
-// 			else if (*line == '\"')
-// 				tab[i] = ft_strtrim(tab[i], "\'");
-// 			i++;
-// 		}
-// 		i = 0;
-// 		while (tab[i])
-// 		{
-// 			str = ft_strjoin(str, tab[i]);
-// 			i++;
-// 		}
-// 	}
-// 	else
-// 		return (line);
-// 	printf("str = %s\n", str);
-// 	return (str);
-// }

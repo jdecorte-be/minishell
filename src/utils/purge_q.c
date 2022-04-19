@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   purge_q.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 20:59:27 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/04/06 20:59:37 by lyaiche          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 char	*ft_purge_q(char *line)
@@ -11,7 +23,8 @@ char	*ft_purge_q(char *line)
 	while (line[end])
 	{
 		start = end;
-		if (ft_strchr("\'\"", line[end]) && line[end + 1] && line[end + 1] == line[end])
+		if (ft_strchr("\'\"", line[end]) && line[end + 1]
+			&& line[end + 1] == line[end])
 		{
 			end += 2;
 			start = end;

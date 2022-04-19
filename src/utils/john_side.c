@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   john_side.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 20:56:54 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/04/06 20:56:55 by lyaiche          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 int	ft_write_in_new_pipe(char *str)
@@ -37,7 +49,7 @@ void	ft_redirect_for_john(t_token *token)
 
 	tmp = token;
 	if (token->redirect.open && token->redirect.open->fd == 1)
-		data->hd->fd = ft_hd_replace(data->hd->fd);
+		g_data->hd->fd = ft_hd_replace(g_data->hd->fd);
 	token->redirect = ft_redirect(token->cmd, token->redirect, 0, 0);
 	ft_clean_hd(token->redirect.open);
 	ft_clean_hd(token->redirect.open2);

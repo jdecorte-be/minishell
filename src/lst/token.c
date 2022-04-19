@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/06 18:13:34 by lyaiche           #+#    #+#             */
+/*   Updated: 2022/04/06 18:14:03 by lyaiche          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minishell.h"
 
 t_token	*ft_tokennew(char *newcmd)
@@ -21,13 +33,12 @@ t_token	*ft_sub_tokennew(char *newcmd, t_token *sup)
 	token->sup_token = sup;
 	token->sub_token = 0;
 	token->next = 0;
-	// token->redirect = redirect;
 	return (token);
 }
 
 t_token	*ft_tokenlast(t_token *token)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	if (!token)
 		return (token);
@@ -36,8 +47,6 @@ t_token	*ft_tokenlast(t_token *token)
 		tmp = tmp->next;
 	return (tmp);
 }
-
-
 
 void	ft_tokenadd_back(t_token **atoken, t_token *new)
 {
@@ -57,7 +66,7 @@ void	ft_tokenadd_back(t_token **atoken, t_token *new)
 
 t_token	*ft_token_next(t_token *token)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	if (!token)
 		return (0);
@@ -75,7 +84,7 @@ t_token	*ft_token_next(t_token *token)
 
 void	ft_token_free_and_next(t_token **token)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	tmp = *token;
 	*token = (*token)->next;
@@ -85,7 +94,7 @@ void	ft_token_free_and_next(t_token **token)
 
 void	ft_token_free_and_sup(t_token **token)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	tmp = *token;
 	*token = (*token)->sup_token;
