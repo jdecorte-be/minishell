@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 21:00:52 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/07 20:20:44 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/20 23:29:50 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_lstmerge(t_list *lst)
 	while (lst)
 	{
 		if (lst->next)
-			str = ft_trijoin1(str, lst->content, " ");
+			str = ft_trijoin(str, lst->content, " ", 1);
 		else
 			str = ft_strjoin1(str, lst->content);
 		tmp = lst;

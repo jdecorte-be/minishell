@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:02:10 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/17 20:33:30 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/20 23:28:30 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # include <signal.h>
 # include <termios.h>
 # include <malloc/malloc.h>
-#include "wraloc.h"
+// #include "wraloc.h"
 
 typedef struct s_hd
 {
@@ -110,6 +110,9 @@ typedef struct s_tmp
 	int		i2;
 	char	c;
 	t_list	*lst;
+	size_t	start;
+	size_t	end;
+	void	*home2;
 	void	*tmp;
 	char	path[PATH_MAX];
 	char	**tab;
@@ -119,6 +122,7 @@ typedef struct s_tmp
 	int		par;
 	char	*temp;
 	int		off;
+	size_t	len;
 	int		e_len;
 }	t_tmp;
 
@@ -208,7 +212,7 @@ char		*ft_chwc(char *line);
 t_list		*ft_wcfile(char *wc, char *path, char mode, char *add);
 t_list		*ft_wcsearch(char *line);
 
-char		*ft_trijoin(char *s1, char *s2, char *s3);
+char		*ft_trijoin(char *s1, char *s2, char *s3, int e);
 int			ft_exist(char *str, size_t len);
 char		*ft_lstmerge(t_list *lst);
 char		*ft_woquote(char *line);
@@ -218,9 +222,6 @@ void		ft_error(int e);
 int			ft_free(char *line);
 void		ft_free_tab(char **tab);
 
-char		*ft_trijoin1(char *s1, char *s2, char *s3);
-char		*ft_trijoin2(char *s1, char *s2, char *s3);
-char		*ft_trijoin3(char *s1, char *s2, char *s3);
 char		*tokenize(char *line);
 char		*ft_strjoin1(char const *s1, char const *s2);
 char		*ft_strjoin2(char const *s1, char const *s2);
@@ -236,7 +237,7 @@ char		*ft_pgross_str(char *line);
 char		*ft_epur_str(char *line);
 char		*ft_strjoin2(char const *s1, char const *s2);
 
-char		*ft_quajoin(char *s1, const char *s2, char *s3, const char *s4);
+char		*ft_quajoin(char *s1, char *s2, char *s3, char *s4);
 char		*ft_ecrase_q(char *word);
 int			ft_strncmp2(const char *s1, const char *s2, size_t n);
 int			ft_strrcmp2(const char *s1, const char *s2, size_t n);

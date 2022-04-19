@@ -3,85 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_chwc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:47:02 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/12 19:10:50 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/20 23:28:38 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	ft_chwc_ok(char *line)
-{
-	size_t	i;
-	char	c;
+int		ft_chwc_ok(char *line);
+void	ft_chwc_str2(t_tmp *tmp, t_list **name, t_list **wc, t_list **woq);
+void	ft_chwc_str3(t_tmp *tmp, char *line, t_list **wc, int e);
+char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq);
+t_list	*ft_chwc2_1(t_tmp *tmp);
 
-	i = 0;
-	while (line[i])
-	{
-		if (ft_strchr("\"\'", line[i]))
-		{
-			c = line[i++];
-			while (line[i] && line[i] != c)
-				i++;
-			if (line[i])
-				i++;
-		}
-		else if (line[i] == '*')
-			return (0);
-		else
-			i++;
-	}
-	return (1);
+void	ft_chwc2_2(t_tmp *tmp, char *line)
+{
+	tmp->i = 0;
+	tmp->tab = ft_split4(line, "/");
+	while (tmp->tab[tmp->i] && !ft_strchr(tmp->tab[tmp->i], '*'))
+		tmp->i++;
+	if (tmp->tab[tmp->i])
+		tmp->str = ft_strdup(tmp->tab[tmp->i]);
+	tmp->i2 = 0;
+	tmp->tmp = 0;
+	while (tmp->i2 < tmp->i)
+		tmp->tmp = ft_strjoin1(tmp->tmp, tmp->tab[tmp->i2++]);
 }
 
-char	*ft_chwc_str(char *line, t_list *name, t_list *wc, t_list *woq)
+void	ft_chwc2_free(char *pref, char *suff, t_tmp *tmp)
 {
-	size_t	start;
-	size_t	end;
-	char	*str;
-	size_t	len;
-	size_t	i;
-
-	end = 0;
-	str = 0;
-	while (line[end])
-	{
-		start = end;
-		if (wc)
-		{
-			len = ft_strlen(wc->content);
-			if (line[end] && ft_exist(line + end, len - 1)
-				&& !ft_strncmp(line + end, wc->content, len -1))
-			{
-				i = 0;
-				while (((char *)(wc->content))[i] && ++i)
-					end++;
-				if (name->content)
-					str = ft_strjoin1(str, name->content);
-				else
-					str = ft_strjoin1(str, woq->content);
-				woq = ft_next(woq);
-				wc = ft_next(wc);
-				name = ft_next(name);
-			}
-			else
-			{
-				while (line[end] && ft_exist(line + end, len - 1)
-					&& ft_strncmp(line + end, wc->content, len -1))
-					end++;
-				str = ft_strjoin3(str, ft_substr(line, start, end - start));
-			}
-		}
-		else
-		{
-			while (line[end])
-				end++;
-			str = ft_strjoin3(str, ft_substr(line, start, end - start));
-		}
-	}
-	return (str);
+	free(pref);
+	free(suff);
+	free(tmp->tab);
 }
 
 char	*ft_chwc2(char *line)
@@ -91,18 +46,8 @@ char	*ft_chwc2(char *line)
 	char	*suff;
 	t_list	*match;
 	t_list	*match2;
-	void	*home;
 
-	tmp.i = 0;
-	tmp.tab = ft_split4(line, "/");
-	while (tmp.tab[tmp.i] && !ft_strchr(tmp.tab[tmp.i], '*'))
-		tmp.i++;
-	if (tmp.tab[tmp.i])
-		tmp.str = ft_strdup(tmp.tab[tmp.i]);
-	tmp.i2 = 0;
-	tmp.tmp = 0;
-	while (tmp.i2 < tmp.i)
-		tmp.tmp = ft_strjoin1(tmp.tmp, tmp.tab[tmp.i2++]);
+	ft_chwc2_2(&tmp, line);
 	pref = tmp.tmp;
 	tmp.i2 = tmp.i + 1;
 	suff = 0;
@@ -113,39 +58,27 @@ char	*ft_chwc2(char *line)
 	tmp.lst = match;
 	while (tmp.lst)
 	{
-		tmp.lst->content = ft_trijoin2(pref, tmp.lst->content, suff);
+		tmp.lst->content = ft_trijoin(pref, tmp.lst->content, suff, 2);
 		tmp.lst = tmp.lst->next;
 	}
 	tmp.lst = match;
-	match2 = 0;
-	home = getcwd(tmp.path, PATH_MAX);
-	while (tmp.lst)
-	{
-		if (!access(tmp.lst->content, F_OK))
-			ft_lstadd_back(&match2, ft_lstnew(ft_strdup(tmp.lst->content)));
-		else if (!access(ft_trijoin(home,
-					"/", ft_strdup(tmp.lst->content)), F_OK))
-			ft_lstadd_back(&match2, ft_lstnew(ft_strdup(tmp.lst->content)));
-		tmp.lst = tmp.lst->next;
-	}
-	free(pref);
-	free(suff);
+	match2 = ft_chwc2_1(&tmp);
 	ft_lstclear(&match, free);
-	ft_free_tab(tmp.tab);
+	ft_chwc2_free(pref, suff, &tmp);
 	return (ft_lstmerge(match2));
 }
 
-void	ft_chwc_2(t_tmp *tmp, t_list *woq, t_list *wc, t_list *name)
+void	ft_chwc_2(t_tmp *tmp, t_list **woq, t_list **wc, t_list **name)
 {
 	while (tmp->lst)
 	{
-		ft_lstadd_back(&name, ft_lstnew(ft_chwc2((tmp->lst)->content)));
+		ft_lstadd_back(name, ft_lstnew(ft_chwc2((tmp->lst)->content)));
 		tmp->lst = (tmp->lst)->next;
 	}
-	tmp->lst = wc;
+	tmp->lst = *wc;
 	while (tmp->lst)
 	{
-		ft_lstadd_back(&woq, ft_lstnew(ft_woquote((tmp->lst)->content)));
+		ft_lstadd_back(woq, ft_lstnew(ft_woquote((tmp->lst)->content)));
 		tmp->lst = (tmp->lst)->next;
 	}
 }
@@ -167,7 +100,7 @@ char	*ft_chwc(char *line)
 		return (line);
 	wc = ft_wcsearch(line);
 	tmp.lst = wc;
-	ft_chwc_2(&tmp, woq, wc, name);
+	ft_chwc_2(&tmp, &woq, &wc, &name);
 	if (!name)
 		return (line);
 	str = ft_chwc_str(line, name, wc, woq);

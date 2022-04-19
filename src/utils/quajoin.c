@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   quajoin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:59:41 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/06 21:00:14 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/20 23:22:37 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	*ft_quajoin(char *s1, const char *s2, char *s3, const char *s4)
+char	*ft_quajoin(char *s1, char *s2, char *s3, char *s4)
 {
 	char	*str;
 	char	*ret;

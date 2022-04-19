@@ -3,197 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   ft_trijoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.s19.be>             +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 07:53:59 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/01/05 16:09:37 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/04/20 23:30:47 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	*ft_trijoin(char *s1, char *s2, char *s3)
+static void	ft_trijoin_free(char *s1, char *s2, char *s3, int e)
 {
-	char	*dst;
-	size_t	i;
-	size_t	cur_len;
-	size_t	len_dst;
-
-	len_dst = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
-	dst = malloc(sizeof(*dst) * len_dst + 1);
-	if (!dst)
-		return (0);
-	i = 0;
-	if (s1)
-	{
-		while (s1[i])
-		{
-			dst[i] = s1[i];
-			i++;
-		}
-	}
-	cur_len = i;
-	if (!s1)
-		cur_len = 0;
-	i = 0;
-	if (s2)
-	{
-		while (s2[i])
-		{
-			dst[cur_len + i] = s2[i];
-			i++;
-		}
-	}
-	cur_len += i;
-	i = 0;
-	if (s3)
-	{
-		while (s3[i])
-		{
-			dst[cur_len + i] = s3[i];
-			i++;
-		}
-	}
-	dst[cur_len + i] = '\0';
-	return (dst);
-}
-
-char	*ft_trijoin1(char *s1, char *s2, char *s3)
-{
-	char	*dst;
-	size_t	i;
-	size_t	cur_len;
-	size_t	len_dst;
-
-	len_dst = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
-	dst = malloc(sizeof(*dst) * len_dst + 1);
-	if (!dst)
-		return (0);
-	i = 0;
-	if (s1)
-	{
-		while (s1[i])
-		{
-			dst[i] = s1[i];
-			i++;
-		}
+	if (e == 1)
 		free(s1);
-	}
-	cur_len = i;
-	if (!s1)
-		cur_len = 0;
-	i = 0;
-	if (s2)
+	else if (e == 2)
+		free(s2);
+	else if (e == 3)
+		free(s3);
+	else if (e == 12 || e == 21)
 	{
-		while (s2[i])
-		{
-			dst[cur_len + i] = s2[i];
-			i++;
-		}
-	}
-	cur_len += i;
-	i = 0;
-	if (s3)
-	{
-		while (s3[i])
-		{
-			dst[cur_len + i] = s3[i];
-			i++;
-		}
-	}
-	dst[cur_len + i] = '\0';
-	return (dst);
-}
-
-char	*ft_trijoin2(char *s1, char *s2, char *s3)
-{
-	char	*dst;
-	size_t	i;
-	size_t	cur_len;
-	size_t	len_dst;
-
-	len_dst = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
-	dst = malloc(sizeof(*dst) * len_dst + 1);
-	if (!dst)
-		return (0);
-	i = 0;
-	if (s1)
-	{
-		while (s1[i])
-		{
-			dst[i] = s1[i];
-			i++;
-		}
-	}
-	cur_len = i;
-	if (!s1)
-		cur_len = 0;
-	i = 0;
-	if (s2)
-	{
-		while (s2[i])
-		{
-			dst[cur_len + i] = s2[i];
-			i++;
-		}
+		free(s1);
 		free(s2);
 	}
-	cur_len += i;
-	i = 0;
-	if (s3)
+	else if (e == 13 || e == 31)
 	{
-		while (s3[i])
-		{
-			dst[cur_len + i] = s3[i];
-			i++;
-		}
+		free(s1);
+		free(s3);
 	}
-	dst[cur_len + i] = '\0';
-	return (dst);
+	else if (e == 23 || e == 32)
+	{
+		free(s2);
+		free(s3);
+	}
 }
 
-char	*ft_trijoin3(char *s1, char *s2, char *s3)
+char	*ft_trijoin(char *s1, char *s2, char *s3, int e)
 {
-	char	*dst;
-	size_t	i;
-	size_t	cur_len;
-	size_t	len_dst;
+	char	*str;
+	char	*ret;
 
-	len_dst = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
-	dst = malloc(sizeof(*dst) * len_dst + 1);
-	if (!dst)
-		return (0);
-	i = 0;
-	if (s1)
-	{
-		while (s1[i])
-		{
-			dst[i] = s1[i];
-			i++;
-		}
-	}
-	cur_len = i;
-	if (!s1)
-		cur_len = 0;
-	i = 0;
-	if (s2)
-	{
-		while (s2[i])
-		{
-			dst[cur_len + i] = s2[i];
-			i++;
-		}
-	}
-	cur_len += i;
-	i = 0;
-	if (s3)
-	{
-		while (s3[i])
-		{
-			dst[cur_len + i] = s3[i];
-			i++;
-		}
-	}
-	dst[cur_len + i] = '\0';
-	return (dst);
+	str = malloc(sizeof(char) * (ft_strlen(s1)
+				+ ft_strlen(s2) + ft_strlen(s3) + 1));
+	ret = str;
+	while (s1 && *s1)
+		*str++ = *s1++;
+	while (s2 && *s2)
+		*str++ = *s2++;
+	while (s3 && *s3)
+		*str++ = *s3++;
+	if (e)
+		ft_trijoin_free(s1, s2, s3, e);
+	*str = 0;
+	return (ret);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:52:13 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/16 17:15:51 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/20 23:36:51 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ static size_t	ft_count_words(char *str, char *set)
 	return (count);
 }
 
+static void	ft_creat_tab_2(char *str, size_t *end)
+{
+	if (ft_strchr("\'\"", str[*end]))
+		ft_skip_q(str, end);
+	else
+		(*end)++;
+}
+
 static char	**ft_creat_tab(char **tab, char *str, char *set, size_t word)
 {
 	size_t	i;
@@ -49,12 +57,7 @@ static char	**ft_creat_tab(char **tab, char *str, char *set, size_t word)
 		if (str[end] && !ft_strchr(set, str[end]))
 		{
 			while (str[end] && !ft_strchr(set, str[end]))
-			{
-				if (ft_strchr("\'\"", str[end]))
-					ft_skip_q(str, &end);
-				else
-					end++;
-			}
+				ft_creat_tab_2(str, &end);
 		}
 		tab[i++] = ft_substr(str, start, end - start);
 	}
