@@ -73,13 +73,15 @@ int	ft_here_doc(char *line)
 	if (pipe(fd) == -1)
 		ft_error(3);
 	// limiters = ft_search_limiters(line);
-	while (ft_strcmp(str, line))
+	while (19)//ft_strcmp(str, line))
 	{
 		// printf("salsal\n");
 		// printf("lssss\n");
 		str = readline("> ");
-		if (!str)
+		if (!str || !ft_strcmp(str, line))
 			break ;
+		printf("hd->s %s\n", str);
+		printf("hd->l %s\n", line);
 		ft_putstr_fd(str, fd[1]);
 		ft_putchar_fd('\n', fd[1]);
 	}
