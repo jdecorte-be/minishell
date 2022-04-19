@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:16:34 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/08 17:19:24 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/09 19:42:57 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,12 @@
 
 #include "../includes/minishell.h"
 
-void	shlvlhandler(void)
+void	shlvlhandler(char *lvl, char *join2)
 {
 	char	*var;
 	int		shlvl;
 	char	*join;
-	char	*join2;
-	char	*lvl;
 
-	lvl = NULL;
-	join2 = NULL;
 	var = my_getenv("SHLVL", NULL);
 	shlvl = ft_atoi(var) + 1;
 	join = ft_strdup("_=/usr/bin/env");
@@ -44,32 +40,13 @@ void	shlvlhandler(void)
 	free(join2);
 }
 
-char	*prompt(void)
-{
-	char	*path;
-	char	*line;
-	char	*sub;
-	int		i;
-
-	path = NULL;
-	path = getcwd(path, 1024);
-	i = ft_strlen(path);
-	while (path[i] != '/')
-		i--;
-	sub = ft_substr(path, i + 1, ft_strlen(path));
-	line = ft_strjoin(sub, " ❯ ");
-	free(path);
-	free(sub);
-	return (line);
-}
-
 void	initiate_values(t_data *g_data, char **env)
 {
 	g_data->lastret = 0;
 	g_data->env = env;
 	g_data->env = array_dup();
 	g_data->hd = 0;
-	shlvlhandler();
+	shlvlhandler(NULL, NULL);
 	tcgetattr(0, &g_data->old);
 	tcgetattr(0, &g_data->new);
 	g_data->new.c_lflag &= ~(ECHOCTL);
@@ -78,25 +55,30 @@ void	initiate_values(t_data *g_data, char **env)
 	signal(SIGQUIT, SIG_IGN);
 }
 
+void	main_3(char **line, char *pt)
+{
+	g_data->hd_stop = 0;
+	pt = prompt();
+	*line = readline(pt);
+	free(pt);
+	if (!*line)
+	{
+		ft_putstr_fd("\b\bexit\n", 2);
+		ft_exit(0);
+	}
+	if (**line)
+		add_history(*line);
+}
+
 void	main_2(void)
 {
 	char	*line;
-	char	*pt;
 	t_token	*token;
 
+	line = NULL;
 	while (1)
 	{
-		g_data->hd_stop = 0;
-		pt = prompt();
-		line = readline(pt);
-		free(pt);
-		if (!line)
-		{
-			ft_putstr_fd("\b\bexit\n", 2);
-			ft_exit(0);
-		}
-		if (*line)
-			add_history(line);
+		main_3(&line, NULL);
 		if (!*line)
 			continue ;
 		line = ft_epur_str(ft_chdir(ft_pgross_str((line))));
@@ -108,17 +90,6 @@ void	main_2(void)
 			continue ;
 		}
 		token = ft_parsing(line);
-
-		// t_token *tmp;
-
-		// tmp = token;
-		// while (tmp)
-		// {
-		// 	printf("%s\n", tmp->cmd);
-		// 	tmp = ft_token_next(tmp);
-
-		// }
-
 		if (ft_token_error(token))
 			continue ;
 		free(line);
