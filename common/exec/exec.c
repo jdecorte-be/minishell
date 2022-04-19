@@ -6,7 +6,7 @@
 /*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/05/03 18:34:57 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/05/03 21:47:35 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ int	exec(char *cmd)
 {
 	char	**s_cmd;
 	int		ret;
+	char	*tmp;
 
 	ret = 0;
-	s_cmd = ft_split2(ft_ecrase_q(cmd), " ");
+	tmp = ft_ecrase_q(cmd);
+	s_cmd = ft_split2(tmp, " ");
 	if (cmd[0] == '(')
 		ret = (subshell(cmd));
 	else if (ft_strcmp(s_cmd[0], "echo") == 0)
@@ -38,6 +40,7 @@ int	exec(char *cmd)
 	else
 		ret = (cmd_sys(ft_ecrase_p(cmd)));
 	ft_free_tab(s_cmd);
+	free(tmp);
 	return (ret);
 }
 
@@ -78,15 +81,16 @@ int	cmd_sys(char *cmd)
 		args[i] = ft_ecrase_q(args[i]);
 	pid = fork();
 	if (pid < 0)
+	{
 		perror("fork: ");
+		ft_exit(1);
+	}
 	signal(SIGINT, c_handler_fork);
 	signal(SIGQUIT, q_handler_fork);
 	if (!pid)
 		not_pid(cmd, args);
-	else
-	{
-		ft_free_tab(args);
-		sig(&pid, &ret);
-	}
+	ft_free_tab(args);
+	sig(&pid, &ret);
+	free(cmd);
 	return (ret % 255);
 }
