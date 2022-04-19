@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:16:34 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/04 19:16:30 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/05/04 21:19:43 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+// ls && (echo 1 && echo 2 )
 
 #include "../includes/minishell.h"
 
@@ -85,22 +87,35 @@ void	main_2(void)
 		pt = prompt();
 		line = readline(pt);
 		free(pt);
-		if (*line)
-			add_history(line);
 		if (!line)
 		{
 			ft_putstr_fd("\b\bexit\n", 2);
 			ft_exit(0);
 		}
+		if (*line)
+			add_history(line);
+		if (!*line)
+			continue ;
+		line = ft_epur_str(ft_chdir(ft_pgross_str((line))));
+		if (!*line)
+			continue ;
 		if (ft_isprohibited(line) == 1)
 		{
 			free(line);
 			continue ;
 		}
-		if (!*line)
-			continue ;
-		line = ft_epur_str(ft_chdir(ft_pgross_str((line))));
 		token = ft_parsing(line);
+
+		// t_token *tmp;
+
+		// tmp = token;
+		// while (tmp)
+		// {
+		// 	printf("%s\n", tmp->cmd);
+		// 	tmp = ft_token_next(tmp);
+
+		// }
+
 		if (ft_token_error(token))
 			continue ;
 		free(line);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:24:56 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/04 19:52:41 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/05/04 21:05:13 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,17 @@ int	my_setenv(char *var)
 	if (c)
 	{
 		if (var[egal_len(var)] != '=')
+		{
+			free(value);
+			free(name);
 			return (0);
+		}
 		tmp = value;
 		if ((ft_strlen(c) >= ft_strlen(value)))
 		{
 			while ((*c++ = *value++));
+			free(tmp);
+			free(name);
 			return (0);
 		}
 	}
