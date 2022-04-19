@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cut_chevron.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:49:25 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/12 19:28:57 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/04/17 20:04:48 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	ft_cut_chevron_2(char *str, size_t *start, size_t *end, char *tmp)
 	*end = ft_next_word(str, ft_next_word(str, *end));
 	tmp = str;
 	str = ft_cutoff(tmp, *start, *end - *start);
-	free(tmp);
 	*end -= *end - *start;
 }
 

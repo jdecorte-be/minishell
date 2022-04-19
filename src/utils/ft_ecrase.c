@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 20:49:33 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/17 19:56:26 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/17 19:59:04 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,41 @@ void	ft_ecrase_q_2(char *word, size_t *start, size_t *end, char *new_word)
 	}
 }
 
-char	*ft_ecrase_q(char *word)
+char    *ft_ecrase_q(char *word)
 {
+	char	*new_word;
+	size_t	i;
 	size_t	start;
 	size_t	end;
-	char	*new_word;
+	char	c;
 
 	if (!word)
 		return (0);
+	i = 0;
+	end = 0;
+	new_word = 0;
 	while (word[end])
 	{
-		ft_ecrase_q_2(word, &start, &end, new_word);
+		c = 0;
+		start = end;
+		if (word[end] && ft_strchr("\'\"", word[end]))
+		{
+			c = word[end++];
+			start = end;
+			while (word[end] && word[end] != c)
+				end++;
+			new_word = ft_strjoin3(new_word, ft_substr(word, start, end - start));
+			if (word[end])
+				end++;
+		}
+		else
+		{
+			while (word[end] && !ft_strchr("\'\"", word[end]))
+				end++;
+ 			new_word = ft_strjoin3(new_word, ft_substr(word, start, end - start));
+		}
 	}
-	return (word);
+	return (new_word);
 }
 
 char	*ft_ecrase_p(char *line)

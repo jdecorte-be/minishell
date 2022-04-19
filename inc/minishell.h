@@ -6,7 +6,7 @@
 /*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:02:10 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/17 13:12:25 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/04/17 20:06:50 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # include <signal.h>
 # include <termios.h>
 # include <malloc/malloc.h>
-#include "wraloc.h"
+// #include "wraloc.h"
 
 typedef struct s_hd
 {
