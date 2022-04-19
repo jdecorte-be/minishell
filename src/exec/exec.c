@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/03/24 16:19:11 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/04/01 19:43:26 by jdecorte42       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-
-void   ft_print_n_tab(char **tab)
-{
-size_t i;
-
-i =0;
-while (tab[i])
-       printf("%s\n", tab[i++]);
-}
 
 int exec(char *cmd)
 {
@@ -47,7 +37,6 @@ int exec(char *cmd)
 	return -1;
 }
 
-// * Fix and Work
 char *get_path(char *cmd)
 {
 	int		i;
@@ -76,8 +65,6 @@ char *get_path(char *cmd)
 	return (cmd);
 }
 
-
-// ! A fix
 int cmd_sys(char *cmd)
 {
 	char **args = ft_split2(cmd, " ");
@@ -110,19 +97,16 @@ int cmd_sys(char *cmd)
 	return ret % 255;
 }
 
-
-// ? A test
 int subshell(char *line, t_data *data)
 {
     int ret;
 
     line = ft_epur_str(((ft_chdir((ft_pgross_str((line)))))));
 	t_token *token = ft_parsing(line);
-    ret = execute(token);
-	return ret;
+    execute(token);
+	return data->lastret;
 }
 
-// ! A fix
 int	pipex(char *cmd)
 {
 	pid_t		pid;
@@ -149,5 +133,3 @@ int	pipex(char *cmd)
 	}
 	return ret;
 }
-
-// ? echo test | echo $USER

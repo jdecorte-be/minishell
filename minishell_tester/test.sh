@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    test.sh                                            :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+         #
+#    By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/13 20:16:23 by thallard          #+#    #+#              #
-#    Updated: 2022/03/24 10:09:46 by jdecorte         ###   ########.fr        #
+#    Updated: 2021/06/23 14:47:54 by thallard         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 

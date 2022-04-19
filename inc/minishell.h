@@ -161,7 +161,7 @@ char **sort_exp(char **env);
 char *tokenize(char *line);
 char	*ft_pgross_str(char *line);
 char	*ft_epur_str(char *line);
-int execute(t_token *token);
+void execute(t_token *token);
 
 
 

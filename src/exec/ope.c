@@ -27,6 +27,7 @@ int exec_pipe(t_token *tmp)
 	{
 		tmp->cmd = ft_add_q_dollar(tmp->cmd);
 		tmp->cmd = ft_chdollar(tmp->cmd);
+		ft_redirect_for_john(tmp);
 		tmp->cmd = ft_cut_chevron(tmp->cmd);
 		tmp->cmd = ft_chwc(tmp->cmd);
 
@@ -38,16 +39,31 @@ int exec_pipe(t_token *tmp)
 			dup2(tmp->redirect.infd, 0);
 			dup2(tmp->redirect.outfd, 1);
 			ret = exec(tmp->cmd);
-			dup2(data->stdin_reset, 0);
-			dup2(data->stdin_reset, 1);
 		}
 		tmp = tmp->next;
 	}
 	return ret;
 }
 
+void	redirect_exec(t_token *token, int mode)
+{
+	data->stdin_reset = dup(0);
+	data->stdout_reset = dup(1);
+	dup2(token->redirect.infd, 0);
+	dup2(token->redirect.outfd, 1);
+	if(mode == 0)
+		data->lastret = exec(token->cmd);
+	else
+	{
+		data->is_pipe = 1;
+		data->lastret = exec_pipe(token);
+	}
+	dup2(data->stdin_reset, 0);
+	dup2(data->stdout_reset, 1);
+}
 
-int execute(t_token *token)
+
+void execute(t_token *token)
 {
 	data->is_pipe = 0;
 	int start = 1;
@@ -55,90 +71,37 @@ int execute(t_token *token)
 	int is_and = 0;
 	int is_or = 0;
 	int is_ope = 1;
-	int ret = 0;
 
 	while(tmp)
 	{
-		// * touche pas
 		tmp->cmd = ft_add_q_dollar(tmp->cmd);
 		tmp->cmd = ft_chdollar(tmp->cmd);
 		ft_redirect_for_john(tmp);
 		tmp->cmd = ft_cut_chevron(tmp->cmd);
 		tmp->cmd = ft_chwc(tmp->cmd);
-
-		// * test
-		printf("%d\n",tmp->redirect.infd);
-		printf("%d\n",tmp->redirect.outfd);
-
-
-		// * if is a cmd
 		if(what_im(tmp->cmd) == 0)
 		{
-			if(is_and == 1 && ret == 0)
+			if(is_and == 1 && data->lastret == 0)
 			{
 				is_and = 0;
 				if(data->is_pipe == 0 && tmp->next && what_im(tmp->next->cmd) == 3 && tmp->redirect.outfd == 1)
-				{
-					data->stdin_reset = dup(0);
-					data->stdout_reset = dup(1);
-					data->is_pipe = 1;
-					ret = exec_pipe(tmp);
-				}
+					redirect_exec(tmp, 1);
 				else
-				{
-					data->stdin_reset = dup(0);
-					data->stdout_reset = dup(1);
-					dup2(tmp->redirect.infd, 0);
-					dup2(tmp->redirect.outfd, 1);
-					ret = exec(tmp->cmd);
-				}
+					redirect_exec(tmp, 0);
 			}
 
-			else if(is_or == 1 && ret != 0)
+			else if(is_or == 1 && data->lastret != 0)
 			{
 				is_or = 0;
 				if(data->is_pipe == 0 && tmp->next && what_im(tmp->next->cmd) == 3 && tmp->redirect.outfd == 1)
-				{
-					data->stdin_reset = dup(0);
-					data->stdout_reset = dup(1);
-					dup2(tmp->redirect.infd, 0);
-					dup2(tmp->redirect.outfd, 1);
-					data->is_pipe = 1;
-					ret = exec_pipe(tmp);
-				}
+					redirect_exec(tmp, 1);
 				else
-				{
-					data->stdin_reset = dup(0);
-					data->stdout_reset = dup(1);
-					dup2(tmp->redirect.infd, 0);
-					dup2(tmp->redirect.outfd, 1);
-					ret = exec(tmp->cmd);
-				}
+					redirect_exec(tmp, 0);
 			}
 			else if(start == 1 && data->is_pipe == 0 && tmp->next && what_im(tmp->next->cmd) == 3 && tmp->redirect.outfd == 1)
-			{
-					data->stdin_reset = dup(0);
-					data->stdout_reset = dup(1);
-					dup2(tmp->redirect.infd, 0);
-					dup2(tmp->redirect.outfd, 1);
-				data->is_pipe = 1;
-				ret = exec_pipe(tmp);
-			}
+				redirect_exec(tmp, 1);
 			else if(start == 1)
-			{
-					data->stdin_reset = dup(0);
-					data->stdout_reset = dup(1);
-					dup2(tmp->redirect.infd, 0);
-					dup2(tmp->redirect.outfd, 1);
-				ret = exec(tmp->cmd);
-			}
-
-
-			// * reset redir
-			if(tmp->redirect.infd != 0 && data->is_pipe == 0)
-				dup2(data->stdin_reset, 0);
-			if(tmp->redirect.outfd != 1 && data->is_pipe == 0)
-				dup2(data->stdout_reset, 1);
+				redirect_exec(tmp, 0);
 		}
 		else
 		{
@@ -150,5 +113,4 @@ int execute(t_token *token)
 		tmp = tmp->next;
 		start = 0;
 	}
-	return ret ;
 }

@@ -79,7 +79,7 @@ int	main(int ac, char **av, char **env)
         t_token *token = ft_parsing(line);
         if(syntax_check(token) == 0);
         else
-            data->lastret = execute(token);
+            execute(token);
         exit(data->lastret);
     }
 
@@ -104,7 +104,7 @@ int	main(int ac, char **av, char **env)
         t_token *token = ft_parsing(line);
         if(syntax_check(token) == 0);
         else
-            data->lastret = execute(token);
+            execute(token);
 
 
     }
