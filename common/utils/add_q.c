@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   add_q.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:30:41 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/04/25 15:39:54 by lyaiche          ###   ########.fr       */
+/*   Updated: 2022/05/02 12:46:45 by lxu-wu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_add_q_str_2_2(char *str, char *line, size_t *end, t_tmp *tmp)
+void	ft_add_q_str_2_2(char **str, char *line, size_t *end, t_tmp *tmp)
 {
 	while (line[*end] && !ft_isspace(line[*end])
 		&& !ft_strchr("\'\"", line[*end]) && tmp->c == 0)
 		(*end)++;
 	if (*end != tmp->start)
 	{
-		str = ft_quajoin(str, "\"", ft_substr(line,
+		*str = ft_quajoin(*str, "\"", ft_substr(line,
 					tmp->start, *end - tmp->start), "\"");
 		tmp->start = *end;
 	}
@@ -27,7 +27,7 @@ void	ft_add_q_str_2_2(char *str, char *line, size_t *end, t_tmp *tmp)
 		tmp->c = line[(*end)++];
 }
 
-void	ft_add_q_str_2(char *str, char *line, size_t *end, t_tmp *tmp)
+void	ft_add_q_str_2(char **str, char *line, size_t *end, t_tmp *tmp)
 {
 	if (tmp->c != 0)
 	{
@@ -38,7 +38,7 @@ void	ft_add_q_str_2(char *str, char *line, size_t *end, t_tmp *tmp)
 			(*end)++;
 			tmp->c = 0;
 		}
-		str = ft_strjoin3(str,
+		*str = ft_strjoin3(*str,
 				ft_substr(line, tmp->start, *end - tmp->start));
 		tmp->start = *end;
 	}
@@ -46,7 +46,7 @@ void	ft_add_q_str_2(char *str, char *line, size_t *end, t_tmp *tmp)
 		ft_add_q_str_2_2(str, line, end, tmp);
 }
 
-void	ft_add_q_str_3(char *str, char *line, size_t *end, t_tmp *tmp)
+void	ft_add_q_str_3(char *line, size_t *end, t_tmp *tmp)
 {
 	if (line[*end] && !ft_isspace(line[*end])
 		&& ft_strchr("\'\"", line[*end]) && tmp->c != 0)
@@ -61,7 +61,7 @@ void	ft_add_q_str_3(char *str, char *line, size_t *end, t_tmp *tmp)
 		(*end)++;
 }
 
-char	*ft_add_q_str(char *str, char *line, size_t *end)
+char	*ft_add_q_str(char **str, char *line, size_t *end)
 {
 	t_tmp	tmp;
 
@@ -70,8 +70,8 @@ char	*ft_add_q_str(char *str, char *line, size_t *end)
 	{
 		tmp.start = *end;
 		while (line[*end] && line[*end] != '=')
-			ft_add_q_str_3(str, line, end, &tmp);
-		str = ft_strjoin3(str, ft_substr(line, tmp.start,
+			ft_add_q_str_3(line, end, &tmp);
+		*str = ft_strjoin3(*str, ft_substr(line, tmp.start,
 					*end - tmp.start + 1));
 		tmp.start = *end;
 		if (line[*end] && line[*end] == '=' && ++(*end))
@@ -81,7 +81,7 @@ char	*ft_add_q_str(char *str, char *line, size_t *end)
 				ft_add_q_str_2(str, line, end, &tmp);
 		}		
 	}
-	return (str);
+	return (*str);
 }
 
 char	*ft_add_q_dollar(char *line)
@@ -103,7 +103,7 @@ char	*ft_add_q_dollar(char *line)
 			str = ft_strjoin3(str, ft_substr(line, start, end - start));
 			while (line[end] && !ft_strchr("&|", line[end]))
 			{
-				str = ft_add_q_str(str, line, &end);
+				str = ft_add_q_str(&str, line, &end);
 				end = ft_next_word(line, end);
 			}
 		}
