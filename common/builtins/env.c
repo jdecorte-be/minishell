@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte42 <jdecorte42@student.42.fr>      +#+  +:+       +#+        */
+/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:24:56 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/08 19:17:57 by jdecorte42       ###   ########.fr       */
+/*   Updated: 2022/05/17 16:49:25 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ void	end_setenv(char *c, char *name, char *value, int *offset)
 	if (!((g_data->env)[*offset]))
 		ft_exit(-1);
 	c = (g_data->env)[*offset];
-	while (*c && *name && *c != '=')
+	*c = *name++;
+	while ((*c) && *c != '=')
 	{
-		(*c = *name++);
-		++c;
+		c++;
+		*c = *name++;
 	}
 	*c++ = '=';
 	ft_strlcpy(c, value, ft_strlen(value) + 1);
