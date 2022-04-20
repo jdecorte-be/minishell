@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:15:03 by lyaiche           #+#    #+#             */
-/*   Updated: 2022/05/10 01:21:58 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/17 17:29:33 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,4 @@ void	q_handler(int sig)
 	printf("^\\Quit");
 	printf("\n");
 	rl_on_new_line();
-	exit(131);
 }

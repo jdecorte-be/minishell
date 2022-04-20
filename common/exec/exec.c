@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lxu-wu <lxu-wu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 16:25:24 by decortejohn       #+#    #+#             */
-/*   Updated: 2022/05/10 18:53:59 by lxu-wu           ###   ########.fr       */
+/*   Updated: 2022/05/17 17:30:08 by jdecorte         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ int	exec(char *cmd)
 	char	*tmp;
 
 	ret = 0;
+	signal(SIGINT, c_handler_2);
+	signal(SIGQUIT, q_handler);
+	signal(SIGKILL, d_handler);
 	tmp = ft_ecrase_q(cmd);
 	s_cmd = ft_split2(tmp, " ");
 	ret = lexer(s_cmd, cmd);
@@ -70,9 +73,8 @@ void	not_pid(char *cmd, char **args)
 {
 	char	*tmp;
 
-	signal(SIGINT, c_handler_2);
-	signal(SIGQUIT, q_handler);
-	signal(SIGKILL, d_handler);
+	signal(SIGINT, c_handler_fork);
+	signal(SIGQUIT, q_handler_fork);
 	if (execve(get_path(cmd), &args[0], g_data->env) == -1)
 	{
 		tmp = ft_ecrase_q(args[0]);
@@ -104,7 +106,6 @@ int	cmd_sys(char *cmd)
 	free(cmd);
 	ft_free_tab(args);
 	waitpid(pid, &ret, 0);
-	kill(pid, SIGKILL);
 	signal(SIGINT, c_handler);
 	signal(SIGQUIT, SIG_IGN);
 	return (ret % 255);
