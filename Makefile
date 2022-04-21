@@ -6,7 +6,7 @@
 #    By: lxu-wu <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:20:11 by lxu-wu            #+#    #+#              #
-#    Updated: 2022/05/10 18:21:48 by lxu-wu           ###   ########.fr        #
+#    Updated: 2022/05/17 17:38:17 by jdecorte         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ SRCS = 	src/main.c\
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -lreadline -g -L/Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew//opt/readline/include
+CFLAGS = -Wall -Wextra -Werror -lreadline -L/Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew//opt/readline/include
 OBJDIR = ./objs/
 SRCDIR = ./src/
 COMMONDIR = ./common/
