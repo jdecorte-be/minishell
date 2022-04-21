@@ -8,7 +8,6 @@ To execute this Program you have use linux.
 ```
 make && ./minishell
 ```
-To check your leaks and ignore readline leaks, copy ```valgrind_readline_leaks_ignore.txt``` then execute the programme like it is written in this file :  ```cmd_valgrind_see_all_leaks.txt``` .  
 
 ### Informations Briefly
 This programme follows some rules and try answer the projet's subject that you can see in : ```minishell.pdf```.
