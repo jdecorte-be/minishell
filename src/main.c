@@ -14,6 +14,8 @@
 
 #include "../includes/minishell.h"
 
+t_data	*g_data;
+
 void	shlvlhandler(char *lvl, char *join2)
 {
 	char	*var;

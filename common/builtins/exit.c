@@ -61,7 +61,7 @@ int	exit_error(char *cmd)
 void	exit_cmd_2(long long err, char *c_err, char **s_cmd)
 {
 	err = ft_atoi_exit(c_err);
-	if (!(err < LONG_LONG_MAX && err > LONG_LONG_MIN))
+	if (!(err < LLONG_MAX && err > LLONG_MIN))
 	{
 		ft_free_tab(s_cmd);
 		ft_exit(-1);
