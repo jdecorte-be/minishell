@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+         #
+#    By: jdecorte-be <jdecorte@proton.me>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/10/18 09:58:01 by lxu-wu            #+#    #+#              #
-#    Updated: 2022/01/29 13:48:24 by decortejohn      ###   ########.fr        #
+#    Created: 2021/10/18 09:58:01 by jdecorte-be            #+#    #+#              #
+#    Updated: 2022/01/29 13:48:24 by jdecorte-be      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

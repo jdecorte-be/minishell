@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
+/*   By: jdecorte-be <jdecorte@proton.me>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/04 21:39:46 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/01/30 00:02:11 by decortejohn      ###   ########.fr       */
+/*   Created: 2021/10/04 21:39:46 by jdecorte-be            #+#    #+#             */
+/*   Updated: 2022/01/30 00:02:11 by jdecorte-be      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

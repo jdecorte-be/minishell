@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: decortejohn <decortejohn@student.42.fr>    +#+  +:+       +#+        */
+/*   By: jdecorte-be <jdecorte@proton.me>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/18 10:00:34 by lxu-wu            #+#    #+#             */
-/*   Updated: 2022/01/30 23:15:43 by decortejohn      ###   ########.fr       */
+/*   Created: 2021/10/18 10:00:34 by jdecorte-be            #+#    #+#             */
+/*   Updated: 2022/01/30 23:15:43 by jdecorte-be      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
