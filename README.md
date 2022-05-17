@@ -65,292 +65,185 @@
 </p>
 </header>
 
-### Execution :
-To execute this Program you have use linux.    
-```
-make && ./minishell
-```
+Minishell is a 42 school project to create a simple shell interpreter in C. This project recreates core `bash` functionalities, including pipes, redirections, environment variable handling, and several built-in commands.
 
-### Informations Briefly
-This programme follows some rules and try answer the projet's subject that you can see in : ```minishell.pdf```.
-There is only one global variable for the exit_status and one singletone for the env.
-Briefly, we have to recreate bash --posix comportement for ```|``` ```<``` ```<<``` ```>``` ```>>``` builtin ```cd ``` ```pwd``` ```exit with arg``` ```env``` ```unset``` ```export``` ```echo with option -n``` ```$?``` and of course ```$```
+## Features
 
-[(Click here for the source)](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html) 
+- **Command Execution:** Executes system commands found in `PATH`.
+- **Pipes (`|`):** Chains multiple commands, piping the output of one to the input of the next.
+- **Redirections:**
+  - Input: `<`
+  - Output: `>` (truncate) and `>>` (append)
+  - Here-document: `<<`
+- **Built-in Commands:**
+  - `echo` with the `-n` option
+  - `cd` to change the current directory
+  - `pwd` to print the working directory
+  - `export` to set environment variables
+  - `unset` to remove environment variables
+  - `env` to list environment variables
+  - `exit` to terminate the shell
+- **Environment Variables:** Expands variables like `$USER` and handles the exit status variable `$?`.
+- **Signal Handling:** Manages `Ctrl-C`, `Ctrl-D`, and `Ctrl-\` to behave similarly to `bash`.
+- **Quoting:** Supports single (`'`) and double (`"`) quotes to control expansion and word splitting.
 
-### What you should know (Summary)
-#### I- Parsing
-- .1. Separation commande_line
-- .1,1. Quote close and quoting rules
-- .2. Separation of word in commande_line
-- .2,1. Type of word
-- .2,2. Expende word
-- .2,3. Expende env
-- .3. Prepare execution
-- .4. Error parsing
+## Getting Started
 
-#### II- Builtin
-- .1. Env
-- .2. Export
-- .3. Unset
-- .4. Pwd
-- .5. Cd
-- .6. Exit
+### Prerequisites
 
-#### III- Redirection
-- .1. Pipe
-- .2. Open Close file
-- .3. Here_doc /// this part is not posix prouf, see end of point
- 
-#### IV- Execution
-- .1. When fork
-- .2. Command exist or right to execute?
-- .3. Execution
-- .4. Close fd
-- .5. Exit_status
- 
-#### V- Test
+- A C compiler (like `gcc` or `clang`)
+- `make`
+- The `readline` library
 
-# I- Parsing
-## 1. Separation commande_line
-**Here only '|' commande from each other, ';' is considere as a caracter :(**
-## 1.1 Quote close, Quoting rules
-At first, you should check if quotes are properly closed, following quoting rules: The first quote you see cancel the other type of quote until you see it again.    
+### Installation & Usage
 
-For example:  
-```" ' "``` quotes are closed because ```'``` is not considered as quote inside double quotes.  
-  
-**Quoting Rules**  
-In bash there are a lot of characters with meanings such as ```$``` for env variables, single quotes and double quotes are used to play with or without those second meanings, these rules will be useful for you to catch each command line.  
+1.  **Clone the repository:**
+    ```sh
+    git clone https://github.com/jdecorte-be/minishell.git
+    cd minishell
+    ```
 
-**' Rules**  
-```'``` make things easier and cancel all second meanings of characters, inside ```'``` ,```"```, ```$env```,``` ```, ```|```, ```< << > >>``` are just characters inside a single word  
-Try ```echo '$USER | cat ls blablabla'```.    
+2.  **Compile the program:**
+    ```sh
+    make
+    ```
 
-**" Rules**  
-```"``` like ```'``` cancel the second meanings of characters except for env variables that make you able to use ```'```, and like ```'``` all characters inside double quotes are a single word.    
-Try ``` echo "$USER | 'ici c'est Paris;"``` . 
-**No quote rules**  
-Here all characters got there second meanings, and each  ``` ``` are separators of words.    
-Try ```echo $USER hello there | ls | cat > file_out``` .   
+3.  **Run the shell:**
+    ```sh
+    ./minishell
+    ```
 
-**Found '|'**  
-Your commande_line run from start to ```|```. You should know the quoting rules to not interpret a ```|``` as a character in double or single quotes.  
-Then copy the string you get (without ```|```) into your structure commande_line (link list).   
-Repeat the operation until the end of file.  
+## Technical Overview
 
-```
-struct cmd_line{
+This section details the internal logic of Minishell, from parsing the input to executing commands.
+
+### 1. Parsing
+
+The parser is responsible for transforming the raw command line string into a structured format that the executor can understand.
+
+#### 1.1. Command Line Tokenization
+
+The input string is first split into a linked list of tokens. The primary delimiter is the pipe (`|`) character, which separates individual commands. Special care is taken to ignore pipes that are inside single or double quotes.
+
+Each node in the command list contains the raw command string for that segment.
+
+```c
+struct cmd_line {
     char             *cmd;
-    stuct cmd_line   *next;
-}
-```
-## 2. Separation of words in commande_line  
-Now you got your list of commande_line, you need your list of words.    
-For that, use the quoting rules and separate your commande_line in a link list of words.    
-```
-struct token{
-    char            *word;
-    enum            type;
-    struct token    *next;
-}
-
-struct cmd_line{
-    char                *cmd;
-    struct  token       *word;
-    struct  cmd_line    *next;
-}
+    struct token     *word;
+    char             **args;
+    struct cmd_line  *next;
+};
 ```
 
-## 2.1 Type of words  
-To differentiate if a word is an arg, a file or a heredoc. I set a type in my struct token following several rules.    
-My type is set as an enum:  
-```
-enum type{
-    NONE, //defaut set
-    ARG, //word
-    FILE_IN, //word == '<'
-    HERE_DOC, // word == '<<'
-    FILE_OUT, //word == '>'
-    FILE_OUT_SUR, //word == '>>'
-    OPEN_FILE, // word following '<'
-    LIMITOR, // word following '<<'
-    EXIT_FILE, // word followinf '>'
-    EXIT_FILE_RET; // word following '>>'
-}
-```
-Be careful, of ```syntax error near unexpected token 'x'```.    
-Example :  
-``` cat > > file_out```
+#### 1.2. Quote Handling
 
-## 2.2 Expand word
-To expand each word, there are different rules depending on the Type.     
-For each word, you have to cut space at start and at the end of it.  
-Then expand each quotes following the quoting rules and skip the quotes.    
-For env var, you have to check if it exist in env, if it's doesn't exit just skip it.  
-Example :  
-```word :                 "cou'cou"$lol'$USER   'a became word : cou'cou$USER   a (here $lol don't exist)```
+The parser correctly handles quoted strings to ensure that special characters within them are treated as literals.
 
-**!!! Special Case 1**  
-If a env is set like ``` export LS="ls -la"```.
-First, in double quotes it is considered as a single word : ls -la  .    
-Second, if it's not quotes, you have to split it on the space considering it as 2 words:  
- - word1 : ls   
- - word2 : -la  
-  
-Example in bash :  
-``` 
-Export LS="ls -la"
-$LS // this should do a ls -la
-"$LS" // this should print an error command "ls -la" not found
-```
-**!!! Special Case 2**  
-For type limitors expand you have to not expand env var.  
-For example try :  
-```cat << $HOME```  
-  
-**!!! Special Case 3**  
-For type IN_FILE and EXIT_FILE you do not have to split env on space,  
-Exemple in bash :  
-```
-$> Export t="ha  ha"
-$> echo baguette > $t
-$> ls
-'ha  ha'
-$> cat < $t
-baguette
-```  
+-   **Single Quotes (`'`):** All characters within single quotes are treated literally. No expansion occurs.
+    ```sh
+    # This will print the literal string '$USER | ls'
+    echo '$USER | ls'
+    ```
 
-## 2.3 Expand env
-Has you see higher,  
-According to the type of the word, you have to expand the env with differents rules,  
-In all cases, a env variable start by '$' and can only be compose by alphanum characters + ```_```   
-```$?``` is not consider as a env variable but as the **exit_status** and ```?``` is not a alphanum character.   
-And in case of ```$$``` I consider it as ```$``` 
+-   **Double Quotes (`"`):** Most characters are treated literally, but environment variables (e.g., `$USER`) are expanded.
+    ```sh
+    # This will print the current user's name followed by "| 'hello'"
+    echo "$USER | 'hello'"
+    ```
 
+-   **Unquoted:** All special characters (`|`, `<`, `>`, `$`) are interpreted by the shell. Spaces act as word delimiters.
 
-## 3. Prepare execution  
-Here you are, you should have all your commande_line struct with all your token word expand and the type of each word.  
-Now to prepare execution we will set a list of type Arg to give to execve as a char **args in each our struct cmd_line;  
-Not a big deal, look trought the struct token, count the number of type ARG and do a tab with all of them.  
+#### 1.3. Word Splitting and Typing
 
-```
-struct token{
-    char            *word;
-    enum            type;
-    struct token    *next;
-}
+Each command string is further broken down into a linked list of words (tokens). Each token is assigned a type to guide the execution process.
 
-struct cmd_line{
-    char                *cmd;
-    struct  token       *word;
-    char                **args;
-    struct  cmd_line    *next;
-}
+```c
+struct token {
+    char          *word;
+    enum type     type;
+    struct token  *next;
+};
+
+enum type {
+    NONE,         // Default
+    ARG,          // A command or argument
+    FILE_IN,      // A redirection operator: <
+    HERE_DOC,     // A here-document operator: <<
+    FILE_OUT,     // A redirection operator: >
+    FILE_OUT_SUR, // A redirection operator: >>
+    OPEN_FILE,    // The name of a file for input
+    LIMITOR,      // The delimiter for a here-document
+    EXIT_FILE,    // The name of a file for output
+    EXIT_FILE_RET // The name of a file for appending output
+};
 ```
 
-## Error parsing  
-During all these steps you have to be carful of different types of error, as command line empty followed by a pipe.  
-Thing like ><, << < <, >|, |<, | |,  
-See the testing file  
+The parser also checks for syntax errors, such as `cat > > file_out` or an unexpected pipe `|`.
 
-# II- Builtin  
+#### 1.4. Variable Expansion (`$`)
 
+The parser expands environment variables based on quoting rules:
 
+-   Variables are identified by a `$` prefix followed by alphanumeric characters or `_`.
+-   `$?` is a special variable that expands to the exit status of the last command.
+-   `$$` is handled as a literal `$`.
+-   If a variable is unquoted and its value contains spaces (e.g., `export VAR="ls -l"`), the expanded result is split into multiple words (`ls` and `-l`).
+-   If a variable is inside double quotes (`"$VAR"`), its value is treated as a single word, even if it contains spaces.
+-   Expansion is disabled for here-document limiters and within single quotes.
 
+### 2. Built-in Commands
 
-## 6. Exit  
-There are four types of exit, each write exit in terminal:     
-exit : exit and set exit status to 0;  
-exit (num) : exit and set exit status to num  
-exit (num alpha) : exit and set exit status to 2 + a error message  
-exit (num) (num) (num) : doesn't exit and set exit status to 1 + a error message  
+Built-in commands are executed directly by the shell without creating a new process.
 
-# III- Redirection  
+-   `echo [-n] [string ...]`: Prints arguments to standard output. The `-n` flag suppresses the trailing newline.
+-   `cd [path]`: Changes the current directory.
+-   `pwd`: Prints the absolute path of the current directory.
+-   `export [name[=value] ...]`: Creates or modifies environment variables.
+-   `unset [name ...]`: Deletes environment variables.
+-   `env`: Prints the environment variables.
+-   `exit [n]`: Exits the shell.
+    -   `exit`: Exits with status 0.
+    -   `exit <num>`: Exits with status `<num>`.
+    -   `exit <num> <arg>`: Prints an error and exits with status 2.
+    -   `exit <arg1> <arg2> ...`: Prints a "too many arguments" error and does not exit; sets status to 1.
 
-## 1. Pipe  
-Pipe will allow you to communicate through your list of command via file_directory (fd)   
-In each cmd_line you will need a fd_in an a fd_out (int) **(man open)**   
-Your first cmd_line fd_in will be set at STDIN, and the last cmd_line fd_out on STDOUT  
-Connect your pipe[0] to the fd_out and pipe[1] to fd_in of the next cmd_line.  
+### 3. Redirection and Pipes
 
-## 2. Open Close file  
+File descriptors are managed to redirect I/O and connect commands.
 
-Now your command line are connected via fd, but maybe you have to redirect information via file set by the commande line right on bash,  
-Go through your token lst, and if you got a Type file/heredoc/exitfile/exitfileout then, open it with open, and change your fd_in or fd_out  
-And don't forget to close the fd that becomes ussless :)  
+-   **Pipes:** For a command like `cmd1 | cmd2`, a pipe is created. `cmd1`'s standard output is redirected to the pipe's write-end, and `cmd2`'s standard input is redirected from the pipe's read-end.
+-   **File Redirection:** Before execution, the token list is scanned for redirection operators. The shell opens the specified files and uses `dup2` to replace `STDIN_FILENO` or `STDOUT_FILENO` with the new file descriptors.
+-   **Here-documents (`<<`):** The shell reads input from the user until a line containing only the specified delimiter is found. This input is typically stored in a temporary file, which then serves as the standard input for the command.
 
-## 3. Here_doc  
-For Here_doc, it is a special case,   
-I personnaly chose the easy solution to creat a file with a random name and fill it with the imformation till i got my limitor word.  
-**Becarefull**  
-Here_doc is special, as for the expension, the content is expand with is own rules  
-If the limitor is expand (had quote on it) the word in the file will not be expand, and if it's not, the word will be expand  
-Exemple :  
-```
-bash : cat << hello""
->$PATH
->hello
-bash : $PATH
-bash : cat << hello
->$USER
->hello
-bash : Vporten
-```
+### 4. Command Execution
 
-For a more precise execution of minishell, before open file you should start by checking if you have here_doc through all your commande_line,  
-Then write until you got a limitor directely in the fd give by pipe.  Then check if there are open file after  
+#### 4.1. Forking
 
-# IV- Execution
+A new process is created using `fork()` for every external command. The only exception is when a single command is a built-in, which is executed in the main shell process to allow it to modify the shell's state (e.g., `cd`, `export`, `exit`).
 
-## 1. When fork  
-The real question is when not fork,  
-And only when you have one commande line and it's a builtin, that allows you to move through your directory and move env  
-When you have finish the parsing, there you start fork, one fork for each commande_line  
-**man 2 fork**  
-**man 2 waitpid**  
+#### 4.2. Finding and Executing Commands
 
-## 2. Commande exist or right to exectute?  
-To execute a commande no builtin, you have two choice;  
-if it's start by . or / it's an absolute path and then just pass it through execve,  
-else you will have to found the real path of the commande by spliting $PATH on ':',  
-join each split with the command, and try with access **(man 2 access)** if it exist    
-if you reach the end of your split path without finding  a valide access, the command doesn't exist.  
-The command can exist but without the right to open it, becarefull to the return of access.  
+-   If a command starts with `./` or `/`, it is treated as an absolute or relative path.
+-   Otherwise, the shell searches for the executable in the directories listed in the `PATH` environment variable.
+-   The `access()` function is used to check if the file exists and is executable.
+-   Once the command path is resolved, `execve()` is called in the child process to replace its memory space with the new program.
 
-## 3. Execution
+#### 4.3. Managing File Descriptors
 
-You have to start all your fork and exec all the command in the same time and after wait for it   
-```time sleep 2 | sleep 2```
+In each forked child process:
+1.  `dup2()` is used to redirect `stdin` and `stdout` to the correct file descriptors (from a pipe or a file).
+2.  All unused file descriptors are closed to prevent resource leaks and hanging processes.
+3.  The command is executed via `execve()`.
 
-In fork,   
-use dup2 with the your fd_in and fd_out **(man dup2)**  
-close all your fd (all, not just the one in the commande line present here, you can close multiple time a same fd without have probleme)  
-exec with execve,  
-**(man 2 execve)**  
-becarefull if execve fail, free all your memory in the fork and exit with the good exit status (commande not found or permission denied)  
-  
-Outside, use waitpid (man 2 waitpid) to wait for all the execution done   
-Then close your local fd_in fd_out (cmd_line->fd_in and cmd_line->fd_out)   
-  
-## 4. Close fd   
-Closng all your fd is important, you can check different ways, look for    
-```cat | ls``` and ```cat | cat |ls ```   
+The parent process waits for all child processes to complete using `waitpid()` and closes its copies of the pipe file descriptors.
 
- ## 5. Exit_status  
- Exit_status depands of multiple things,    
- If the commande work,  **0**  
- If a commande exist and fail cause of the arg, **1**  
- If a commande exist and you dont have the permission **126**  
- If a commande doesn't exist **127**  
- If a signal Kill or interrupte the commande **127 + signal**   
- If error parsing **2**  
- Exit status come with Error message in your terminal, **don't forget that the error fd is 2**  
- (putstr_fd)   
+#### 4.4. Exit Status
 
-
- Here is some wait to try it on bash  
- ```
- bash> touch new && chmod 000 new && ./new
- bash> echo $?
- ```
+The shell sets the exit status (`$?`) based on the outcome of the last executed command:
+-   **0**: Success.
+-   **1**: General error (e.g., failed built-in).
+-   **2**: Syntax error during parsing.
+-   **126**: Command found but not executable (permission denied).
+-   **127**: Command not found.
+-   **128 + N**: Command terminated by signal N.
