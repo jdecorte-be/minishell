@@ -1,7 +1,69 @@
-
+<header>
 <h1 align="center">
-	📖 Minishell
+  <a href="https://github.com/jdecorte-be/minishell"><img src=".assets/banner.png" alt="minishell" ></a>
+  minishell
+  <br>
 </h1>
+
+<p align="center">
+  This program tries to recreate bash --posix behaviour in some ways.
+</p>
+
+<p align="center">
+<a href="https://www.42.fr/">
+    <img src="https://img.shields.io/badge/42-School%20Project-00B8D4?logo=42&logoColor=white&labelColor=000000"
+         alt="42 School Project">
+  </a>
+<a href="https://github.com/jdecorte-be/minishell">
+    <img src="https://img.shields.io/badge/Focus-Shell%20Emulation-555555?logo=gnubash&logoColor=white&labelColor=000000"
+         alt="Focus Shell Emulation">
+  </a>
+<a href="https://github.com/jdecorte-be/minishell">
+    <img src="https://img.shields.io/badge/Type-Command--Line%20Interface-4695E3?logo=powershell&logoColor=white&labelColor=000000"
+         alt="Type Command-Line Interface">
+  </a>
+<a href="https://en.wikipedia.org/wiki/C_(programming_language)">
+    <img src="https://img.shields.io/badge/Technology-C%20Language-A8B9CC?logo=c&logoColor=white&labelColor=000000"
+         alt="Technology C Language">
+  </a>
+</p>
+
+<p align="center">
+<a href="https://en.wikipedia.org/wiki/POSIX">
+    <img src="https://img.shields.io/badge/Environment-POSIX-4CAF50?logo=linux&logoColor=white&labelColor=000000"
+         alt="Environment POSIX">
+  </a>
+  <a href="https://github.com/jdecorte-be/minishell">
+    <img src="https://img.shields.io/badge/Type-CLI-informational?logo=terminal&logoColor=white&labelColor=000000&color=66D9EF"
+         alt="minishell cli">
+  </a>
+  <a href="https://github.com/jdecorte-be/minishell/stargazers">
+    <img src="https://img.shields.io/github/stars/jdecorte-be/minishell?logo=star&logoColor=white&labelColor=000000&color=E6DB74"
+         alt="minishell stars">
+  </a>
+  <a href="https://github.com/jdecorte-be/minishell/issues">
+    <img src="https://img.shields.io/github/issues/jdecorte-be/minishell?logoColor=white&labelColor=000000&color=orange"
+         alt="minishell issues">
+  </a>
+  <a href="https://github.com/jdecorte-be/minishell">
+    <img src="https://img.shields.io/github/repo-size/jdecorte-be/minishell?logo=database&logoColor=white&labelColor=000000&color=AE81FF"
+         alt="minishell repo size">
+  </a>
+  <a href="https://github.com/jdecorte-be/minishell">
+    <img src="https://img.shields.io/github/languages/top/jdecorte-be/minishell?logo=code&logoColor=white&labelColor=000000&color=A6E22E"
+         alt="minishell top language">
+  </a>
+</p>
+<p align="center">
+  <a href="#execution">Execution :</a> •
+  <a href="#informations-briefly">Informations Briefly</a> •
+  <a href="#what-you-should-know-summary">What you should know (Summary)</a> •
+  <a href="#i-parsing">I- Parsing</a> •
+  <a href="#1-separation-commandeline">1. Separation commande_line</a> •
+  <a href="#11-quote-close-quoting-rules">1.1 Quote close, Quoting rules</a> •
+  <a href="#2-separation-of-words-in-commandeline">2. Separation of words in commande_line</a>
+</p>
+</header>
 
 <p align="center">
 	<b><i>This program tries to recreate bash --posix behaviour in some ways.</i></b><br>
@@ -317,4 +379,4 @@ Closng all your fd is important, you can check different ways, look for
  Thanks for reading, if this tuto help you don't forgot to stars and follow, and maybe minishell destructor will be on the way :)   
    
 **vportens**  
-**readme for minishell**  
+**readme for minishell**
