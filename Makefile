@@ -23,12 +23,11 @@ SRCS = 	src/main.c\
 		common/builtins/unset.c\
 		common/builtins/utils.c\
 		\
-        libft/libft.a\
 		common/signal/*.c\
 		common/builtins/exit.c\
 		\
 		common/lst/*.c\
-		common/utils/*\
+		common/utils/*.c\
 		common/exec/*.c
 
 
@@ -38,7 +37,8 @@ SRCS = 	src/main.c\
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -lreadline -L/Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew//opt/readline/include
+CFLAGS = -Wall -Wextra -Werror
+LDFLAGS = -lreadline
 OBJDIR = ./objs/
 SRCDIR = ./src/
 COMMONDIR = ./common/
@@ -56,7 +56,7 @@ ${OBJDIR}%.o : ${COMMONDIR}%.c
 
 $(NAME) :						${OBJDIR}
 								make bonus -C libft
-								@gcc ${CFLAGS} ${SRCS} -o ${NAME}
+								${CC} ${CFLAGS} -I ${INCLUDES} ${SRCS} libft/libft.a -o ${NAME} ${LDFLAGS}
 
 ${OBJDIR}:						
 								@mkdir -p ${OBJDIR}

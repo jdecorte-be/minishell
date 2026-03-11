@@ -18,7 +18,6 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <string.h>
-# include <crt_externs.h>
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <readline/readline.h>
@@ -38,9 +37,9 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include <signal.h>
 # include <termios.h>
-# include <malloc/malloc.h>
 // #include "wraloc.h"
 
 typedef struct s_hd
@@ -132,7 +131,7 @@ typedef struct s_tmp
 	int			e_len;
 }	t_tmp;
 
-t_data	*g_data;
+extern t_data	*g_data;
 
 void		here_doc_sig1(int sig);
 void		here_doc_sig2(int sig);
