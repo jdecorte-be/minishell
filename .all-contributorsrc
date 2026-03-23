@@ -9,7 +9,17 @@
   "imageSize": 100,
   "commit": true,
   "commitConvention": "none",
-  "contributors": [],
+  "contributors": [
+    {
+      "login": "jdecorte-be",
+      "name": "John Decorte",
+      "avatar_url": "https://avatars.githubusercontent.com/u/70419532?v=4",
+      "profile": "https://github.com/jdecorte-be",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
   "contributorsPerLine": 7,
   "linkToUsage": true
 }
