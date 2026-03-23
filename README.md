@@ -1,7 +1,3 @@
-<header>
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 <h1 align="center">
   <a href="https://github.com/jdecorte-be/minishell"><img src=".assets/banner.png" alt="minishell" ></a>
   minishell
@@ -104,7 +100,7 @@ Each process has a **PID** (Process Identifier), which is a unique non-negative 
 
 Processes are organized hierarchically. At startup, Unix has just one process called `init` (PID 1), which is the direct or indirect ancestor of all other processes.
 
-![Process Hierarchy](/static/images/minishell/process-hierarchy.png)
+![Process Hierarchy](https://jdecorte.com/static/images/minishell/process-hierarchy.png)
 
 ### Fork: Creating a Child Process
 
@@ -152,7 +148,7 @@ int main(void)
 }
 ```
 
-![Fork Example Output](/static/images/minishell/fork-example.png)
+![Fork Example Output](https://jdecorte.com/static/images/minishell/fork-example.png)
 
 **Important**: The child inherits the parent's instruction pointer, so it doesn't start from the beginning—it continues from where `fork()` was called!
 
@@ -185,7 +181,7 @@ int main(void)
 
 This isolation is why we need inter-process communication mechanisms like pipes.
 
-![Memory Not Shared](/static/images/minishell/memory-not-shared.png)
+![Memory Not Shared](https://jdecorte.com/static/images/minishell/memory-not-shared.png)
 
 ## Wait: Managing Child Processes
 
@@ -193,11 +189,11 @@ After creating a child process, the parent should wait for it to finish. Otherwi
 
 When a parent doesn't wait for its children, they become zombies:
 
-![Wait Zombie Process](/static/images/minishell/wait-zombie.png)
+![Wait Zombie Process](https://jdecorte.com/static/images/minishell/wait-zombie.png)
 
 Conversely, if a parent exits before waiting, children become orphans and are adopted by `init`:
 
-![Wait Orphan Process](/static/images/minishell/wait-orphan.png)
+![Wait Orphan Process](https://jdecorte.com/static/images/minishell/wait-orphan.png)
 
 ### The wait() and waitpid() Functions
 
@@ -273,11 +269,11 @@ int main(void)
 
 Here's what the output looks like when analyzing exit status:
 
-![Wait Analysis Output](/static/images/minishell/wait-analysis.png)
+![Wait Analysis Output](https://jdecorte.com/static/images/minishell/wait-analysis.png)
 
 And here's a comparison with different exit codes:
 
-![Wait Exit Codes Comparison](/static/images/minishell/wait-exit-codes.png)
+![Wait Exit Codes Comparison](https://jdecorte.com/static/images/minishell/wait-exit-codes.png)
 
 ## Pipes: Inter-Process Communication
 
@@ -289,7 +285,7 @@ A **pipe** is a unidirectional communication channel with a read end (file descr
 
 Data written to the write end is buffered until read from the read end.
 
-![Pipe Diagram](/static/images/minishell/pipe-diagram.png)
+![Pipe Diagram](https://jdecorte.com/static/images/minishell/pipe-diagram.png)
 
 ### Creating a Pipe
 
@@ -344,7 +340,7 @@ int main(void)
 }
 ```
 
-![Pipe Example Output](/static/images/minishell/pipe-example-output.png)
+![Pipe Example Output](https://jdecorte.com/static/images/minishell/pipe-example-output.png)
 
 ### Critical: Close Unused File Descriptors!
 
@@ -364,7 +360,7 @@ close(pipefd[0]);  // MUST close when done
 
 If you forget to close unused file descriptors, you'll see output like this where the process hangs indefinitely:
 
-![Pipe Blocked Output](/static/images/minishell/pipe-blocked-output.png)
+![Pipe Blocked Output](https://jdecorte.com/static/images/minishell/pipe-blocked-output.png)
 
 ### Implementing the Shell's Pipe Operator
 
@@ -408,7 +404,7 @@ wait(NULL);
 
 Here's a visual representation of how the shell's pipe operator works:
 
-![Shell Pipe Diagram](/static/images/minishell/shell-pipe-diagram.png)
+![Shell Pipe Diagram](https://jdecorte.com/static/images/minishell/shell-pipe-diagram.png)
 
 ## Building Pipelines
 
@@ -489,11 +485,11 @@ A **signal** is an asynchronous notification sent to a process. Common signals:
 
 Here's a visual representation of how signals work at the system level:
 
-![Signal Diagram](/static/images/minishell/signal-diagram.png)
+![Signal Diagram](https://jdecorte.com/static/images/minishell/signal-diagram.png)
 
 It's important to understand that signals can be **pending**. When a signal is blocked, it becomes pending until it's unblocked:
 
-![Signal Pending](/static/images/minishell/signal-pending.png)
+![Signal Pending](https://jdecorte.com/static/images/minishell/signal-pending.png)
 
 **Important**: There can only be one pending signal of any particular type. If multiple signals of the same type are sent while blocked, only one will be delivered when unblocked.
 
@@ -551,7 +547,7 @@ int main(void)
 
 Example output showing signal handling:
 
-![Signal Handler Output](/static/images/minishell/signal-handler-output.png)
+![Signal Handler Output](https://jdecorte.com/static/images/minishell/signal-handler-output.png)
 
 ### Signal Safety Rules
 
@@ -626,11 +622,11 @@ sigprocmask(SIG_UNBLOCK, &set, NULL);
 
 Here's an example demonstrating signal blocking in action:
 
-![Signal Blocking Output](/static/images/minishell/signal-blocking-output.png)
+![Signal Blocking Output](https://jdecorte.com/static/images/minishell/signal-blocking-output.png)
 
 And what happens when a blocked signal is unblocked (notice how the pending signal is delivered immediately):
 
-![Signal Unblock Output](/static/images/minishell/signal-unblock-output.png)
+![Signal Unblock Output](https://jdecorte.com/static/images/minishell/signal-unblock-output.png)
 
 ## Redirections
 
@@ -1071,6 +1067,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/jdecorte-be"><img src="https://avatars.githubusercontent.com/u/70419532?v=4?s=100" width="100px;" alt="John Decorte"/><br /><sub><b>John Decorte</b></sub></a><br /><a href="https://github.com/jdecorte-be/minishell/commits?author=jdecorte-be" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/lxu-wu"><img src="https://avatars.githubusercontent.com/u/94145031?v=4?s=100" width="100px;" alt="XU WU Lei Jie"/><br /><sub><b>XU WU Lei Jie</b></sub></a><br /><a href="https://github.com/jdecorte-be/minishell/commits?author=lxu-wu" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/LucasYaiche"><img src="https://avatars.githubusercontent.com/u/86951138?v=4?s=100" width="100px;" alt="LucasYaiche"/><br /><sub><b>LucasYaiche</b></sub></a><br /><a href="https://github.com/jdecorte-be/minishell/commits?author=LucasYaiche" title="Code">💻</a></td>
     </tr>
   </tbody>
   <tfoot>
